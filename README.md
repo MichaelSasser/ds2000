@@ -1,0 +1,3 @@
+# ds2000 - The Python Library for Rigol DS2000 Oscilloscopes
+
+ToDo...
