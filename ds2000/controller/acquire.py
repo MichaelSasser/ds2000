@@ -17,7 +17,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from collections import namedtuple
-from logging import warning
 
 from ds2000.controller import BaseController, Ds2000Exception
 
@@ -29,262 +28,449 @@ __all__ = ["Acquire", ]
 AcquireType = namedtuple("AcquireType", "type average_count")
 
 
-class Acquire(BaseController):
-    def type_normal(self):
+class Type(BaseController):
+    def normal(self):
         """
 
-        :ACQuire:TYPE
-        Command Format:
-        :ACQuire:TYPE <type>
-        :ACQuire:TYPE?
-        Function Explanation:
-        The commands set and query the current acquire type of the oscilloscope.
-        <type> could be NORMal, AVERage or PEAKdetect.
-        Returned Format:
-        The query returns NORMAL, AVERAGE or PEAKDETECT.
-        Example:
-        :ACQ:TYPE AVER Setup the acquire type as Average.
-        :ACQ:TYPE? The query returns AVERAGE
-        :return:
-        """
+          Rigol Programming Guide:
+
+          Syntax
+          :ACQuire:TYPE <type>
+          :ACQuire:TYPE?
+
+          Description
+          Set the acquisition mode of the sample.
+          Query the current acquisition mode of the sample.
+
+          Parameter
+          Name    Type       Range                                Default
+          <type>  Discrete   {NORMal|AVERages|PEAK|HRESolution}   NORMal
+
+          Explanation
+          When AVERages is selected, use the :ACQuire:AVERages command to set
+          the number of averages.
+
+          Return Format
+          The query returns NORM, AVER, PEAK or HRES.
+
+          Example
+          :ACQuire:TYPE AVERages
+          The query returns AVER.
+
+          :return:
+          """
         self.device.ask(":ACQuire:TYPE NORMal")
 
-    def type_average(self, count: int = 0):
+    def average(self):
         """
 
-        :ACQuire:TYPE
-        Command Format:
-        :ACQuire:TYPE <type>
-        :ACQuire:TYPE?
-        Function Explanation:
-        The commands set and query the current acquire type of the
-        oscilloscope. <type> could be NORMal, AVERage or PEAKdetect.
-        Returned Format:
-        The query returns NORMAL, AVERAGE or PEAKDETECT.
-        Example:
-        :ACQ:TYPE AVER Setup the acquire type as Average.
-        :ACQ:TYPE? The query returns AVERAGE
+          Rigol Programming Guide:
+
+          Syntax
+          :ACQuire:TYPE <type>
+          :ACQuire:TYPE?
+
+          Description
+          Set the acquisition mode of the sample.
+          Query the current acquisition mode of the sample.
+
+          Parameter
+          Name    Type       Range                                Default
+          <type>  Discrete   {NORMal|AVERages|PEAK|HRESolution}   NORMal
+
+          Explanation
+          When AVERages is selected, use the :ACQuire:AVERages command to set
+          the number of averages.
+
+          Return Format
+          The query returns NORM, AVER, PEAK or HRES.
+
+          Example
+          :ACQuire:TYPE AVERages
+          The query returns AVER.
+
+          :return:
+          """
+        self.device.ask(":ACQuire:TYPE AVERages")
+
+    def peakdetect(self):
+        """
+
+          Rigol Programming Guide:
+
+          Syntax
+          :ACQuire:TYPE <type>
+          :ACQuire:TYPE?
+
+          Description
+          Set the acquisition mode of the sample.
+          Query the current acquisition mode of the sample.
+
+          Parameter
+          Name    Type       Range                                Default
+          <type>  Discrete   {NORMal|AVERages|PEAK|HRESolution}   NORMal
+
+          Explanation
+          When AVERages is selected, use the :ACQuire:AVERages command to set
+          the number of averages.
+
+          Return Format
+          The query returns NORM, AVER, PEAK or HRES.
+
+          Example
+          :ACQuire:TYPE AVERages
+          The query returns AVER.
+
+          :return:
+          """
+        self.device.ask(":ACQuire:TYPE PEAK")
+
+    def highres(self):
+        """
+
+          Rigol Programming Guide:
+
+          Syntax
+          :ACQuire:TYPE <type>
+          :ACQuire:TYPE?
+
+          Description
+          Set the acquisition mode of the sample.
+          Query the current acquisition mode of the sample.
+
+          Parameter
+          Name    Type       Range                                Default
+          <type>  Discrete   {NORMal|AVERages|PEAK|HRESolution}   NORMal
+
+          Explanation
+          When AVERages is selected, use the :ACQuire:AVERages command to set
+          the number of averages.
+
+          Return Format
+          The query returns NORM, AVER, PEAK or HRES.
+
+          Example
+          :ACQuire:TYPE AVERages
+          The query returns AVER.
+
+          :return:
+          """
+        self.device.ask(":ACQuire:TYPE HRESolution")
+
+    def __str__(self) -> str:
+        answer: str = self.device.ask(":ACQuire:TYPE?")
+        if answer == "NORM":
+            return "Normal"
+        elif answer == "AVER":
+            return "Average"
+        elif answer == "PEAK":
+            return "Peak"
+        elif answer == "HRES":
+            return "High Resolution"
+        else:
+            raise Ds2000Exception("Unknown Return Value")
+
+    def __repr__(self) -> repr:
+        return self.__str__()
+
+
+class Acquire(BaseController):
+    AVERAGES: tuple(int) = (2, 4, 8, 16, 32, 64, 128, 256,
+                            512, 1024, 2048, 4096, 8192)
+    MEMDEPTH_SINGLE: tuple(int) = (14000, 140000, 1400000, 14000000, 56000000)
+    MEMDEPTH_DUAL: tuple(int) = (7000, 70000, 700000, 7000000, 28000000)
+
+    def __init__(self, device):
+        super(Acquire, self).__init__(device)
+        self.type: Type = Type(self)
+
+    @property
+    def averages(self) -> int:
+        """
+
+        Rigol Programming Guide:
+
+        Syntax
+        :ACQuire:AVERages <count>
+        :ACQuire:AVERages?
+
+        Description
+        Set the number of averages and the value should be a power function
+        of 2. Query the current number of averages of the oscilloscope.
+
+        Parameter
+        Name      Type      Range       Default
+        <count>   Integer   2 to 8192   2
+
+        Explanation
+        Use the :ACQuire:TYPE command to select the average acquisition mode.
+        In this mode, the oscilloscope averages the waveforms from multiple
+        samples to reduce the random noise of the input signal and improve the
+        vertical resolution. The greater the number of averages is, the lower
+        the noise will be and the higher the vertical resolution will be but
+        the slower the response of the displayed waveform to the waveform
+        changes will be.
+
+        Return Format
+        The query returns an integer between 2 and 8192.
+
+        Example
+        :ACQuire:AVERages 128
+        The query returns 128.
+
         :return:
         """
-        self.device.ask(":ACQuire:TYPE AVERage")
+        return self.device.ask(":ACQuire:AVERages?}")
+
+    @averages.setter
+    def averages(self, count: int = 0):
+        """
+
+        Rigol Programming Guide:
+
+        Syntax
+        :ACQuire:AVERages <count>
+        :ACQuire:AVERages?
+
+        Description
+        Set the number of averages and the value should be a power function
+        of 2. Query the current number of averages of the oscilloscope.
+
+        Parameter
+        Name      Type      Range       Default
+        <count>   Integer   2 to 8192   2
+
+        Explanation
+        Use the :ACQuire:TYPE command to select the average acquisition mode.
+        In this mode, the oscilloscope averages the waveforms from multiple
+        samples to reduce the random noise of the input signal and improve the
+        vertical resolution. The greater the number of averages is, the lower
+        the noise will be and the higher the vertical resolution will be but
+        the slower the response of the displayed waveform to the waveform
+        changes will be.
+
+        Return Format
+        The query returns an integer between 2 and 8192.
+
+        Example
+        :ACQuire:AVERages 128
+        The query returns 128.
+
+        :return:
+        """
+        assert isinstance(count, int)
         if count == 0:
             return
-        elif count in (2, 4, 8, 16, 32, 64, 128, 256):
+        elif count in Acquire.AVERAGES:
             self.device.ask(f":ACQuire:AVERages {count}")
         else:
             raise ValueError("The \"count\" must be 0, to leave the count"
-                             "untouched or 2, 4, 8, 16, 32, 64, 128 or 256.")
+                             f"untouched or set it to {Acquire.AVERAGES}.")  # TODO HERE
 
-    def type_peakdetect(self):
+    # def type_averages(self, count: int = 0):
+    #     """
+    #
+    #     Rigol Programming Guide:
+    #
+    #     Syntax
+    #     :ACQuire:AVERages <count>
+    #     :ACQuire:AVERages?
+    #
+    #     Description
+    #     Set the number of averages and the value should be a power function
+    #     of 2. Query the current number of averages of the oscilloscope.
+    #
+    #     Parameter
+    #     Name      Type      Range       Default
+    #     <count>   Integer   2 to 8192   2
+    #
+    #     Explanation
+    #     Use the :ACQuire:TYPE command to select the average acquisition mode.
+    #     In this mode, the oscilloscope averages the waveforms from multiple
+    #     samples to reduce the random noise of the input signal and improve the
+    #     vertical resolution. The greater the number of averages is, the lower
+    #     the noise will be and the higher the vertical resolution will be but
+    #     the slower the response of the displayed waveform to the waveform
+    #     changes will be.
+    #
+    #     Return Format
+    #     The query returns an integer between 2 and 8192.
+    #
+    #     Example
+    #     :ACQuire:AVERages 128
+    #     The query returns 128.
+    #
+    #     :return:
+    #     """
+    #     self.device.ask(":ACQuire:TYPE AVERage")
+    #     if count == 0:
+    #         return
+    #     elif count in Acquire.AVERAGES:
+    #         self.device.ask(f":ACQuire:AVERages {count}")
+    #     else:
+    #         raise ValueError("The \"count\" must be 0, to leave the count"
+    #                          f"untouched or set it to {Acquire.AVERAGES}.")  # TODO HERE
+
+    @property
+    def memorydepth(self) -> int:
         """
 
-        :ACQuire:TYPE
-        Command Format:
-        :ACQuire:TYPE <type>
-        :ACQuire:TYPE?
-        Function Explanation:
-        The commands set and query the current acquire type of the
-        oscilloscope. <type> could be NORMal, AVERage or PEAKdetect.
-        Returned Format:
-        The query returns NORMAL, AVERAGE or PEAKDETECT.
-        Example:
-        :ACQ:TYPE AVER Setup the acquire type as Average.
-        :ACQ:TYPE? The query returns AVERAGE
-        :return:
-        """
-        self.device.ask(":ACQuire:TYPE PEAKdetect")
+        Rigol Programming Guide:
 
-    def type(self) -> AcquireType:
-        """
+        Syntax
+        :ACQuire:MDEPth <mdep>
+        :ACQuire:MDEPth?
 
-        :ACQuire:TYPE
-        Command Format:
-        :ACQuire:TYPE <type>
-        :ACQuire:TYPE?
-        Function Explanation:
-        The commands set and query the current acquire type of the
-        oscilloscope. <type> could be NORMal, AVERage or PEAKdetect.
-        Returned Format:
-        The query returns NORMAL, AVERAGE or PEAKDETECT.
-        Example:
-        :ACQ:TYPE AVER Setup the acquire type as Average.
-        :ACQ:TYPE? The query returns AVERAGE
+        Description
+        Set the memory depth of the oscilloscope namely the number of waveform points that can be stored in a single trigger sample.
+        Query the current memory depth of the oscilloscope.
 
-        :return:
-        """
-        acquire_type: str = self.device.ask(":ACQuire:TYPE?")
-        if acquire_type == "NORM":
-            return AcquireType("Normal", 0)
-        elif acquire_type == "AVER":
-            count = int(self.device.ask(":ACQuire:AVERages?"))
-            return AcquireType("Average", count)
-        elif acquire_type == "PEAK":
-            return AcquireType("Peakdetect", 0)
-        else:
-            raise Ds2000Exception(f"Unknown acquire type: \"{acquire_type}\"")
+        Parameter
+        Name     Type       Range                  Default
+        <mdep>   Discrete   Refer to Explanation   AUTO
 
-    def mode_realtime(self):
-        """
+        Explanation
+        When a single channel is on:
+        <mdep> can be set to AUTO|14000|140000|1400000|14000000|56000000.
+        When dual channels are on:
+        <mdep> can be set to AUTO|7000|70000|700000|7000000|28000000.
 
-        :ACQuire:MODE
-        Command Format:
-        :ACQuire:MODE <mode>
-        :ACQuire:MODE?
-        Function Explanation:
-        The commands set and query the current acquire mode of the
-        oscilloscope. <mode> could be RTIMe (Real time Sampling) or ETIMe
-        (Equivalent Sampling).
-        Returned Format:
-        The query returns REAL_TIME or EQUAL_TIME.
-        Example:
-        :ACQ:MODE ETIM Setup the acquire mode as ETIMe.
-        :ACQ:MODE? The query returns EQUAL_TIME.
+        Return Format
+        The query returns the actual number of points (integer) or AUTO.
 
-        :return:
-        """
-        self.device.ask(":ACQuire:MODE RTIMe")
-
-    def mode_equivalent(self):
-        """
-
-        :ACQuire:MODE
-        Command Format:
-        :ACQuire:MODE <mode>
-        :ACQuire:MODE?
-        Function Explanation:
-        The commands set and query the current acquire mode of the
-        oscilloscope. <mode> could be RTIMe (Real time Sampling) or ETIMe
-        (Equivalent Sampling).
-        Returned Format:
-        The query returns REAL_TIME or EQUAL_TIME.
-        Example:
-        :ACQ:MODE ETIM Setup the acquire mode as ETIMe.
-        :ACQ:MODE? The query returns EQUAL_TIME.
+        Example
+        :ACQuire:MDEPth 1400000
+        The query returns 1400000.
 
         :return:
         """
-        self.device.ask(":ACQuire:MODE ETIMe")
+        return self.device.ask(":ACQuire:MDEPth?")
 
-    def mode(self) -> str:
+    @memorydepth.setter
+    def memorydepth(self, memdepth: int = 0):
         """
 
-        :ACQuire:MODE
-        Command Format:
-        :ACQuire:MODE <mode>
-        :ACQuire:MODE?
-        Function Explanation:
-        The commands set and query the current acquire mode of the
-        oscilloscope. <mode> could be RTIMe (Real time Sampling) or ETIMe
-        (Equivalent Sampling).
-        Returned Format:
-        The query returns REAL_TIME or EQUAL_TIME.
-        Example:
-        :ACQ:MODE ETIM Setup the acquire mode as ETIMe.
-        :ACQ:MODE? The query returns EQUAL_TIME.
+        Rigol Programming Guide:
+
+        Syntax
+        :ACQuire:MDEPth <mdep>
+        :ACQuire:MDEPth?
+
+        Description
+        Set the memory depth of the oscilloscope namely the number of waveform points that can be stored in a single trigger sample.
+        Query the current memory depth of the oscilloscope.
+
+        Parameter
+        Name     Type       Range                  Default
+        <mdep>   Discrete   Refer to Explanation   AUTO
+
+        Explanation
+        When a single channel is on:
+        <mdep> can be set to AUTO|14000|140000|1400000|14000000|56000000.
+        When dual channels are on:
+        <mdep> can be set to AUTO|7000|70000|700000|7000000|28000000.
+
+        Return Format
+        The query returns the actual number of points (integer) or AUTO.
+
+        Example
+        :ACQuire:MDEPth 1400000
+        The query returns 1400000.
+
 
         :return:
         """
-        acquire_mode: str = self.device.ask(":ACQuire:MODE?")
-        if acquire_mode == "REAL_TIME":
-            return "Realtime"
-        elif acquire_mode == "EQUAL_TIME":
-            return "Equivalent"
-        else:
-            raise Ds2000Exception("Unknown acquire mode.")
+        assert isinstance(memdepth, int)
+        if memdepth == 0:
+            self.device.ask(":ACQuire:MEMDepth AUTO")
+        elif memdepth in Acquire.MEMDEPTH_SINGLE:  # ToDo: Check if osc uses one or two channels
+            self.device.ask(f":ACQuire:MDEPth {memdepth}")
+        elif memdepth in Acquire.MEMDEPTH_DUAL:
+            self.device.ask(f":ACQuire:MDEPth {memdepth}")
 
-    def samplerate(self, channel: int) -> float:
+    @property
+    def samplerate(self) -> int:
         """
 
-        ToDo: Add digital for DS1000?
+        Rigol Programming Guide:
 
-        :ACQuire:SAMPlingrate?
-        Command Format:
-        :ACQuire:SAMPlingrate? {CHANnel<n>|DIGITAL}
-        Function Explanation:
-        The command queries the current sampling rate of the analog channel
-        or digital channel (only for DS1000D series). <n> is 1 or 2 means
-        channel 1 or channel 2.
-        Returned Format:
-        The query returns the setting value of the sampling rate.
-        Example:
-        :ACQ:SAMP? CHANnel2 Query the sampling rate for channel 2.
-        100000000.000000 The query returns 100M.
+        Syntax
+        :ACQuire:SRATe?
+
+        Description
+        Query the current sample rate.
+
+        Return Format
+        The query returns the sample rate in scientific notation.
+
+        Example
+        :ACQuire:SRATe?
+        The query returns 2.000000e+09.
 
         :return:
         """
-        if channel <= 0 or channel > 4:
-            raise ValueError("You have to enter a correct channel")
-        elif channel in (3, 4):
-            warning("It is possible, that you choose a wrong channel."
-                    "If your oscilloscope has 4 channels, ignore this"
-                    "warning.")
-        return float(self.device.ask(
-                f":ACQuire:SAMPlingrate? CHANnel{channel}"))
+        return int(self.device.ask(":ACQuire:SRATe?"))
 
-    def memorydepth_normal(self):
+    @property
+    def antialiasing(self) -> bool:
         """
 
-        :ACQuire:MEMDepth <depth>
-        Command Format:
-        :ACQuire:MEMDepth <depth>
-        :ACQuire:MEMDepth?
-        Function Explanation:
+        Rigol Programming Guide:
 
-        The commands set and query the memory depth of the oscilloscope.
-        <depth> could be LONG (long memory) or NORMal (normal memory)
-        Returned Format:
-        The query returns LONG or NORMAL.
-        Example:
-        :ACQ:MEMD LONG Set the memory type as LONG.
-        :ACQ:MEMD? The query returns LONG.
+        Syntax
+        :ACQuire:AALias <bool>
+        :ACQuire:AALias?
+
+        Description
+        Enable or disable the antialiasing function of the oscilloscope.
+        The query returns the current state of the antialiasing function of the
+        oscilloscope.
+
+        Parameter
+        Name     Type   Range              Default
+        <bool>   Bool   {{0|OFF}|{1|ON}}   0|OFF
+
+        Return Format
+        The query returns 0 or 1.
+
+        Example
+        :ACQuire:AALias ON
+        The query returns 1.
 
         :return:
         """
-        self.device.ask(":ACQuire:MEMDepth NORMal")
+        return bool(self.device.ask(":ACQuire:AALias?"))
 
-    def memorydepth_long(self):
+    @antialiasing.setter
+    def antialiasing(self, enabled: bool):
         """
 
-        :ACQuire:MEMDepth <depth>
-        Command Format:
-        :ACQuire:MEMDepth <depth>
-        :ACQuire:MEMDepth?
-        Function Explanation:
+        Rigol Programming Guide:
 
-        The commands set and query the memory depth of the oscilloscope.
-        <depth> could be LONG (long memory) or NORMal (normal memory)
-        Returned Format:
-        The query returns LONG or NORMAL.
-        Example:
-        :ACQ:MEMD LONG Set the memory type as LONG.
-        :ACQ:MEMD? The query returns LONG.
+        Syntax
+        :ACQuire:AALias <bool>
+        :ACQuire:AALias?
+
+        Description
+        Enable or disable the antialiasing function of the oscilloscope.
+        The query returns the current state of the antialiasing function of the
+        oscilloscope.
+
+        Parameter
+        Name     Type   Range              Default
+        <bool>   Bool   {{0|OFF}|{1|ON}}   0|OFF
+
+        Return Format
+        The query returns 0 or 1.
+
+        Example
+        :ACQuire:AALias ON
+        The query returns 1.
 
         :return:
         """
-        self.device.ask(":ACQuire:MEMDepth LONG")
-
-    def memorydepth(self):
-        """
-
-        ToDo: What is normal/long? Change to nice return value
-        :ACQuire:MEMDepth <depth>
-        Command Format:
-        :ACQuire:MEMDepth <depth>
-        :ACQuire:MEMDepth?
-        Function Explanation:
-
-        The commands set and query the memory depth of the oscilloscope.
-        <depth> could be LONG (long memory) or NORMal (normal memory)
-        Returned Format:
-        The query returns LONG or NORMAL.
-        Example:
-        :ACQ:MEMD LONG Set the memory type as LONG.
-        :ACQ:MEMD? The query returns LONG.
-
-        :return:
-        """
-        return self.device.ask(":ACQuire:MEMDepth?")
-
+        assert isinstance(enabled, bool)
+        self.device.ask(f":ACQuire:AALias {1 if enabled else 0}")
 
 def main() -> int:
     return 0

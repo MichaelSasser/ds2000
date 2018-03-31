@@ -23,6 +23,7 @@ from .acquire import *
 from .common import *
 from .display import *
 from .errorhandling import *
+from .ieee import *
 from .timebase import *
 from .trigger import *
 
@@ -31,4 +32,5 @@ __all__ = (common.__all__,
            errorhandling.__all__,
            display.__all__,
            timebase.__all__,
-           trigger.__all__,)
+           trigger.__all__,
+           ieee.__all__,)
