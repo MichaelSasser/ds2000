@@ -18,7 +18,7 @@
 
 from collections import namedtuple
 
-from ds2000.controller import BaseController, Ds2000Exception
+from ds2000.controller import BaseController, Ds2000Exception, SubController
 
 __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.de"
@@ -28,7 +28,7 @@ __all__ = ["Acquire", ]
 AcquireType = namedtuple("AcquireType", "type average_count")
 
 
-class Type(BaseController):
+class Type(SubController):
     def normal(self):
         """
 
@@ -59,7 +59,7 @@ class Type(BaseController):
 
           :return:
           """
-        self.device.ask(":ACQuire:TYPE NORMal")
+        self.subdevice.device.ask(":ACQuire:TYPE NORMal")
 
     def average(self):
         """
@@ -91,7 +91,7 @@ class Type(BaseController):
 
           :return:
           """
-        self.device.ask(":ACQuire:TYPE AVERages")
+        self.subdevice.device.ask(":ACQuire:TYPE AVERages")
 
     def peakdetect(self):
         """
@@ -123,7 +123,7 @@ class Type(BaseController):
 
           :return:
           """
-        self.device.ask(":ACQuire:TYPE PEAK")
+        self.subdevice.device.ask(":ACQuire:TYPE PEAK")
 
     def highres(self):
         """
@@ -155,10 +155,10 @@ class Type(BaseController):
 
           :return:
           """
-        self.device.ask(":ACQuire:TYPE HRESolution")
+        self.subdevice.device.ask(":ACQuire:TYPE HRESolution")
 
-    def __str__(self) -> str:
-        answer: str = self.device.ask(":ACQuire:TYPE?")
+    def get(self):
+        answer: str = self.subdevice.device.ask(":ACQuire:TYPE?")
         if answer == "NORM":
             return "Normal"
         elif answer == "AVER":
@@ -170,8 +170,11 @@ class Type(BaseController):
         else:
             raise Ds2000Exception("Unknown Return Value")
 
-    def __repr__(self) -> repr:
-        return self.__str__()
+    def __str__(self) -> str:
+        return self.get()
+
+    def __repr__(self) -> str:
+        return self.get()
 
 
 class Acquire(BaseController):
@@ -266,50 +269,6 @@ class Acquire(BaseController):
         else:
             raise ValueError("The \"count\" must be 0, to leave the count"
                              f"untouched or set it to {Acquire.AVERAGES}.")  # TODO HERE
-
-    # def type_averages(self, count: int = 0):
-    #     """
-    #
-    #     Rigol Programming Guide:
-    #
-    #     Syntax
-    #     :ACQuire:AVERages <count>
-    #     :ACQuire:AVERages?
-    #
-    #     Description
-    #     Set the number of averages and the value should be a power function
-    #     of 2. Query the current number of averages of the oscilloscope.
-    #
-    #     Parameter
-    #     Name      Type      Range       Default
-    #     <count>   Integer   2 to 8192   2
-    #
-    #     Explanation
-    #     Use the :ACQuire:TYPE command to select the average acquisition mode.
-    #     In this mode, the oscilloscope averages the waveforms from multiple
-    #     samples to reduce the random noise of the input signal and improve the
-    #     vertical resolution. The greater the number of averages is, the lower
-    #     the noise will be and the higher the vertical resolution will be but
-    #     the slower the response of the displayed waveform to the waveform
-    #     changes will be.
-    #
-    #     Return Format
-    #     The query returns an integer between 2 and 8192.
-    #
-    #     Example
-    #     :ACQuire:AVERages 128
-    #     The query returns 128.
-    #
-    #     :return:
-    #     """
-    #     self.device.ask(":ACQuire:TYPE AVERage")
-    #     if count == 0:
-    #         return
-    #     elif count in Acquire.AVERAGES:
-    #         self.device.ask(f":ACQuire:AVERages {count}")
-    #     else:
-    #         raise ValueError("The \"count\" must be 0, to leave the count"
-    #                          f"untouched or set it to {Acquire.AVERAGES}.")  # TODO HERE
 
     @property
     def memorydepth(self) -> int:

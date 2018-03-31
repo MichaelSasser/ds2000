@@ -20,6 +20,7 @@ __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.de"
 
 from .acquire import *
+from .bus import *
 from .common import *
 from .display import *
 from .errorhandling import *
@@ -33,4 +34,5 @@ __all__ = (common.__all__,
            display.__all__,
            timebase.__all__,
            trigger.__all__,
-           ieee.__all__,)
+           ieee.__all__,
+           bus.__all__,)

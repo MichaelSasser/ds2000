@@ -15,7 +15,7 @@
 
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
-from ds2000.controller import Acquire, Display, IEEE, Timebase
+from ds2000.controller import Acquire, Bus, Display, IEEE, Timebase
 
 __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.de"
@@ -39,6 +39,8 @@ class DS2000(object):
         self.display = Display(self)
         self.timebase = Timebase(self)
         self.ieee = IEEE(self)
+        self.bus1 = Bus(self, 1)
+        self.bus2 = Bus(self, 2)
 
     def ask(self, msg: str):
         """This is a Wrapper for the ask method of vxi11.

@@ -19,13 +19,17 @@
 __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.de"
 
-__all__ = ['BaseController']
+__all__ = ['BaseController', 'SubController']
 
 
 class BaseController(object):
     def __init__(self, device):
         self.device = device
 
+
+class SubController(object):
+    def __init__(self, subdevice):
+        self.subdevice = subdevice
 
 def main() -> int:
     return 0
