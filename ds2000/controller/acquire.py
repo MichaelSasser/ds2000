@@ -17,8 +17,9 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from collections import namedtuple
+from typing import Tuple
 
-from ds2000.controller import BaseController, Ds2000Exception, SubController
+from ds2000.controller import BaseController, SubController , Ds2000Exception
 
 __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.de"
@@ -178,10 +179,10 @@ class Type(SubController):
 
 
 class Acquire(BaseController):
-    AVERAGES: tuple(int) = (2, 4, 8, 16, 32, 64, 128, 256,
+    AVERAGES: Tuple[int] = (2, 4, 8, 16, 32, 64, 128, 256,
                             512, 1024, 2048, 4096, 8192)
-    MEMDEPTH_SINGLE: tuple(int) = (14000, 140000, 1400000, 14000000, 56000000)
-    MEMDEPTH_DUAL: tuple(int) = (7000, 70000, 700000, 7000000, 28000000)
+    MEMDEPTH_SINGLE: Tuple[int] = (14000, 140000, 1400000, 14000000, 56000000)
+    MEMDEPTH_DUAL: Tuple[int] = (7000, 70000, 700000, 7000000, 28000000)
 
     def __init__(self, device):
         super(Acquire, self).__init__(device)

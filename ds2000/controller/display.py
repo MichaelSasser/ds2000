@@ -25,7 +25,7 @@ __all__ = ["Display", ]
 
 
 class Display(BaseController):
-    def display_type_vector(self):
+    def type_vector(self):
         """
 
         Rigol Programming Guide:
@@ -47,7 +47,7 @@ class Display(BaseController):
         """
         self.device.ask(":DISPlay:TYPE VECTors")
 
-    def display_type_dot(self):
+    def type_dot(self):
         """
 
         Rigol Programming Guide:
@@ -69,7 +69,7 @@ class Display(BaseController):
         """
         self.device.ask(":DISPlay:TYPE DOTS")
 
-    def display_type(self):
+    def type(self):
         """
 
         Rigol Programming Guide:
@@ -95,9 +95,10 @@ class Display(BaseController):
         elif display_type == "VECTORS":
             return "vector"
         else:
-            raise Ds2000Exception("Unknown display type.")
+           raise Ds2000Exception("Unknown display type.")
 
-    def display_grid(self):
+    @property
+    def grid(self) -> str:
         """
 
         Rigol Programming Guide:
@@ -118,9 +119,9 @@ class Display(BaseController):
 
         :return:
         """
-        raise NotImplementedError()
+        return self.device.ask(":DISPlay:GRID?").lower()
 
-    def display_persist(self):
+    def persist(self):
         """
 
         Rigol Programming Guide:
@@ -143,7 +144,7 @@ class Display(BaseController):
         """
         raise NotImplementedError()
 
-    def display_menu_display(self):
+    def menu_display(self):
         """
 
         Rigol Programming Guide:
@@ -165,7 +166,7 @@ class Display(BaseController):
         """
         raise NotImplementedError()
 
-    def display_menu_status(self):
+    def menu_status(self):
         """
 
         Rigol Programming Guide:
@@ -186,7 +187,7 @@ class Display(BaseController):
         """
         raise NotImplementedError()
 
-    def display_clear(self):
+    def clear(self):
         """
 
         Rigol Programming Guide:
@@ -202,7 +203,7 @@ class Display(BaseController):
         """
         raise NotImplementedError()
 
-    def display_brightness(self):
+    def brightness(self):
         """
 
         Rigol Programming Guide:
@@ -224,7 +225,7 @@ class Display(BaseController):
         """
         raise NotImplementedError()
 
-    def display_intensity(self):
+    def intensity(self):
         """
 
         Rigol Programming Guide:

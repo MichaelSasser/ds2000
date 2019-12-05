@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from ds2000.controller import BaseController, Ds2000Exception, SubController
+from ds2000.controller import BaseController, SubController , Ds2000Exception
 
 __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.de"

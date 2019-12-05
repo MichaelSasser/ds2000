@@ -15,12 +15,15 @@
 
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
-from ds2000.controller import Acquire, Bus, Display, IEEE, Timebase
+from ds2000.controller import Acquire, Bus, Display, IEEE, Timebase, Trigger, \
+    Waveform, Channel
+
 
 __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.de"
 
 import vxi11
+
 from collections import namedtuple
 from logging import DEBUG, WARN, error, debug
 from logging import basicConfig as loggingBasicConfig
@@ -41,6 +44,17 @@ class DS2000(object):
         self.ieee = IEEE(self)
         self.bus1 = Bus(self, 1)
         self.bus2 = Bus(self, 2)
+        self.trigger = Trigger(self)
+        self.waveform = Waveform(self)
+        self.channel1 = Channel(self, 1)
+        self.channel2 = Channel(self, 2)
+
+    def __enter__(self):
+        self.connect()
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        self.disconnect()
 
     def ask(self, msg: str):
         """This is a Wrapper for the ask method of vxi11.
@@ -57,6 +71,33 @@ class DS2000(object):
             if DEBUGGING:
                 debug(f"asked: \"{msg}\", answered: \"{answer}\"")
         return answer
+
+    def write(self, msg: str):
+        """This is a Wrapper for the write method of vxi11.
+        With a wrapper it makes it possible to change the underlying
+        package behaviour, vxi11 itself.
+
+        """
+        try:  # Probably just for development
+            self.__inst.write(msg)
+        except vxi11.vxi11.Vxi11Exception as e:
+            error(f"Error while writing: {e}")
+        finally:
+            if DEBUGGING:
+                debug(f"written (raw): \"{msg}\"")
+
+    def read_raw(self, num: int=-1):
+        """This is a Wrapper for the read_raw method of vxi11.
+        With a wrapper it makes it possible to change the underlying
+        package behaviour, vxi11 itself.
+
+        """
+        msg: bytes = None
+        try:  # Probably just for development
+            msg = self.__inst.read_raw(num)
+        except vxi11.vxi11.Vxi11Exception as e:
+            error(f"Error while writing: {e}")
+        return msg
 
     def connect(self):
         self.__inst = vxi11.Instrument(self.device_address)
@@ -151,7 +192,7 @@ class DS2000(object):
 
         :return:
         """
-        self.ask(":STOP")
+        self.write(":STOP")
 
     def t_force(self):  # ToDo: Prob. to Trigger Menu
         """
@@ -184,19 +225,33 @@ class DS2000(object):
     def reset(self):
         self.ieee.rst()
 
+    def disconnect(self):
+        self.__inst.close()
+
     def __str__(self) -> str:
         return f"DS2000Object.{self.id.serial}"
 
     def __repr__(self) -> str:
         return f"DS2000Object.{self.id.serial}"
 
+    def __del__(self):
+        self.disconnect()
+
 def main(*args, **kwargs):
-    ip = "192.168.30.201"
-    r = DS2000(ip)
-    r.connect()
-    print(r.info())
-    print(r.acquire)
-    print(r.info())
+    ip = "192.168.30.186"
+    #r = DS2000(ip)
+    #r.connect()
+    with DS2000(ip) as r:
+        print("info:", r.info())
+        from ds2000.func import simple_plot
+        r.waveform.start(1)
+        simple_plot(r, recorded=False)
+
+        #print(f'df={df}\n')
+        #print(df)
+
+        #plt.plot(df)
+    #r.disconnect()
 
 
 #   r.reset()

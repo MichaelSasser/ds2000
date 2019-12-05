@@ -25,7 +25,7 @@ __all__ = ["Timebase", ]
 
 
 class Timebase(BaseController):
-    def timebase_mode(self):
+    def mode(self):
         """
         Rigol Programming Guide:
 
@@ -45,7 +45,7 @@ class Timebase(BaseController):
         """
         raise NotImplementedError()
 
-    def timebase_offset(self):
+    def offset(self):
         """
         Rigol Programming Guide:
 
@@ -70,7 +70,7 @@ class Timebase(BaseController):
         """
         raise NotImplementedError()
 
-    def timebase_scale(self):
+    def delayed_scale(self):
         """
         Rigol Programming Guide:
 
@@ -94,7 +94,41 @@ class Timebase(BaseController):
         """
         raise NotImplementedError()
 
-    def timebase_format(self):
+    @property
+    def scale(self) -> float:
+        """
+        Rigol Programming Guide:
+
+        Syntax
+        :TIMebase[:MAIN]:SCALe <scale_value>
+        :TIMebase[:MAIN]:SCALe?
+
+        Description
+        Set the scale of the main time base and the unit is s/div.
+        Query the current scale of the main time base.
+
+        Name            Type    Range                   Default
+        <scale_value>   Real    Depend on the time      1μs
+                                base mode [1]:
+                                Normal: 2ns[2] to 1ks
+                                ROLL:   200ms to 1ks
+
+        Note[1]: refer to the :TIMebase:MODE command.
+        Note[2]: this value is different for different model. For DS2072 and
+                 DS2012, the value is 5 ns.
+
+        Return Format
+        The query returns the current scale of the main time base in scientific notation.
+
+        Example
+        :TIMebase:MAIN:SCALe 0.0002
+        The query returns 2.000000e-04.
+
+        :return:
+        """
+        return float(self.device.ask(":TIMebase:MAIN:SCALe?"))
+
+    def format(self):
         """
         Rigol Programming Guide:
 

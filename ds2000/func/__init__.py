@@ -1,7 +1,6 @@
 #!/usr/bin/env python
-# vim: set fileencoding=utf-8 :
-# ds2000
-# Copyright (C) 2018  Michael Sasser <Michael@MichaelSasser.de>
+# ds2000 
+# Copyright (C) 2019  Michael Sasser <Michael@MichaelSasser.org>
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -16,7 +15,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-__author__ = "Michael Sasser"
-__email__ = "Michael@MichaelSasser.de"
+__author__: str = "Michael Sasser"
+__email__: str = "Michael@MichaelSasser.org"
 
-# import ds2000.controller
+# Don't change the import sequence
+from .plot import *
+
+
+__all__ = (plot.__all__,)
