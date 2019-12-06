@@ -1,0 +1,94 @@
+ds2000.controller package
+=========================
+
+Submodules
+----------
+
+ds2000.controller.acquire module
+--------------------------------
+
+.. automodule:: ds2000.controller.acquire
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+ds2000.controller.bus module
+----------------------------
+
+.. automodule:: ds2000.controller.bus
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+ds2000.controller.channel module
+--------------------------------
+
+.. automodule:: ds2000.controller.channel
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+ds2000.controller.common module
+-------------------------------
+
+.. automodule:: ds2000.controller.common
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+ds2000.controller.display module
+--------------------------------
+
+.. automodule:: ds2000.controller.display
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+ds2000.controller.error\_handling module
+----------------------------------------
+
+.. automodule:: ds2000.controller.error_handling
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+ds2000.controller.ieee module
+-----------------------------
+
+.. automodule:: ds2000.controller.ieee
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+ds2000.controller.timebase module
+---------------------------------
+
+.. automodule:: ds2000.controller.timebase
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+ds2000.controller.trigger module
+--------------------------------
+
+.. automodule:: ds2000.controller.trigger
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+ds2000.controller.waveform module
+---------------------------------
+
+.. automodule:: ds2000.controller.waveform
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: ds2000.controller
+   :members:
+   :undoc-members:
+   :show-inheritance:

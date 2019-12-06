@@ -29,19 +29,30 @@ class Display(BaseController):
     def type_vector(self):
         """
 
-        Rigol Programming Guide:
+        **Rigol Programming Guide**
+
 
         :DISPlay:TYPE
-        Command Format:
+
+        **Command Format**
+
         :DISPlay:TYPE <type>
+
         :DISPlay:TYPE?
-        Function Explanation:
+
+        **Function Explanation**
+
         The commands set and query the display type between sampling points.
         <type> could be VECTors (vectir display) or DOTS (point display).
-        Returned Format:
+
+        **Returned Format**
+
         The query returns VECTORS or DOTS.
-        Example:
+
+        **Example**
+
         :DISP:TYPE VECT Setup the display type as VECTors.
+
         :DISP:TYPE? The query returns VECTORS.
 
         :return:
@@ -51,19 +62,30 @@ class Display(BaseController):
     def type_dot(self):
         """
 
-        Rigol Programming Guide:
+        **Rigol Programming Guide**
+
 
         :DISPlay:TYPE
-        Command Format:
+
+        **Command Format**
+
         :DISPlay:TYPE <type>
+
         :DISPlay:TYPE?
-        Function Explanation:
+
+        **Function Explanation**
+
         The commands set and query the display type between sampling points.
         <type> could be VECTors (vectir display) or DOTS (point display).
-        Returned Format:
+
+        **Returned Format**
+
         The query returns VECTORS or DOTS.
-        Example:
+
+        **Example**
+
         :DISP:TYPE VECT Setup the display type as VECTors.
+
         :DISP:TYPE? The query returns VECTORS.
 
         :return:
@@ -73,19 +95,31 @@ class Display(BaseController):
     def type(self):
         """
 
-        Rigol Programming Guide:
+        **Rigol Programming Guide**
+
 
         :DISPlay:TYPE
-        Command Format:
+
+        **Command Format**
+
+
         :DISPlay:TYPE <type>
+
         :DISPlay:TYPE?
-        Function Explanation:
+
+        **Function Explanation**
+
         The commands set and query the display type between sampling points.
         <type> could be VECTors (vectir display) or DOTS (point display).
-        Returned Format:
+
+        **Returned Format**
+
         The query returns VECTORS or DOTS.
-        Example:
+
+        **Example**
+
         :DISP:TYPE VECT Setup the display type as VECTors.
+
         :DISP:TYPE? The query returns VECTORS.
 
         :return:
@@ -101,21 +135,32 @@ class Display(BaseController):
     def grid(self) -> str:
         """
 
-        Rigol Programming Guide:
+        **Rigol Programming Guide**
+
 
         :DISPlay:GRID
-        Command Format:
+
+        **Command Format**
+
         :DISPlay:GRID <grid>
+
         :DISPlay:GRID?
-        Function Explanation:
+
+        **Function Explanation**
+
         The commands set and query the state of the screen grid. <grid> could
         be FULL (open the background grid and coordinates), HALF (turn off the
         background grid) or NONE (turn off the background grid and
         coordinates).
-        Returned Format:
+
+        **Returned Format**
+
         The query returns FULL, HALF or NONE.
-        Example:
+
+        **Example**
+
         :DISP:GRID FULL Open the background grid and coordinates.
+
         :DISP:GRID? The query returns FULL.
 
         :return:
@@ -125,20 +170,31 @@ class Display(BaseController):
     def persist(self):
         """
 
-        Rigol Programming Guide:
+        **Rigol Programming Guide**
+
 
         :DISPlay:PERSist
-        Command Format:
+
+        **Command Format**
+
         :DISPlay:PERSist {ON|OFF}
+
         :DISPlay:PERSist?
-        Function Explanation:
+
+        **Function Explanation**
+
         The commands set and query the state of the waveform persist. “ON”
         denotes the record points hold until disable the presist, “OFF”
         denotes the record point varies in high refresh rate.
-        Returned Format:
+
+        **Returned Format**
+
         The query returns ON or OFF.
-        Example:
+
+        **Example**
+
         :DISP:PERS ON Enable the waveform persist.
+
         :DISP:PERS? The query returns ON.
 
         :return:
@@ -148,19 +204,29 @@ class Display(BaseController):
     def menu_display(self):
         """
 
-        Rigol Programming Guide:
+        Rigol Programming Guide
 
         :DISPlay:MNUDisplay
-        Command Format:
+
+        **Command Format**
+
         :DISPlay:MNUDisplay <time>
+
         :DISPlay:MNUDisplay?
-        Function Explanation:
+
+        **Function Explanation**
+
         The commands set and query the time for hiding menus automatically.
         <time> could be 1s, 2s, 5s, 10s, 20s or Infinite.
-        Returned Format:
+
+        **Returned Format**
+
         The query returns 1s, 2s, 5s, 10s, 20s or Infinite.
-        Example:
+
+        **Example**
+
         :DISP:MNUD 10 Setup the display time of menu as 10s.
+
         :DISP:MNUD? The query returns 10s.
 
         :return:
@@ -170,18 +236,29 @@ class Display(BaseController):
     def menu_status(self):
         """
 
-        Rigol Programming Guide:
+        **Rigol Programming Guide**
+
 
         :DISPlay:MNUStatus
-        Command Format:
+
+        **Command Format**
+
         :DISPlay:MNUStatus {ON|OFF}
+
         :DISPlay:MNUStaus?
-        Function Explanation:
+
+        **Function Explanation**
+
         The commands set and query the state of the operation menu.
-        Returned Format:
+
+        **Returned Format**
+
         The query returns ON or OFF.
-        Example:
+
+        **Example**
+
         :DISP:MNUS ON Open menu for current operation.
+
         :DISP:MNUS? The query returns ON
 
         :return:
@@ -191,12 +268,17 @@ class Display(BaseController):
     def clear(self):
         """
 
-        Rigol Programming Guide:
+        **Rigol Programming Guide**
+
 
         :DISPlay:CLEar
-        Command Format:
+
+        **Command Format**
+
         :DISPlay:CLEar
-        Function Explanation:
+
+        **Function Explanation**
+
         The command clears out of date waveforms on the screen during waveform
         persist.
 
@@ -207,19 +289,30 @@ class Display(BaseController):
     def brightness(self):
         """
 
-        Rigol Programming Guide:
+        **Rigol Programming Guide**
+
 
         :DISPlay:BRIGhtness
-        Command Format:
+
+        **Command Format**
+
         :DISPlay:BRIGhtness <ncount>
+
         :DISPlay:BRIGhtness?
-        Function Explanation:
+
+        **Function Explanation**
+
         The commands set and query the brightness of the grid. The range of
         <ncount> is from 0 to 32 (from dark to bright).
-        Returned Format:
+
+        **Returned Format**
+
         The query returns the setting value of <ncount>.
-        Example:
+
+        **Example**
+
         :DISP:BRIG 10 Setup the grid brightness as 10.
+
         :DISP:BRIG? The query returns 10.
 
         :return:
@@ -229,19 +322,30 @@ class Display(BaseController):
     def intensity(self):
         """
 
-        Rigol Programming Guide:
+        **Rigol Programming Guide**
+
 
         :DISPlay:INTensity
-        Command Format:
+
+        **Command Format**
+
         :DISPlay:INTensity <count>
+
         :DISPlay:INTensity?
-        Function Explanation:
+
+        **Function Explanation**
+
         The commands set and query the brightness of the waveform. <count>
         could be the integer between 0 and 32.
-        Returned Format:
+
+        **Returned Format**
+
         The query returns the setting value of <count>.
-        Example:
+
+        **Example**
+
         :DISP:INT 12 Setup the waveform brightness as 12.
+
         :DISP:INT? The query returns 12.
 
         :return:

@@ -47,38 +47,52 @@ class Mode(SubController):
     def normal(self):
         """
 
-        Rigol Programming Guide:
+        **Rigol Programming Guide:**
 
         :WAVeform:MODE
-        Syntax
+
+        **Syntax**
+
         :WAVeform:MODE <mode>
         :WAVeform:MODE?
 
-        Description
+        **Description**
+
         Set the reading mode of waveform.
         Query the current reading mode of waveform.
 
-        Parameter
-        Name    Type       Range                  Default
-        <type>  Discrete   {NORMal|MAXimum|RAW}   NORMal
+        **Parameter**
 
-        Explanation
+        ======= ========== ====================== =======
+        Name    Type       Range                  Default
+        ======= ========== ====================== =======
+        <type>  Discrete   {NORMal|MAXimum|RAW}   NORMal
+        ======= ========== ====================== =======
+
+        **Explanation**
+
         In different modes, the :WAVeform:POINts command returns different
         numbers of waveform points.
-        NORMal : return the number of waveform points currently displayed.
-        MAXimum : return the maximum number of effective data points under
+
+        **NORMal** : return the number of waveform points currently displayed.
+
+        **MAXimum** : return the maximum number of effective data points under
         the current state. Return the number of data points displayed on the
         screen when the instrument is in run state and the number of data
         points in the internal memory in stop state.
-        RAW : It is only available when the instrument is in stop state. You
+
+        **RAW** : It is only available when the instrument is in stop state. You
         can use the :WAVeform:POINts command to set the desired number of
         data points in the internal memory.
 
-        Return Format
+        **Return Format**
+
         The query returns NORM, MAX or RAW.
 
-        Example
+        **Example**
+
         :WAVeform:MODE RAW
+
         The query returns RAW.
 
         :return:
@@ -88,38 +102,53 @@ class Mode(SubController):
     def maximum(self):
         """
 
-        Rigol Programming Guide:
+        **Rigol Programming Guide**
 
         :WAVeform:MODE
-        Syntax
+
+        **Syntax**
+
         :WAVeform:MODE <mode>
+
         :WAVeform:MODE?
 
-        Description
+        **Description**
+
         Set the reading mode of waveform.
         Query the current reading mode of waveform.
 
-        Parameter
-        Name    Type       Range                  Default
-        <type>  Discrete   {NORMal|MAXimum|RAW}   NORMal
+        **Parameter**
 
-        Explanation
+        ======= ========== ====================== =======
+        Name    Type       Range                  Default
+        ======= ========== ====================== =======
+        <type>  Discrete   {NORMal|MAXimum|RAW}   NORMal
+        ======= ========== ====================== =======
+
+        **Explanation**
+
         In different modes, the :WAVeform:POINts command returns different
         numbers of waveform points.
-        NORMal : return the number of waveform points currently displayed.
-        MAXimum : return the maximum number of effective data points under
+
+        **NORMal** : return the number of waveform points currently displayed.
+
+        **MAXimum** : return the maximum number of effective data points under
         the current state. Return the number of data points displayed on the
         screen when the instrument is in run state and the number of data
         points in the internal memory in stop state.
-        RAW : It is only available when the instrument is in stop state.
+
+        **RAW** : It is only available when the instrument is in stop state.
         You can use the :WAVeform:POINts command to set the desired number
         of data points in the internal memory.
 
-        Return Format
+        **Return Format**
+
         The query returns NORM, MAX or RAW.
 
-        Example
+        **Example**
+
         :WAVeform:MODE RAW
+
         The query returns RAW.
 
         :return:
@@ -129,38 +158,54 @@ class Mode(SubController):
     def raw(self):
         """
 
-        Rigol Programming Guide:
+        **Rigol Programming Guide**
+
 
         :WAVeform:MODE
-        Syntax
+
+        **Syntax**
+
         :WAVeform:MODE <mode>
+
         :WAVeform:MODE?
 
-        Description
+        **Description**
+
         Set the reading mode of waveform.
         Query the current reading mode of waveform.
 
-        Parameter
-        Name    Type       Range                  Default
-        <type>  Discrete   {NORMal|MAXimum|RAW}   NORMal
+        **Parameter**
 
-        Explanation
+        ======= ========== ====================== =======
+        Name    Type       Range                  Default
+        ======= ========== ====================== =======
+        <type>  Discrete   {NORMal|MAXimum|RAW}   NORMal
+        ======= ========== ====================== =======
+
+        **Explanation**
+
         In different modes, the :WAVeform:POINts command returns different
         numbers of waveform points.
-        NORMal : return the number of waveform points currently displayed.
-        MAXimum : return the maximum number of effective data points under
+
+        **NORMal** : return the number of waveform points currently displayed.
+
+        **MAXimum** : return the maximum number of effective data points under
         the current state. Return the number of data points displayed on the
         screen when the instrument is in run state and the number of data
         points in the internal memory in stop state.
-        RAW : It is only available when the instrument is in stop state. You
+
+        **RAW** : It is only available when the instrument is in stop state. You
         can use the :WAVeform:POINts command to set the desired number of
         data points in the internal memory.
 
-        Return Format
+        **Return Format**
+
         The query returns NORM, MAX or RAW.
 
-        Example
+        **Example**
+
         :WAVeform:MODE RAW
+
         The query returns RAW.
 
         :return:
@@ -189,39 +234,54 @@ class Format(SubController):
     def word(self):
         """
 
-        Rigol Programming Guide:
+        **Rigol Programming Guide**
+
 
         :WAVeform:FORMat
 
-        Syntax
+        **Syntax**
+
         :WAVeform:FORMat <format>
+
         :WAVeform:FORMat?
 
-        Description
+        **Description**
+
         Set the return format of the waveform data.
         Query the current return format of the waveform data.
 
-        Parameter
-        Name      Type       Range               Default
-        <format>  Discrete   {WORD|BYTE|ASCii}   BYTE
+        **Parameter**
 
-        Explanation
+        ========= ========== =================== =======
+        Name      Type       Range               Default
+        ========= ========== =================== =======
+        <format>  Discrete   {WORD|BYTE|ASCii}   BYTE
+        ========= ========== =================== =======
+
+        **Explanation**
+
         In different modes, the :WAVeform:POINts command returns different
         numbers of waveform points.
-        NORMal : return the number of waveform points currently displayed.
-        MAXimum : return the maximum number of effective data points under
+
+        **NORMal** : return the number of waveform points currently displayed.
+
+        **MAXimum** : return the maximum number of effective data points under
         the current state. Return the number of data points displayed on the
         screen when the instrument is in run state and the number of data
         points in the internal memory in stop state.
-        RAW : It is only available when the instrument is in stop state. You
+
+        **RAW** : It is only available when the instrument is in stop state. You
         can use the :WAVeform:POINts command to set the desired number of
         data points in the internal memory.
 
-        Return Format
+        **Return Format**
+
         The query returns WORD, BYTE or ASC.
-        Example
+
+        **Example**
 
         :WAVeform:FORMat WORD
+
         The query returns WORD.
 
         :return:
@@ -231,39 +291,51 @@ class Format(SubController):
     def byte(self):
         """
 
-        Rigol Programming Guide:
+        **Rigol Programming Guide**
 
         :WAVeform:FORMat
 
-        Syntax
+        **Syntax**
+
         :WAVeform:FORMat <format>
         :WAVeform:FORMat?
 
-        Description
+        **Description**
+
         Set the return format of the waveform data.
         Query the current return format of the waveform data.
 
-        Parameter
-        Name      Type       Range               Default
-        <format>  Discrete   {WORD|BYTE|ASCii}   BYTE
+        **Parameter**
 
-        Explanation
+        ========= ========== =================== =======
+        Name      Type       Range               Default
+        ========= ========== =================== =======
+        <format>  Discrete   {WORD|BYTE|ASCii}   BYTE
+        ========= ========== =================== =======
+
+        **Explanation**
+
         In different modes, the :WAVeform:POINts command returns different
         numbers of waveform points.
-        NORMal : return the number of waveform points currently displayed.
-        MAXimum : return the maximum number of effective data points under
+        **NORMal** : return the number of waveform points currently displayed.
+
+        **MAXimum** : return the maximum number of effective data points under
         the current state. Return the number of data points displayed on the
         screen when the instrument is in run state and the number of data
         points in the internal memory in stop state.
-        RAW : It is only available when the instrument is in stop state. You
+
+        **RAW** : It is only available when the instrument is in stop state. You
         can use the :WAVeform:POINts command to set the desired number of
         data points in the internal memory.
 
-        Return Format
+        **Return Format**
+
         The query returns WORD, BYTE or ASC.
-        Example
+
+        **Example**
 
         :WAVeform:FORMat WORD
+
         The query returns WORD.
 
         :return:
@@ -285,27 +357,38 @@ class Format(SubController):
         Set the return format of the waveform data.
         Query the current return format of the waveform data.
 
-        Parameter
-        Name      Type       Range               Default
-        <format>  Discrete   {WORD|BYTE|ASCii}   BYTE
+        **Parameter**
 
-        Explanation
+        ========= ========== =================== =======
+        Name      Type       Range               Default
+        ========= ========== =================== =======
+        <format>  Discrete   {WORD|BYTE|ASCii}   BYTE
+        ========= ========== =================== =======
+
+        **Explanation**
+
         In different modes, the :WAVeform:POINts command returns different
         numbers of waveform points.
-        NORMal : return the number of waveform points currently displayed.
-        MAXimum : return the maximum number of effective data points under
+
+        **NORMal** : return the number of waveform points currently displayed.
+
+        **MAXimum** : return the maximum number of effective data points under
         the current state. Return the number of data points displayed on the
         screen when the instrument is in run state and the number of data
         points in the internal memory in stop state.
-        RAW : It is only available when the instrument is in stop state. You
+
+        **RAW** : It is only available when the instrument is in stop state. You
         can use the :WAVeform:POINts command to set the desired number of
         data points in the internal memory.
 
-        Return Format
+        **Return Format**
+
         The query returns WORD, BYTE or ASC.
-        Example
+
+        **Example**
 
         :WAVeform:FORMat WORD
+
         The query returns WORD.
 
         :return:
@@ -339,28 +422,37 @@ class Waveform(BaseController):
     def channel(self, channel: int = 1):
         """
 
-        Rigol Programming Guide:
+        **Rigol Programming Guide**
 
         :WAVeform:SOURce
 
-        Syntax
+        **Syntax**
+
         :WAVeform:SOURce <source>
+
         :WAVeform:SOURce?
 
-        Description
+        **Description**
+
         Set the channel source of waveform reading.
         Query the current channel source of waveform reading.
 
-        Parameter
-        | Name     | Type     | Range               | Default  |
-        |----------+----------+---------------------+----------|
-        | <source> | Discrete | {CHANnel1|CHANnel2} | CHANnel1 |
+        **Parameter**
 
-        Return Format
+        ========== ========= ==================== ========
+         Name      Type      Range                Default
+        ========== ========= ==================== ========
+         <source>  Discrete  {CHANnel1|CHANnel2}  CHANnel1
+        ========== ========= ==================== ========
+
+        **Return Format**
+
         The query returns CHAN1 or CHAN2。
 
-        Example
+        **Example**
+
         :WAVeform:SOURce CHANnel2
+
         The query returns CHAN2.
 
         :return:
@@ -371,37 +463,48 @@ class Waveform(BaseController):
 
     def points(self, points: int):
         """
-        Rigol Programming Guide:
+        **Rigol Programming Guide**
+
 
         :WAVeform:POINts
 
-        Syntax
+        **Syntax**
+
         :WAVeform:POINts <point>
+
         :WAVeform:POINts?
 
-        Description
+        **Description**
+
         Set the number of waveform points to be read.
         Query the current number of waveform points to be read.
 
-        Parameter
-        Name        Type        Range                   Default
-        <point>     Integer     NORMal: 1 to 1400       --
-                                MAX: 1 to the number
-                                     of effective
-                                     points currently
-                                     on the screen
-                                RAW: 1 to the current
-                                     maximum memory
-                                     depth
+        **Parameter**
 
-        Explanation
+        =========== =========== ======================= =======
+        Name        Type        Range                   Default
+        =========== =========== ======================= =======
+        <point>     Integer     **NORMal**: 1 to 1400   --
+                                **MAX**: 1 to the
+                                number of effective
+                                points currently
+                                on the screen
+                                **RAW**: 1 to the 
+                                current maximum memory
+                                depth
+        =========== =========== ======================= =======
+
+        **Explanation**
+
         The number of waveform points is limited by the current reading mode
         of waveform (refer to the :WAVeform:MODE command).
         Return Format
         The query returns an integer.
 
-        Example
+        **Example**
+
         :WAVeform:POINts 600
+
         The query returns 600..
 
         :return:
@@ -430,26 +533,37 @@ class Waveform(BaseController):
 
     def data(self, recorded: bool = False):
         """
-        Rigol Programming Guide:
 
-        Syntax
+        **Rigol Programming Guide**
+
+        **Syntax**
+
         :WAVeform:DATA?
 
-        Description
+        **Description**
+
         Read the waveform data.
 
-        Explanation
+        **Explanation**
+
         This command is affected by the :WAVeform:FORMat, :WAVeform:MODE,
-                                        :WAVeform:POINts, :WAVeform:SOURce
-                                        and related commands.
+        :WAVeform:POINts, :WAVeform:SOURce and related commands.
 
         Procedures of the screen waveform data reading:
+
+        =========================== =================================
+        Command                     Description
+        =========================== =================================
         S1. :WAV:SOURce CHAN1       Set the channel source to be read
         S2. :WAV:MODE NORM          Set the waveform mode to NORM
         S3. :WAV:DATA?              Obtain data from buffer
+        =========================== =================================
 
         Procedures of the internal memory waveform data reading:
 
+        =========================== ==========================================
+        Command                     Description
+        =========================== ==========================================
         S1. :STOP                   The internal memory waveform data can only
                                     be read in STOP state
         S2. :WAV:SOURce CHAN1       Set the channel source to be read
@@ -463,37 +577,43 @@ class Waveform(BaseController):
             2) READ                 Waveform reading thread is running
                 :WAV:DATA?          Get data in buffer
                 Repeat S6           Continue to read waveform data
+        =========================== ==========================================
 
         See the example below.
-        visa32.viPrintf(viSession, ":STOP\n");
-        visa32.viPrintf(viSession, ":WAV:MODE RAW\n");
-        visa32.viPrintf(viSession, ":WAV:SOURce %s\n", strChan );
-        visa32.viPrintf(viSession, ":WAV:RESet\n");
-        visa32.viPrintf(viSession, ":WAV:BEGin\n");
-        while (true) {
-            Thread.Sleep( 100 );
-            visa32.viPrintf(viSession, ":WAV:STATus?\n");
-            visa32.viScanf(viSession, "%s", strBuild);
-            if (strBuild[0] == 'I') {  //IDLE
-                visa32.viPrintf(viSession, ":WAV:DATA?\n");
-                visa32.viRead(viSession, wfmBuf, wfmBuf.Length, out readCnt);
-                readSum += ( readCnt -12);
-                readTim++;
-                Console.WriteLine("{0}: Read {1} Sum {2}" , readTim, readCnt, readSum);
-                return readSum;
-            } else {
-                visa32.viPrintf(viSession, ":WAV:DATA?\n");
-                visa32.viRead(viSession, wfmBuf, wfmBuf.Length, out readCnt);
-                readSum += (readCnt -12);
-                readTim++;
-                Console.WriteLine("{0}: Read {1} Sum {2}" , readTim, readCnt, readSum);
-                Console.WriteLine("Press any key to read next data." );
-                //Console.ReadKey();
-                Console.WriteLine("Reading..." );
-            }
-        }
 
-        Return Format
+        .. code-block:: c
+
+           visa32.viPrintf(viSession, ":STOP\\n");
+           visa32.viPrintf(viSession, ":WAV:MODE RAW\\n");
+           visa32.viPrintf(viSession, ":WAV:SOURce %s\\n", strChan );
+           visa32.viPrintf(viSession, ":WAV:RESet\\n");
+           visa32.viPrintf(viSession, ":WAV:BEGin\\n");
+           while (true) {
+               Thread.Sleep( 100 );
+               visa32.viPrintf(viSession, ":WAV:STATus?\\n");
+               visa32.viScanf(viSession, "%s", strBuild);
+               if (strBuild[0] == 'I') {  //IDLE
+                   visa32.viPrintf(viSession, ":WAV:DATA?\\n");
+                   visa32.viRead(viSession, wfmBuf, wfmBuf.Length, out readCnt);
+                   readSum += ( readCnt -12);
+                   readTim++;
+                   Console.WriteLine("{0}: Read {1} Sum {2}" , readTim, readCnt, readSum);
+                   return readSum;
+               } else {
+                   visa32.viPrintf(viSession, ":WAV:DATA?\\n");
+                   visa32.viRead(viSession, wfmBuf, wfmBuf.Length, out readCnt);
+                   readSum += (readCnt -12);
+                   readTim++;
+                   Console.WriteLine("{0}: Read {1} Sum {2}" , readTim, readCnt, readSum);
+                   Console.WriteLine("Press any key to read next data." );
+                   //Console.ReadKey();
+                   Console.WriteLine("Reading..." );
+               }
+           }
+
+
+        **Return Format**
+
         The data returned contains 2 parts: the TMC data description header and
         the waveform data.
 
@@ -519,148 +639,158 @@ class Waveform(BaseController):
         voltage of each point of the waveform on the screen using the formula
         (ox63 - vertical reference position in Y direction) × VerticalScale-OFFSet.
         For the vertical reference position in Y direction, refer to the
-        :WAVeform:YREFerence? command, for the VerticalScale, refer to the
-        :CHANnel<n>:SCALe command and for the OFFSet, refer to the
-        :CHANNel<n>:OFFSet command.
+        **:WAVeform:YREFerence?** command, for the VerticalScale, refer to the
+        **:CHANnel<n>:SCALe** command and for the OFFSet, refer to the
+        **:CHANNel<n>:OFFSet** command.
 
         Note: when the return format of the waveform data is set to ASCii
         (refer to the :WAVeform:FORMat command), the query returns the actual
         voltage of each point of the waveform on the screen in scientific
         notation.
 
-        C# Test Program
-        using System; using System.Collections.Generic;
-        using System.Linq;
-        using System.Text;
-        using System.Diagnostics;
-        using System.Threading;
-        using System.IO;
-        namespace FalconWavQuery {
-            class Program {
-                static void Main(string[] args) {
-                    Int32 viDef = 0;
-                    Int32 viSession = 0;
-                    Int32 s32ReadByte;
-                    if (args.Length < 2) {
-                        Console.WriteLine( "Invalid Input! FalconWavQuery CHAN1 fileName" );
-                        return;
-                    }
-                    Stopwatch stpWatch = new Stopwatch();
-                    InitVisa( out viDef );
-                    if (ConnectDevice(viDef, out viSession) == true) {}
-                    else {
-                        Console.WriteLine( "Connect fail!" );
-                        return;
-                    }
-                    stpWatch.Start();
-                    s32ReadByte = TestReadWfm(viSession, args[0], args[1] );
-                    stpWatch.Stop();
-                    Console.WriteLine( "Speed is {0} KB/s", s32ReadByte/stpWatch.ElapsedMilliseconds );
-                    DeInitVisa(viDef, viSession);
-                    Console.WriteLine( "Press any key to continue.");
-                    Console.ReadKey();
-                }
-                static Int32 TestReadWfm(Int32 viSession, string strChan, string strFile ) {
-                    byte []wfmBuf;
-                    Int32 readCnt = 0;
-                    Int32 readSum = 0;
-                    Int32 readTim = 0;
-                    Int32 maxPacket=0;
-                    StringBuilder strBuild;
-                    Stream streamOut;
-                    BinaryWriter wfmStream;
-                    wfmBuf = new byte[1024*1024*10];
-                    strBuild = new StringBuilder(256);
-                    visa32.viPrintf(viSession, ":STOP\n");
-                    visa32.viPrintf(viSession, ":WAV:MODE RAW\n");
-                    visa32.viPrintf(viSession, ":WAV:SOURce %s\n", strChan );
-                    visa32.viPrintf(viSession, ":WAV:RESet\n");
-                    visa32.viPrintf(viSession, ":WAV:BEGin\n");
-                    //read buffer to WFM
-                    streamOut = File.Create( strFile , 10000000);
-                    wfmStream = new BinaryWriter(streamOut);
-                    while (true) {
-                        //Thread.Sleep( 10000 );
-                        visa32.viPrintf(viSession, ":WAV:STATus?\n");
-                        visa32.viScanf(viSession, "%s", strBuild);
+        **C# Test Program**
 
-                        if (strBuild[0] == 'I') {  //IDLE
-                            visa32.viPrintf(viSession, ":WAV:DATA?\n");
-                            visa32.viRead(viSession, wfmBuf, wfmBuf.Length, out readCnt);
-                            //data header #9XXXX... plus end mark \n
-                            readCnt -=12;
-                            readSum += (readCnt);
-                            if (readCnt > maxPacket) {
-                                maxPacket = readCnt;
-                            }
-                            //readTim++;
-                            //skip data header #9XXXX...
-                            if (readCnt > 0) {
-                                wfmStream.Write( wfmBuf, 11, readCnt);
-                            }
-                            wfmStream.Close();
-                            Console.WriteLine("{0}: Read {1} Sum {2} Max {3}", readTim, readCnt, readSum, maxPacket );
-                            return readSum;
-                        }
-                        else {
-                            //READ
-                            visa32.viPrintf(viSession, ":WAV:DATA?\n");
-                            visa32.viRead(viSession, wfmBuf, wfmBuf.Length, out readCnt);
-                            //data header #9XXXX... plus end mark \n
-                            readCnt -= 12;
-                            readSum += (readCnt);
-                            if (readCnt > maxPacket) {
-                                maxPacket = readCnt;
-                            }
-                            Console.WriteLine("{0}: Read {1} ", readTim, readCnt );
-                            readTim++;
-                            //skip data header #9XXXX...
-                            if (readCnt > 0) {
-                                wfmStream.Write( wfmBuf ,11, readCnt);
-                            }
-                        }
-                    }
-                    return readSum;
-                }
-                //initialize VISA
-                static bool InitVisa( out Int32 viDef ) {
-                    Int32 viError;
-                    viError = visa32.viOpenDefaultRM( out viDef );
-                    if( viError!=visa32.VI_SUCCESS ) {
-                        return false;
-                    }
-                    else {
-                        return true;
-                    }
-                }
-                //to initialize VISA
-                static void DeInitVisa(Int32 viDef, Int32 viSession ) {
-                    visa32.viClose(viSession);
-                    visa32.viClose(viDef );
-                }
-                //connect devices
-                static bool ConnectDevice(Int32 viDef, out Int32 viSession) {
-                    Int32 viError;
-                    Int32 viFindList;
-                    Int32 viRetCount;
-                    StringBuilder strRsrc = new StringBuilder(256);
-                    viError = visa32.viFindRsrc(viDef, "USB?*", out viFindList, out viRetCount, strRsrc);
-                    if (viRetCount > 0) {
-                        viError = visa32.viOpen(viDef, strRsrc.ToString(), 0, 0, out viSession);
-                        if (viError != visa32.VI_SUCCESS)
-                    {
-                    visa32.viClose(viDef);
-                    return false;
-                }
-                return true;
-            }
-            else {
-                viSession = 0;
-                return false;
-            }
-        }
-    }
-}
+
+        .. code-block:: c#
+
+           using System;
+           using System.Collections.Generic;
+           using System.Linq;
+           using System.Text;
+           using System.Diagnostics;
+           using System.Threading;
+           using System.IO;
+           namespace FalconWavQuery
+           {
+           class Program
+           {
+                   static void Main(string[] args)
+                   {
+                           Int32 viDef = 0;
+                           Int32 viSession = 0;
+                           Int32 s32ReadByte;
+                           if (args.Length < 2) {
+                                   Console.WriteLine("Invalid Input! FalconWavQuery CHAN1 fileName");
+                                   return;
+                           }
+                           Stopwatch stpWatch = new Stopwatch();
+                           InitVisa(out viDef);
+                           if (ConnectDevice(viDef, out viSession) == true) {}
+                           else {
+                                   Console.WriteLine("Connect fail!");
+                                   return;
+                           }
+                           stpWatch.Start();
+                           s32ReadByte = TestReadWfm(viSession, args[0], args[1]);
+                           stpWatch.Stop();
+                           Console.WriteLine("Speed is {0} KB/s",
+                                             s32ReadByte / stpWatch.ElapsedMilliseconds);
+                           DeInitVisa(viDef, viSession);
+                           Console.WriteLine("Press any key to continue.");
+                           Console.ReadKey();
+                   }
+                   static Int32 TestReadWfm(Int32 viSession, string strChan, string strFile)
+                   {
+                           byte []wfmBuf;
+                           Int32 readCnt = 0;
+                           Int32 readSum = 0;
+                           Int32 readTim = 0;
+                           Int32 maxPacket = 0;
+                           StringBuilder strBuild;
+                           Stream streamOut;
+                           BinaryWriter wfmStream;
+                           wfmBuf = new byte[1024 * 1024 * 10];
+                           strBuild = new StringBuilder(256);
+                           visa32.viPrintf(viSession, ":STOP\\n");
+                           visa32.viPrintf(viSession, ":WAV:MODE RAW\\n");
+                           visa32.viPrintf(viSession, ":WAV:SOURce %s\\n", strChan);
+                           visa32.viPrintf(viSession, ":WAV:RESet\\n");
+                           visa32.viPrintf(viSession, ":WAV:BEGin\\n");
+                           //read buffer to WFM
+                           streamOut = File.Create(strFile, 10000000);
+                           wfmStream = new BinaryWriter(streamOut);
+                           while (true) {
+                                   //Thread.Sleep( 10000 );
+                                   visa32.viPrintf(viSession, ":WAV:STATus?\\n");
+                                   visa32.viScanf(viSession, "%s", strBuild);
+                                    if (strBuild[0] == 'I') {  //IDLE
+                                           visa32.viPrintf(viSession, ":WAV:DATA?\\n");
+                                           visa32.viRead(viSession, wfmBuf, wfmBuf.Length, out readCnt);
+                                           //data header #9XXXX... plus end mark \\n
+                                           readCnt -= 12;
+                                           readSum += (readCnt);
+                                           if (readCnt > maxPacket) {
+                                                   maxPacket = readCnt;
+                                           }
+                                           //readTim++;
+                                           //skip data header #9XXXX...
+                                           if (readCnt > 0) {
+                                                   wfmStream.Write(wfmBuf, 11, readCnt);
+                                           }
+                                           wfmStream.Close();
+                                           Console.WriteLine("{0}: Read {1} Sum {2} Max {3}", readTim, readCnt, readSum,
+                                                             maxPacket);
+                                           return readSum;
+                                   } else {
+                                           //READ
+                                           visa32.viPrintf(viSession, ":WAV:DATA?\\n");
+                                           visa32.viRead(viSession, wfmBuf, wfmBuf.Length, out readCnt);
+                                           //data header #9XXXX... plus end mark \\n
+                                           readCnt -= 12;
+                                           readSum += (readCnt);
+                                           if (readCnt > maxPacket) {
+                                                   maxPacket = readCnt;
+                                           }
+                                           Console.WriteLine("{0}: Read {1} ", readTim, readCnt);
+                                           readTim++;
+                                           //skip data header #9XXXX...
+                                           if (readCnt > 0) {
+                                                   wfmStream.Write(wfmBuf, 11, readCnt);
+                                           }
+                                   }
+                           }
+                           return readSum;
+                   }
+                   //initialize VISA
+                   static bool InitVisa(out Int32 viDef)
+                   {
+                           Int32 viError;
+                           viError = visa32.viOpenDefaultRM(out viDef);
+                           if (viError != visa32.VI_SUCCESS) {
+                                   return false;
+                           } else {
+                                   return true;
+                           }
+                   }
+                   //to initialize VISA
+                   static void DeInitVisa(Int32 viDef, Int32 viSession)
+                   {
+                           visa32.viClose(viSession);
+                           visa32.viClose(viDef);
+                   }
+                   //connect devices
+                   static bool ConnectDevice(Int32 viDef, out Int32 viSession)
+                   {
+                           Int32 viError;
+                           Int32 viFindList;
+                           Int32 viRetCount;
+                           StringBuilder strRsrc = new StringBuilder(256);
+                           viError = visa32.viFindRsrc(viDef, "USB?*", out viFindList, out viRetCount,
+                                                       strRsrc);
+                           if (viRetCount > 0) {
+                                   viError = visa32.viOpen(viDef, strRsrc.ToString(), 0, 0, out viSession);
+                                   if (viError != visa32.VI_SUCCESS) {
+                                           visa32.viClose(viDef);
+                                           return false;
+                                   }
+                                   return true;
+                           } else {
+                                   viSession = 0;
+                                   return false;
+                           }
+                   }
+           }
+           }
 
         :return:
         """
@@ -730,21 +860,26 @@ class Waveform(BaseController):
     @property
     def x_increment(self) -> float:
         """
-        Rigol Programming Guide:
+        **Rigol Programming Guide**
 
-        Syntax
+        **Syntax**
+
         :WAVeform:XINCrement?
 
-        Description
+        **Description**
+
         Query the time difference between two neighboring points of the
         specified source (refer to the :WAVeform:SOURce command) in X direction
         and the unit is s.
 
-        Return Format
+        **Return Format**
+
         The query returns the time difference in scientific notation.
 
-        Example
+        **Example**
+
         :WAVeform:XINCrement?
+
         The query returns 1.000000e-08.
 
         :return:
@@ -754,20 +889,27 @@ class Waveform(BaseController):
     @property
     def x_origin(self) -> float:
         """
-        Rigol Programming Guide:
+        **Rigol Programming Guide**
 
-        Syntax
+
+        **Syntax**
+
         :WAVeform:XORigin?
 
-        Description
+        **Description**
+
         Query the time from the trigger point to the reference time (refer to
         the :WAVeform:SOURce command) of the specified source (refer to the
         :WAVeform:XREFerence? command) in X direction and the unit is s.
-        Return Format
+
+        **Return Format**
+
         The query returns the time value in scientific notation.
 
-        Example
+        **Example**
+
         :WAVeform:XORigin?
+
         The query returns -7.000000e-06.
 
         :return:
@@ -777,20 +919,27 @@ class Waveform(BaseController):
     @property
     def x_reference(self) -> float:
         """
-        Rigol Programming Guide:
+        **Rigol Programming Guide**
 
-        Syntax
+
+        **Syntax**
+
         :WAVeform:XREFerence?
 
-        Description
+        **Description**
+
         Query the reference time of the specified source (refer to the
         :WAVeform:SOURce command) in X direction and the unit is s.
 
-        Return Format
+        **Return Format**
+
         The query returns the reference time in integer.
-        Example
+
+        **Example**
+
 
         :WAVeform:XREFerence?
+
         The query returns 0.
 
         :return:
@@ -800,21 +949,27 @@ class Waveform(BaseController):
     @property
     def y_increment(self) -> float:
         """
-        Rigol Programming Guide:
+        **Rigol Programming Guide**
 
-        Syntax
+
+        **Syntax**
+
         :WAVeform:YINCrement?
 
-        Description
+        **Description**
+
         Query the voltage value per unit of the specified source (refer to the
         :WAVeform:SOURce command) in Y direction and the unit is the same with
         the unit of the signal source.
 
-        Return Format
+        **Return Format**
+
         The query returns the voltage value in scientific notation.
 
-        Example
+        **Example**
+
         :WAVeform:YINCrement?
+
         The query returns 4.000000e-02.
 
         :return:
@@ -824,22 +979,27 @@ class Waveform(BaseController):
     @property
     def y_origin(self) -> float:
         """
-        Rigol Programming Guide:
+        Rigol Programming Guide
 
-        Syntax
+        **Syntax**
+
         :WAVeform:YORigin?
 
-        Description
+        **Description**
+
         Query the vertical offset relative to the vertical reference position
         (refer to the :WAVeform:SOURce command) of the specified source
         (refer to the :WAVeform:YREFerence? command) in Y direction and the
         unit is the same with the unit of the signal source.
 
-        Return Format
+        **Return Format**
+
         The query returns the offset value in scientific notation.
 
-        Example
+        **Example**
+
         :WAVeform:YORigin?
+
         The query returns 2.000000e+00.
 
         :return:
@@ -849,21 +1009,27 @@ class Waveform(BaseController):
     @property
     def y_reference(self) -> float:
         """
-        Rigol Programming Guide:
+        **Rigol Programming Guide**
 
-        Syntax
+
+        **Syntax**
+
         :WAVeform:YREFerence?
 
-        Description
+        **Description**
+
         Query the vertical reference position of the specified source (refer to
         the :WAVeform:SOURce command) in Y direction and the unit is the same
         with the unit of the signal source.
 
-        Return Format
+        **Return Format**
+
         The query returns the reference position in integer.
 
-        Example
+        **Example**
+
         :WAVeform:YREFerence?
+
         The query returns 127.
 
         :return:
@@ -872,39 +1038,51 @@ class Waveform(BaseController):
 
     def start(self, start: int = 1):
         """
-        Rigol Programming Guide:
+        **Rigol Programming Guide**
+
 
         :WAVeform:STARt
 
-        Syntax
+        **Syntax**
+
         :WAVeform:STARt <sta>
+
         :WAVeform:STARt?
 
-        Description
+        **Description**
+
         Set the start position of internal memory waveform reading.
         Query the current start position of internal memory waveform reading.
 
-        Parameter
-        Name        Type        Range                   Default
-        <sta>     Integer     NORMal: 1 to 1400       --
-                                MAX: 1 to the number
-                                  of effective
-                                  points currently
-                                  on the screen
-                                RAW: 1 to the current
-                                  maximum memory
-                                  depth
+        **Parameter**
 
-        Explanation
+        =========== =========== ====================== ========
+        Name        Type        Range                   Default
+        =========== =========== ====================== ========
+        <sta>       Integer     **NORMal**: 1 to 1400       --
+                                **MAX**: 1 to the 
+                                number of effective
+                                points currently
+                                on the screen
+                                **RAW**: 1 to the 
+                                current maximum memory
+                                depth
+        =========== =========== ====================== ========
+
+        **Explanation**
+
         For the memory depth, refer to the :ACQuire:MDEPth command.
         The setting of the start position is limited by the current reading
         mode of the waveform (refer to the :WAVeform:MODE command).
 
-        Return Format
+        **Return Format**
+
         The query returns an integer.
 
-        Example
+        **Example**
+
         :WAVeform:STARt 100
+
         The query returns 100.
 
         :return:
@@ -930,39 +1108,50 @@ class Waveform(BaseController):
 
     def stop(self, stop: int):
         """
-        Rigol Programming Guide:
+        **Rigol Programming Guide**
 
         :WAVeform:STOP
 
-        Syntax
+        **Syntax**
+
         :WAVeform:STOP <sta>
+
         :WAVeform:STOP?
 
-        Description
+        **Description**
+
         Set the stop position of internal memory waveform reading.
         Query the current stop position of internal memory waveform reading.
 
-        Parameter
-        Name        Type        Range                   Default
-        <sta>     Integer       NORMal: 1 to 1400       --
-                                MAX: 1 to the number
-                                  of effective
-                                  points currently
-                                  on the screen
-                                RAW: 1 to the current
-                                  maximum memory
-                                  depth
+        **Parameter**
 
-        Explanation
+        =========== =========== ======================= =======
+        Name        Type        Range                   Default
+        =========== =========== ======================= =======
+        <sta>       Integer     **NORMal**: 1 to 1400   --
+                                **MAX**: 1 to the 
+                                number of effective
+                                points currently
+                                on the screen
+                                **RAW**: 1 to the 
+                                current maximum memory
+                                depth
+        =========== =========== ======================= =======
+
+        **Explanation**
+
         For the memory depth, refer to the :ACQuire:MDEPth command.
         The setting of the stop position is limited by the current reading
         mode of the waveform (refer to the :WAVeform:MODE command).
 
-        Return Format
+        **Return Format**
+
         The query returns an integer.
 
-        Example
+        **Example**
+
         :WAVeform:STOP 200
+
         The query returns 200.
 
         :return:
@@ -988,14 +1177,16 @@ class Waveform(BaseController):
 
     def begin(self):
         """
-        Rigol Programming Guide:
+        **Rigol Programming Guide**
 
         :WAVeform:BEGin
 
-        Syntax
+        **Syntax**
+
         :WAVeform:BEGin
 
-        Description
+        **Description**
+
         Enable the waveform reading.
 
         :return:
@@ -1004,14 +1195,16 @@ class Waveform(BaseController):
 
     def end(self):
         """
-        Rigol Programming Guide:
+        **Rigol Programming Guide**
 
         :WAVeform:END
 
-        Syntax
+        **Syntax**
+
         :WAVeform:END
 
-        Description
+        **Description**
+
         Stop the waveform reading.
 
         :return:
@@ -1020,14 +1213,16 @@ class Waveform(BaseController):
 
     def reset(self):
         """
-        Rigol Programming Guide:
+        **Rigol Programming Guide**
 
         :WAVeform:RESet
 
-        Syntax
+        **Syntax**
+
         :WAVeform:RESet
 
-        Description
+        **Description**
+
         Reset the waveform reading.
 
         :return:
@@ -1036,42 +1231,52 @@ class Waveform(BaseController):
 
     def preamble(self) -> Preamble:
         """
-        Rigol Programming Guide:
+        **Rigol Programming Guide**
+
 
         :WAVeform:PREamble?
-        Syntax
+
+        **Syntax**
+
         :WAVeform:PREamble?
 
-        Description
+        **Description**
+
         Query and return all the waveform parameters.
 
-        Return Format
+        **Return Format**
+
         The query returns 10 waveform parameters separated by ",":
         <format>,<type>,<points>,<count>,<xincrement>,<xorigin>,<xreference>,<yincrement>,<yorigin>,<yreference>
-        <format>: 0 (WORD), 1 (BYTE) or 2 (ASC). Refer to the :WAVeform:FORMat
-                  command.
-        <type>: 0 (NORMal), 1 (MAXimum) or 2 (RAW). Refer to the
-                :WAVeform:MODE command.
-        <points>: integer between 1 and 56000000. Refer to the
-                  :WAVeform:POINts command.
-        <count>: the number of averages in average sample mode (refer to the
-                 :ACQuire:AVERages command) and 1 in other modes.
+
+        ============= =========================================================
+        <format>:     0 (WORD), 1 (BYTE) or 2 (ASC). Refer to the
+                      :WAVeform:FORMat command.
+        <type>:       0 (NORMal), 1 (MAXimum) or 2 (RAW). Refer to the
+                      :WAVeform:MODE command.
+        <points>:     integer between 1 and 56000000. Refer to the
+                      :WAVeform:POINts command.
+        <count>:      the number of averages in average sample mode (refer to
+                      the :ACQuire:AVERages command) and 1 in other modes.
         <xincrement>: the time difference between two neighboring points in X
                       direction. Refer to the :WAVeform:XINCrement? command.
-        <xorigin>: the time from the trigger point to the "Reference Time" in
-                   X direction. Refer to the :WAVeform:XORigin? command.
+        <xorigin>:    the time from the trigger point to the "Reference Time"
+                      in X direction. Refer to the :WAVeform:XORigin? command.
         <xreference>: the reference time of the data point in X direction.
                       Refer to the :WAVeform:XREFerence? command.
         <yincrement>: the voltage value per unit in Y direction. Refer to the
                       :WAVeform:YINCrement? command.
-        <yorigin> the vertical offset relative to the "Vertical Reference
-                  Position" in Y direction. Refer to the :WAVeform:YORigin?
-                  command.
+        <yorigin>     the vertical offset relative to the "Vertical Reference
+                      Position" in Y direction. Refer to the :WAVeform:YORigin?
+                      command.
         <yreference>: the vertical reference position in Y direction. Refer
                       to the :WAVeform:YREFerence? command.
+        ============= =========================================================
 
-        Example
+        **Example**
+
         :WAVeform:PREamble?
+
         The query returns 0,0,1400,1,0.000000,-0.000007,0,0.040000,2.000000,127.
 
         :return:
@@ -1094,22 +1299,29 @@ class Waveform(BaseController):
 
     def status(self) -> WaveformStatus:
         """
-        Rigol Programming Guide:
+        **Rigol Programming Guide**
+
 
         :WAVeform:STATus?
 
-        Syntax
+        **Syntax**
+
         :WAV:STATus?
 
-        Description
+        **Description**
+
         Query and return the current waveform reading state.
 
-        Explanation
-        IDLE: the waveform reading thread finishes.
-        READ: the waveform reading thread is running.
-        n: the current number of waveform points to be read.
+        **Explanation**
 
-        Return Format
+        **IDLE**: the waveform reading thread finishes.
+
+        **READ**: the waveform reading thread is running.
+
+        **n**: the current number of waveform points to be read.
+
+        **Return Format**
+
         The query returns IDLE,n or READ,n.
 
         :return:

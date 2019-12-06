@@ -22,5 +22,4 @@ __email__: str = "Michael@MichaelSasser.org"
 from .format import *
 
 
-__all__ = (format.__all__,)
-
+__all__ = (*format.__all__,)

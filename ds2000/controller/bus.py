@@ -29,26 +29,36 @@ class Mode(SubController):
     def parallel(self):
         """
 
-        Rigol Programming Guide:
+        **Rigol Programming Guide**
 
-        Syntax
+        **Syntax**
+
         :BUS<n>:MODE <mode>
+
         :BUS<n>:MODE?
 
-        Description
+        **Description**
+
         Set the decoding mode of bus 1 or 2.
         Query the current decoding mode of bus 1 or 2.
 
-        Parameter
+        **Parameter**
+
+        ======== ========== ========================== =======
         Name     Type       Range                      Default
+        ======== ========== ========================== =======
         <n>      Discrete   {1|2}                      --
         <mode>   Discrete   {PARallel|RS232|IIC|SPI}   PARallel
+        ======== ========== ========================== =======
 
-        Return Format
+        **Return Format**
+
         The query returns PAR, RS232, IIC or SPI.
 
-        Example
+        **Example**
+
         :BUS1:MODE SPI
+
         The query returns SPI.
 
         :return:
@@ -60,26 +70,37 @@ class Mode(SubController):
     def rs232(self):
         """
 
-        Rigol Programming Guide:
+        **Rigol Programming Guide**
 
-        Syntax
+
+        **Syntax**
+
         :BUS<n>:MODE <mode>
+        
         :BUS<n>:MODE?
 
-        Description
+        **Description**
+
         Set the decoding mode of bus 1 or 2.
         Query the current decoding mode of bus 1 or 2.
 
-        Parameter
+        **Parameter**
+
+        ======== ========== ========================== ========
         Name     Type       Range                      Default
+        ======== ========== ========================== ========
         <n>      Discrete   {1|2}                      --
         <mode>   Discrete   {PARallel|RS232|IIC|SPI}   PARallel
+        ======== ========== ========================== ========
 
-        Return Format
+        **Return Format**
+
         The query returns PAR, RS232, IIC or SPI.
 
-        Example
+        **Example**
+
         :BUS1:MODE SPI
+
         The query returns SPI.
 
         :return:
@@ -89,26 +110,37 @@ class Mode(SubController):
     def i2c(self):
         """
 
-        Rigol Programming Guide:
+        **Rigol Programming Guide**
 
-        Syntax
+
+        **Syntax**
+
         :BUS<n>:MODE <mode>
+
         :BUS<n>:MODE?
 
-        Description
+        **Description**
+
         Set the decoding mode of bus 1 or 2.
         Query the current decoding mode of bus 1 or 2.
 
-        Parameter
+        **Parameter**
+
+        ======== ========== ========================== ========
         Name     Type       Range                      Default
+        ======== ========== ========================== ========
         <n>      Discrete   {1|2}                      --
         <mode>   Discrete   {PARallel|RS232|IIC|SPI}   PARallel
+        ======== ========== ========================== ========
 
-        Return Format
+        **Return Format**
+
         The query returns PAR, RS232, IIC or SPI.
 
-        Example
+        **Example**
+
         :BUS1:MODE SPI
+
         The query returns SPI.
 
         :return:
@@ -118,26 +150,37 @@ class Mode(SubController):
     def spi(self):
         """
 
-        Rigol Programming Guide:
+        **Rigol Programming Guide**
 
-        Syntax
+
+        **Syntax**
+
         :BUS<n>:MODE <mode>
+
         :BUS<n>:MODE?
 
-        Description
+        **Description**
+
         Set the decoding mode of bus 1 or 2.
         Query the current decoding mode of bus 1 or 2.
 
-        Parameter
+        **Parameter**
+
+        ======== ========== ========================== ========
         Name     Type       Range                      Default
+        ======== ========== ========================== ========
         <n>      Discrete   {1|2}                      --
         <mode>   Discrete   {PARallel|RS232|IIC|SPI}   PARallel
+        ======== ========== ========================== ========
 
-        Return Format
+        **Return Format**
+
         The query returns PAR, RS232, IIC or SPI.
 
-        Example
+        **Example**
+
         :BUS1:MODE SPI
+
         The query returns SPI.
 
         :return:
@@ -167,27 +210,38 @@ class Format(SubController):
     def hex(self):
         """
 
-        Rigol Programming Guide:
+        **Rigol Programming Guide**
 
-        Syntax
+
+        **Syntax**
+
         :BUS<n>:FORMat <format>
+
         :BUS<n>:FORMat?
 
-        Description
+        **Description**
+
         Set the display format of bus 1 or 2 to hexadecimal, decimal, binary
         or ASCII.
         Query the current display format of bus 1 or 2.
 
-        Parameter
+        **Parameter**
+
+        ======== ========== ========================== ========
         Name       Type       Range                 Default
+        ======== ========== ========================== ========
         <n>        Discrete   {1|2}                 --
         <format>   Discrete   {HEX|DEC|BIN|ASCii}   HEX
+        ======== ========== ========================== ========
 
-        Return Format
+        **Return Format**
+
         The query returns HEX, DEC, BIN or ASC.
 
-        Example
+        **Example**
+
         :BUS1:FORMat DEC
+
         The query returns DEC.
 
         :return:
@@ -199,27 +253,37 @@ class Format(SubController):
     def dec(self):
         """
 
-        Rigol Programming Guide:
+        **Rigol Programming Guide**
 
-        Syntax
+        **Syntax**
+
         :BUS<n>:FORMat <format>
+
         :BUS<n>:FORMat?
 
-        Description
+        **Description**
+
         Set the display format of bus 1 or 2 to hexadecimal, decimal, binary
         or ASCII.
         Query the current display format of bus 1 or 2.
 
-        Parameter
+        **Parameter**
+
+        ========== ========== ===================== ========
         Name       Type       Range                 Default
+        ========== ========== ===================== ========
         <n>        Discrete   {1|2}                 --
         <format>   Discrete   {HEX|DEC|BIN|ASCii}   HEX
+        ========== ========== ===================== ========
 
-        Return Format
+        **Return Format**
+
         The query returns HEX, DEC, BIN or ASC.
 
-        Example
+        **Example**
+
         :BUS1:FORMat DEC
+
         The query returns DEC.
 
         :return:
@@ -231,27 +295,38 @@ class Format(SubController):
     def bin(self):
         """
 
-        Rigol Programming Guide:
+        **Rigol Programming Guide:**
 
-        Syntax
+
+        **Syntax**
+
         :BUS<n>:FORMat <format>
+
         :BUS<n>:FORMat?
 
-        Description
+        **Description**
+
         Set the display format of bus 1 or 2 to hexadecimal, decimal, binary
         or ASCII.
         Query the current display format of bus 1 or 2.
 
-        Parameter
+        **Parameter**
+
+        ========== ========== ===================== ========
         Name       Type       Range                 Default
+        ========== ========== ===================== ========
         <n>        Discrete   {1|2}                 --
         <format>   Discrete   {HEX|DEC|BIN|ASCii}   HEX
+        ========== ========== ===================== ========
 
-        Return Format
+        **Return Format**
+
         The query returns HEX, DEC, BIN or ASC.
 
-        Example
+        **Example**
+
         :BUS1:FORMat DEC
+
         The query returns DEC.
 
         :return:
@@ -263,27 +338,38 @@ class Format(SubController):
     def ascii(self):
         """
 
-        Rigol Programming Guide:
+        **Rigol Programming Guide:**
 
-        Syntax
+
+        **Syntax**
+
         :BUS<n>:FORMat <format>
+
         :BUS<n>:FORMat?
 
-        Description
+        **Description**
+
         Set the display format of bus 1 or 2 to hexadecimal, decimal, binary
         or ASCII.
         Query the current display format of bus 1 or 2.
 
-        Parameter
+        **Parameter**
+
+        ========== ========== ===================== ========
         Name       Type       Range                 Default
+        ========== ========== ===================== ========
         <n>        Discrete   {1|2}                 --
         <format>   Discrete   {HEX|DEC|BIN|ASCii}   HEX
+        ========== ========== ===================== ========
 
-        Return Format
+        **Return Format**
+
         The query returns HEX, DEC, BIN or ASC.
 
-        Example
+        **Example**
+
         :BUS1:FORMat DEC
+
         The query returns DEC.
 
         :return:
@@ -325,26 +411,37 @@ class Bus(BaseController):
     def display(self) -> bool:
         """
 
-        Rigol Programming Guide:
+        **Rigol Programming Guide**
 
-        Syntax
+
+        **Syntax**
+
         :BUS<n>:DISPlay <bool>
+
         :BUS<n>:DISPlay?
 
-        Description
+        **Description**
+
         Enable or disable the display of bus 1 or 2.
         Query the current display status of bus 1 or 2.
 
-        Parameter
+        **Parameter**
+
+        ======== ========== ================== ========
         Name     Type       Range              Default
+        ======== ========== ================== ========
         <n>      Discrete   {1|2}              --
         <bool>   Bool       {{0|OFF}|{1|ON}}   0|OFF
+        ======== ========== ================== ========
 
-        Return Format
+        **Return Format**
+
         The query returns 0 or 1.
 
-        Example
+        **Example**
+
         :BUS1:DISPlay ON
+
         The query returns 1.
 
         :return:
@@ -359,26 +456,37 @@ class Bus(BaseController):
     def display(self, enable: bool = True):
         """
 
-        Rigol Programming Guide:
+        **Rigol Programming Guide**
 
-        Syntax
+
+        **Syntax**
+
         :BUS<n>:DISPlay <bool>
+
         :BUS<n>:DISPlay?
 
-        Description
+        **Description**
+
         Enable or disable the display of bus 1 or 2.
         Query the current display status of bus 1 or 2.
 
-        Parameter
+        **Parameter**
+
+        ======== ========== ================== ========
         Name     Type       Range              Default
+        ======== ========== ================== ========
         <n>      Discrete   {1|2}              --
         <bool>   Bool       {{0|OFF}|{1|ON}}   0|OFF
+        ======== ========== ================== ========
 
-        Return Format
+        **Return Format**
+
         The query returns 0 or 1.
 
-        Example
+        **Example**
+
         :BUS1:DISPlay ON
+
         The query returns 1.
 
         :return:
@@ -390,26 +498,37 @@ class Bus(BaseController):
     def eventtable(self):
         """
 
-        Rigol Programming Guide:
+        **Rigol Programming Guide**
 
-        Syntax
+
+        **Syntax**
+
         :BUS<n>:EVENt <bool>
+
         :BUS<n>:EVENt?
 
-        Description
+        **Description**
+
         Enable or disable the event table of bus 1 or bus 2.
         Query the current status of the event table of bus 1 or bus 2.
 
-        Parameter
+        **Parameter**
+
+        ======== ========== ================== ========
         Name     Type       Range              Default
+        ======== ========== ================== ========
         <n>      Discrete   {1|2}              --
         <bool>   Bool       {{0|OFF}|{1|ON}}   0|OFF
+        ======== ========== ================== ========
 
-        Return Format
+        **Return Format**
+
         The query returns 0 or 1.
 
-        Example
+        **Example**
+
         :BUS1:EVENt ON
+
         The query returns 1.
 
         :return:
@@ -424,26 +543,37 @@ class Bus(BaseController):
     def eventtable(self, enable: bool = True):
         """
 
-        Rigol Programming Guide:
+        **Rigol Programming Guide**
 
-        Syntax
+
+        **Syntax**
+
         :BUS<n>:EVENt <bool>
+
         :BUS<n>:EVENt?
 
-        Description
+        **Description**
+
         Enable or disable the event table of bus 1 or bus 2.
         Query the current status of the event table of bus 1 or bus 2.
 
-        Parameter
+        **Parameter**
+
+        ======== ========== ================== ========
         Name     Type       Range              Default
+        ======== ========== ================== ========
         <n>      Discrete   {1|2}              --
         <bool>   Bool       {{0|OFF}|{1|ON}}   0|OFF
+        ======== ========== ================== ========
 
-        Return Format
+        **Return Format**
+
         The query returns 0 or 1.
 
-        Example
+        **Example**
+
         :BUS1:EVENt ON
+
         The query returns 1.
 
         :return:
@@ -454,19 +584,27 @@ class Bus(BaseController):
     def export_eventtable_to_usb(self):
         """
 
-        Rigol Programming Guide:
+        **Rigol Programming Guide**
 
-        Syntax
+
+        **Syntax**
+
         :BUS<n>:EEXPort
 
-        Description
+        **Description**
+
         Export the event table of bus 1 or 2.
 
-        Parameter
-        Name   Type       Range   Default
-        <n>    Discrete   {1|2}   --
+        **Parameter**
 
-        Explanation
+        ====== ========== ======= =======
+        Name   Type       Range   Default
+        ====== ========== ======= =======
+        <n>    Discrete   {1|2}   --
+        ====== ========== ======= =======
+
+        **Explanation**
+
         The data list can be exported to external USB storage device in CSV
         format if USB storage device is currently connected.
 

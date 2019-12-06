@@ -1,0 +1,22 @@
+ds2000.math package
+===================
+
+Submodules
+----------
+
+ds2000.math.format module
+-------------------------
+
+.. automodule:: ds2000.math.format
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: ds2000.math
+   :members:
+   :undoc-members:
+   :show-inheritance:

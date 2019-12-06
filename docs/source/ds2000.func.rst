@@ -1,0 +1,22 @@
+ds2000.func package
+===================
+
+Submodules
+----------
+
+ds2000.func.plot module
+-----------------------
+
+.. automodule:: ds2000.func.plot
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: ds2000.func
+   :members:
+   :undoc-members:
+   :show-inheritance:

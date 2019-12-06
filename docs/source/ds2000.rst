@@ -1,0 +1,19 @@
+ds2000 package
+==============
+
+Subpackages
+-----------
+
+.. toctree::
+
+   ds2000.controller
+   ds2000.func
+   ds2000.math
+
+Module contents
+---------------
+
+.. automodule:: ds2000
+   :members:
+   :undoc-members:
+   :show-inheritance:

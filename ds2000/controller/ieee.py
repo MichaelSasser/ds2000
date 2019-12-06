@@ -36,11 +36,14 @@ class IEEE(BaseController):
     def cls(self):
         """
 
-        Rigol Programming Guide:
+        **Rigol Programming Guide**
 
-        Syntax
-        *CLS
-        Description
+        **Syntax**
+
+        \*CLS
+
+        **Description**
+
         Clear all the event registers in the register set and clear the error
         queue.
 
@@ -51,29 +54,39 @@ class IEEE(BaseController):
     def ese(self):  # ToDo: P. 29-31 -> ESR
         """
 
-        Rigol Programming Guide:
+        **Rigol Programming Guide**
 
-        Syntax
-        *ESE <mask>
-        *ESE?
-        Description
+        **Syntax**
+
+        \*ESE <mask>
+
+        \*ESE?
+
+        **Description**
+
         Set enable register for the standard event register set.
         Query the current value of the enable register of the standard event
         register set.
 
-        Parameter
+        **Parameter**
 
+        ========  ========= ========== =======
         Name      Type      Range      Default
+        ========  ========= ========== =======
         <mask>    Integer   0 to 255   0
+        ========  ========= ========== =======
 
-        Explanation
+        **Explanation**
+
         <mask> is the sum of the weights of all the bits between
         bit 0 and bit 7 that have already been set. If the bit has already been
         set, the corresponding binary bit is 1; otherwise, it is 0.
 
         Definitions of the bits in ESE register:
 
+        ======== ========= ======= ====================
         Bit      Weights   Name    Enable
+        ======== ========= ======= ====================
         7        128       PON     Power On
         6        64        URQ     User Request
         5        32        CME     Command Error
@@ -82,15 +95,19 @@ class IEEE(BaseController):
         2        4         QYE     Query Error
         1        2         RQL     Request Control
         0        1         OPC     Operation Complete
+        ======== ========= ======= ====================
 
-        Return Format
+        **Return Format**
+
         The query returns an integer between 0 and 255 which equals the sum of
         the weights of all the bits that have already been set in the register.
         For example, the query returns 144 if bit 4 (16 in decimal) and
         bit 7 (128 in decimal) are enabled.
 
-        Example
-        *ESE 16
+        **Example**
+
+        \*ESE 16
+
         The query returns 16 (bit 4 is enabled).
 
         :return:
@@ -101,19 +118,27 @@ class IEEE(BaseController):
         """ This method returns the ID character string of the device_address
         as a Instrument Tuple.
 
-        Rigol Programming Guide:
+        **Rigol Programming Guide**
 
-        Syntax
-        *IDN?
-        Description
+        **Syntax**
+
+        \*IDN?
+
+        **Description**
+
         Query the current device information.
-        Return Format
+
+        **Return Format**
+
         Rigol Technologies,<model>,<serial number>,X.XX.XX
         <model>: the model number of the instrument.
         <serial number>: the serial number of the instrument.
         X.XX.XX: the software version of the instrument.
-        Example
-        *IDN?
+
+        **Example**
+
+        \*IDN?
+
         The query returns RIGOL TECHNOLOGIES,DS2202,DS2A0000000001,00.00.01.
 
         :return: Instrument
@@ -123,16 +148,22 @@ class IEEE(BaseController):
     def opc(self):
         """
 
-        Rigol Programming Guide:
+        **Rigol Programming Guide**
 
-        Syntax
-        *OPC
-        *OPC?
-        Description
+        **Syntax**
+
+        \*OPC
+
+        \*OPC?
+
+        **Description**
+
         Set the Operation Complete bit (bit 0) in the standard event status
         register to 1 after the current operation is finished.
         Query whether the current operation is finished.
-        Return Format
+
+        **Return Format**
+
         The query returns 1 if the current operation is finished; otherwise,
         returns 0
 
@@ -143,11 +174,14 @@ class IEEE(BaseController):
     def rst(self):
         """
 
-        Rigol Programming Guide:
+        **Rigol Programming Guide**
 
-        Syntax
-        *RST
-        Description
+        **Syntax**
+
+        \*RST
+
+        **Description**
+
         Restore the instrument to the default values.
 
         :return:
@@ -157,30 +191,39 @@ class IEEE(BaseController):
     def sre(self):  # P. 35-37 -> STB
         """
 
-        Rigol Programming Guide:
+        **Rigol Programming Guide**
 
-        Syntax
-        *SRE <mask>
-        *SRE?
+        **Syntax**
 
-        Description
+        \*SRE <mask>
+
+        \*SRE?
+
+        **Description**
 
         Set the enable register for the state byte register set.
         Query the current value of the enable register of the state byte
         register set.
 
-        Parameter
-        Name     Type       Range       Default
-        <mask>   Integer    0 to 255    0
+        **Parameter**
 
-        Explanation
+        ======== ========== =========== =======
+        Name     Type       Range       Default
+        ======== ========== =========== =======
+        <mask>   Integer    0 to 255    0
+        ======== ========== =========== =======
+
+        **Explanation**
+
         <mask> is the sum of the weights of all the bits between
         bit 0 and bit 7 that have already been set. If the bit has already been
         set, the corresponding binary bit is 1; otherwise, it is 0.
 
         Definitions of the bits of SRE register:
 
+        ===== ========= ====== ====================
         Bit   Weights   Name   Enable
+        ===== ========= ====== ====================
         7     128       OPER   Operation Status Reg
         6     64        --     Not used
         5     32        ESB    Event Status Bit
@@ -189,15 +232,18 @@ class IEEE(BaseController):
         2     4         MSG    Message
         1     2         USR    User
         0     1         TRG    Trigger
+        ===== ========= ====== ====================
 
-        Return Format
+        **Return Format**
+
         The query returns an integer between 0 and 255 which equals the sum of
         the weights of all the bits that have already been set in the register.
         For example, the query returns 144 if bit 4 (16 in decimal) and
         bit 7 (128 in decimal) are enabled.
 
-        Example
-        *SRE 16
+        **Example**
+
+        \*SRE 16
         The query returns 16 (bit 4 is enabled).
 
         :return:
@@ -207,15 +253,18 @@ class IEEE(BaseController):
     def tst(self):
         """
 
-        Rigol Programming Guide:
+        **Rigol Programming Guide**
 
-        Syntax
-        *TST?
+        **Syntax**
 
-        Description
+        \*TST?
+
+        **Description**
+
         Perform a self-test.
 
-        Explanation
+        **Explanation**
+
         The self-test result is denoted by a 32-bit binary number.
         If the corresponding binary bit is 0, the self-test item passes the
         test; while 1 indicates a failure. The return value is the decimal
@@ -223,23 +272,31 @@ class IEEE(BaseController):
 
         The self-test item represented by each bit is as shown in the
         figure below. The bit that is not used is always 0.
-        bit0: system voltage
-        bit1: analog voltage
-        bit2: storage system
-        bit3: digital core
-        bit4: digital IO
-        bit8: battery
-        bit9: fan 1
-        bit10: fan 2
-        bit12: inlet temperature
-        bit13: outlet temperature
-        bit16: real-time clock
 
-        Return Format
+        ====== ==================
+        Bit    Description
+        ====== ==================
+        bit0   system voltage
+        bit1   analog voltage
+        bit2   storage system
+        bit3   digital core
+        bit4   digital IO
+        bit8   battery
+        bit9   fan 1
+        bit10  fan 2
+        bit12  inlet temperature
+        bit13  outlet temperature
+        bit16  real-time clock
+        ====== ==================
+
+        **Return Format**
+
         The query returns a decimal integer.
 
-        Example
-        *TST?
+        **Example**
+
+        \*TST?
+
         The query returns 0.
 
         :return:

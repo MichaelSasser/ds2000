@@ -28,7 +28,7 @@ __all__ = [
 class Edge(BaseController):
     def slope(self):
         """
-        Rigol Programming Guide:
+        **Rigol Programming Guide**
 
 
 
@@ -38,7 +38,7 @@ class Edge(BaseController):
 
     def sensitivity(self):
         """
-        Rigol Programming Guide:
+        **Rigol Programming Guide**
 
 
 
@@ -50,7 +50,7 @@ class Edge(BaseController):
 class Pulse(BaseController):
     def mode(self):
         """
-        Rigol Programming Guide:
+        **Rigol Programming Guide**
 
 
 
@@ -60,7 +60,7 @@ class Pulse(BaseController):
 
     def sensitivity(self):
         """
-        Rigol Programming Guide:
+        **Rigol Programming Guide**
 
 
 
@@ -70,7 +70,7 @@ class Pulse(BaseController):
 
     def width(self):
         """
-        Rigol Programming Guide:
+        **Rigol Programming Guide**
 
 
 
@@ -82,7 +82,7 @@ class Pulse(BaseController):
 class Video(BaseController):
     def mode(self):
         """
-        Rigol Programming Guide:
+        **Rigol Programming Guide**
 
 
 
@@ -92,7 +92,7 @@ class Video(BaseController):
 
     def polarity(self):
         """
-        Rigol Programming Guide:
+        **Rigol Programming Guide**
 
 
 
@@ -102,7 +102,7 @@ class Video(BaseController):
 
     def standard(self):
         """
-        Rigol Programming Guide:
+        **Rigol Programming Guide**
 
 
 
@@ -112,7 +112,7 @@ class Video(BaseController):
 
     def line(self):
         """
-        Rigol Programming Guide:
+        **Rigol Programming Guide**
 
 
 
@@ -122,7 +122,7 @@ class Video(BaseController):
 
     def sensitivity(self):
         """
-        Rigol Programming Guide:
+        **Rigol Programming Guide**
 
 
 
@@ -134,7 +134,7 @@ class Video(BaseController):
 class Slope(BaseController):
     def mode(self):
         """
-        Rigol Programming Guide:
+        **Rigol Programming Guide**
 
 
 
@@ -144,7 +144,7 @@ class Slope(BaseController):
 
     def time(self):
         """
-        Rigol Programming Guide:
+        **Rigol Programming Guide**
 
 
 
@@ -154,7 +154,7 @@ class Slope(BaseController):
 
     def sensitivity(self):
         """
-        Rigol Programming Guide:
+        **Rigol Programming Guide**
 
 
 
@@ -164,7 +164,7 @@ class Slope(BaseController):
 
     def window(self):
         """
-        Rigol Programming Guide:
+        **Rigol Programming Guide**
 
 
 
@@ -174,7 +174,7 @@ class Slope(BaseController):
 
     def level_a(self):
         """
-        Rigol Programming Guide:
+        **Rigol Programming Guide**
 
 
 
@@ -184,7 +184,7 @@ class Slope(BaseController):
 
     def level_b(self):
         """
-        Rigol Programming Guide:
+        **Rigol Programming Guide**
 
 
 
@@ -196,7 +196,7 @@ class Slope(BaseController):
 class Pattern(BaseController):
     def pattern(self):
         """
-        Rigol Programming Guide:
+        **Rigol Programming Guide**
 
 
 
@@ -208,7 +208,7 @@ class Pattern(BaseController):
 class Duration(BaseController):
     def pattern(self):
         """
-        Rigol Programming Guide:
+        **Rigol Programming Guide**
 
 
 
@@ -218,7 +218,7 @@ class Duration(BaseController):
 
     def time(self):
         """
-        Rigol Programming Guide:
+        **Rigol Programming Guide**
 
 
 
@@ -228,7 +228,7 @@ class Duration(BaseController):
 
     def qualifier(self):
         """
-        Rigol Programming Guide:
+        **Rigol Programming Guide**
 
 
 
@@ -240,7 +240,7 @@ class Duration(BaseController):
 class Alternation(BaseController):
     def mode(self):
         """
-        Rigol Programming Guide:
+        **Rigol Programming Guide**
 
 
 
@@ -250,7 +250,7 @@ class Alternation(BaseController):
 
     def source(self):
         """
-        Rigol Programming Guide:
+        **Rigol Programming Guide**
 
 
 
@@ -260,7 +260,7 @@ class Alternation(BaseController):
 
     def type(self):
         """
-        Rigol Programming Guide:
+        **Rigol Programming Guide**
 
 
 
@@ -270,7 +270,7 @@ class Alternation(BaseController):
 
     def timescale(self):
         """
-        Rigol Programming Guide:
+        **Rigol Programming Guide**
 
 
 
@@ -280,7 +280,7 @@ class Alternation(BaseController):
 
     def timeoffset(self):
         """
-        Rigol Programming Guide:
+        **Rigol Programming Guide**
 
 
 
@@ -290,7 +290,7 @@ class Alternation(BaseController):
 
     def level(self):
         """
-        Rigol Programming Guide:
+        **Rigol Programming Guide**
 
 
 
@@ -300,7 +300,7 @@ class Alternation(BaseController):
 
     def slope(self):
         """
-        Rigol Programming Guide:
+        **Rigol Programming Guide**
 
 
 
@@ -310,7 +310,7 @@ class Alternation(BaseController):
 
     def time(self):
         """
-        Rigol Programming Guide:
+        **Rigol Programming Guide**
 
 
 
@@ -320,7 +320,7 @@ class Alternation(BaseController):
 
     def polarity(self):
         """
-        Rigol Programming Guide:
+        **Rigol Programming Guide**
 
 
 
@@ -330,7 +330,7 @@ class Alternation(BaseController):
 
     def standard(self):
         """
-        Rigol Programming Guide:
+        **Rigol Programming Guide**
 
 
 
@@ -340,7 +340,7 @@ class Alternation(BaseController):
 
     def line(self):
         """
-        Rigol Programming Guide:
+        **Rigol Programming Guide**
 
 
 
@@ -350,7 +350,7 @@ class Alternation(BaseController):
 
     def window(self):
         """
-        Rigol Programming Guide:
+        **Rigol Programming Guide**
 
 
 
@@ -360,7 +360,7 @@ class Alternation(BaseController):
 
     def level_a(self):
         """
-        Rigol Programming Guide:
+        **Rigol Programming Guide**
 
 
 
@@ -370,7 +370,7 @@ class Alternation(BaseController):
 
     def level_b(self):
         """
-        Rigol Programming Guide:
+        **Rigol Programming Guide**
 
 
 
@@ -380,7 +380,7 @@ class Alternation(BaseController):
 
     def coupling(self):
         """
-        Rigol Programming Guide:
+        **Rigol Programming Guide**
 
 
 
@@ -390,7 +390,7 @@ class Alternation(BaseController):
 
     def holdoff(self):
         """
-        Rigol Programming Guide:
+        **Rigol Programming Guide**
 
 
 
@@ -400,7 +400,7 @@ class Alternation(BaseController):
 
     def sensitivity(self):
         """
-        Rigol Programming Guide:
+        **Rigol Programming Guide**
 
 
 
@@ -412,7 +412,7 @@ class Alternation(BaseController):
 class Trigger(BaseController):
     def mode(self):
         """
-        Rigol Programming Guide:
+        **Rigol Programming Guide**
 
 
 
@@ -422,7 +422,7 @@ class Trigger(BaseController):
 
     def source(self):
         """
-        Rigol Programming Guide:
+        **Rigol Programming Guide**
 
 
 
@@ -432,7 +432,7 @@ class Trigger(BaseController):
 
     def level(self):
         """
-        Rigol Programming Guide:
+        **Rigol Programming Guide**
 
 
 
@@ -442,7 +442,7 @@ class Trigger(BaseController):
 
     def level50(self):
         """
-        Rigol Programming Guide:
+        **Rigol Programming Guide**
 
 
 
@@ -452,7 +452,7 @@ class Trigger(BaseController):
 
     def sweep(self):
         """
-        Rigol Programming Guide:
+        **Rigol Programming Guide**
 
 
 
@@ -462,7 +462,7 @@ class Trigger(BaseController):
 
     def coupling(self):
         """
-        Rigol Programming Guide:
+        **Rigol Programming Guide**
 
 
 
@@ -472,7 +472,7 @@ class Trigger(BaseController):
 
     def holdoff(self):
         """
-        Rigol Programming Guide:
+        **Rigol Programming Guide**
 
 
 
@@ -482,7 +482,7 @@ class Trigger(BaseController):
 
     def status(self):
         """
-        Rigol Programming Guide:
+        **Rigol Programming Guide**
 
 
 
@@ -492,7 +492,7 @@ class Trigger(BaseController):
 
     def force(self):
         """
-        Rigol Programming Guide:
+        **Rigol Programming Guide**
 
 
 

@@ -30,13 +30,15 @@ from .bus import *
 from .waveform import *
 from .channel import *
 
-__all__ = (error_handling.__all__,
-           common.__all__,
-           acquire.__all__,
-           display.__all__,
-           timebase.__all__,
-           trigger.__all__,
-           ieee.__all__,
-           bus.__all__,
-           waveform.__all__,
-           channel.__all__,)
+__all__ = (
+    *error_handling.__all__,
+    *common.__all__,
+    *acquire.__all__,
+    *display.__all__,
+    *timebase.__all__,
+    *trigger.__all__,
+    *ieee.__all__,
+    *bus.__all__,
+    *waveform.__all__,
+    *channel.__all__,
+)

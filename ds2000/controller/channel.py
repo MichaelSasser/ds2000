@@ -33,32 +33,43 @@ class Channel(BaseController):
     def scale(self) -> float:
         """
 
-        Rigol Programming Guide:
+        **Rigol Programming Guide**
+
 
         :CHANnel<n>:SCALe
 
-        Syntax
+        **Syntax**
+
         :CHANnel<n>:SCALe <scale>
+
         :CHANnel<n>:SCALe?
 
-        Description
+        **Description**
+
         Set the vertical scale of the waveform of CH1 or CH2.
         Query the current vertical scale of the waveform of CH1 or CH2.
 
-        Parameter
-        | Name     | Type     | Range         | Default |
-        |----------+----------+---------------+---------|
-        | <n>      | Discrete | {1|2}         | --      |
-        | <scale>  | Real     | 500μV to 10V  | 1V      |
+        **Parameter**
+
+        ========= ========= ============== =======
+        Name      Type      Range          Default
+        ========= ========= ============== =======
+        <n>       Discrete  {1|2}          --
+        <scale>   Real      500μV to 10V   1V
+        ========= ========= ============== =======
+
         Note: the range of the vertical scale is related to the probe ratio
         currently set. For the setting of the probe ratio, refer to the
         :CHANnel<n>:PROBe command.
 
-        Return Format
+        **Return Format**
+
         The query returns the vertical scale in scientific notation.
 
-        Example
+        **Example**
+
         :CHANnel1:SCALe 1
+
         The query returns 1.000000e+00.
 
         :return:

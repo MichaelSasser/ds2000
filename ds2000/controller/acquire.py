@@ -34,29 +34,39 @@ class Type(SubController):
     def normal(self):
         """
 
-          Rigol Programming Guide:
+          **Rigol Programming Guide**
 
-          Syntax
+          **Syntax**
+
           :ACQuire:TYPE <type>
+
           :ACQuire:TYPE?
 
-          Description
+          **Description**
+
           Set the acquisition mode of the sample.
           Query the current acquisition mode of the sample.
 
-          Parameter
-          Name    Type       Range                                Default
-          <type>  Discrete   {NORMal|AVERages|PEAK|HRESolution}   NORMal
+          **Parameter**
 
-          Explanation
+          ======= ========== ==================================== =======
+          Name    Type       Range                                Default
+          ======= ========== ==================================== =======
+          <type>  Discrete   {NORMal|AVERages|PEAK|HRESolution}   NORMal
+          ======= ========== ==================================== =======
+
+          **Explanation**
+
           When AVERages is selected, use the :ACQuire:AVERages command to set
           the number of averages.
 
-          Return Format
+          **Return Format**
           The query returns NORM, AVER, PEAK or HRES.
 
-          Example
+          **Example**
+
           :ACQuire:TYPE AVERages
+
           The query returns AVER.
 
           :return:
@@ -66,29 +76,39 @@ class Type(SubController):
     def average(self):
         """
 
-          Rigol Programming Guide:
+          **Rigol Programming Guide**
 
-          Syntax
+          **Syntax**
+
           :ACQuire:TYPE <type>
           :ACQuire:TYPE?
 
-          Description
+          **Description**
+
           Set the acquisition mode of the sample.
           Query the current acquisition mode of the sample.
 
-          Parameter
-          Name    Type       Range                                Default
-          <type>  Discrete   {NORMal|AVERages|PEAK|HRESolution}   NORMal
+          **Parameter**
 
-          Explanation
+          ======= ========== ==================================== =======
+          Name    Type       Range                                Default
+          ======= ========== ==================================== =======
+          <type>  Discrete   {NORMal|AVERages|PEAK|HRESolution}   NORMal
+          ======= ========== ==================================== =======
+
+          **Explanation**
+
           When AVERages is selected, use the :ACQuire:AVERages command to set
           the number of averages.
 
-          Return Format
+          **Return Format**
+
           The query returns NORM, AVER, PEAK or HRES.
 
-          Example
+          **Example**
+
           :ACQuire:TYPE AVERages
+
           The query returns AVER.
 
           :return:
@@ -98,29 +118,40 @@ class Type(SubController):
     def peakdetect(self):
         """
 
-          Rigol Programming Guide:
+          **Rigol Programming Guide**
 
-          Syntax
+          **Syntax**
+
           :ACQuire:TYPE <type>
+
           :ACQuire:TYPE?
 
-          Description
+          **Description**
+
           Set the acquisition mode of the sample.
           Query the current acquisition mode of the sample.
 
-          Parameter
-          Name    Type       Range                                Default
-          <type>  Discrete   {NORMal|AVERages|PEAK|HRESolution}   NORMal
+          **Parameter**
 
-          Explanation
+          ======= ========== ==================================== =======
+          Name    Type       Range                                Default
+          ======= ========== ==================================== =======
+          <type>  Discrete   {NORMal|AVERages|PEAK|HRESolution}   NORMal
+          ======= ========== ==================================== =======
+
+          **Explanation**
+          
           When AVERages is selected, use the :ACQuire:AVERages command to set
           the number of averages.
 
-          Return Format
+          **Return Format**
+
           The query returns NORM, AVER, PEAK or HRES.
 
-          Example
+          **Example**
+
           :ACQuire:TYPE AVERages
+
           The query returns AVER.
 
           :return:
@@ -130,29 +161,40 @@ class Type(SubController):
     def highres(self):
         """
 
-          Rigol Programming Guide:
+          **Rigol Programming Guide**
 
-          Syntax
+          **Syntax**
+
           :ACQuire:TYPE <type>
+
           :ACQuire:TYPE?
 
-          Description
+          **Description**
+
           Set the acquisition mode of the sample.
           Query the current acquisition mode of the sample.
 
-          Parameter
-          Name    Type       Range                                Default
-          <type>  Discrete   {NORMal|AVERages|PEAK|HRESolution}   NORMal
+          **Parameter**
 
-          Explanation
+          ======= ========== ==================================== =======
+          Name    Type       Range                                Default
+          ======= ========== ==================================== =======
+          <type>  Discrete   {NORMal|AVERages|PEAK|HRESolution}   NORMal
+          ======= ========== ==================================== =======
+
+          **Explanation**
+
           When AVERages is selected, use the :ACQuire:AVERages command to set
           the number of averages.
 
-          Return Format
+          **Return Format**
+
           The query returns NORM, AVER, PEAK or HRES.
 
-          Example
+          **Example**
+
           :ACQuire:TYPE AVERages
+
           The query returns AVER.
 
           :return:
@@ -205,21 +247,29 @@ class Acquire(BaseController):
     def averages(self) -> int:
         """
 
-        Rigol Programming Guide:
+        **Rigol Programming Guide**
 
-        Syntax
+        **Syntax**
+
         :ACQuire:AVERages <count>
+
         :ACQuire:AVERages?
 
-        Description
+        **Description**
+
         Set the number of averages and the value should be a power function
         of 2. Query the current number of averages of the oscilloscope.
 
-        Parameter
-        Name      Type      Range       Default
-        <count>   Integer   2 to 8192   2
+        **Parameter**
 
-        Explanation
+        ========= ========= =========== =======
+        Name      Type      Range       Default
+        ========= ========= =========== =======
+        <count>   Integer   2 to 8192   2
+        ========= ========= =========== =======
+
+        **Explanation**
+
         Use the :ACQuire:TYPE command to select the average acquisition mode.
         In this mode, the oscilloscope averages the waveforms from multiple
         samples to reduce the random noise of the input signal and improve the
@@ -228,11 +278,14 @@ class Acquire(BaseController):
         the slower the response of the displayed waveform to the waveform
         changes will be.
 
-        Return Format
+        **Return Format**
+
         The query returns an integer between 2 and 8192.
 
-        Example
+        **Example**
+        
         :ACQuire:AVERages 128
+
         The query returns 128.
 
         :return:
@@ -243,21 +296,28 @@ class Acquire(BaseController):
     def averages(self, count: int = 0):
         """
 
-        Rigol Programming Guide:
+        **Rigol Programming Guide**
 
-        Syntax
+        **Syntax**
+
         :ACQuire:AVERages <count>
+
         :ACQuire:AVERages?
 
-        Description
+        **Description**
         Set the number of averages and the value should be a power function
         of 2. Query the current number of averages of the oscilloscope.
 
-        Parameter
+        **Parameter**
+        
+        ========= ========= =========== =======
         Name      Type      Range       Default
+        ========= ========= =========== =======
         <count>   Integer   2 to 8192   2
+        ========= ========= =========== =======
 
-        Explanation
+        **Explanation**
+
         Use the :ACQuire:TYPE command to select the average acquisition mode.
         In this mode, the oscilloscope averages the waveforms from multiple
         samples to reduce the random noise of the input signal and improve the
@@ -266,11 +326,14 @@ class Acquire(BaseController):
         the slower the response of the displayed waveform to the waveform
         changes will be.
 
-        Return Format
+        **Return Format**
+
         The query returns an integer between 2 and 8192.
 
-        Example
+        **Example**
+
         :ACQuire:AVERages 128
+
         The query returns 128.
 
         :return:
@@ -289,32 +352,44 @@ class Acquire(BaseController):
     def memorydepth(self) -> int:
         """
 
-        Rigol Programming Guide:
+        **Rigol Programming Guide**
 
-        Syntax
+        **Syntax**
+
         :ACQuire:MDEPth <mdep>
+
         :ACQuire:MDEPth?
 
-        Description
+        **Description**
+
         Set the memory depth of the oscilloscope namely the number of
         waveform points that can be stored in a single trigger sample.
         Query the current memory depth of the oscilloscope.
 
-        Parameter
-        Name     Type       Range                  Default
-        <mdep>   Discrete   Refer to Explanation   AUTO
+        **Parameter**
 
-        Explanation
+        ======== ========== ====================== =======
+        Name     Type       Range                  Default
+        ======== ========== ====================== =======
+        <mdep>   Discrete   Refer to Explanation   AUTO
+        ======== ========== ====================== =======
+
+        **Explanation**
+
         When a single channel is on:
         <mdep> can be set to AUTO|14000|140000|1400000|14000000|56000000.
+
         When dual channels are on:
         <mdep> can be set to AUTO|7000|70000|700000|7000000|28000000.
 
-        Return Format
+        **Return Format**
+
         The query returns the actual number of points (integer) or AUTO.
 
-        Example
+        **Example**
+
         :ACQuire:MDEPth 1400000
+
         The query returns 1400000.
 
         :return:
@@ -325,34 +400,47 @@ class Acquire(BaseController):
     def memorydepth(self, memdepth: int = 0):
         """
 
-        Rigol Programming Guide:
+        **Rigol Programming Guide**
 
-        Syntax
+        **Syntax**
+
         :ACQuire:MDEPth <mdep>
+
         :ACQuire:MDEPth?
 
-        Description
+        **Description**
+
         Set the memory depth of the oscilloscope namely the number of
         waveform points that can be stored in a single trigger sample.
         Query the current memory depth of the oscilloscope.
 
-        Parameter
-        Name     Type       Range                  Default
-        <mdep>   Discrete   Refer to Explanation   AUTO
+        **Parameter**
 
-        Explanation
+        ======== ========== ====================== =======
+        Name     Type       Range                  Default
+        ======== ========== ====================== =======
+        <mdep>   Discrete   Refer to Explanation   AUTO
+        ======== ========== ====================== =======
+
+        **Explanation**
+
         When a single channel is on:
+
         <mdep> can be set to AUTO|14000|140000|1400000|14000000|56000000.
+
         When dual channels are on:
+
         <mdep> can be set to AUTO|7000|70000|700000|7000000|28000000.
 
-        Return Format
+        **Return Format**
+
         The query returns the actual number of points (integer) or AUTO.
 
-        Example
-        :ACQuire:MDEPth 1400000
-        The query returns 1400000.
+        **Example**
 
+        :ACQuire:MDEPth 1400000
+
+        The query returns 1400000.
 
         :return:
         """
@@ -369,19 +457,24 @@ class Acquire(BaseController):
     def samplerate(self) -> int:
         """
 
-        Rigol Programming Guide:
+        **Rigol Programming Guide**
 
-        Syntax
+        **Syntax**
+
         :ACQuire:SRATe?
 
-        Description
+        **Description**
+
         Query the current sample rate.
 
-        Return Format
+        **Return Format**
+
         The query returns the sample rate in scientific notation.
 
-        Example
+        **Example**
+
         :ACQuire:SRATe?
+
         The query returns 2.000000e+09.
 
         :return:
@@ -392,26 +485,36 @@ class Acquire(BaseController):
     def antialiasing(self) -> bool:
         """
 
-        Rigol Programming Guide:
+        **Rigol Programming Guide**
 
-        Syntax
+        **Syntax**
+
         :ACQuire:AALias <bool>
+
         :ACQuire:AALias?
 
-        Description
+        **Description**
+
         Enable or disable the antialiasing function of the oscilloscope.
         The query returns the current state of the antialiasing function of the
         oscilloscope.
 
-        Parameter
-        Name     Type   Range              Default
-        <bool>   Bool   {{0|OFF}|{1|ON}}   0|OFF
+        **Parameter**
 
-        Return Format
+        ======== ====== ================== =======
+        Name     Type   Range              Default
+        ======== ====== ================== =======
+        <bool>   Bool   {{0|OFF}|{1|ON}}   0|OFF
+        ======== ====== ================== =======
+
+        **Return Format**
+
         The query returns 0 or 1.
 
-        Example
+        **Example**
+
         :ACQuire:AALias ON
+
         The query returns 1.
 
         :return:
@@ -422,26 +525,36 @@ class Acquire(BaseController):
     def antialiasing(self, enabled: bool):
         """
 
-        Rigol Programming Guide:
+        **Rigol Programming Guide**
 
-        Syntax
+        **Syntax**
+
         :ACQuire:AALias <bool>
+
         :ACQuire:AALias?
 
-        Description
+        **Description**
+
         Enable or disable the antialiasing function of the oscilloscope.
         The query returns the current state of the antialiasing function of the
         oscilloscope.
 
-        Parameter
-        Name     Type   Range              Default
-        <bool>   Bool   {{0|OFF}|{1|ON}}   0|OFF
+        **Parameter**
 
-        Return Format
+        ======== ====== ================== =======
+        Name     Type   Range              Default
+        ======== ====== ================== =======
+        <bool>   Bool   {{0|OFF}|{1|ON}}   0|OFF
+        ======== ====== ================== =======
+
+        **Return Format**
+
         The query returns 0 or 1.
 
-        Example
+        **Example**
+
         :ACQuire:AALias ON
+
         The query returns 1.
 
         :return:

@@ -22,4 +22,4 @@ __email__: str = "Michael@MichaelSasser.org"
 from .plot import *
 
 
-__all__ = (plot.__all__,)
+__all__ = (*plot.__all__,)
