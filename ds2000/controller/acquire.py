@@ -1,30 +1,31 @@
 #!/usr/bin/env python
-# vim: set fileencoding=utf-8 :
 # ds2000 - The Python Library for Rigol DS2000 Oscilloscopes
-# Copyright (C) 2018  Michael Sasser <Michael@MichaelSasser.de>
-
+# Copyright (C) 2018  Michael Sasser <Michael@MichaelSasser.org>
+#
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
-
+#
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-
+#
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from collections import namedtuple
 from typing import Tuple
 
-from ds2000.controller import BaseController, SubController , Ds2000Exception
+from ds2000.controller import BaseController, SubController, Ds2000Exception
 
 __author__ = "Michael Sasser"
-__email__ = "Michael@MichaelSasser.de"
+__email__ = "Michael@MichaelSasser.org"
 
-__all__ = ["Acquire", ]
+__all__ = [
+    "Acquire",
+]
 
 AcquireType = namedtuple("AcquireType", "type average_count")
 
@@ -168,8 +169,7 @@ class Type(SubController):
             return "Peak"
         elif answer == "HRES":
             return "High Resolution"
-        else:
-            raise Ds2000Exception("Unknown Return Value")
+        raise Ds2000Exception("Unknown Return Value")
 
     def __str__(self) -> str:
         return self.get()
@@ -179,8 +179,21 @@ class Type(SubController):
 
 
 class Acquire(BaseController):
-    AVERAGES: Tuple[int] = (2, 4, 8, 16, 32, 64, 128, 256,
-                            512, 1024, 2048, 4096, 8192)
+    AVERAGES: Tuple[int] = (
+        2,
+        4,
+        8,
+        16,
+        32,
+        64,
+        128,
+        256,
+        512,
+        1024,
+        2048,
+        4096,
+        8192,
+    )
     MEMDEPTH_SINGLE: Tuple[int] = (14000, 140000, 1400000, 14000000, 56000000)
     MEMDEPTH_DUAL: Tuple[int] = (7000, 70000, 700000, 7000000, 28000000)
 
@@ -267,9 +280,10 @@ class Acquire(BaseController):
             return
         elif count in Acquire.AVERAGES:
             self.device.ask(f":ACQuire:AVERages {count}")
-        else:
-            raise ValueError("The \"count\" must be 0, to leave the count"
-                             f"untouched or set it to {Acquire.AVERAGES}.")  # TODO HERE
+        raise ValueError(
+            'The "count" must be 0, to leave the count'
+            f"untouched or set it to {Acquire.AVERAGES}."
+        )  # TODO HERE
 
     @property
     def memorydepth(self) -> int:
@@ -282,7 +296,8 @@ class Acquire(BaseController):
         :ACQuire:MDEPth?
 
         Description
-        Set the memory depth of the oscilloscope namely the number of waveform points that can be stored in a single trigger sample.
+        Set the memory depth of the oscilloscope namely the number of
+        waveform points that can be stored in a single trigger sample.
         Query the current memory depth of the oscilloscope.
 
         Parameter
@@ -317,7 +332,8 @@ class Acquire(BaseController):
         :ACQuire:MDEPth?
 
         Description
-        Set the memory depth of the oscilloscope namely the number of waveform points that can be stored in a single trigger sample.
+        Set the memory depth of the oscilloscope namely the number of
+        waveform points that can be stored in a single trigger sample.
         Query the current memory depth of the oscilloscope.
 
         Parameter
@@ -343,7 +359,8 @@ class Acquire(BaseController):
         assert isinstance(memdepth, int)
         if memdepth == 0:
             self.device.ask(":ACQuire:MEMDepth AUTO")
-        elif memdepth in Acquire.MEMDEPTH_SINGLE:  # ToDo: Check if osc uses one or two channels
+        # ToDo: Check if osc uses one or two channels
+        elif memdepth in Acquire.MEMDEPTH_SINGLE:
             self.device.ask(f":ACQuire:MDEPth {memdepth}")
         elif memdepth in Acquire.MEMDEPTH_DUAL:
             self.device.ask(f":ACQuire:MDEPth {memdepth}")
@@ -431,11 +448,3 @@ class Acquire(BaseController):
         """
         assert isinstance(enabled, bool)
         self.device.ask(f":ACQuire:AALias {1 if enabled else 0}")
-
-def main() -> int:
-    return 0
-
-
-if __name__ == '__main__':
-    main()
-    # sys.exit(main())

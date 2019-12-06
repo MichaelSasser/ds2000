@@ -1,27 +1,28 @@
 #!/usr/bin/env python
-# vim: set fileencoding=utf-8 :
 # ds2000 - The Python Library for Rigol DS2000 Oscilloscopes
-# Copyright (C) 2018  Michael Sasser <Michael@MichaelSasser.de>
-
+# Copyright (C) 2018  Michael Sasser <Michael@MichaelSasser.org>
+#
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
-
+#
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-
+#
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from ds2000.controller import BaseController, SubController , Ds2000Exception
+from ds2000.controller import BaseController, SubController, Ds2000Exception
 
 __author__ = "Michael Sasser"
-__email__ = "Michael@MichaelSasser.de"
+__email__ = "Michael@MichaelSasser.org"
 
-__all__ = ["Bus", ]
+__all__ = [
+    "Bus",
+]
 
 
 class Mode(SubController):
@@ -53,7 +54,8 @@ class Mode(SubController):
         :return:
         """
         self.subdevice.device.ask(
-            f":BUS{self.subdevice.__busnumber}:MODE PARallel")
+            f":BUS{self.subdevice.__busnumber}:MODE PARallel"
+        )
 
     def rs232(self):
         """
@@ -152,8 +154,7 @@ class Mode(SubController):
             return "I2C"
         elif answer == "SPI":
             return "SPI"
-        else:
-            raise Ds2000Exception("Unknown Bus Mode")
+        raise Ds2000Exception("Unknown Bus Mode")
 
     def __str__(self) -> str:
         return str(self.get)
@@ -173,7 +174,8 @@ class Format(SubController):
         :BUS<n>:FORMat?
 
         Description
-        Set the display format of bus 1 or 2 to hexadecimal, decimal, binary or ASCII.
+        Set the display format of bus 1 or 2 to hexadecimal, decimal, binary
+        or ASCII.
         Query the current display format of bus 1 or 2.
 
         Parameter
@@ -191,7 +193,8 @@ class Format(SubController):
         :return:
         """
         self.subdevice.device.ask(
-                f":BUS{self.subdevice.__busnumber}:FORMAT HEX")
+            f":BUS{self.subdevice.__busnumber}:FORMAT HEX"
+        )
 
     def dec(self):
         """
@@ -203,7 +206,8 @@ class Format(SubController):
         :BUS<n>:FORMat?
 
         Description
-        Set the display format of bus 1 or 2 to hexadecimal, decimal, binary or ASCII.
+        Set the display format of bus 1 or 2 to hexadecimal, decimal, binary
+        or ASCII.
         Query the current display format of bus 1 or 2.
 
         Parameter
@@ -221,7 +225,8 @@ class Format(SubController):
         :return:
         """
         self.subdevice.device.ask(
-                f":BUS{self.subdevice.__busnumber}:FORMAT DEC")
+            f":BUS{self.subdevice.__busnumber}:FORMAT DEC"
+        )
 
     def bin(self):
         """
@@ -233,7 +238,8 @@ class Format(SubController):
         :BUS<n>:FORMat?
 
         Description
-        Set the display format of bus 1 or 2 to hexadecimal, decimal, binary or ASCII.
+        Set the display format of bus 1 or 2 to hexadecimal, decimal, binary
+        or ASCII.
         Query the current display format of bus 1 or 2.
 
         Parameter
@@ -251,7 +257,8 @@ class Format(SubController):
         :return:
         """
         self.subdevice.device.ask(
-                f":BUS{self.subdevice.__busnumber}:FORMAT BIN")
+            f":BUS{self.subdevice.__busnumber}:FORMAT BIN"
+        )
 
     def ascii(self):
         """
@@ -263,7 +270,8 @@ class Format(SubController):
         :BUS<n>:FORMat?
 
         Description
-        Set the display format of bus 1 or 2 to hexadecimal, decimal, binary or ASCII.
+        Set the display format of bus 1 or 2 to hexadecimal, decimal, binary
+        or ASCII.
         Query the current display format of bus 1 or 2.
 
         Parameter
@@ -281,7 +289,8 @@ class Format(SubController):
         :return:
         """
         self.subdevice.device.ask(
-                f":BUS{self.subdevice.__busnumber}:FORMAT ASCii")
+            f":BUS{self.subdevice.__busnumber}:FORMAT ASCii"
+        )
 
     def get(self) -> str:
         answer = self.subdevice.ask(f":BUS{self.subdevice.__busnumber}:FORMAT?")
@@ -340,8 +349,11 @@ class Bus(BaseController):
 
         :return:
         """
-        return True if self.device.ask(
-                f":BUS{self.__busnumber}:DISPlay?") == 1 else False
+        return (
+            True
+            if self.device.ask(f":BUS{self.__busnumber}:DISPlay?") == 1
+            else False
+        )
 
     @display.setter
     def display(self, enable: bool = True):
@@ -402,8 +414,11 @@ class Bus(BaseController):
 
         :return:
         """
-        return True if self.device.ask(
-                f":BUS{self.__busnumber}:EVENt?") == 1 else False
+        return (
+            True
+            if self.device.ask(f":BUS{self.__busnumber}:EVENt?") == 1
+            else False
+        )
 
     @eventtable.setter
     def eventtable(self, enable: bool = True):
@@ -460,12 +475,3 @@ class Bus(BaseController):
         self.device.ask(f":BUS{self.__busnumber}:EEXPort")
 
     # ToDo: Page 51
-
-
-def main() -> int:
-    return 0
-
-
-if __name__ == '__main__':
-    main()
-    # sys.exit(main())

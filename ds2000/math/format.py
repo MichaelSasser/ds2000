@@ -1,19 +1,20 @@
 #!/usr/bin/env python
-# ds2000 
+# ds2000 - The Python Library for Rigol DS2000 Oscilloscopes
 # Copyright (C) 2019  Michael Sasser <Michael@MichaelSasser.org>
-
+#
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
-
+#
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-
+#
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 from __future__ import annotations
 from typing import NamedTuple
 
@@ -40,7 +41,7 @@ def get_prefix(value: float) -> Prefixed:
         -3 : 'm',  # milli
         # -2 : 'c',  # centi (Not used in eletronics)
         # -1 : 'd',  # deci (Not used in eletronics)
-        0  : '',  # None
+        0    : '',  # None
         # 1  : 'da',  # deca (Not used in eletronics)
         # 2  : 'h',  # hecto (Not used in eletronics)
         3  : 'k',  # kilo
@@ -69,13 +70,3 @@ def get_prefix(value: float) -> Prefixed:
     return Prefixed(value=float((-value) if negative else value),
                     prefix=prefixes[power],
                     divisor=float(power))
-
-
-def main() -> int:
-    return 0
-
-
-if __name__ == '__main__':
-    main()
-    # sys.exit(main())
-

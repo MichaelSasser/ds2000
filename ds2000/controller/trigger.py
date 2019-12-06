@@ -1,7 +1,6 @@
 #!/usr/bin/env python
-# vim: set fileencoding=utf-8 :
 # ds2000 - The Python Library for Rigol DS2000 Oscilloscopes
-# Copyright (C) 2018  Michael Sasser <Michael@MichaelSasser.de>
+# Copyright (C) 2018  Michael Sasser <Michael@MichaelSasser.org>
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,9 +18,11 @@
 from ds2000.controller import BaseController
 
 __author__ = "Michael Sasser"
-__email__ = "Michael@MichaelSasser.de"
+__email__ = "Michael@MichaelSasser.org"
 
-__all__ = ["Trigger", ]
+__all__ = [
+    "Trigger",
+]
 
 
 class Edge(BaseController):
@@ -77,6 +78,7 @@ class Pulse(BaseController):
         """
         raise NotImplementedError()
 
+
 class Video(BaseController):
     def mode(self):
         """
@@ -127,6 +129,7 @@ class Video(BaseController):
         :return:
         """
         raise NotImplementedError()
+
 
 class Slope(BaseController):
     def mode(self):
@@ -201,6 +204,7 @@ class Pattern(BaseController):
         """
         raise NotImplementedError()
 
+
 class Duration(BaseController):
     def pattern(self):
         """
@@ -231,6 +235,7 @@ class Duration(BaseController):
         :return:
         """
         raise NotImplementedError()
+
 
 class Alternation(BaseController):
     def mode(self):
@@ -352,6 +357,7 @@ class Alternation(BaseController):
         :return:
         """
         raise NotImplementedError()
+
     def level_a(self):
         """
         Rigol Programming Guide:
@@ -493,12 +499,3 @@ class Trigger(BaseController):
         :return:
         """
         raise NotImplementedError()
-
-
-def main() -> int:
-    return 0
-
-
-if __name__ == '__main__':
-    main()
-    # sys.exit(main())

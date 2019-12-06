@@ -1,27 +1,28 @@
 #!/usr/bin/env python
-# vim: set fileencoding=utf-8 :
 # ds2000 - The Python Library for Rigol DS2000 Oscilloscopes
-# Copyright (C) 2018  Michael Sasser <Michael@MichaelSasser.de>
-
+# Copyright (C) 2018  Michael Sasser <Michael@MichaelSasser.org>
+#
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
-
+#
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-
+#
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from ds2000.controller import BaseController
 
 __author__ = "Michael Sasser"
-__email__ = "Michael@MichaelSasser.de"
+__email__ = "Michael@MichaelSasser.org"
 
-__all__ = ["Timebase", ]
+__all__ = [
+    "Timebase",
+]
 
 
 class Timebase(BaseController):
@@ -34,7 +35,8 @@ class Timebase(BaseController):
         :TIMebase:MODE <mode>
         :TIMebase:MODE?
         Function Explanation:
-        The commands set and query the scan mode of horizontal timebase. <mode> could be MAIN (main timebase) or DELayed (delayed scan).
+        The commands set and query the scan mode of horizontal timebase.
+        <mode> could be MAIN (main timebase) or DELayed (delayed scan).
         Returned Format:
         The query returns MAIN or DELAYED.
         Example:
@@ -54,10 +56,14 @@ class Timebase(BaseController):
         :TIMebase[:DELayed]:OFFSet <offset>
         :TIMebase[:DELayed]:OFFSet?
         Function Explanation:
-        The commands set and query the offset of the MAIN or DELayed timebase (that is offset of the waveform position relative to the trigger midpoint.). Thereinto,
+        The commands set and query the offset of the MAIN or DELayed timebase
+        (that is offset of the waveform position relative to the trigger
+        midpoint.). Thereinto,
         In NORMAL mode, the range of <scale_val> is 1s ~ end of the memory;
         In STOP mode, the range of <scale_val> is -500s ~ +500s;
-        In SCAN mode, the range of <scale_val> is -6*Scale ~ +6*Scale; (Note: Scale indicates the current horizontal scale, the unit is s/div.)
+        In SCAN mode, the range of <scale_val> is -6*Scale ~ +6*Scale;
+        (Note: Scale indicates the current horizontal scale,
+        the unit is s/div.)
         In MAIN state, the item [:DELayed] should be omitted.
         Returned Format:
         The query returns the setting value of the <offset> in s.
@@ -79,7 +85,8 @@ class Timebase(BaseController):
         :TIMebase[:DELayed]:SCALe <scale_val>
         :TIMebase[:DELayed]:SCALe?
         Function Explanation:
-        The commands set and query the horizontal scale for MAIN or DELayed timebase, the unit is s/div (seconds/grid), thereinto:
+        The commands set and query the horizontal scale for MAIN or DELayed
+        timebase, the unit is s/div (seconds/grid), thereinto:
         In YT mode, the range of <scale_val> is 2ns - 50s;
         In ROLL mode, the range of <scale_val> is 500ms - 50s;
         In MAIN state, the item [:DELayed] should be omitted.
@@ -118,7 +125,8 @@ class Timebase(BaseController):
                  DS2012, the value is 5 ns.
 
         Return Format
-        The query returns the current scale of the main time base in scientific notation.
+        The query returns the current scale of the main time base in
+        scientific notation.
 
         Example
         :TIMebase:MAIN:SCALe 0.0002
@@ -137,7 +145,8 @@ class Timebase(BaseController):
         :TIMebase:FORMat <value>
         :TIMebase:FORMat?
         Function Explanation:
-        The commands set and query the horizontal timebase. <value> could be XY, YT or SCANning.
+        The commands set and query the horizontal timebase. <value> could be
+        XY, YT or SCANning.
         Returned Format:
         The query returns X-Y, Y-T or SCANNING.
         Example:
@@ -147,12 +156,3 @@ class Timebase(BaseController):
         :return:
         """
         raise NotImplementedError()
-
-
-def main() -> int:
-    return 0
-
-
-if __name__ == '__main__':
-    main()
-    # sys.exit(main())

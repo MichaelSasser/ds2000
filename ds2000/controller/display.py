@@ -1,27 +1,28 @@
 #!/usr/bin/env python
-# vim: set fileencoding=utf-8 :
 # ds2000 - The Python Library for Rigol DS2000 Oscilloscopes
-# Copyright (C) 2018  Michael Sasser <Michael@MichaelSasser.de>
-
+# Copyright (C) 2018  Michael Sasser <Michael@MichaelSasser.org>
+#
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
-
+#
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-
+#
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from ds2000.controller import BaseController, Ds2000Exception
 
 __author__ = "Michael Sasser"
-__email__ = "Michael@MichaelSasser.de"
+__email__ = "Michael@MichaelSasser.org"
 
-__all__ = ["Display", ]
+__all__ = [
+    "Display",
+]
 
 
 class Display(BaseController):
@@ -94,8 +95,7 @@ class Display(BaseController):
             return "dot"
         elif display_type == "VECTORS":
             return "vector"
-        else:
-           raise Ds2000Exception("Unknown display type.")
+        raise Ds2000Exception("Unknown display type.")
 
     @property
     def grid(self) -> str:
@@ -110,7 +110,8 @@ class Display(BaseController):
         Function Explanation:
         The commands set and query the state of the screen grid. <grid> could
         be FULL (open the background grid and coordinates), HALF (turn off the
-        background grid) or NONE (turn off the background grid and coordinates).
+        background grid) or NONE (turn off the background grid and
+        coordinates).
         Returned Format:
         The query returns FULL, HALF or NONE.
         Example:
@@ -246,12 +247,3 @@ class Display(BaseController):
         :return:
         """
         raise NotImplementedError()
-
-
-def main() -> int:
-    return 0
-
-
-if __name__ == '__main__':
-    main()
-    # sys.exit(main())

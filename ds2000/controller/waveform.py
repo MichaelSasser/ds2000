@@ -1,7 +1,6 @@
 #!/usr/bin/env python
-# vim: set fileencoding=utf-8 :
 # ds2000 - The Python Library for Rigol DS2000 Oscilloscopes
-# Copyright (C) 2019  Michael Sasser <Michael@MichaelSasser.de>
+# Copyright (C) 2019  Michael Sasser <Michael@MichaelSasser.org>
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -24,17 +23,25 @@ __email__ = "Michael@MichaelSasser.org"
 
 __all__ = ["Waveform", "WaveformStatus"]
 
-WaveformStatus = NamedTuple('WaveformStatus', [('status', bool), ('points', int)])
-Preamble = NamedTuple('Preamble', [('format', str),
-                                   ('type', str),
-                                   ('points', int),
-                                   ('count', int),
-                                   ('x_inc', float),
-                                   ('x_origin', float),
-                                   ('x_ref', float),
-                                   ('y_inc', float),
-                                   ('y_origin', float),
-                                   ('y_ref', float)])
+WaveformStatus = NamedTuple(
+    "WaveformStatus", [("status", bool), ("points", int)]
+)
+Preamble = NamedTuple(
+    "Preamble",
+    [
+        ("format", str),
+        ("type", str),
+        ("points", int),
+        ("count", int),
+        ("x_inc", float),
+        ("x_origin", float),
+        ("x_ref", float),
+        ("y_inc", float),
+        ("y_origin", float),
+        ("y_ref", float),
+    ],
+)
+
 
 class Mode(SubController):
     def normal(self):
@@ -56,10 +63,16 @@ class Mode(SubController):
         <type>  Discrete   {NORMal|MAXimum|RAW}   NORMal
 
         Explanation
-        In different modes, the :WAVeform:POINts command returns different numbers of waveform points.
+        In different modes, the :WAVeform:POINts command returns different
+        numbers of waveform points.
         NORMal : return the number of waveform points currently displayed.
-        MAXimum : return the maximum number of effective data points under the current state. Return the number of data points displayed on the screen when the instrument is in run state and the number of data points in the internal memory in stop state.
-        RAW : It is only available when the instrument is in stop state. You can use the :WAVeform:POINts command to set the desired number of data points in the internal memory.
+        MAXimum : return the maximum number of effective data points under
+        the current state. Return the number of data points displayed on the
+        screen when the instrument is in run state and the number of data
+        points in the internal memory in stop state.
+        RAW : It is only available when the instrument is in stop state. You
+        can use the :WAVeform:POINts command to set the desired number of
+        data points in the internal memory.
 
         Return Format
         The query returns NORM, MAX or RAW.
@@ -73,7 +86,7 @@ class Mode(SubController):
         self.subdevice.device.write(":WAVeform:MODE NORMal")
 
     def maximum(self):
-         """
+        """
 
         Rigol Programming Guide:
 
@@ -91,10 +104,16 @@ class Mode(SubController):
         <type>  Discrete   {NORMal|MAXimum|RAW}   NORMal
 
         Explanation
-        In different modes, the :WAVeform:POINts command returns different numbers of waveform points.
+        In different modes, the :WAVeform:POINts command returns different
+        numbers of waveform points.
         NORMal : return the number of waveform points currently displayed.
-        MAXimum : return the maximum number of effective data points under the current state. Return the number of data points displayed on the screen when the instrument is in run state and the number of data points in the internal memory in stop state.
-        RAW : It is only available when the instrument is in stop state. You can use the :WAVeform:POINts command to set the desired number of data points in the internal memory.
+        MAXimum : return the maximum number of effective data points under
+        the current state. Return the number of data points displayed on the
+        screen when the instrument is in run state and the number of data
+        points in the internal memory in stop state.
+        RAW : It is only available when the instrument is in stop state.
+        You can use the :WAVeform:POINts command to set the desired number
+        of data points in the internal memory.
 
         Return Format
         The query returns NORM, MAX or RAW.
@@ -105,10 +124,10 @@ class Mode(SubController):
 
         :return:
         """
-         self.subdevice.device.write(":WAVeform:MODE MAXimum")
+        self.subdevice.device.write(":WAVeform:MODE MAXimum")
 
     def raw(self):
-         """
+        """
 
         Rigol Programming Guide:
 
@@ -126,10 +145,16 @@ class Mode(SubController):
         <type>  Discrete   {NORMal|MAXimum|RAW}   NORMal
 
         Explanation
-        In different modes, the :WAVeform:POINts command returns different numbers of waveform points.
+        In different modes, the :WAVeform:POINts command returns different
+        numbers of waveform points.
         NORMal : return the number of waveform points currently displayed.
-        MAXimum : return the maximum number of effective data points under the current state. Return the number of data points displayed on the screen when the instrument is in run state and the number of data points in the internal memory in stop state.
-        RAW : It is only available when the instrument is in stop state. You can use the :WAVeform:POINts command to set the desired number of data points in the internal memory.
+        MAXimum : return the maximum number of effective data points under
+        the current state. Return the number of data points displayed on the
+        screen when the instrument is in run state and the number of data
+        points in the internal memory in stop state.
+        RAW : It is only available when the instrument is in stop state. You
+        can use the :WAVeform:POINts command to set the desired number of
+        data points in the internal memory.
 
         Return Format
         The query returns NORM, MAX or RAW.
@@ -140,7 +165,7 @@ class Mode(SubController):
 
         :return:
         """
-         self.subdevice.device.write(":WAVeform:MODE RAW")
+        self.subdevice.device.write(":WAVeform:MODE RAW")
 
     def get(self):
         answer: str = self.subdevice.device.ask(":WAVeform:MODE?")
@@ -158,6 +183,7 @@ class Mode(SubController):
 
     def __repr__(self) -> str:
         return self.get()
+
 
 class Format(SubController):
     def word(self):
@@ -180,10 +206,16 @@ class Format(SubController):
         <format>  Discrete   {WORD|BYTE|ASCii}   BYTE
 
         Explanation
-        In different modes, the :WAVeform:POINts command returns different numbers of waveform points.
+        In different modes, the :WAVeform:POINts command returns different
+        numbers of waveform points.
         NORMal : return the number of waveform points currently displayed.
-        MAXimum : return the maximum number of effective data points under the current state. Return the number of data points displayed on the screen when the instrument is in run state and the number of data points in the internal memory in stop state.
-        RAW : It is only available when the instrument is in stop state. You can use the :WAVeform:POINts command to set the desired number of data points in the internal memory.
+        MAXimum : return the maximum number of effective data points under
+        the current state. Return the number of data points displayed on the
+        screen when the instrument is in run state and the number of data
+        points in the internal memory in stop state.
+        RAW : It is only available when the instrument is in stop state. You
+        can use the :WAVeform:POINts command to set the desired number of
+        data points in the internal memory.
 
         Return Format
         The query returns WORD, BYTE or ASC.
@@ -216,10 +248,16 @@ class Format(SubController):
         <format>  Discrete   {WORD|BYTE|ASCii}   BYTE
 
         Explanation
-        In different modes, the :WAVeform:POINts command returns different numbers of waveform points.
+        In different modes, the :WAVeform:POINts command returns different
+        numbers of waveform points.
         NORMal : return the number of waveform points currently displayed.
-        MAXimum : return the maximum number of effective data points under the current state. Return the number of data points displayed on the screen when the instrument is in run state and the number of data points in the internal memory in stop state.
-        RAW : It is only available when the instrument is in stop state. You can use the :WAVeform:POINts command to set the desired number of data points in the internal memory.
+        MAXimum : return the maximum number of effective data points under
+        the current state. Return the number of data points displayed on the
+        screen when the instrument is in run state and the number of data
+        points in the internal memory in stop state.
+        RAW : It is only available when the instrument is in stop state. You
+        can use the :WAVeform:POINts command to set the desired number of
+        data points in the internal memory.
 
         Return Format
         The query returns WORD, BYTE or ASC.
@@ -252,10 +290,16 @@ class Format(SubController):
         <format>  Discrete   {WORD|BYTE|ASCii}   BYTE
 
         Explanation
-        In different modes, the :WAVeform:POINts command returns different numbers of waveform points.
+        In different modes, the :WAVeform:POINts command returns different
+        numbers of waveform points.
         NORMal : return the number of waveform points currently displayed.
-        MAXimum : return the maximum number of effective data points under the current state. Return the number of data points displayed on the screen when the instrument is in run state and the number of data points in the internal memory in stop state.
-        RAW : It is only available when the instrument is in stop state. You can use the :WAVeform:POINts command to set the desired number of data points in the internal memory.
+        MAXimum : return the maximum number of effective data points under
+        the current state. Return the number of data points displayed on the
+        screen when the instrument is in run state and the number of data
+        points in the internal memory in stop state.
+        RAW : It is only available when the instrument is in stop state. You
+        can use the :WAVeform:POINts command to set the desired number of
+        data points in the internal memory.
 
         Return Format
         The query returns WORD, BYTE or ASC.
@@ -292,7 +336,7 @@ class Waveform(BaseController):
         self.mode: Mode = Mode(self)
         self.format: Format = Format(self)
 
-    def channel(self, channel: int=1):
+    def channel(self, channel: int = 1):
         """
 
         Rigol Programming Guide:
@@ -351,7 +395,8 @@ class Waveform(BaseController):
                                      depth
 
         Explanation
-        The number of waveform points is limited by the current reading mode of waveform (refer to the :WAVeform:MODE command).
+        The number of waveform points is limited by the current reading mode
+        of waveform (refer to the :WAVeform:MODE command).
         Return Format
         The query returns an integer.
 
@@ -365,18 +410,25 @@ class Waveform(BaseController):
             raise TypeError("The parameter points must be of the type int.")
         current_format: str = str(self.format)
         if current_format == "normal" and 1 < points > 1400:
-            raise ValueError("The parameter points in normal mode must be"
-                             "between 1 and 1400.")
+            raise ValueError(
+                "The parameter points in normal mode must be"
+                "between 1 and 1400."
+            )
         elif current_format == "maximum" and 1 < points:  # Todo: Check max
-            raise ValueError("The parameter points in maximal mode must be"
-                             "between 1 and the number of effective points "
-                             "currently on the screen.")
+            raise ValueError(
+                "The parameter points in maximal mode must be"
+                "between 1 and the number of effective points "
+                "currently on the screen."
+            )
         elif current_format == "raw" and 1 < points:  # Todo: Check max
-            raise ValueError("The parameter points in maximal mode must be"
-                             "between 1 and the current maximum memory depth.")
+            raise ValueError(
+                "The parameter points in maximal mode must be"
+                "between 1 and the current maximum memory depth."
+            )
         points = self.device.ask(f"WAVeform:POINts {points}")
         return points
-    def data(self, recorded: bool=False):
+
+    def data(self, recorded: bool = False):
         """
         Rigol Programming Guide:
 
@@ -612,6 +664,7 @@ class Waveform(BaseController):
 
         :return:
         """
+
         def get_data():
             try:
                 self.device.write(":WAVeform:DATA?")
@@ -640,18 +693,18 @@ class Waveform(BaseController):
                     break
                 else:  # READ
                     data.append(get_data())
-            data = b''.join(data)
+            data = b"".join(data)
         else:
             data = get_data()
 
         # print(data)
         print(data)
-        #exit(0)
+        # exit(0)
         eff_waves: int = -1
-        if data[:7] == b'#900000':  # screen waveform data
+        if data[:7] == b"#900000":  # screen waveform data
             # #900000dddd -> dddd
             eff_waves = int(data[7:11])  # number of effective waveforms
-        elif data[:2] == b'#9':  # internal memory data
+        elif data[:2] == b"#9":  # internal memory data
             # #9XXXXXXXXX -> XXXXXXXXX
             eff_waves = int(data[2:11])
         else:
@@ -660,13 +713,15 @@ class Waveform(BaseController):
         # print(f"eff_waves = {eff_waves}")
 
         try:
-            raw_wave = data[11:(11+eff_waves)]
+            raw_wave = data[11 : (11 + eff_waves)]
         except:
             raise Ds2000Exception("The waveform was corrupted.")
 
         if eff_waves != len(raw_wave):
-            raise Ds2000Exception("The effective waves of the head do not match"
-                                  " the number of received waves.")
+            raise Ds2000Exception(
+                "The effective waves of the head do not match"
+                " the number of received waves."
+            )
 
         # print(f"raw_wave = {raw_wave}")
         # print(f"lan raw_wave: {len(raw_wave)}")
@@ -815,7 +870,7 @@ class Waveform(BaseController):
         """
         return float(self.device.ask(f":WAVeform:YREFerence?"))
 
-    def start(self, start: int=1):
+    def start(self, start: int = 1):
         """
         Rigol Programming Guide:
 
@@ -842,7 +897,8 @@ class Waveform(BaseController):
 
         Explanation
         For the memory depth, refer to the :ACQuire:MDEPth command.
-        The setting of the start position is limited by the current reading mode of the waveform (refer to the :WAVeform:MODE command).
+        The setting of the start position is limited by the current reading
+        mode of the waveform (refer to the :WAVeform:MODE command).
 
         Return Format
         The query returns an integer.
@@ -855,15 +911,21 @@ class Waveform(BaseController):
         """
         current_format: str = str(self.format)
         if current_format == "normal" and 1 < start > 1400:
-            raise ValueError("The parameter points in normal mode must be"
-                             "between 1 and 1400.")
+            raise ValueError(
+                "The parameter points in normal mode must be"
+                "between 1 and 1400."
+            )
         elif current_format == "maximum" and 1 < start:  # Todo: Check max
-            raise ValueError("The parameter points in maximal mode must be"
-                             "between 1 and the number of effective points "
-                             "currently on the screen.")
+            raise ValueError(
+                "The parameter points in maximal mode must be"
+                "between 1 and the number of effective points "
+                "currently on the screen."
+            )
         elif current_format == "raw" and 1 < start:  # Todo: Check max
-            raise ValueError("The parameter points in maximal mode must be"
-                             "between 1 and the current maximum memory depth.")
+            raise ValueError(
+                "The parameter points in maximal mode must be"
+                "between 1 and the current maximum memory depth."
+            )
         self.device.write(f":WAVeform:STARt {start}")
 
     def stop(self, stop: int):
@@ -893,7 +955,8 @@ class Waveform(BaseController):
 
         Explanation
         For the memory depth, refer to the :ACQuire:MDEPth command.
-        The setting of the stop position is limited by the current reading mode of the waveform (refer to the :WAVeform:MODE command).
+        The setting of the stop position is limited by the current reading
+        mode of the waveform (refer to the :WAVeform:MODE command).
 
         Return Format
         The query returns an integer.
@@ -906,15 +969,21 @@ class Waveform(BaseController):
         """
         current_format: str = str(self.format)
         if current_format == "normal" and 1 < stop > 1400:
-            raise ValueError("The parameter points in normal mode must be"
-                             "between 1 and 1400.")
+            raise ValueError(
+                "The parameter points in normal mode must be"
+                "between 1 and 1400."
+            )
         elif current_format == "maximum" and 1 < stop:  # Todo: Check max
-            raise ValueError("The parameter points in maximal mode must be"
-                             "between 1 and the number of effective points "
-                             "currently on the screen.")
+            raise ValueError(
+                "The parameter points in maximal mode must be"
+                "between 1 and the number of effective points "
+                "currently on the screen."
+            )
         elif current_format == "raw" and 1 < stop:  # Todo: Check max
-            raise ValueError("The parameter points in maximal mode must be"
-                             "between 1 and the current maximum memory depth.")
+            raise ValueError(
+                "The parameter points in maximal mode must be"
+                "between 1 and the current maximum memory depth."
+            )
         self.device.write(f":WAVeform:STOP {stop}")
 
     def begin(self):
@@ -979,16 +1048,27 @@ class Waveform(BaseController):
         Return Format
         The query returns 10 waveform parameters separated by ",":
         <format>,<type>,<points>,<count>,<xincrement>,<xorigin>,<xreference>,<yincrement>,<yorigin>,<yreference>
-        <format>: 0 (WORD), 1 (BYTE) or 2 (ASC). Refer to the :WAVeform:FORMat command.
-        <type>: 0 (NORMal), 1 (MAXimum) or 2 (RAW). Refer to the :WAVeform:MODE command.
-        <points>: integer between 1 and 56000000. Refer to the :WAVeform:POINts command.
-        <count>: the number of averages in average sample mode (refer to the :ACQuire:AVERages command) and 1 in other modes.
-        <xincrement>: the time difference between two neighboring points in X direction. Refer to the :WAVeform:XINCrement? command.
-        <xorigin>: the time from the trigger point to the "Reference Time" in X direction. Refer to the :WAVeform:XORigin? command.
-        <xreference>: the reference time of the data point in X direction. Refer to the :WAVeform:XREFerence? command.
-        <yincrement>: the voltage value per unit in Y direction. Refer to the :WAVeform:YINCrement? command.
-        <yorigin> the vertical offset relative to the "Vertical Reference Position" in Y direction. Refer to the :WAVeform:YORigin? command.
-        <yreference>: the vertical reference position in Y direction. Refer to the :WAVeform:YREFerence? command.
+        <format>: 0 (WORD), 1 (BYTE) or 2 (ASC). Refer to the :WAVeform:FORMat
+                  command.
+        <type>: 0 (NORMal), 1 (MAXimum) or 2 (RAW). Refer to the
+                :WAVeform:MODE command.
+        <points>: integer between 1 and 56000000. Refer to the
+                  :WAVeform:POINts command.
+        <count>: the number of averages in average sample mode (refer to the
+                 :ACQuire:AVERages command) and 1 in other modes.
+        <xincrement>: the time difference between two neighboring points in X
+                      direction. Refer to the :WAVeform:XINCrement? command.
+        <xorigin>: the time from the trigger point to the "Reference Time" in
+                   X direction. Refer to the :WAVeform:XORigin? command.
+        <xreference>: the reference time of the data point in X direction.
+                      Refer to the :WAVeform:XREFerence? command.
+        <yincrement>: the voltage value per unit in Y direction. Refer to the
+                      :WAVeform:YINCrement? command.
+        <yorigin> the vertical offset relative to the "Vertical Reference
+                  Position" in Y direction. Refer to the :WAVeform:YORigin?
+                  command.
+        <yreference>: the vertical reference position in Y direction. Refer
+                      to the :WAVeform:YREFerence? command.
 
         Example
         :WAVeform:PREamble?
@@ -996,19 +1076,21 @@ class Waveform(BaseController):
 
         :return:
         """
-        pre = self.device.ask(f":WAVeform:PREamble?").split(',')
+        pre = self.device.ask(f":WAVeform:PREamble?").split(",")
         if len(pre) != 10:
             raise Ds2000Exception("Unexpected waveform preamble length.")
-        return Preamble(pre[0],         # ('format', str)
-                        pre[1],         # ('type', str),
-                        int(pre[2]),    # ('points', int),
-                        int(pre[3]),    # ('count', int),
-                        float(pre[4]),  # ('x_inc', float),
-                        float(pre[5]),  # ('x_origin', float),
-                        float(pre[6]),  # ('x_ref', float),
-                        float(pre[7]),  # ('y_inc', float),
-                        float(pre[8]),  # ('y_origin', float),
-                        float(pre[9]))  # ('y_ref', float)
+        return Preamble(
+            pre[0],  # ('format', str)
+            pre[1],  # ('type', str),
+            int(pre[2]),  # ('points', int),
+            int(pre[3]),  # ('count', int),
+            float(pre[4]),  # ('x_inc', float),
+            float(pre[5]),  # ('x_origin', float),
+            float(pre[6]),  # ('x_ref', float),
+            float(pre[7]),  # ('y_inc', float),
+            float(pre[8]),  # ('y_origin', float),
+            float(pre[9]),
+        )  # ('y_ref', float)
 
     def status(self) -> WaveformStatus:
         """
@@ -1032,7 +1114,7 @@ class Waveform(BaseController):
 
         :return:
         """
-        status = self.device.ask(":WAVeform:STATus?").split(',')
+        status = self.device.ask(":WAVeform:STATus?").split(",")
         print(status)
         if len(status) != 2:
             raise Ds2000Exception("Unexpected waveform status length.")

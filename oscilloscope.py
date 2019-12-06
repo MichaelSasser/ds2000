@@ -1,26 +1,33 @@
 #!/usr/bin/env python
 # vim: set fileencoding=utf-8 :
 # ds2000 - The Python Library for Rigol DS2000 Oscilloscopes
-# Copyright (C) 2018  Michael Sasser <Michael@MichaelSasser.de>
-
+# Copyright (C) 2018  Michael Sasser <Michael@MichaelSasser.org>
+#
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
-
+#
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-
+#
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
-from ds2000.controller import Acquire, Bus, Display, IEEE, Timebase, Trigger, \
-    Waveform, Channel
-
+from ds2000.controller import (
+    Acquire,
+    Bus,
+    Display,
+    IEEE,
+    Timebase,
+    Trigger,
+    Waveform,
+    Channel,
+)
 
 __author__ = "Michael Sasser"
-__email__ = "Michael@MichaelSasser.de"
+__email__ = "Michael@MichaelSasser.org"
 
 import vxi11
 
@@ -69,7 +76,7 @@ class DS2000(object):
             error(f"Error while asking: {e}")
         finally:
             if DEBUGGING:
-                debug(f"asked: \"{msg}\", answered: \"{answer}\"")
+                debug(f'asked: "{msg}", answered: "{answer}"')
         return answer
 
     def write(self, msg: str):
@@ -84,9 +91,9 @@ class DS2000(object):
             error(f"Error while writing: {e}")
         finally:
             if DEBUGGING:
-                debug(f"written (raw): \"{msg}\"")
+                debug(f'written (raw): "{msg}"')
 
-    def read_raw(self, num: int=-1):
+    def read_raw(self, num: int = -1):
         """This is a Wrapper for the read_raw method of vxi11.
         With a wrapper it makes it possible to change the underlying
         package behaviour, vxi11 itself.
@@ -216,7 +223,8 @@ class DS2000(object):
         Syntax
         :TLHAlf
         Description
-        Set the trigger level to the vertical midpoint of the trigger signal amplitude.
+        Set the trigger level to the vertical midpoint of the trigger signal 
+        amplitude.
 
         :return:
         """
@@ -237,29 +245,33 @@ class DS2000(object):
     def __del__(self):
         self.disconnect()
 
+
 def main(*args, **kwargs):
     ip = "192.168.30.186"
-    #r = DS2000(ip)
-    #r.connect()
+    # r = DS2000(ip)
+    # r.connect()
     with DS2000(ip) as r:
         print("info:", r.info())
         from ds2000.func import simple_plot
+
         r.waveform.start(1)
         simple_plot(r, recorded=False)
 
-        #print(f'df={df}\n')
-        #print(df)
+        # print(f'df={df}\n')
+        # print(df)
 
-        #plt.plot(df)
-    #r.disconnect()
+        # plt.plot(df)
+    # r.disconnect()
 
 
 #   r.reset()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     DEBUGGING: bool = True
-    loggingBasicConfig(level=DEBUG if DEBUGGING else WARN,
-                       format='%(asctime)s - %(levelname)s - %(message)s')
+    loggingBasicConfig(
+        level=DEBUG if DEBUGGING else WARN,
+        format="%(asctime)s - %(levelname)s - %(message)s",
+    )
 
     main()
