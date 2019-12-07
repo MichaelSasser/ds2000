@@ -39,6 +39,7 @@ from logging import DEBUG, WARN, error, debug
 from logging import basicConfig as loggingBasicConfig
 
 Instrument = namedtuple("Instrument", "company model serial software_version")
+DEBUGGING: bool = False
 
 
 class DS2000(object):
