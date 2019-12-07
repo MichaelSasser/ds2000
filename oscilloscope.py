@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# vim: set fileencoding=utf-8 :
 # ds2000 - The Python Library for Rigol DS2000 Oscilloscopes
 # Copyright (C) 2018  Michael Sasser <Michael@MichaelSasser.org>
 #
