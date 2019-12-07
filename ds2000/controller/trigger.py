@@ -40,6 +40,7 @@ class Edge(BaseController):
         """
         **Rigol Programming Guide**
 
+        **Syntax**
 
 
         :return:
@@ -52,7 +53,7 @@ class Pulse(BaseController):
         """
         **Rigol Programming Guide**
 
-
+        **Syntax**
 
         :return:
         """
@@ -62,7 +63,7 @@ class Pulse(BaseController):
         """
         **Rigol Programming Guide**
 
-
+        **Syntax**
 
         :return:
         """
@@ -72,7 +73,7 @@ class Pulse(BaseController):
         """
         **Rigol Programming Guide**
 
-
+        **Syntax**
 
         :return:
         """
@@ -84,7 +85,7 @@ class Video(BaseController):
         """
         **Rigol Programming Guide**
 
-
+        **Syntax**
 
         :return:
         """
@@ -94,7 +95,7 @@ class Video(BaseController):
         """
         **Rigol Programming Guide**
 
-
+        **Syntax**
 
         :return:
         """
@@ -104,7 +105,7 @@ class Video(BaseController):
         """
         **Rigol Programming Guide**
 
-
+        **Syntax**
 
         :return:
         """
@@ -114,7 +115,7 @@ class Video(BaseController):
         """
         **Rigol Programming Guide**
 
-
+        **Syntax**
 
         :return:
         """
@@ -124,7 +125,7 @@ class Video(BaseController):
         """
         **Rigol Programming Guide**
 
-
+        **Syntax**
 
         :return:
         """
@@ -136,7 +137,7 @@ class Slope(BaseController):
         """
         **Rigol Programming Guide**
 
-
+        **Syntax**
 
         :return:
         """
@@ -146,7 +147,7 @@ class Slope(BaseController):
         """
         **Rigol Programming Guide**
 
-
+        **Syntax**
 
         :return:
         """
@@ -156,7 +157,7 @@ class Slope(BaseController):
         """
         **Rigol Programming Guide**
 
-
+        **Syntax**
 
         :return:
         """
@@ -166,7 +167,7 @@ class Slope(BaseController):
         """
         **Rigol Programming Guide**
 
-
+        **Syntax**
 
         :return:
         """
@@ -176,7 +177,7 @@ class Slope(BaseController):
         """
         **Rigol Programming Guide**
 
-
+        **Syntax**
 
         :return:
         """
@@ -186,7 +187,7 @@ class Slope(BaseController):
         """
         **Rigol Programming Guide**
 
-
+        **Syntax**
 
         :return:
         """
@@ -198,7 +199,7 @@ class Pattern(BaseController):
         """
         **Rigol Programming Guide**
 
-
+        **Syntax**
 
         :return:
         """
@@ -210,7 +211,7 @@ class Duration(BaseController):
         """
         **Rigol Programming Guide**
 
-
+        **Syntax**
 
         :return:
         """
@@ -221,7 +222,7 @@ class Duration(BaseController):
         **Rigol Programming Guide**
 
 
-
+        **Syntax**
         :return:
         """
         raise NotImplementedError()
@@ -230,7 +231,7 @@ class Duration(BaseController):
         """
         **Rigol Programming Guide**
 
-
+        **Syntax**
 
         :return:
         """
@@ -242,7 +243,7 @@ class Alternation(BaseController):
         """
         **Rigol Programming Guide**
 
-
+        **Syntax**
 
         :return:
         """
@@ -252,7 +253,7 @@ class Alternation(BaseController):
         """
         **Rigol Programming Guide**
 
-
+        **Syntax**
 
         :return:
         """
@@ -262,7 +263,7 @@ class Alternation(BaseController):
         """
         **Rigol Programming Guide**
 
-
+        **Syntax**
 
         :return:
         """
@@ -272,7 +273,7 @@ class Alternation(BaseController):
         """
         **Rigol Programming Guide**
 
-
+        **Syntax**
 
         :return:
         """
@@ -282,7 +283,7 @@ class Alternation(BaseController):
         """
         **Rigol Programming Guide**
 
-
+        **Syntax**
 
         :return:
         """
@@ -292,7 +293,7 @@ class Alternation(BaseController):
         """
         **Rigol Programming Guide**
 
-
+        **Syntax**
 
         :return:
         """
@@ -302,7 +303,7 @@ class Alternation(BaseController):
         """
         **Rigol Programming Guide**
 
-
+        **Syntax**
 
         :return:
         """
@@ -312,7 +313,7 @@ class Alternation(BaseController):
         """
         **Rigol Programming Guide**
 
-
+        **Syntax**
 
         :return:
         """
@@ -322,7 +323,7 @@ class Alternation(BaseController):
         """
         **Rigol Programming Guide**
 
-
+        **Syntax**
 
         :return:
         """
@@ -332,7 +333,7 @@ class Alternation(BaseController):
         """
         **Rigol Programming Guide**
 
-
+        **Syntax**
 
         :return:
         """
@@ -342,7 +343,7 @@ class Alternation(BaseController):
         """
         **Rigol Programming Guide**
 
-
+        **Syntax**
 
         :return:
         """
@@ -352,7 +353,7 @@ class Alternation(BaseController):
         """
         **Rigol Programming Guide**
 
-
+        **Syntax**
 
         :return:
         """
@@ -362,7 +363,7 @@ class Alternation(BaseController):
         """
         **Rigol Programming Guide**
 
-
+        **Syntax**
 
         :return:
         """
@@ -372,7 +373,7 @@ class Alternation(BaseController):
         """
         **Rigol Programming Guide**
 
-
+        **Syntax**
 
         :return:
         """
@@ -382,7 +383,7 @@ class Alternation(BaseController):
         """
         **Rigol Programming Guide**
 
-
+        **Syntax**
 
         :return:
         """
@@ -392,7 +393,7 @@ class Alternation(BaseController):
         """
         **Rigol Programming Guide**
 
-
+        **Syntax**
 
         :return:
         """
@@ -402,7 +403,7 @@ class Alternation(BaseController):
         """
         **Rigol Programming Guide**
 
-
+        **Syntax**
 
         :return:
         """
@@ -414,7 +415,7 @@ class Trigger(BaseController):
         """
         **Rigol Programming Guide**
 
-
+        **Syntax**
 
         :return:
         """
@@ -424,7 +425,7 @@ class Trigger(BaseController):
         """
         **Rigol Programming Guide**
 
-
+        **Syntax**
 
         :return:
         """
@@ -434,7 +435,7 @@ class Trigger(BaseController):
         """
         **Rigol Programming Guide**
 
-
+        **Syntax**
 
         :return:
         """
@@ -444,7 +445,7 @@ class Trigger(BaseController):
         """
         **Rigol Programming Guide**
 
-
+        **Syntax**
 
         :return:
         """
@@ -454,7 +455,7 @@ class Trigger(BaseController):
         """
         **Rigol Programming Guide**
 
-
+        **Syntax**
 
         :return:
         """
@@ -464,7 +465,7 @@ class Trigger(BaseController):
         """
         **Rigol Programming Guide**
 
-
+        **Syntax**
 
         :return:
         """
@@ -474,7 +475,7 @@ class Trigger(BaseController):
         """
         **Rigol Programming Guide**
 
-
+        **Syntax**
 
         :return:
         """
@@ -484,7 +485,7 @@ class Trigger(BaseController):
         """
         **Rigol Programming Guide**
 
-
+        **Syntax**
 
         :return:
         """
@@ -494,7 +495,7 @@ class Trigger(BaseController):
         """
         **Rigol Programming Guide**
 
-
+        **Syntax**
 
         :return:
         """

@@ -29,6 +29,7 @@ from .ieee import *
 from .bus import *
 from .waveform import *
 from .channel import *
+from .calculate import *
 
 __all__ = (
     *error_handling.__all__,
@@ -41,4 +42,5 @@ __all__ = (
     *bus.__all__,
     *waveform.__all__,
     *channel.__all__,
+    *calculate.__all__,
 )
