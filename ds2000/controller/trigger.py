@@ -29,10 +29,6 @@ class Edge(BaseController):
     def slope(self):
         """
         **Rigol Programming Guide**
-
-
-
-        :return:
         """
         raise NotImplementedError()
 
@@ -41,9 +37,6 @@ class Edge(BaseController):
         **Rigol Programming Guide**
 
         **Syntax**
-
-
-        :return:
         """
         raise NotImplementedError()
 
@@ -54,8 +47,6 @@ class Pulse(BaseController):
         **Rigol Programming Guide**
 
         **Syntax**
-
-        :return:
         """
         raise NotImplementedError()
 
@@ -64,8 +55,6 @@ class Pulse(BaseController):
         **Rigol Programming Guide**
 
         **Syntax**
-
-        :return:
         """
         raise NotImplementedError()
 
@@ -74,8 +63,6 @@ class Pulse(BaseController):
         **Rigol Programming Guide**
 
         **Syntax**
-
-        :return:
         """
         raise NotImplementedError()
 
@@ -86,8 +73,6 @@ class Video(BaseController):
         **Rigol Programming Guide**
 
         **Syntax**
-
-        :return:
         """
         raise NotImplementedError()
 
@@ -96,8 +81,6 @@ class Video(BaseController):
         **Rigol Programming Guide**
 
         **Syntax**
-
-        :return:
         """
         raise NotImplementedError()
 
@@ -106,8 +89,6 @@ class Video(BaseController):
         **Rigol Programming Guide**
 
         **Syntax**
-
-        :return:
         """
         raise NotImplementedError()
 
@@ -116,8 +97,6 @@ class Video(BaseController):
         **Rigol Programming Guide**
 
         **Syntax**
-
-        :return:
         """
         raise NotImplementedError()
 
@@ -126,8 +105,6 @@ class Video(BaseController):
         **Rigol Programming Guide**
 
         **Syntax**
-
-        :return:
         """
         raise NotImplementedError()
 
@@ -138,8 +115,6 @@ class Slope(BaseController):
         **Rigol Programming Guide**
 
         **Syntax**
-
-        :return:
         """
         raise NotImplementedError()
 
@@ -148,8 +123,6 @@ class Slope(BaseController):
         **Rigol Programming Guide**
 
         **Syntax**
-
-        :return:
         """
         raise NotImplementedError()
 
@@ -158,8 +131,6 @@ class Slope(BaseController):
         **Rigol Programming Guide**
 
         **Syntax**
-
-        :return:
         """
         raise NotImplementedError()
 
@@ -168,8 +139,6 @@ class Slope(BaseController):
         **Rigol Programming Guide**
 
         **Syntax**
-
-        :return:
         """
         raise NotImplementedError()
 
@@ -178,8 +147,6 @@ class Slope(BaseController):
         **Rigol Programming Guide**
 
         **Syntax**
-
-        :return:
         """
         raise NotImplementedError()
 
@@ -188,8 +155,6 @@ class Slope(BaseController):
         **Rigol Programming Guide**
 
         **Syntax**
-
-        :return:
         """
         raise NotImplementedError()
 
@@ -200,8 +165,6 @@ class Pattern(BaseController):
         **Rigol Programming Guide**
 
         **Syntax**
-
-        :return:
         """
         raise NotImplementedError()
 
@@ -212,8 +175,6 @@ class Duration(BaseController):
         **Rigol Programming Guide**
 
         **Syntax**
-
-        :return:
         """
         raise NotImplementedError()
 
@@ -223,7 +184,6 @@ class Duration(BaseController):
 
 
         **Syntax**
-        :return:
         """
         raise NotImplementedError()
 
@@ -232,8 +192,6 @@ class Duration(BaseController):
         **Rigol Programming Guide**
 
         **Syntax**
-
-        :return:
         """
         raise NotImplementedError()
 
@@ -244,8 +202,6 @@ class Alternation(BaseController):
         **Rigol Programming Guide**
 
         **Syntax**
-
-        :return:
         """
         raise NotImplementedError()
 
@@ -254,8 +210,6 @@ class Alternation(BaseController):
         **Rigol Programming Guide**
 
         **Syntax**
-
-        :return:
         """
         raise NotImplementedError()
 
@@ -264,8 +218,6 @@ class Alternation(BaseController):
         **Rigol Programming Guide**
 
         **Syntax**
-
-        :return:
         """
         raise NotImplementedError()
 
@@ -274,8 +226,6 @@ class Alternation(BaseController):
         **Rigol Programming Guide**
 
         **Syntax**
-
-        :return:
         """
         raise NotImplementedError()
 
@@ -284,8 +234,6 @@ class Alternation(BaseController):
         **Rigol Programming Guide**
 
         **Syntax**
-
-        :return:
         """
         raise NotImplementedError()
 
@@ -294,8 +242,6 @@ class Alternation(BaseController):
         **Rigol Programming Guide**
 
         **Syntax**
-
-        :return:
         """
         raise NotImplementedError()
 
@@ -304,8 +250,6 @@ class Alternation(BaseController):
         **Rigol Programming Guide**
 
         **Syntax**
-
-        :return:
         """
         raise NotImplementedError()
 
@@ -314,8 +258,6 @@ class Alternation(BaseController):
         **Rigol Programming Guide**
 
         **Syntax**
-
-        :return:
         """
         raise NotImplementedError()
 
@@ -324,8 +266,6 @@ class Alternation(BaseController):
         **Rigol Programming Guide**
 
         **Syntax**
-
-        :return:
         """
         raise NotImplementedError()
 
@@ -334,8 +274,6 @@ class Alternation(BaseController):
         **Rigol Programming Guide**
 
         **Syntax**
-
-        :return:
         """
         raise NotImplementedError()
 
@@ -344,8 +282,6 @@ class Alternation(BaseController):
         **Rigol Programming Guide**
 
         **Syntax**
-
-        :return:
         """
         raise NotImplementedError()
 
@@ -354,8 +290,6 @@ class Alternation(BaseController):
         **Rigol Programming Guide**
 
         **Syntax**
-
-        :return:
         """
         raise NotImplementedError()
 
@@ -364,8 +298,6 @@ class Alternation(BaseController):
         **Rigol Programming Guide**
 
         **Syntax**
-
-        :return:
         """
         raise NotImplementedError()
 
@@ -374,8 +306,6 @@ class Alternation(BaseController):
         **Rigol Programming Guide**
 
         **Syntax**
-
-        :return:
         """
         raise NotImplementedError()
 
@@ -384,8 +314,6 @@ class Alternation(BaseController):
         **Rigol Programming Guide**
 
         **Syntax**
-
-        :return:
         """
         raise NotImplementedError()
 
@@ -394,8 +322,6 @@ class Alternation(BaseController):
         **Rigol Programming Guide**
 
         **Syntax**
-
-        :return:
         """
         raise NotImplementedError()
 
@@ -404,8 +330,6 @@ class Alternation(BaseController):
         **Rigol Programming Guide**
 
         **Syntax**
-
-        :return:
         """
         raise NotImplementedError()
 
@@ -416,8 +340,6 @@ class Trigger(BaseController):
         **Rigol Programming Guide**
 
         **Syntax**
-
-        :return:
         """
         raise NotImplementedError()
 
@@ -426,8 +348,6 @@ class Trigger(BaseController):
         **Rigol Programming Guide**
 
         **Syntax**
-
-        :return:
         """
         raise NotImplementedError()
 
@@ -436,8 +356,6 @@ class Trigger(BaseController):
         **Rigol Programming Guide**
 
         **Syntax**
-
-        :return:
         """
         raise NotImplementedError()
 
@@ -446,8 +364,6 @@ class Trigger(BaseController):
         **Rigol Programming Guide**
 
         **Syntax**
-
-        :return:
         """
         raise NotImplementedError()
 
@@ -456,8 +372,6 @@ class Trigger(BaseController):
         **Rigol Programming Guide**
 
         **Syntax**
-
-        :return:
         """
         raise NotImplementedError()
 
@@ -466,8 +380,6 @@ class Trigger(BaseController):
         **Rigol Programming Guide**
 
         **Syntax**
-
-        :return:
         """
         raise NotImplementedError()
 
@@ -476,8 +388,6 @@ class Trigger(BaseController):
         **Rigol Programming Guide**
 
         **Syntax**
-
-        :return:
         """
         raise NotImplementedError()
 
@@ -486,8 +396,6 @@ class Trigger(BaseController):
         **Rigol Programming Guide**
 
         **Syntax**
-
-        :return:
         """
         raise NotImplementedError()
 
@@ -496,7 +404,5 @@ class Trigger(BaseController):
         **Rigol Programming Guide**
 
         **Syntax**
-
-        :return:
         """
         raise NotImplementedError()

@@ -26,9 +26,7 @@ __all__ = [
 class Addition(SubController):
     def sa(self):
         """
-
         **Rigol Programming Guide**
-
 
         **Syntax**
 
@@ -63,9 +61,7 @@ class Addition(SubController):
 
     def sb(self):
         """
-
         **Rigol Programming Guide**
-
 
         **Syntax**
 
@@ -101,9 +97,7 @@ class Addition(SubController):
 
     def invert(self):
         """
-
         **Rigol Programming Guide**
-
 
         **Syntax**
 
@@ -140,9 +134,7 @@ class Addition(SubController):
 
     def vscale(self):
         """
-
         **Rigol Programming Guide**
-
 
         **Syntax**
 
@@ -181,9 +173,7 @@ class Addition(SubController):
 
     def voffset(self):
         """
-
         **Rigol Programming Guide**
-
 
         **Syntax**
 
@@ -223,9 +213,7 @@ class Addition(SubController):
 class Subtraction(SubController):
     def sa(self):
         """
-
         **Rigol Programming Guide**
-
 
         **Syntax**
 
@@ -262,9 +250,7 @@ class Subtraction(SubController):
 
     def sb(self):
         """
-
         **Rigol Programming Guide**
-
 
         **Syntax**
 
@@ -301,9 +287,7 @@ class Subtraction(SubController):
 
     def invert(self):
         """
-
         **Rigol Programming Guide**
-
 
         **Syntax**
 
@@ -341,9 +325,7 @@ class Subtraction(SubController):
 
     def vscale(self):
         """
-
         **Rigol Programming Guide**
-
 
         **Syntax**
 
@@ -382,9 +364,7 @@ class Subtraction(SubController):
 
     def voffset(self):
         """
-
         **Rigol Programming Guide**
-
 
         **Syntax**
 
@@ -424,9 +404,7 @@ class Subtraction(SubController):
 class Multiplication(SubController):
     def sa(self):
         """
-
         **Rigol Programming Guide**
-
 
         **Syntax**
 
@@ -464,9 +442,7 @@ class Multiplication(SubController):
 
     def sb(self):
         """
-
         **Rigol Programming Guide**
-
 
         **Syntax**
 
@@ -504,9 +480,7 @@ class Multiplication(SubController):
 
     def invert(self):
         """
-
         **Rigol Programming Guide**
-
 
         **Syntax**
 
@@ -544,9 +518,7 @@ class Multiplication(SubController):
 
     def vscale(self):
         """
-
         **Rigol Programming Guide**
-
 
         **Syntax**
 
@@ -585,9 +557,7 @@ class Multiplication(SubController):
 
     def voffset(self):
         """
-
         **Rigol Programming Guide**
-
 
         **Syntax**
 
@@ -628,9 +598,7 @@ class Multiplication(SubController):
 class Division(SubController):
     def sa(self):
         """
-
         **Rigol Programming Guide**
-
 
         **Syntax**
 
@@ -667,9 +635,7 @@ class Division(SubController):
 
     def sb(self):
         """
-
         **Rigol Programming Guide**
-
 
         **Syntax**
 
@@ -705,9 +671,7 @@ class Division(SubController):
 
     def invert(self):
         """
-
         **Rigol Programming Guide**
-
 
         **Syntax**
 
@@ -744,9 +708,7 @@ class Division(SubController):
 
     def vscale(self):
         """
-
         **Rigol Programming Guide**
-
 
         **Syntax**
 
@@ -785,9 +747,7 @@ class Division(SubController):
 
     def voffset(self):
         """
-
         **Rigol Programming Guide**
-
 
         **Syntax**
 
@@ -827,9 +787,7 @@ class Division(SubController):
 class Fft(SubController):
     def source(self):
         """
-
         **Rigol Programming Guide**
-
 
         **Syntax**
 
@@ -863,9 +821,7 @@ class Fft(SubController):
 
     def window(self):
         """
-
         **Rigol Programming Guide**
-
 
         **Syntax**
 
@@ -899,9 +855,7 @@ class Fft(SubController):
 
     def split(self):
         """
-
         **Rigol Programming Guide**
-
 
         **Syntax**
 
@@ -937,9 +891,7 @@ class Fft(SubController):
 
     def vsmode(self):
         """
-
         **Rigol Programming Guide**
-
 
         **Syntax**
 
@@ -975,9 +927,7 @@ class Fft(SubController):
 
     def vscale(self):
         """
-
         **Rigol Programming Guide**
-
 
         **Syntax**
 
@@ -1006,9 +956,7 @@ class Fft(SubController):
                           scale*128)
         ========== ====== =============================== ============
 
-        
         Note:
-        
         For the FFT display mode, refer to the :CALCulate:FFT:VSMode command.
         
         For the channel scale, refer to the :CHANnel<n>:SCALe command. Once
@@ -1029,9 +977,7 @@ class Fft(SubController):
 
     def voffset(self):
         """
-
         **Rigol Programming Guide**
-
 
         **Syntax**
 
@@ -1070,9 +1016,7 @@ class Fft(SubController):
 
     def hscale(self):
         """
-
         **Rigol Programming Guide**
-
 
         **Syntax**
 
@@ -1120,12 +1064,9 @@ class Fft(SubController):
 
     def hoffset(self):
         """
-
         **Rigol Programming Guide**
 
-
         **Syntax**
-
         
         :CALCulate:FFT:HOFFset <offs>
         
@@ -1164,9 +1105,7 @@ class Fft(SubController):
 
     def hspan(self):
         """
-
         **Rigol Programming Guide**
-
 
         **Syntax**
 
@@ -1215,9 +1154,7 @@ class Fft(SubController):
 
     def hcenter(self):
         """
-
         **Rigol Programming Guide**
-
 
         **Syntax**
 
@@ -1260,9 +1197,7 @@ class Fft(SubController):
 class Logic(SubController):
     def sa(self):
         """
-
         **Rigol Programming Guide**
-
 
         **Syntax**
 
@@ -1304,9 +1239,7 @@ class Logic(SubController):
 
     def sb(self):
         """
-
         **Rigol Programming Guide**
-
 
         **Syntax**
 
@@ -1348,9 +1281,7 @@ class Logic(SubController):
 
     def invert(self):
         """
-
         **Rigol Programming Guide**
-
 
         **Syntax**
 
@@ -1387,9 +1318,7 @@ class Logic(SubController):
 
     def vscale(self):
         """
-
         **Rigol Programming Guide**
-
 
         **Syntax**
 
@@ -1425,13 +1354,10 @@ class Logic(SubController):
 
     def voffset(self):
         """
-
         **Rigol Programming Guide**
-
 
         **Syntax**
 
-     
         :CALCulate:LOGic:VOFFset <offs>
      
         :CALCulate:LOGic:VOFFset?
@@ -1467,9 +1393,7 @@ class Logic(SubController):
 
     def operator(self):
         """
-
         **Rigol Programming Guide**
-
 
         **Syntax**
 
@@ -1506,9 +1430,7 @@ class Logic(SubController):
 
     def athreshold(self):
         """
-
         **Rigol Programming Guide**
-
 
         **Syntax**
 
@@ -1545,9 +1467,7 @@ class Logic(SubController):
 
     def bthreshold(self):
         """
-
         **Rigol Programming Guide**
-
 
         **Syntax**
 
@@ -1585,9 +1505,7 @@ class Logic(SubController):
 class Advanced(SubController):
     def expression(self):
         """
-
         **Rigol Programming Guide**
-
 
         **Syntax**
 
@@ -1639,9 +1557,7 @@ class Advanced(SubController):
 
     def invert(self):
         """
-
         **Rigol Programming Guide**
-
 
         **Syntax**
 
@@ -1678,9 +1594,7 @@ class Advanced(SubController):
 
     def variable1(self):
         """
-
         **Rigol Programming Guide**
-
 
         **Syntax**
 
@@ -1721,9 +1635,7 @@ class Advanced(SubController):
         raise NotImplementedError()
     def variable2(self):
         """
-
         **Rigol Programming Guide**
-
 
         **Syntax**
 
@@ -1765,9 +1677,7 @@ class Advanced(SubController):
 
     def vscalc(self):
         """
-
         **Rigol Programming Guide**
-
 
         **Syntax**
 
@@ -1806,9 +1716,7 @@ class Advanced(SubController):
 
     def voffset(self):
         """
-
         **Rigol Programming Guide**
-
 
         **Syntax**
 
@@ -1856,9 +1764,7 @@ class Calculate(BaseController):
 
     def mode(self):
         """
-
         **Rigol Programming Guide**
-
 
         **Syntax**
 

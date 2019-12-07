@@ -46,7 +46,6 @@ Preamble = NamedTuple(
 class Mode(SubController):
     def normal(self):
         """
-
         **Rigol Programming Guide:**
 
         :WAVeform:MODE
@@ -94,14 +93,11 @@ class Mode(SubController):
         :WAVeform:MODE RAW
 
         The query returns RAW.
-
-        :return:
         """
         self.subdevice.device.write(":WAVeform:MODE NORMal")
 
     def maximum(self):
         """
-
         **Rigol Programming Guide**
 
         :WAVeform:MODE
@@ -150,16 +146,12 @@ class Mode(SubController):
         :WAVeform:MODE RAW
 
         The query returns RAW.
-
-        :return:
         """
         self.subdevice.device.write(":WAVeform:MODE MAXimum")
 
     def raw(self):
         """
-
         **Rigol Programming Guide**
-
 
         :WAVeform:MODE
 
@@ -207,8 +199,6 @@ class Mode(SubController):
         :WAVeform:MODE RAW
 
         The query returns RAW.
-
-        :return:
         """
         self.subdevice.device.write(":WAVeform:MODE RAW")
 
@@ -233,9 +223,7 @@ class Mode(SubController):
 class Format(SubController):
     def word(self):
         """
-
         **Rigol Programming Guide**
-
 
         :WAVeform:FORMat
 
@@ -283,14 +271,11 @@ class Format(SubController):
         :WAVeform:FORMat WORD
 
         The query returns WORD.
-
-        :return:
         """
         self.subdevice.device.write(":WAVeform:FORMat WORD")
 
     def byte(self):
         """
-
         **Rigol Programming Guide**
 
         :WAVeform:FORMat
@@ -337,14 +322,11 @@ class Format(SubController):
         :WAVeform:FORMat WORD
 
         The query returns WORD.
-
-        :return:
         """
         self.subdevice.device.write(":WAVeform:FORMat BYTE")
 
     def ascii(self):
         """
-
         Rigol Programming Guide:
 
         :WAVeform:FORMat
@@ -390,8 +372,6 @@ class Format(SubController):
         :WAVeform:FORMat WORD
 
         The query returns WORD.
-
-        :return:
         """
         self.subdevice.device.write(":WAVeform:FORMat ASCii")
 
@@ -421,7 +401,6 @@ class Waveform(BaseController):
 
     def channel(self, channel: int = 1):
         """
-
         **Rigol Programming Guide**
 
         :WAVeform:SOURce
@@ -454,8 +433,6 @@ class Waveform(BaseController):
         :WAVeform:SOURce CHANnel2
 
         The query returns CHAN2.
-
-        :return:
         """
         if channel > 2 and isinstance(channel, int):
             raise ValueError(f"The channel must be 1 or 2 of the type int.")
@@ -464,7 +441,6 @@ class Waveform(BaseController):
     def points(self, points: int):
         """
         **Rigol Programming Guide**
-
 
         :WAVeform:POINts
 
@@ -506,8 +482,6 @@ class Waveform(BaseController):
         :WAVeform:POINts 600
 
         The query returns 600..
-
-        :return:
         """
         if not isinstance(points, int):
             raise TypeError("The parameter points must be of the type int.")
@@ -533,7 +507,6 @@ class Waveform(BaseController):
 
     def data(self, recorded: bool = False):
         """
-
         **Rigol Programming Guide**
 
         **Syntax**
@@ -791,8 +764,6 @@ class Waveform(BaseController):
                    }
            }
            }
-
-        :return:
         """
 
         def get_data():
@@ -881,8 +852,6 @@ class Waveform(BaseController):
         :WAVeform:XINCrement?
 
         The query returns 1.000000e-08.
-
-        :return:
         """
         return float(self.device.ask(f":WAVeform:XINCrement?"))
 
@@ -890,7 +859,6 @@ class Waveform(BaseController):
     def x_origin(self) -> float:
         """
         **Rigol Programming Guide**
-
 
         **Syntax**
 
@@ -911,8 +879,6 @@ class Waveform(BaseController):
         :WAVeform:XORigin?
 
         The query returns -7.000000e-06.
-
-        :return:
         """
         return float(self.device.ask(f":WAVeform:XORigin?"))
 
@@ -920,7 +886,6 @@ class Waveform(BaseController):
     def x_reference(self) -> float:
         """
         **Rigol Programming Guide**
-
 
         **Syntax**
 
@@ -941,8 +906,6 @@ class Waveform(BaseController):
         :WAVeform:XREFerence?
 
         The query returns 0.
-
-        :return:
         """
         return float(self.device.ask(f":WAVeform:XREFerence?"))
 
@@ -950,7 +913,6 @@ class Waveform(BaseController):
     def y_increment(self) -> float:
         """
         **Rigol Programming Guide**
-
 
         **Syntax**
 
@@ -971,8 +933,6 @@ class Waveform(BaseController):
         :WAVeform:YINCrement?
 
         The query returns 4.000000e-02.
-
-        :return:
         """
         return float(self.device.ask(f":WAVeform:YINCrement?"))
 
@@ -1001,8 +961,6 @@ class Waveform(BaseController):
         :WAVeform:YORigin?
 
         The query returns 2.000000e+00.
-
-        :return:
         """
         return float(self.device.ask(f":WAVeform:YORigin?"))
 
@@ -1010,7 +968,6 @@ class Waveform(BaseController):
     def y_reference(self) -> float:
         """
         **Rigol Programming Guide**
-
 
         **Syntax**
 
@@ -1031,15 +988,12 @@ class Waveform(BaseController):
         :WAVeform:YREFerence?
 
         The query returns 127.
-
-        :return:
         """
         return float(self.device.ask(f":WAVeform:YREFerence?"))
 
     def start(self, start: int = 1):
         """
         **Rigol Programming Guide**
-
 
         :WAVeform:STARt
 
@@ -1084,8 +1038,6 @@ class Waveform(BaseController):
         :WAVeform:STARt 100
 
         The query returns 100.
-
-        :return:
         """
         current_format: str = str(self.format)
         if current_format == "normal" and 1 < start > 1400:
@@ -1153,8 +1105,6 @@ class Waveform(BaseController):
         :WAVeform:STOP 200
 
         The query returns 200.
-
-        :return:
         """
         current_format: str = str(self.format)
         if current_format == "normal" and 1 < stop > 1400:
@@ -1188,8 +1138,6 @@ class Waveform(BaseController):
         **Description**
 
         Enable the waveform reading.
-
-        :return:
         """
         self.device.write(f":WAVeform:BEGin")
 
@@ -1206,8 +1154,6 @@ class Waveform(BaseController):
         **Description**
 
         Stop the waveform reading.
-
-        :return:
         """
         self.device.write(f":WAVeform:END")
 
@@ -1224,15 +1170,12 @@ class Waveform(BaseController):
         **Description**
 
         Reset the waveform reading.
-
-        :return:
         """
         self.device.write(f":WAVeform:RESet")
 
     def preamble(self) -> Preamble:
         """
         **Rigol Programming Guide**
-
 
         :WAVeform:PREamble?
 
@@ -1278,8 +1221,6 @@ class Waveform(BaseController):
         :WAVeform:PREamble?
 
         The query returns 0,0,1400,1,0.000000,-0.000007,0,0.040000,2.000000,127.
-
-        :return:
         """
         pre = self.device.ask(f":WAVeform:PREamble?").split(",")
         if len(pre) != 10:
@@ -1300,7 +1241,6 @@ class Waveform(BaseController):
     def status(self) -> WaveformStatus:
         """
         **Rigol Programming Guide**
-
 
         :WAVeform:STATus?
 
@@ -1323,8 +1263,6 @@ class Waveform(BaseController):
         **Return Format**
 
         The query returns IDLE,n or READ,n.
-
-        :return:
         """
         status = self.device.ask(":WAVeform:STATus?").split(",")
         print(status)

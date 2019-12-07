@@ -69,7 +69,6 @@ class DS2000(object):
         """This is a Wrapper for the ask method of vxi11.
         With a wrapper it makes it possible to change the underlying
         package behaviour, vxi11 itself.
-
         """
         answer: str = None
         try:  # Probably just for development
@@ -85,7 +84,6 @@ class DS2000(object):
         """This is a Wrapper for the write method of vxi11.
         With a wrapper it makes it possible to change the underlying
         package behaviour, vxi11 itself.
-
         """
         try:  # Probably just for development
             self.__inst.write(msg)
@@ -99,7 +97,6 @@ class DS2000(object):
         """This is a Wrapper for the read_raw method of vxi11.
         With a wrapper it makes it possible to change the underlying
         package behaviour, vxi11 itself.
-
         """
         msg: bytes = None
         try:  # Probably just for development
@@ -118,117 +115,138 @@ class DS2000(object):
 
     def autoscale(self):
         """
-        Rigol Programming Guide:
+        **Rigol Programming Guide**
 
-        Syntax
+        **Syntax**
+
         :AUToscale
-        Description
+
+        **Description**
+
         Enable the auto setting function.
-        Explanation
+
+        **Explanation**
+
         This command is not available when the current state of the Pass/Fail
         function is “Enable Test”. For details, refer to the :MASK:ENABle
         command.
+
         The oscilloscope will adjust the vertical scale, horizontal time base
         and trigger mode for optimum display of the waveform. Note that to use
         the auto setting, the frequency of the signal under test should be no
         lower than 50 Hz, the duty cycle be greater than 1% and the amplitude
         be at least 20 mVpp.
-
-        :return:
         """
         self.ask(":AUToscale")
 
     def clear(self):
         """
-        Rigol Programming Guide:
+        **Rigol Programming Guide**
 
-        Syntax
+        **Syntax**
+
         :CLEar
-        Description
-        Clear all the waveforms on the screen.
-        Explanation
-        Waveform will still be displayed if the oscilloscope is in RUN state.
 
-        :return:
+        **Description**
+
+        Clear all the waveforms on the screen.
+
+        **Explanation**
+
+        Waveform will still be displayed if the oscilloscope is in RUN state.
         """
         self.ask(":AUToscale")
 
     def run(self):
         """
-        Rigol Programming Guide:
+        **Rigol Programming Guide**
 
-        Syntax
+        **Syntax**
+
         :RUN
-        Description
-        Start the oscilloscope.
-        Explanation
-        You can use the :STOP command to set the oscilloscope to STOP.
 
-        :return:
+        **Description**
+
+        Start the oscilloscope.
+
+        **Explanation**
+
+        You can use the :STOP command to set the oscilloscope to STOP.
         """
         self.ask(":RUN")
 
     def single(self):
         """
-        Rigol Programming Guide:
+        **Rigol Programming Guide**
 
-        Syntax
+        **Syntax**
+
         :SINGle
-        Description
+
+        **Description**
+
         Set the oscilloscope to single trigger mode.
-        Explanation
+
+        **Explanation**
+
         In single trigger mode, the oscilloscope triggers once the trigger
         conditions are met and then stops.
         In single trigger mode, using the :TFORce command can generate a
         trigger signal forcefully.
+
         You can use the :RUN and :STOP command to set the oscilloscope to
         Auto trigger mode or STOP state respectively.
-
-        :return:
         """
         self.ask(":SINGle")
 
     def stop(self):
         """
-        Rigol Programming Guide:
+        **Rigol Programming Guide**
 
-        Syntax
+        **Syntax**
+
         :STOP
-        Description
-        Stop the oscilloscope.
-        Explanation
-        You can use the :RUN command to set the oscilloscope to Run.
 
-        :return:
+        **Description**
+
+        Stop the oscilloscope.
+
+        **Explanation**
+
+        You can use the :RUN command to set the oscilloscope to Run.
         """
         self.write(":STOP")
 
     def t_force(self):  # ToDo: Prob. to Trigger Menu
         """
-        Rigol Programming Guide:
+        **Rigol Programming Guide**
 
-        Syntax
+        **Syntax**
+
         :TFORce
-        Description
-        Generate a trigger signal forcefully.
-        Explanation
-        Force trigger is applicable to normal and single trigger modes.
 
-        :return:
+        **Description**
+
+        Generate a trigger signal forcefully.
+
+        **Explanation**
+
+        Force trigger is applicable to normal and single trigger modes.
         """
         self.ask(":TFORce")
 
     def t_half(self):  # ToDo: Prob. to Trigger Menu
         """
-        Rigol Programming Guide:
+        **Rigol Programming Guide**
 
-        Syntax
+        **Syntax**
+
         :TLHAlf
-        Description
-        Set the trigger level to the vertical midpoint of the trigger signal 
-        amplitude.
 
-        :return:
+        **Description**
+
+        Set the trigger level to the vertical midpoint of the trigger signal
+        amplitude.
         """
         self.ask(":TLHAlf")
 

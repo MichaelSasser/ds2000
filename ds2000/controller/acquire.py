@@ -33,7 +33,6 @@ AcquireType = namedtuple("AcquireType", "type average_count")
 class Type(SubController):
     def normal(self):
         """
-
           **Rigol Programming Guide**
 
           **Syntax**
@@ -68,14 +67,11 @@ class Type(SubController):
           :ACQuire:TYPE AVERages
 
           The query returns AVER.
-
-          :return:
           """
         self.subdevice.device.ask(":ACQuire:TYPE NORMal")
 
     def average(self):
         """
-
           **Rigol Programming Guide**
 
           **Syntax**
@@ -110,14 +106,11 @@ class Type(SubController):
           :ACQuire:TYPE AVERages
 
           The query returns AVER.
-
-          :return:
           """
         self.subdevice.device.ask(":ACQuire:TYPE AVERages")
 
     def peakdetect(self):
         """
-
           **Rigol Programming Guide**
 
           **Syntax**
@@ -153,14 +146,11 @@ class Type(SubController):
           :ACQuire:TYPE AVERages
 
           The query returns AVER.
-
-          :return:
           """
         self.subdevice.device.ask(":ACQuire:TYPE PEAK")
 
     def highres(self):
         """
-
           **Rigol Programming Guide**
 
           **Syntax**
@@ -196,8 +186,6 @@ class Type(SubController):
           :ACQuire:TYPE AVERages
 
           The query returns AVER.
-
-          :return:
           """
         self.subdevice.device.ask(":ACQuire:TYPE HRESolution")
 
@@ -246,7 +234,6 @@ class Acquire(BaseController):
     @property
     def averages(self) -> int:
         """
-
         **Rigol Programming Guide**
 
         **Syntax**
@@ -287,15 +274,12 @@ class Acquire(BaseController):
         :ACQuire:AVERages 128
 
         The query returns 128.
-
-        :return:
         """
         return self.device.ask(":ACQuire:AVERages?}")
 
     @averages.setter
     def averages(self, count: int = 0):
         """
-
         **Rigol Programming Guide**
 
         **Syntax**
@@ -335,8 +319,6 @@ class Acquire(BaseController):
         :ACQuire:AVERages 128
 
         The query returns 128.
-
-        :return:
         """
         assert isinstance(count, int)
         if count == 0:
@@ -351,7 +333,6 @@ class Acquire(BaseController):
     @property
     def memorydepth(self) -> int:
         """
-
         **Rigol Programming Guide**
 
         **Syntax**
@@ -391,15 +372,12 @@ class Acquire(BaseController):
         :ACQuire:MDEPth 1400000
 
         The query returns 1400000.
-
-        :return:
         """
         return self.device.ask(":ACQuire:MDEPth?")
 
     @memorydepth.setter
     def memorydepth(self, memdepth: int = 0):
         """
-
         **Rigol Programming Guide**
 
         **Syntax**
@@ -441,8 +419,6 @@ class Acquire(BaseController):
         :ACQuire:MDEPth 1400000
 
         The query returns 1400000.
-
-        :return:
         """
         assert isinstance(memdepth, int)
         if memdepth == 0:
@@ -456,7 +432,6 @@ class Acquire(BaseController):
     @property
     def samplerate(self) -> int:
         """
-
         **Rigol Programming Guide**
 
         **Syntax**
@@ -476,15 +451,12 @@ class Acquire(BaseController):
         :ACQuire:SRATe?
 
         The query returns 2.000000e+09.
-
-        :return:
         """
         return int(self.device.ask(":ACQuire:SRATe?"))
 
     @property
     def antialiasing(self) -> bool:
         """
-
         **Rigol Programming Guide**
 
         **Syntax**
@@ -516,15 +488,12 @@ class Acquire(BaseController):
         :ACQuire:AALias ON
 
         The query returns 1.
-
-        :return:
         """
         return bool(self.device.ask(":ACQuire:AALias?"))
 
     @antialiasing.setter
     def antialiasing(self, enabled: bool):
         """
-
         **Rigol Programming Guide**
 
         **Syntax**
@@ -556,8 +525,6 @@ class Acquire(BaseController):
         :ACQuire:AALias ON
 
         The query returns 1.
-
-        :return:
         """
         assert isinstance(enabled, bool)
         self.device.ask(f":ACQuire:AALias {1 if enabled else 0}")

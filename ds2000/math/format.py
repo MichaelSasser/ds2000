@@ -28,7 +28,6 @@ Prefixed = NamedTuple('Prefixed', [('value', float),
                                    ('prefix', str),
                                    ('divisor', float)])
 
-
 def get_prefix(value: float) -> Prefixed:
     prefixes = {
         -24: 'y',  # yocto

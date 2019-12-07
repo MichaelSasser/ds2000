@@ -32,9 +32,7 @@ class Channel(BaseController):
     @property
     def scale(self) -> float:
         """
-
         **Rigol Programming Guide**
-
 
         :CHANnel<n>:SCALe
 
@@ -71,7 +69,5 @@ class Channel(BaseController):
         :CHANnel1:SCALe 1
 
         The query returns 1.000000e+00.
-
-        :return:
         """
         return float(self.device.ask(f":CHANnel{self.__channel}:SCALe?"))

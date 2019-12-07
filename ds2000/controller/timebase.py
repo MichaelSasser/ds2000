@@ -52,15 +52,12 @@ class Timebase(BaseController):
         :TIM:MODE MAIN Setup the horizontal timebase as MAIN.
 
         :TIM:MODE? The query returns MAIN.
-
-        :return:
         """
         raise NotImplementedError()
 
     def offset(self):
         """
         **Rigol Programming Guide**
-
 
         :TIMebase[:DELayed]:OFFSet
 
@@ -96,15 +93,12 @@ class Timebase(BaseController):
         :TIM:OFFS 1 Setup the offset as 1s.
 
         :TIM:OFFS? The query returns 1.000e+00.
-
-        :return:
         """
         raise NotImplementedError()
 
     def delayed_scale(self):
         """
         **Rigol Programming Guide**
-
 
         :TIMebase[:DELayed]:SCALe
 
@@ -136,8 +130,6 @@ class Timebase(BaseController):
         :TIM:SCAL 2 Setup its scale as 2s.
 
         :TIM:SCAL? The query returns 2.000e+00.
-
-        :return:
         """
         raise NotImplementedError()
 
@@ -145,7 +137,6 @@ class Timebase(BaseController):
     def scale(self) -> float:
         """
         **Rigol Programming Guide**
-
 
         **Syntax**
 
@@ -184,15 +175,12 @@ class Timebase(BaseController):
         :TIMebase:MAIN:SCALe 0.0002
 
         The query returns 2.000000e-04.
-
-        :return:
         """
         return float(self.device.ask(":TIMebase:MAIN:SCALe?"))
 
     def format(self):
         """
         **Rigol Programming Guide**
-
 
         :TIMebase:FORMat
 
@@ -216,7 +204,5 @@ class Timebase(BaseController):
         :TIM:FORM YT Setup the form of grid as YT.
 
         :TIM:FORM? The query returns Y-T.
-
-        :return:
         """
         raise NotImplementedError()

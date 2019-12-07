@@ -35,7 +35,6 @@ class IEEE(BaseController):
 
     def cls(self):
         """
-
         **Rigol Programming Guide**
 
         **Syntax**
@@ -46,14 +45,11 @@ class IEEE(BaseController):
 
         Clear all the event registers in the register set and clear the error
         queue.
-
-        :return:
         """
         NotImplementedError()
 
     def ese(self):  # ToDo: P. 29-31 -> ESR
         """
-
         **Rigol Programming Guide**
 
         **Syntax**
@@ -109,8 +105,6 @@ class IEEE(BaseController):
         \*ESE 16
 
         The query returns 16 (bit 4 is enabled).
-
-        :return:
         """
         NotImplementedError()
 
@@ -139,15 +133,12 @@ class IEEE(BaseController):
 
         \*IDN?
 
-        The query returns RIGOL TECHNOLOGIES,DS2202,DS2A0000000001,00.00.01.
-
-        :return: Instrument
+        The query returns RIGOL TECHNOLOGIES,DS2202,DS2A0000000001,00.00.01. Instrument
         """
         return self.device.ask("*IDN?")
 
     def opc(self):
         """
-
         **Rigol Programming Guide**
 
         **Syntax**
@@ -166,14 +157,11 @@ class IEEE(BaseController):
 
         The query returns 1 if the current operation is finished; otherwise,
         returns 0
-
-        :return:
         """
         NotImplementedError()
 
     def rst(self):
         """
-
         **Rigol Programming Guide**
 
         **Syntax**
@@ -183,14 +171,11 @@ class IEEE(BaseController):
         **Description**
 
         Restore the instrument to the default values.
-
-        :return:
         """
         self.device.ask("*RST")
 
     def sre(self):  # P. 35-37 -> STB
         """
-
         **Rigol Programming Guide**
 
         **Syntax**
@@ -245,14 +230,11 @@ class IEEE(BaseController):
 
         \*SRE 16
         The query returns 16 (bit 4 is enabled).
-
-        :return:
         """
         NotImplementedError()
 
     def tst(self):
         """
-
         **Rigol Programming Guide**
 
         **Syntax**
@@ -298,7 +280,5 @@ class IEEE(BaseController):
         \*TST?
 
         The query returns 0.
-
-        :return:
         """
         NotImplementedError()

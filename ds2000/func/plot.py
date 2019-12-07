@@ -36,8 +36,7 @@ def simple_plot(inst, title: str = "", recorded: bool = False) -> None:
 
     :param inst: The instrument class.
     :param recorded: If recorded is False, the plot will be only the current
-                     waveform on the screen.
-    :return: None
+                     waveform on the screen. None
     """
     p = inst.waveform.preamble()
     t_scale = inst.timebase.scale
@@ -105,12 +104,3 @@ def simple_plot(inst, title: str = "", recorded: bool = False) -> None:
     print(f"r.waveform.y_reference={inst.waveform.y_reference}")  # vertical ref
 
     print(get_prefix(inst.timebase.scale))
-
-
-def main() -> int:
-    return 0
-
-
-if __name__ == "__main__":
-    main()
-    # sys.exit(main())

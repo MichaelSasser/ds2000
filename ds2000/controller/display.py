@@ -28,9 +28,7 @@ __all__ = [
 class Display(BaseController):
     def type_vector(self):
         """
-
         **Rigol Programming Guide**
-
 
         :DISPlay:TYPE
 
@@ -54,16 +52,12 @@ class Display(BaseController):
         :DISP:TYPE VECT Setup the display type as VECTors.
 
         :DISP:TYPE? The query returns VECTORS.
-
-        :return:
         """
         self.device.ask(":DISPlay:TYPE VECTors")
 
     def type_dot(self):
         """
-
         **Rigol Programming Guide**
-
 
         :DISPlay:TYPE
 
@@ -87,16 +81,12 @@ class Display(BaseController):
         :DISP:TYPE VECT Setup the display type as VECTors.
 
         :DISP:TYPE? The query returns VECTORS.
-
-        :return:
         """
         self.device.ask(":DISPlay:TYPE DOTS")
 
     def type(self):
         """
-
         **Rigol Programming Guide**
-
 
         :DISPlay:TYPE
 
@@ -121,8 +111,6 @@ class Display(BaseController):
         :DISP:TYPE VECT Setup the display type as VECTors.
 
         :DISP:TYPE? The query returns VECTORS.
-
-        :return:
         """
         display_type = self.device.ask(":DISPlay:TYPE?")
         if display_type == "DOTS":
@@ -134,9 +122,7 @@ class Display(BaseController):
     @property
     def grid(self) -> str:
         """
-
         **Rigol Programming Guide**
-
 
         :DISPlay:GRID
 
@@ -162,16 +148,12 @@ class Display(BaseController):
         :DISP:GRID FULL Open the background grid and coordinates.
 
         :DISP:GRID? The query returns FULL.
-
-        :return:
         """
         return self.device.ask(":DISPlay:GRID?").lower()
 
     def persist(self):
         """
-
         **Rigol Programming Guide**
-
 
         :DISPlay:PERSist
 
@@ -196,15 +178,12 @@ class Display(BaseController):
         :DISP:PERS ON Enable the waveform persist.
 
         :DISP:PERS? The query returns ON.
-
-        :return:
         """
         raise NotImplementedError()
 
     def menu_display(self):
         """
-
-        Rigol Programming Guide
+        **Rigol Programming Guide**
 
         :DISPlay:MNUDisplay
 
@@ -228,16 +207,12 @@ class Display(BaseController):
         :DISP:MNUD 10 Setup the display time of menu as 10s.
 
         :DISP:MNUD? The query returns 10s.
-
-        :return:
         """
         raise NotImplementedError()
 
     def menu_status(self):
         """
-
         **Rigol Programming Guide**
-
 
         :DISPlay:MNUStatus
 
@@ -260,16 +235,12 @@ class Display(BaseController):
         :DISP:MNUS ON Open menu for current operation.
 
         :DISP:MNUS? The query returns ON
-
-        :return:
         """
         raise NotImplementedError()
 
     def clear(self):
         """
-
         **Rigol Programming Guide**
-
 
         :DISPlay:CLEar
 
@@ -281,16 +252,12 @@ class Display(BaseController):
 
         The command clears out of date waveforms on the screen during waveform
         persist.
-
-        :return:
         """
         raise NotImplementedError()
 
     def brightness(self):
         """
-
         **Rigol Programming Guide**
-
 
         :DISPlay:BRIGhtness
 
@@ -314,16 +281,12 @@ class Display(BaseController):
         :DISP:BRIG 10 Setup the grid brightness as 10.
 
         :DISP:BRIG? The query returns 10.
-
-        :return:
         """
         raise NotImplementedError()
 
     def intensity(self):
         """
-
         **Rigol Programming Guide**
-
 
         :DISPlay:INTensity
 
@@ -347,7 +310,5 @@ class Display(BaseController):
         :DISP:INT 12 Setup the waveform brightness as 12.
 
         :DISP:INT? The query returns 12.
-
-        :return:
         """
         raise NotImplementedError()
