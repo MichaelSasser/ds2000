@@ -15,6 +15,8 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
+from typing import Optional
+
 from ds2000.controller import (
     Acquire,
     Bus,
@@ -70,7 +72,7 @@ class DS2000(object):
         With a wrapper it makes it possible to change the underlying
         package behaviour, vxi11 itself.
         """
-        answer: str = None
+        answer: Optional[str] = None
         try:  # Probably just for development
             answer = self.__inst.ask(msg)
         except vxi11.vxi11.Vxi11Exception as e:
@@ -98,7 +100,7 @@ class DS2000(object):
         With a wrapper it makes it possible to change the underlying
         package behaviour, vxi11 itself.
         """
-        msg: bytes = None
+        msg: Optional[bytes] = None
         try:  # Probably just for development
             msg = self.__inst.read_raw(num)
         except vxi11.vxi11.Vxi11Exception as e:
@@ -266,7 +268,7 @@ class DS2000(object):
         self.disconnect()
 
 
-def main(*args, **kwargs):
+def main():
     ip = "192.168.30.186"
     # r = DS2000(ip)
     # r.connect()
@@ -293,5 +295,4 @@ if __name__ == "__main__":
         level=DEBUG if DEBUGGING else WARN,
         format="%(asctime)s - %(levelname)s - %(message)s",
     )
-
     main()

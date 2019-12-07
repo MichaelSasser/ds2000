@@ -23,10 +23,10 @@ __email__: str = 'Michael@MichaelSasser.org'
 
 __all__ = ['get_prefix', 'Prefixed']
 
-
 Prefixed = NamedTuple('Prefixed', [('value', float),
                                    ('prefix', str),
                                    ('divisor', float)])
+
 
 def get_prefix(value: float) -> Prefixed:
     prefixes = {
@@ -40,7 +40,7 @@ def get_prefix(value: float) -> Prefixed:
         -3 : 'm',  # milli
         # -2 : 'c',  # centi (Not used in eletronics)
         # -1 : 'd',  # deci (Not used in eletronics)
-        0    : '',  # None
+        0  : '',  # None
         # 1  : 'da',  # deca (Not used in eletronics)
         # 2  : 'h',  # hecto (Not used in eletronics)
         3  : 'k',  # kilo

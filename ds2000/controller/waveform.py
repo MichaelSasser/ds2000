@@ -570,14 +570,16 @@ class Waveform(BaseController):
                    visa32.viRead(viSession, wfmBuf, wfmBuf.Length, out readCnt);
                    readSum += ( readCnt -12);
                    readTim++;
-                   Console.WriteLine("{0}: Read {1} Sum {2}" , readTim, readCnt, readSum);
+                   Console.WriteLine("{0}: Read {1} Sum {2}" ,
+                                     readTim, readCnt, readSum);
                    return readSum;
                } else {
                    visa32.viPrintf(viSession, ":WAV:DATA?\\n");
                    visa32.viRead(viSession, wfmBuf, wfmBuf.Length, out readCnt);
                    readSum += (readCnt -12);
                    readTim++;
-                   Console.WriteLine("{0}: Read {1} Sum {2}" , readTim, readCnt, readSum);
+                   Console.WriteLine("{0}: Read {1} Sum {2}" ,
+                                     readTim, readCnt, readSum);
                    Console.WriteLine("Press any key to read next data." );
                    //Console.ReadKey();
                    Console.WriteLine("Reading..." );
@@ -610,7 +612,8 @@ class Waveform(BaseController):
         holds in the internal memory; the figures following are the waveform
         data on the screen and users can convert the waveform data read to the
         voltage of each point of the waveform on the screen using the formula
-        (ox63 - vertical reference position in Y direction) × VerticalScale-OFFSet.
+        (ox63 - vertical reference position in Y direction) ×
+        VerticalScale-OFFSet.
         For the vertical reference position in Y direction, refer to the
         **:WAVeform:YREFerence?** command, for the VerticalScale, refer to the
         **:CHANnel<n>:SCALe** command and for the OFFSet, refer to the
@@ -643,7 +646,8 @@ class Waveform(BaseController):
                            Int32 viSession = 0;
                            Int32 s32ReadByte;
                            if (args.Length < 2) {
-                                   Console.WriteLine("Invalid Input! FalconWavQuery CHAN1 fileName");
+                                   Console.WriteLine("Invalid Input!
+                                            FalconWavQuery CHAN1 fileName");
                                    return;
                            }
                            Stopwatch stpWatch = new Stopwatch();
@@ -654,15 +658,18 @@ class Waveform(BaseController):
                                    return;
                            }
                            stpWatch.Start();
-                           s32ReadByte = TestReadWfm(viSession, args[0], args[1]);
+                           s32ReadByte = TestReadWfm(viSession,
+                                                     args[0], args[1]);
                            stpWatch.Stop();
                            Console.WriteLine("Speed is {0} KB/s",
-                                             s32ReadByte / stpWatch.ElapsedMilliseconds);
+                                             s32ReadByte /
+                                             stpWatch.ElapsedMilliseconds);
                            DeInitVisa(viDef, viSession);
                            Console.WriteLine("Press any key to continue.");
                            Console.ReadKey();
                    }
-                   static Int32 TestReadWfm(Int32 viSession, string strChan, string strFile)
+                   static Int32 TestReadWfm(Int32 viSession, string strChan,
+                                            string strFile)
                    {
                            byte []wfmBuf;
                            Int32 readCnt = 0;
@@ -676,7 +683,8 @@ class Waveform(BaseController):
                            strBuild = new StringBuilder(256);
                            visa32.viPrintf(viSession, ":STOP\\n");
                            visa32.viPrintf(viSession, ":WAV:MODE RAW\\n");
-                           visa32.viPrintf(viSession, ":WAV:SOURce %s\\n", strChan);
+                           visa32.viPrintf(viSession, ":WAV:SOURce %s\\n",
+                                           strChan);
                            visa32.viPrintf(viSession, ":WAV:RESet\\n");
                            visa32.viPrintf(viSession, ":WAV:BEGin\\n");
                            //read buffer to WFM
@@ -684,12 +692,16 @@ class Waveform(BaseController):
                            wfmStream = new BinaryWriter(streamOut);
                            while (true) {
                                    //Thread.Sleep( 10000 );
-                                   visa32.viPrintf(viSession, ":WAV:STATus?\\n");
+                                   visa32.viPrintf(viSession,
+                                                   ":WAV:STATus?\\n");
                                    visa32.viScanf(viSession, "%s", strBuild);
                                     if (strBuild[0] == 'I') {  //IDLE
-                                           visa32.viPrintf(viSession, ":WAV:DATA?\\n");
-                                           visa32.viRead(viSession, wfmBuf, wfmBuf.Length, out readCnt);
-                                           //data header #9XXXX... plus end mark \\n
+                                           visa32.viPrintf(viSession,
+                                                           ":WAV:DATA?\\n");
+                                           visa32.viRead(viSession, wfmBuf,
+                                                    wfmBuf.Length, out readCnt);
+                                           //data header #9XXXX...
+                                           //plus end mark \\n
                                            readCnt -= 12;
                                            readSum += (readCnt);
                                            if (readCnt > maxPacket) {
@@ -698,27 +710,35 @@ class Waveform(BaseController):
                                            //readTim++;
                                            //skip data header #9XXXX...
                                            if (readCnt > 0) {
-                                                   wfmStream.Write(wfmBuf, 11, readCnt);
+                                                   wfmStream.Write(wfmBuf, 11,
+                                                                   readCnt);
                                            }
                                            wfmStream.Close();
-                                           Console.WriteLine("{0}: Read {1} Sum {2} Max {3}", readTim, readCnt, readSum,
+                                           Console.WriteLine("{0}: Read {1} Sum
+                                                {2} Max {3}", readTim,
+                                                readCnt, readSum,
                                                              maxPacket);
                                            return readSum;
                                    } else {
                                            //READ
-                                           visa32.viPrintf(viSession, ":WAV:DATA?\\n");
-                                           visa32.viRead(viSession, wfmBuf, wfmBuf.Length, out readCnt);
-                                           //data header #9XXXX... plus end mark \\n
+                                           visa32.viPrintf(viSession,
+                                                           ":WAV:DATA?\\n");
+                                           visa32.viRead(viSession, wfmBuf,
+                                                    wfmBuf.Length, out readCnt);
+                                           //data header #9XXXX...
+                                           //plus end mark \\n
                                            readCnt -= 12;
                                            readSum += (readCnt);
                                            if (readCnt > maxPacket) {
                                                    maxPacket = readCnt;
                                            }
-                                           Console.WriteLine("{0}: Read {1} ", readTim, readCnt);
+                                           Console.WriteLine("{0}: Read {1} ",
+                                                             readTim, readCnt);
                                            readTim++;
                                            //skip data header #9XXXX...
                                            if (readCnt > 0) {
-                                                   wfmStream.Write(wfmBuf, 11, readCnt);
+                                                   wfmStream.Write(wfmBuf, 11,
+                                                                   readCnt);
                                            }
                                    }
                            }
@@ -748,10 +768,14 @@ class Waveform(BaseController):
                            Int32 viFindList;
                            Int32 viRetCount;
                            StringBuilder strRsrc = new StringBuilder(256);
-                           viError = visa32.viFindRsrc(viDef, "USB?*", out viFindList, out viRetCount,
+                           viError = visa32.viFindRsrc(viDef, "USB?*", out
+                                                       viFindList,
+                                                       out viRetCount,
                                                        strRsrc);
                            if (viRetCount > 0) {
-                                   viError = visa32.viOpen(viDef, strRsrc.ToString(), 0, 0, out viSession);
+                                   viError = visa32.viOpen(viDef,
+                                                           strRsrc.ToString(),
+                                                           0, 0, out viSession);
                                    if (viError != visa32.VI_SUCCESS) {
                                            visa32.viClose(viDef);
                                            return false;

@@ -34,6 +34,7 @@ __all__ = [
 def simple_plot(inst, title: str = "", recorded: bool = False) -> None:
     """
 
+    :type title: The title of the plot
     :param inst: The instrument class.
     :param recorded: If recorded is False, the plot will be only the current
                      waveform on the screen. None
@@ -50,24 +51,24 @@ def simple_plot(inst, title: str = "", recorded: bool = False) -> None:
 
     # Get data for x-/y-Axis
     df = (
-        (inst.waveform.data(recorded) - p.y_ref - p.y_origin)
-        * p.y_inc
-        * 10.0 ** (-get_prefix(c_scale).divisor)
+            (inst.waveform.data(recorded) - p.y_ref - p.y_origin)
+            * p.y_inc
+            * 10.0 ** (-get_prefix(c_scale).divisor)
     )  # y
     time = np.linspace(0.0, get_prefix(t_scale).value * 14, num=df.size)  # x
 
     ax.plot(time, df)
     plt.title(f'{inst.id.company.split(" ")[0]} {inst.id.model}', loc="left")
     plt.title(
-        f"V={get_prefix(t_scale).value} {get_prefix(t_scale).prefix}s, "
-        f"H={get_prefix(c_scale).value} {get_prefix(c_scale).prefix}V",
-        loc="right",
+            f"V={get_prefix(t_scale).value} {get_prefix(t_scale).prefix}s, "
+            f"H={get_prefix(c_scale).value} {get_prefix(c_scale).prefix}V",
+            loc="right",
     )
 
     ax.set(
-        xlabel=f"Time ({get_prefix(t_scale).prefix}s)",
-        ylabel=f"Voltage ({get_prefix(c_scale).prefix}V)",
-        title=title,
+            xlabel=f"Time ({get_prefix(t_scale).prefix}s)",
+            ylabel=f"Voltage ({get_prefix(c_scale).prefix}V)",
+            title=title,
     )
 
     ax.xaxis.set_major_locator(MultipleLocator(get_prefix(t_scale).value))
@@ -84,12 +85,11 @@ def simple_plot(inst, title: str = "", recorded: bool = False) -> None:
 
     plt.xlim(0, get_prefix(inst.timebase.scale).value * 14)
     plt.ylim(
-        -(get_prefix(inst.channel1.scale).value) * 8 / 2,
-        get_prefix(inst.channel1.scale).value * 8 / 2,
+            - get_prefix(inst.channel1.scale).value * 8 / 2,
+            get_prefix(inst.channel1.scale).value * 8 / 2,
     )
     plt.show()
-    print(f"lower: {(- inst.waveform.y_origin - inst.waveform.y_reference) * 10 ** get_prefix(inst.channel1.scale).divisor}"
-    )
+    print(f"lower: {(- inst.waveform.y_origin - inst.waveform.y_reference) * 10 ** get_prefix(inst.channel1.scale).divisor}")
 
     print(f"r.channel1.scale={inst.channel1.scale}\n")
 
@@ -98,7 +98,7 @@ def simple_plot(inst, title: str = "", recorded: bool = False) -> None:
     print(f"r.waveform.x_reference={inst.waveform.x_reference}\n")
 
     print(
-        f"r.waveform.y_increment={inst.waveform.y_increment}"
+            f"r.waveform.y_increment={inst.waveform.y_increment}"
     )  # voltage value per unit
     print(f"r.waveform.y_origin={inst.waveform.y_origin}")  # vertical offset
     print(f"r.waveform.y_reference={inst.waveform.y_reference}")  # vertical ref

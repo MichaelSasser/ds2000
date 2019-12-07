@@ -23,6 +23,7 @@ __all__ = [
     "Calculate",
 ]
 
+
 class Addition(SubController):
     def sa(self):
         """
@@ -209,6 +210,7 @@ class Addition(SubController):
         The query returns 2.000000e+00.
         """
         raise NotImplementedError()
+
 
 class Subtraction(SubController):
     def sa(self):
@@ -400,6 +402,7 @@ class Subtraction(SubController):
         The query returns 2.000000e+00.
         """
         raise NotImplementedError()
+
 
 class Multiplication(SubController):
     def sa(self):
@@ -595,6 +598,7 @@ class Multiplication(SubController):
         """
         raise NotImplementedError()
 
+
 class Division(SubController):
     def sa(self):
         """
@@ -783,6 +787,7 @@ class Division(SubController):
         The query returns 2.000000e+00.
         """
         raise NotImplementedError()
+
 
 class Fft(SubController):
     def source(self):
@@ -1194,6 +1199,7 @@ class Fft(SubController):
         """
         raise NotImplementedError()
 
+
 class Logic(SubController):
     def sa(self):
         """
@@ -1502,6 +1508,7 @@ class Logic(SubController):
         """
         raise NotImplementedError()
 
+
 class Advanced(SubController):
     def expression(self):
         """
@@ -1633,6 +1640,7 @@ class Advanced(SubController):
         The query returns 6.060000e+02.
         """
         raise NotImplementedError()
+
     def variable2(self):
         """
         **Rigol Programming Guide**
@@ -1750,6 +1758,7 @@ class Advanced(SubController):
         The query returns 2.000000e+00.
         """
         raise NotImplementedError()
+
 
 class Calculate(BaseController):
     def __init__(self, device):

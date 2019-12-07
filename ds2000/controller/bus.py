@@ -61,7 +61,7 @@ class Mode(SubController):
         The query returns SPI.
         """
         self.subdevice.device.ask(
-            f":BUS{self.subdevice.__busnumber}:MODE PARallel"
+                f":BUS{self.subdevice.__busnumber}:MODE PARallel"
         )
 
     def rs232(self):
@@ -228,7 +228,7 @@ class Format(SubController):
         The query returns DEC.
         """
         self.subdevice.device.ask(
-            f":BUS{self.subdevice.__busnumber}:FORMAT HEX"
+                f":BUS{self.subdevice.__busnumber}:FORMAT HEX"
         )
 
     def dec(self):
@@ -267,7 +267,7 @@ class Format(SubController):
         The query returns DEC.
         """
         self.subdevice.device.ask(
-            f":BUS{self.subdevice.__busnumber}:FORMAT DEC"
+                f":BUS{self.subdevice.__busnumber}:FORMAT DEC"
         )
 
     def bin(self):
@@ -306,7 +306,7 @@ class Format(SubController):
         The query returns DEC.
         """
         self.subdevice.device.ask(
-            f":BUS{self.subdevice.__busnumber}:FORMAT BIN"
+                f":BUS{self.subdevice.__busnumber}:FORMAT BIN"
         )
 
     def ascii(self):
@@ -345,7 +345,7 @@ class Format(SubController):
         The query returns DEC.
         """
         self.subdevice.device.ask(
-            f":BUS{self.subdevice.__busnumber}:FORMAT ASCii"
+                f":BUS{self.subdevice.__busnumber}:FORMAT ASCii"
         )
 
     def get(self) -> str:
@@ -1009,7 +1009,8 @@ class Rs232(SubController):
 
         **Explanation**
 
-        The hexadecimal numbers corresponding to the **Parameter**s are as follows.
+        The hexadecimal numbers corresponding to the **Parameter**s are as
+        follows.
 
         NULL: 00; LF: 0A; CR: 0D; SP: 20; FF: FF.
 
@@ -1164,6 +1165,7 @@ class Rs232(SubController):
         The query returns 2.
         """
         raise NotImplementedError()
+
 
 class I2c(SubController):
     def sclk_source(self):
@@ -1377,6 +1379,7 @@ class I2c(SubController):
         The query returns 2.
         """
         raise NotImplementedError()
+
 
 class Spi(SubController):
     def sclk_source(self):
@@ -1742,6 +1745,7 @@ class Spi(SubController):
         The query returns 2.
         """
         raise NotImplementedError()
+
 
 class Bus(BaseController):
     def __init__(self, device, busnumber):
