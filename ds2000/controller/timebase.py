@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from ds2000.controller import BaseController
+from ds2000.controller import BaseController, SubController
 
 __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
@@ -25,33 +25,38 @@ __all__ = [
 ]
 
 
-class Timebase(BaseController):
-    def mode(self):
+class Delay(SubController):
+    def enable(self):
         """
         **Rigol Programming Guide**
 
-        :TIMebase:MODE
+        **Syntax**
 
-        **Command Format**
+        :TIMebase:DELay:ENABle <bool>
+        :TIMebase:DELay:ENABle?
 
-        :TIMebase:MODE <mode>
+        **Description**
 
-        :TIMebase:MODE?
+        Enable or disable the delayed sweep.
+        Query the current status of the delayed sweep.
 
-        **Function Explanation**
+        **Parameter**
 
-        The commands set and query the scan mode of horizontal timebase.
-        <mode> could be MAIN (main timebase) or DELayed (delayed scan).
+        ======= ===== ================= =======
+        Name    Type  Range             Default
+        ======= ===== ================= =======
+        <bool>  Bool  {{0|OFF}|{1|ON}}  0|OFF
+        ======= ===== ================= =======
 
-        **Returned Format**
+        **Return Format**
 
-        The query returns MAIN or DELAYED.
+        The query returns 0 or 1.
 
         **Example**
 
-        :TIM:MODE MAIN Setup the horizontal timebase as MAIN.
+        :TIMebase:DELay:ENABle ON
+        The query returns 1.
 
-        :TIM:MODE? The query returns MAIN.
         """
         raise NotImplementedError()
 
@@ -59,82 +64,216 @@ class Timebase(BaseController):
         """
         **Rigol Programming Guide**
 
-        :TIMebase[:DELayed]:OFFSet
+        **Syntax**
 
-        **Command Format**
+        :TIMebase:DELay:OFFSet <offset>
+        :TIMebase:DELay:OFFSet?
 
-        :TIMebase[:DELayed]:OFFSet <offset>
+        Description
 
-        :TIMebase[:DELayed]:OFFSet?
+        Set the offset of the delayed time base and the unit is s.
+        Query the current offset of the delayed time base.
 
-        **Function Explanation**
+        Parameter
 
-        The commands set and query the offset of the MAIN or DELayed timebase
-        (that is offset of the waveform position relative to the trigger
-        midpoint.). Thereinto,
+        ========= ===== ============================== =======
+        Name      Type  Range                          Default
+        ========= ===== ============================== =======
+        <offset>  Real  -(LeftTime - DelayRange/2) to  0
+                        (RightTime - DelayRange/2)
+        ========= ===== ============================== =======
 
-        In NORMAL mode, the range of <scale_val> is 1s ~ end of the memory;
+        Note:
+        LeftTime = 7×MainScale – MainOffset.
+        For the MainScale, refer to the :TIMebase[:MAIN]:SCALe command.
+        RightTime = 7×MainScale + MainOffset.
+        For the MainOffset, refer to the :TIMebase[:MAIN]:OFFSet command.
+        DelayRange = 14×DelayScale.
+        For the DelayScale, refer to the :TIMebase:DELay:SCALe command.
 
-        In STOP mode, the range of <scale_val> is -500s ~ +500s;
+        **Return Format**
 
-        In SCAN mode, the range of <scale_val> is -6*Scale ~ +6*Scale;
-        (Note: Scale indicates the current horizontal scale,
-        the unit is s/div.)
-
-        In MAIN state, the item [:DELayed] should be omitted.
-
-        **Returned Format**
-
-        The query returns the setting value of the <offset> in s.
-        Example:
-
-        :TIM:MODE MAIN Setup the scan mode of horizontal timebase as MAIN.
-
-        :TIM:OFFS 1 Setup the offset as 1s.
-
-        :TIM:OFFS? The query returns 1.000e+00.
-        """
-        raise NotImplementedError()
-
-    def delayed_scale(self):
-        """
-        **Rigol Programming Guide**
-
-        :TIMebase[:DELayed]:SCALe
-
-        **Command Format**
-
-        :TIMebase[:DELayed]:SCALe <scale_val>
-
-        :TIMebase[:DELayed]:SCALe?
-
-        **Function Explanation**
-
-        The commands set and query the horizontal scale for MAIN or DELayed
-        timebase, the unit is s/div (seconds/grid), thereinto:
-
-        In YT mode, the range of <scale_val> is 2ns - 50s;
-
-        In ROLL mode, the range of <scale_val> is 500ms - 50s;
-
-        In MAIN state, the item [:DELayed] should be omitted.
-
-        **Returned Format**
-
-        The query returns the setting value of <scale_val> in s.
+        The query returns the offset in scientific notation.
 
         **Example**
 
-        :TIM:MODE MAIN Setup the timebase as MAIN.
+        :TIMebase:DELay:OFFSet 0.000002
+        The query returns 2.000000e-06.
+        """
+        raise NotImplementedError()
 
-        :TIM:SCAL 2 Setup its scale as 2s.
+    def scale(self):
+        """
+        **Rigol Programming Guide**
 
-        :TIM:SCAL? The query returns 2.000e+00.
+        **Syntax**
+
+        :TIMebase:DELay:SCALe <scale_value>
+        :TIMebase:DELay:SCALe?
+
+        **Description**
+
+        Set the scale of the delayed time base and the unit is s/div.
+        Query the current scale of the delayed time base.
+
+        **Parameter**
+
+        ============== ===== ================================== =======
+        Name           Type  Range                              Default
+        ============== ===== ================================== =======
+        <scale_value>  Real  (1×50/real-time sample rate)×1/40  500ns
+                             to the current MAIN SCALe
+        ============== ===== ================================== =======
+
+        Note: for the MAIN SCALe, refer to the :TIMebase[:MAIN]:SCALe command.
+
+        **Return Format**
+
+        The query returns the horizontal scale in scientific notation.
+
+        **Example**
+
+        :TIMebase:DELay:SCALe 0.00000005
+        The query returns 5.000000e-08.
+        """
+        raise NotImplementedError()
+
+
+class HorizontalRef(SubController):
+    def mode(self):
+        """
+        **Rigol Programming Guide**
+
+        **Syntax**
+
+        :TIMebase:HREF:MODE <href>
+        :TIMebase:HREF:MODE?
+
+        **Description**
+
+        Set the horizontal reference mode namely the reference position
+        according to which the waveform expands and compresses horizontally.
+        Query the current horizontal reference mode.
+
+        **Parameter**
+
+        ======= ========= ======================== =======
+        Name    Type      Range                    Default
+        ======= ========= ======================== =======
+        <href>  Discrete  {CENTer|TPOSition|USER}  CENTer
+        ======= ========= ======================== =======
+
+        **Explanation**
+
+        CENTer: the waveform expands or compresses horizontally around the
+        center of the screen.
+        TPOSition: the waveform expands or compresses horizontally around the
+        trigger position.
+        USER: the waveform expands or compresses horizontally around the
+        user-defined reference position. Refer to the :TIMebase:HREF:POSition
+        command.
+
+        **Return Format**
+
+        The query returns CENT, TPOS or USER.
+
+        **Example**
+
+        :TIMebase:HREF:MODE TPOSition
+        The query returns TPOS.
+        """
+        raise NotImplementedError()
+
+    def position(self):
+        """
+        **Rigol Programming Guide**
+
+        **Syntax**
+
+        :TIMebase:HREF:POSition <pos>
+        :TIMebase:HREF:POSition?
+
+        **Description**
+
+        Set the user-defined reference position around which the waveform
+        expands or compresses horizontally.
+        Query the current user-defined reference position around which the
+        waveform expands or compresses horizontally.
+
+        **Parameter**
+
+        ====== ======== ============ =======
+        Name   Type     Range        Default
+        ====== ======== ============ =======
+        <pos>  Integer  -350 to 350  0
+        ====== ======== ============ =======
+
+        **Return Format**
+
+        The query returns an integer.
+
+        **Example**
+
+        :TIMebase:HREF:POSition 150
+        The query returns 150.
+        """
+        raise NotImplementedError()
+
+
+class Timebase(BaseController):
+    def __init__(self, device, channel):
+        super(Timebase, self).__init__(device)
+        self.__channel = channel
+        self.delay: Delay = Delay(self)
+        self.horizontal_ref: HorizontalRef = HorizontalRef(self)
+
+    def offset(self):
+        """
+        **Rigol Programming Guide**
+
+        **Syntax**
+
+        :TIMebase[:MAIN]:OFFSet <offset>
+        :TIMebase[:MAIN]:OFFSet?
+
+        **Description**
+
+        Set the offset of the main time base and the unit is s.
+        Query the current offset of the main time base.
+
+        **Parameter**
+
+        ========= ===== ======================================= =======
+        Name      Type  Range                                   Default
+        ========= ===== ======================================= =======
+        <offset>  Real  **RUN**: -MemDepth/SamplingRate to 1s   0
+                        (when the TimeScale is less than 20ms)
+                        -MemDepth/SamplingRate to 10×TimeScale
+                        (when the TimeScale is greater than or
+                        equal to 20ms)
+                        **STOP**: -7000s to 7000s
+                        **ROLL RUN**: not avaliable
+                        **ROLL STOP**: -7000s to 0
+        ========= ===== ======================================= =======
+
+        Note:
+        For the MemDepth, refer to the :ACQuire:MDEPth command.
+        For the SamplingRate, refer to the :ACQuire:SRATe? command.
+        For the TimeScale, refer to the :TIMebase[:MAIN]:SCALe command.
+
+        **Return Format**
+
+        The query returns the offset in the scientific notation.
+
+        **Example**
+
+        :TIMebase:MAIN:OFFSet 0.0002
+        The query returns 2.000000e-04.
         """
         raise NotImplementedError()
 
     @property
-    def scale(self) -> float:
+    def scale(self) -> float:  # ToDo
         """
         **Rigol Programming Guide**
 
@@ -178,6 +317,35 @@ class Timebase(BaseController):
         """
         return float(self.device.ask(":TIMebase:MAIN:SCALe?"))
 
+    def mode(self):
+        """
+        **Rigol Programming Guide**
+
+        :TIMebase:MODE
+
+        **Command Format**
+
+        :TIMebase:MODE <mode>
+
+        :TIMebase:MODE?
+
+        **Function Explanation**
+
+        The commands set and query the scan mode of horizontal timebase.
+        <mode> could be MAIN (main timebase) or DELayed (delayed scan).
+
+        **Returned Format**
+
+        The query returns MAIN or DELAYED.
+
+        **Example**
+
+        :TIM:MODE MAIN Setup the horizontal timebase as MAIN.
+
+        :TIM:MODE? The query returns MAIN.
+        """
+        raise NotImplementedError()
+
     def format(self):
         """
         **Rigol Programming Guide**
@@ -204,5 +372,37 @@ class Timebase(BaseController):
         :TIM:FORM YT Setup the form of grid as YT.
 
         :TIM:FORM? The query returns Y-T.
+        """
+        raise NotImplementedError()
+
+    def fine_adjustment(self):
+        """
+        **Rigol Programming Guide**
+
+        **Syntax**
+        :TIMebase:VERNier <bool>
+        :TIMebase:VERNier?
+
+        **Description**
+
+        Enable or disable the fine adjustment of the horizontal scale.
+        Query the current status of the fine adjustment of the horizontal scale.
+
+        **Parameter**
+
+        ======= ===== ================= =======
+        Name    Type  Range             Default
+        ======= ===== ================= =======
+        <bool>  Bool  {{0|OFF}|{1|ON}}  0|OFF
+        ======= ===== ================= =======
+
+        **Return Format**
+
+        The query returns 0 or 1.
+
+        **Example**
+
+        :TIMebase:VERNier ON
+        The query returns 1.
         """
         raise NotImplementedError()

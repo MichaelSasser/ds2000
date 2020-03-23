@@ -29,6 +29,8 @@ class Edge(BaseController):
     def slope(self):
         """
         **Rigol Programming Guide**
+
+        **Syntax**
         """
         raise NotImplementedError()
 
