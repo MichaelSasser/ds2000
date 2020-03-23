@@ -1214,7 +1214,8 @@ class Waveform(BaseController):
         **Return Format**
 
         The query returns 10 waveform parameters separated by ",":
-        <format>,<type>,<points>,<count>,<xincrement>,<xorigin>,<xreference>,<yincrement>,<yorigin>,<yreference>
+        <format>,<type>,<points>,<count>,<xincrement>,<xorigin>,<xreference>,
+        <yincrement>,<yorigin>,<yreference>
 
         ============= =========================================================
         <format>:     0 (WORD), 1 (BYTE) or 2 (ASC). Refer to the
