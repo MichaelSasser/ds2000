@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # ds2000 - The Python Library for Rigol DS2000 Oscilloscopes
-# Copyright (C) 2018  Michael Sasser <Michael@MichaelSasser.org>
+# Copyright (C) 2018-2020  Michael Sasser <Michael@MichaelSasser.org>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -30,6 +30,8 @@ from .bus import *
 from .waveform import *
 from .channel import *
 from .calculate import *
+from .calibrate import *
+from .cursor import *
 
 __all__ = (
     *error_handling.__all__,
@@ -43,4 +45,6 @@ __all__ = (
     *waveform.__all__,
     *channel.__all__,
     *calculate.__all__,
+    *calibrate.__all__,
+    *cursor.__all__,
 )

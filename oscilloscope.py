@@ -26,6 +26,8 @@ from ds2000.controller import (
     Waveform,
     Channel,
     Calculate,
+    Calibrate,
+    Cursor,
 )
 
 __author__ = "Michael Sasser"
@@ -59,6 +61,8 @@ class DS2000(object):
         self.channel1: Channel = Channel(self, 1)
         self.channel2: Channel = Channel(self, 2)
         self.calculate: Calculate = Calculate(self)
+        self.calibrate: Calibrate = Calibrate(self)
+        self.cursor: Cursor = Cursor(self)
 
     def __enter__(self):
         self.connect()
