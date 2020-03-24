@@ -18,16 +18,12 @@ from typing import Optional
 
 from ds2000.controller import (
     Acquire,
-    Bus,
     Display,
     IEEE,
     Timebase,
     Trigger,
     Waveform,
     Channel,
-    Calculate,
-    Calibrate,
-    Cursor,
 )
 
 __author__ = "Michael Sasser"
@@ -54,15 +50,10 @@ class DS2000(object):
         self.display: Display = Display(self)
         self.timebase: Timebase = Timebase(self)
         self.ieee: IEEE = IEEE(self)
-        self.bus1: Bus = Bus(self, 1)
-        self.bus2: Bus = Bus(self, 2)
         self.trigger: Trigger = Trigger(self)
         self.waveform: Waveform = Waveform(self)
         self.channel1: Channel = Channel(self, 1)
         self.channel2: Channel = Channel(self, 2)
-        self.calculate: Calculate = Calculate(self)
-        self.calibrate: Calibrate = Calibrate(self)
-        self.cursor: Cursor = Cursor(self)
 
     def __enter__(self):
         self.connect()

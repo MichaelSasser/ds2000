@@ -221,9 +221,8 @@ class HorizontalRef(SubController):
 
 
 class Timebase(BaseController):
-    def __init__(self, device, channel):
+    def __init__(self, device):
         super(Timebase, self).__init__(device)
-        self.__channel = channel
         self.delay: Delay = Delay(self)
         self.horizontal_ref: HorizontalRef = HorizontalRef(self)
 
