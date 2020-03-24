@@ -18,7 +18,7 @@
 __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
 
-__all__ = ['BaseController', 'SubController']
+__all__ = ['BaseController', 'SubController', 'SubSubController']
 
 
 class BaseController(object):
@@ -29,3 +29,8 @@ class BaseController(object):
 class SubController(object):
     def __init__(self, subdevice):
         self.subdevice = subdevice
+
+
+class SubSubController(object):
+    def __init__(self, subsubdevice):
+        self.subdevice = subsubdevice
