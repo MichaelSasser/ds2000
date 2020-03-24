@@ -1,22 +1,11 @@
-ds2000.func package
-===================
+**Function Modules** - ds2000.func
+==================================
 
-Submodules
-----------
-
-ds2000.func.plot module
------------------------
+**Plot Function Module** - plot.py
+----------------------------------
 
 .. automodule:: ds2000.func.plot
    :members:
    :undoc-members:
    :show-inheritance:
 
-
-Module contents
----------------
-
-.. automodule:: ds2000.func
-   :members:
-   :undoc-members:
-   :show-inheritance:

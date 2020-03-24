@@ -61,7 +61,12 @@ python-vxi11 = "^0.9.0"
 zeroconf = "^0.24.0"
 numpy = "^1.17"
 matplotlib = "^3.1"
-sphinx-autodoc-typehints = "^1.10"
+sphinx-autodoc-typehints = { version = "^1.10", optional = true }
+sphinx = { version = "^2.2", optional = true }
+sphinx_rtd_theme = { version = "^0.4.3", optional = true  }
+
+[tool.poetry.extras]
+docs = ["sphinx", "sphinx_rtd_theme", "sphinx-autodoc-typehints"]
 
 [tool.poetry.dev-dependencies]
 pytest = "^5"

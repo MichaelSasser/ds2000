@@ -21,11 +21,11 @@ __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
 
 __all__ = [
-    "Window",
+    "Windows",
 ]
 
 
-class WindowSlope(SubSubController):
+class WindowsSlope(SubSubController):
     def positive(self):
         """
         **Rigol Programming Guide**
@@ -123,7 +123,7 @@ class WindowSlope(SubSubController):
         raise NotImplementedError()
 
 
-class WindowPosition(SubSubController):
+class WindowsPosition(SubSubController):
     def exit(self):
         """
         **Rigol Programming Guide**
@@ -224,11 +224,11 @@ class WindowPosition(SubSubController):
         raise NotImplementedError()
 
 
-class Window(SubController):
+class Windows(SubController):
     def __init__(self, device):
-        super(Window, self).__init__(device)
-        self.slope: WindowSlope = WindowSlope(self)
-        self.position: WindowPosition = WindowPosition(self)
+        super(Windows, self).__init__(device)
+        self.slope: WindowsSlope = WindowsSlope(self)
+        self.position: WindowsPosition = WindowsPosition(self)
 
     def source(self):
         """

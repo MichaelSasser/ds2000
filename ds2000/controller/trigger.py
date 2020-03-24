@@ -21,9 +21,19 @@ from ds2000.controller.trigger_subcontrollers import (Mode,
                                                       Sweep,
                                                       Edge,
                                                       Pulse,
-                                                      Window,
+                                                      Windows,
                                                       Runt,
-                                                      NthEdge,)
+                                                      NthEdge,
+                                                      Slope,
+                                                      Video,
+                                                      Pattern,
+                                                      Delay,
+                                                      Timeout,
+                                                      Duration,
+                                                      SetupHold,
+                                                      Rs232,
+                                                      I2c,
+                                                      Spi, )
 
 
 __author__ = "Michael Sasser"
@@ -43,8 +53,18 @@ class Trigger(BaseController):
         self.edge: Edge = Edge(self)
         self.pulse: Pulse = Pulse(self)
         self.runt: Runt = Runt(self)
-        self.window: Window = Window(self)
+        self.window: Windows = Windows(self)
         self.nth_edge: NthEdge = NthEdge(self)
+        self.slope: Slope = Slope(self)
+        self.video: Video = Video(self)
+        self.pattern: Pattern = Pattern(self)
+        self.delay: Delay = Delay(self)
+        self.timeout: Timeout = Timeout(self)
+        self.duration: Duration = Duration(self)
+        self.setup_hold: SetupHold = SetupHold(self)
+        self.rs232: Rs232 = Rs232(self)
+        self.iic: I2c = I2c(self)
+        self.spi: Spi = Spi(self)
 
     def status(self):
         """

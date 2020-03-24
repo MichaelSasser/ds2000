@@ -14,20 +14,28 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
-__author__ = "Michael Sasser"
-__email__ = "Michael@MichaelSasser.org"
-
-# Don't change the import sequence
 from .mode import *
 from .coupling import *
 from .sweep import *
 from .edge import *
 from .pulse import *
-from .window import *
+from .windows import *
 from .runt import *
 from .nth_edge import *
+from .slope import *
+from .video import *
+from .pattern import *
+from .delay import *
+from .timeout import *
+from .duration import *
+from .setup_hold import *
+from .rs232 import *
+from .i2c import *
+from .spi import *
+from .usb import *
 
+__author__ = "Michael Sasser"
+__email__ = "Michael@MichaelSasser.org"
 
 __all__ = (
     *mode.__all__,
@@ -35,7 +43,17 @@ __all__ = (
     *sweep.__all__,
     *edge.__all__,
     *pulse.__all__,
-    *window.__all__,
+    *windows.__all__,
     *runt.__all__,
     *nth_edge.__all__,
+    *slope.__all__,
+    *video.__all__,
+    *pattern.__all__,
+    *delay.__all__,
+    *timeout.__all__,
+    *setup_hold.__all__,
+    *rs232.__all__,
+    *i2c.__all__,
+    *spi.__all__,
+    *usb.__all__,
 )

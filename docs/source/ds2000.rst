@@ -1,19 +1,25 @@
-ds2000 package
-==============
+ds2000 Documentation
+====================
 
-Subpackages
------------
+Subsystem Tree
+--------------
 
 .. toctree::
 
    ds2000.controller
+
+
+
+Function Tree
+-------------
+
+.. toctree::
+
    ds2000.func
+
+Mathemtatics Tree
+-----------------
+
+.. toctree::
+
    ds2000.math
-
-Module contents
----------------
-
-.. automodule:: ds2000
-   :members:
-   :undoc-members:
-   :show-inheritance:
