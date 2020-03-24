@@ -24,6 +24,7 @@ from ds2000.controller import (
     Trigger,
     Waveform,
     Channel,
+    Calculate,
 )
 
 __author__ = "Michael Sasser"
@@ -54,6 +55,7 @@ class DS2000(object):
         self.waveform: Waveform = Waveform(self)
         self.channel1: Channel = Channel(self, 1)
         self.channel2: Channel = Channel(self, 2)
+        self.calculate: Calculate = Calculate(self)
 
     def __enter__(self):
         self.connect()
