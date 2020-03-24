@@ -76,6 +76,13 @@ ds2000.controller.waveform module
    :undoc-members:
    :show-inheritance:
 
+ds2000.controller.cursor module
+---------------------------------
+
+.. automodule:: ds2000.cursor.waveform
+   :members:
+   :undoc-members:
+   :show-inheritance:
 
 Module contents
 ---------------

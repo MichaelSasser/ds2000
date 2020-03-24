@@ -28,6 +28,7 @@ from .trigger import *
 from .ieee import *
 from .waveform import *
 from .channel import *
+from .cursor import *
 
 __all__ = (
     *error_handling.__all__,
@@ -39,4 +40,5 @@ __all__ = (
     *ieee.__all__,
     *waveform.__all__,
     *channel.__all__,
+    *cursor.__all__,
 )
