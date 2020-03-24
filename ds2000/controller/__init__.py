@@ -26,6 +26,7 @@ from .display import *
 from .timebase import *
 from .trigger import *
 from .ieee import *
+from .bus import *
 from .waveform import *
 from .channel import *
 
@@ -37,6 +38,7 @@ __all__ = (
     *timebase.__all__,
     *trigger.__all__,
     *ieee.__all__,
+    *bus.__all__,
     *waveform.__all__,
     *channel.__all__,
 )

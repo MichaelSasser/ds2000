@@ -12,6 +12,14 @@ ds2000.controller.acquire module
    :undoc-members:
    :show-inheritance:
 
+ds2000.controller.bus module
+----------------------------
+
+.. automodule:: ds2000.controller.bus
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 ds2000.controller.channel module
 --------------------------------
 

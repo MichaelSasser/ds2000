@@ -18,6 +18,7 @@ from typing import Optional
 
 from ds2000.controller import (
     Acquire,
+    Bus,
     Display,
     IEEE,
     Timebase,
@@ -50,6 +51,8 @@ class DS2000(object):
         self.display: Display = Display(self)
         self.timebase: Timebase = Timebase(self)
         self.ieee: IEEE = IEEE(self)
+        self.bus1: Bus = Bus(self, 1)
+        self.bus2: Bus = Bus(self, 2)
         self.trigger: Trigger = Trigger(self)
         self.waveform: Waveform = Waveform(self)
         self.channel1: Channel = Channel(self, 1)
