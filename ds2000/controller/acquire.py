@@ -31,7 +31,7 @@ AcquireType = namedtuple("AcquireType", "type average_count")
 
 
 class Type(SubController):
-    def normal(self):
+    def normal(self) -> None:
         """
           **Rigol Programming Guide**
 
@@ -70,7 +70,7 @@ class Type(SubController):
           """
         self.subdevice.device.ask(":ACQuire:TYPE NORMal")
 
-    def average(self):
+    def average(self) -> None:
         """
           **Rigol Programming Guide**
 
@@ -109,7 +109,7 @@ class Type(SubController):
           """
         self.subdevice.device.ask(":ACQuire:TYPE AVERages")
 
-    def peakdetect(self):
+    def peakdetect(self) -> None:
         """
           **Rigol Programming Guide**
 
@@ -149,7 +149,7 @@ class Type(SubController):
           """
         self.subdevice.device.ask(":ACQuire:TYPE PEAK")
 
-    def highres(self):
+    def highres(self) -> None:
         """
           **Rigol Programming Guide**
 
@@ -189,7 +189,7 @@ class Type(SubController):
           """
         self.subdevice.device.ask(":ACQuire:TYPE HRESolution")
 
-    def get(self):
+    def status(self):
         answer: str = self.subdevice.device.ask(":ACQuire:TYPE?")
         if answer == "NORM":
             return "Normal"
@@ -202,10 +202,10 @@ class Type(SubController):
         raise Ds2000Exception("Unknown Return Value")
 
     def __str__(self) -> str:
-        return self.get()
+        return self.status()
 
     def __repr__(self) -> str:
-        return self.get()
+        return self.status()
 
 
 class Acquire(BaseController):
@@ -231,8 +231,7 @@ class Acquire(BaseController):
         super(Acquire, self).__init__(device)
         self.type: Type = Type(self)
 
-    @property
-    def averages(self) -> int:
+    def get_averages(self) -> int:
         """
         **Rigol Programming Guide**
 
@@ -275,10 +274,9 @@ class Acquire(BaseController):
 
         The query returns 128.
         """
-        return self.device.ask(":ACQuire:AVERages?}")
+        return self.device.ask(":ACQuire:AVERages?")
 
-    @averages.setter
-    def averages(self, count: int = 0):
+    def set_averages(self, count: int = 2):
         """
         **Rigol Programming Guide**
 
@@ -330,8 +328,7 @@ class Acquire(BaseController):
             f"untouched or set it to {Acquire.AVERAGES}."
         )  # TODO HERE
 
-    @property
-    def memorydepth(self) -> int:
+    def get_memorydepth(self) -> int:
         """
         **Rigol Programming Guide**
 
@@ -375,8 +372,7 @@ class Acquire(BaseController):
         """
         return self.device.ask(":ACQuire:MDEPth?")
 
-    @memorydepth.setter
-    def memorydepth(self, memdepth: int = 0):
+    def set_memorydepth(self, memdepth: int = 0):
         """
         **Rigol Programming Guide**
 
@@ -429,8 +425,7 @@ class Acquire(BaseController):
         elif memdepth in Acquire.MEMDEPTH_DUAL:
             self.device.ask(f":ACQuire:MDEPth {memdepth}")
 
-    @property
-    def samplerate(self) -> int:
+    def get_samplerate(self) -> int:
         """
         **Rigol Programming Guide**
 
@@ -454,8 +449,7 @@ class Acquire(BaseController):
         """
         return int(self.device.ask(":ACQuire:SRATe?"))
 
-    @property
-    def antialiasing(self) -> bool:
+    def get_antialiasing(self) -> bool:
         """
         **Rigol Programming Guide**
 
@@ -491,8 +485,7 @@ class Acquire(BaseController):
         """
         return bool(self.device.ask(":ACQuire:AALias?"))
 
-    @antialiasing.setter
-    def antialiasing(self, enabled: bool):
+    def set_antialiasing(self, enabled: bool = False):
         """
         **Rigol Programming Guide**
 
