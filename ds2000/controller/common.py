@@ -33,4 +33,4 @@ class SubController(object):
 
 class SubSubController(object):
     def __init__(self, subsubdevice):
-        self.subdevice = subsubdevice
+        self.subsubdevice = subsubdevice

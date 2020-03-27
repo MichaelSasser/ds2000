@@ -40,7 +40,7 @@ def simple_plot(inst, title: str = "", recorded: bool = False) -> None:
                      waveform on the screen. None
     """
     p = inst.waveform.preamble()
-    t_scale = inst.timebase.scale
+    t_scale = inst.timebase.get_scale()
     c_scale = inst.channel1.scale
     inst.waveform.channel(1)
     inst.waveform.format.byte()

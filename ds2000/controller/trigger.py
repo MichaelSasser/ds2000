@@ -82,7 +82,7 @@ class Trigger(BaseController):
 
         The query returns TD, WAIT, RUN, AUTO or STOP.
         """
-        raise NotImplementedError()
+        return self.device.ask("TRIGger:STATus?").lower()
 
     def holdoff(self):
         """
