@@ -793,13 +793,13 @@ class Waveform(BaseController):
         def get_data():
             try:
                 self.device.write(":WAVeform:DATA?")
-            except:
+            except Exception:
                 raise Ds2000Exception("Write Operation was not successful.")
 
             # Read (RAW)
             try:
                 dat = self.device.read_raw()
-            except:
+            except Exception:
                 raise Ds2000Exception("Raw read Operation was not successful.")
             return dat
 
@@ -825,10 +825,9 @@ class Waveform(BaseController):
         # print(data)
         print(data)
         # exit(0)
-        eff_waves: int = -1
         if data[:7] == b"#900000":  # screen waveform data
             # #900000dddd -> dddd
-            eff_waves = int(data[7:11])  # number of effective waveforms
+            eff_waves: int = int(data[7:11])  # number of effective waveforms
         elif data[:2] == b"#9":  # internal memory data
             # #9XXXXXXXXX -> XXXXXXXXX
             eff_waves = int(data[2:11])
@@ -839,7 +838,7 @@ class Waveform(BaseController):
 
         try:
             raw_wave = data[11 : (11 + eff_waves)]
-        except:
+        except Exception:
             raise Ds2000Exception("The waveform was corrupted.")
 
         if eff_waves != len(raw_wave):
