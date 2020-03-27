@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # ds2000 - The Python Library for Rigol DS2000 Oscilloscopes
-# Copyright (C) 2018  Michael Sasser <Michael@MichaelSasser.org>
+# Copyright (C) 2018-2020  Michael Sasser <Michael@MichaelSasser.org>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -14,8 +14,9 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
+from ds2000.controller import BaseController, SubController, Ds2000Exception
 
-from ds2000.controller import BaseController, Ds2000Exception
+import math
 
 __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
@@ -25,290 +26,747 @@ __all__ = [
 ]
 
 
-class Display(BaseController):
-    def type_vector(self):
+class DisplayType(SubController):
+    def vectors(self):
         """
         **Rigol Programming Guide**
 
-        :DISPlay:TYPE
-
-        **Command Format**
+        **Syntax**
 
         :DISPlay:TYPE <type>
-
         :DISPlay:TYPE?
 
-        **Function Explanation**
+        **Description**
 
-        The commands set and query the display type between sampling points.
-        <type> could be VECTors (vectir display) or DOTS (point display).
+        Set the display mode of the waveform on the screen.
+        Query the current display mode of the waveform on the screen.
 
-        **Returned Format**
+        **Parameter**
 
-        The query returns VECTORS or DOTS.
+        Name    Type      Range           Default
+        <type>  Discrete  {VECTors|DOTS}  VECTors
+
+        **Explanation**
+
+        VECTors: the sample points are connected by lines and displayed.
+        Normally, this mode can provide the most vivid waveform to view the
+        steep edge of the waveform (such as square waveform).
+        DOTS: display the sample points directly. You can directly view each
+        sample point and use the cursor to measure the X and Y values of the
+        sample point.
+
+        **Return Format**
+
+        The query returns VECT or DOTS.
 
         **Example**
 
-        :DISP:TYPE VECT Setup the display type as VECTors.
-
-        :DISP:TYPE? The query returns VECTORS.
+        :DISPlay:TYPE DOTS
+        The query returns DOTS.
         """
-        self.device.ask(":DISPlay:TYPE VECTors")
+        self.subdevice.device.ask(":DISPlay:TYPE VECTors")
 
-    def type_dot(self):
+    def dots(self):
         """
         **Rigol Programming Guide**
 
-        :DISPlay:TYPE
-
-        **Command Format**
+        **Syntax**
 
         :DISPlay:TYPE <type>
-
         :DISPlay:TYPE?
 
-        **Function Explanation**
+        **Description**
 
-        The commands set and query the display type between sampling points.
-        <type> could be VECTors (vectir display) or DOTS (point display).
+        Set the display mode of the waveform on the screen.
+        Query the current display mode of the waveform on the screen.
 
-        **Returned Format**
+        **Parameter**
 
-        The query returns VECTORS or DOTS.
+        Name    Type      Range           Default
+        <type>  Discrete  {VECTors|DOTS}  VECTors
+
+        **Explanation**
+
+        VECTors: the sample points are connected by lines and displayed.
+        Normally, this mode can provide the most vivid waveform to view the
+        steep edge of the waveform (such as square waveform).
+        DOTS: display the sample points directly. You can directly view each
+        sample point and use the cursor to measure the X and Y values of the
+        sample point.
+
+        **Return Format**
+
+        The query returns VECT or DOTS.
 
         **Example**
 
-        :DISP:TYPE VECT Setup the display type as VECTors.
-
-        :DISP:TYPE? The query returns VECTORS.
+        :DISPlay:TYPE DOTS
+        The query returns DOTS.
         """
-        self.device.ask(":DISPlay:TYPE DOTS")
+        self.subdevice.device.ask(":DISPlay:TYPE DOTS")
 
-    def type(self):
+    def status(self):
         """
         **Rigol Programming Guide**
 
-        :DISPlay:TYPE
-
-        **Command Format**
-
+        **Syntax**
 
         :DISPlay:TYPE <type>
-
         :DISPlay:TYPE?
 
-        **Function Explanation**
+        **Description**
 
-        The commands set and query the display type between sampling points.
-        <type> could be VECTors (vectir display) or DOTS (point display).
+        Set the display mode of the waveform on the screen.
+        Query the current display mode of the waveform on the screen.
 
-        **Returned Format**
+        **Parameter**
 
-        The query returns VECTORS or DOTS.
+        Name    Type      Range           Default
+        <type>  Discrete  {VECTors|DOTS}  VECTors
+
+        **Explanation**
+
+        VECTors: the sample points are connected by lines and displayed.
+        Normally, this mode can provide the most vivid waveform to view the
+        steep edge of the waveform (such as square waveform).
+        DOTS: display the sample points directly. You can directly view each
+        sample point and use the cursor to measure the X and Y values of the
+        sample point.
+
+        **Return Format**
+
+        The query returns VECT or DOTS.
 
         **Example**
 
-        :DISP:TYPE VECT Setup the display type as VECTors.
-
-        :DISP:TYPE? The query returns VECTORS.
+        :DISPlay:TYPE DOTS
+        The query returns DOTS.
         """
-        display_type = self.device.ask(":DISPlay:TYPE?")
-        if display_type == "DOTS":
-            return "dot"
-        elif display_type == "VECTORS":
-            return "vector"
-        raise Ds2000Exception("Unknown display type.")
+        display_type = self.subdevice.device.ask(":DISPlay:TYPE?").lower()
+        if display_type in ("dots", "vectors"):
+            return display_type
+        raise Ds2000Exception("Unknown type of display grid.")
 
-    @property
-    def grid(self) -> str:
+
+class DisplayGrid(SubController):
+    def full(self):
         """
         **Rigol Programming Guide**
 
-        :DISPlay:GRID
-
-        **Command Format**
+        **Syntax**
 
         :DISPlay:GRID <grid>
-
         :DISPlay:GRID?
 
-        **Function Explanation**
+        **Description**
 
-        The commands set and query the state of the screen grid. <grid> could
-        be FULL (open the background grid and coordinates), HALF (turn off the
-        background grid) or NONE (turn off the background grid and
-        coordinates).
+        Set the grid type of screen display.
+        Query the current grid type of screen display.
 
-        **Returned Format**
+        **Parameter**
+
+        ======= ========= ================= =======
+        Name    Type      Range             Default
+        ======= ========= ================= =======
+        <grid>  Discrete  {FULL|HALF|NONE}  FULL
+        ======= ========= ================= =======
+
+        **Explanation**
+
+        **FULL**: turn the background grid and coordinate on.
+
+        **HALF**: turn the background grid off.
+
+        **NONE**: turn the background grid and coordinate off.
+
+        **Return Format**
 
         The query returns FULL, HALF or NONE.
 
         **Example**
 
-        :DISP:GRID FULL Open the background grid and coordinates.
-
-        :DISP:GRID? The query returns FULL.
+        :DISPlay:GRID NONE
+        The query returns NONE.
         """
-        return self.device.ask(":DISPlay:GRID?").lower()
+        self.subdevice.device.ask(":DISPlay:GRID FULL")
 
-    def persist(self):
+    def half(self):
         """
         **Rigol Programming Guide**
 
-        :DISPlay:PERSist
+        **Syntax**
 
-        **Command Format**
+        :DISPlay:GRID <grid>
+        :DISPlay:GRID?
 
-        :DISPlay:PERSist {ON|OFF}
+        **Description**
 
-        :DISPlay:PERSist?
+        Set the grid type of screen display.
+        Query the current grid type of screen display.
 
-        **Function Explanation**
+        **Parameter**
 
-        The commands set and query the state of the waveform persist. “ON”
-        denotes the record points hold until disable the presist, “OFF”
-        denotes the record point varies in high refresh rate.
+        ======= ========= ================= =======
+        Name    Type      Range             Default
+        ======= ========= ================= =======
+        <grid>  Discrete  {FULL|HALF|NONE}  FULL
+        ======= ========= ================= =======
 
-        **Returned Format**
+        **Explanation**
 
-        The query returns ON or OFF.
+        **FULL**: turn the background grid and coordinate on.
+
+        **HALF**: turn the background grid off.
+
+        **NONE**: turn the background grid and coordinate off.
+
+        **Return Format**
+
+        The query returns FULL, HALF or NONE.
 
         **Example**
 
-        :DISP:PERS ON Enable the waveform persist.
-
-        :DISP:PERS? The query returns ON.
+        :DISPlay:GRID NONE
+        The query returns NONE.
         """
-        raise NotImplementedError()
+        self.subdevice.device.ask(":DISPlay:GRID HALF")
 
-    def menu_display(self):
+    def none(self):
         """
         **Rigol Programming Guide**
 
-        :DISPlay:MNUDisplay
+        **Syntax**
 
-        **Command Format**
+        :DISPlay:GRID <grid>
+        :DISPlay:GRID?
 
-        :DISPlay:MNUDisplay <time>
+        **Description**
 
-        :DISPlay:MNUDisplay?
+        Set the grid type of screen display.
+        Query the current grid type of screen display.
 
-        **Function Explanation**
+        **Parameter**
 
-        The commands set and query the time for hiding menus automatically.
-        <time> could be 1s, 2s, 5s, 10s, 20s or Infinite.
+        ======= ========= ================= =======
+        Name    Type      Range             Default
+        ======= ========= ================= =======
+        <grid>  Discrete  {FULL|HALF|NONE}  FULL
+        ======= ========= ================= =======
 
-        **Returned Format**
+        **Explanation**
 
-        The query returns 1s, 2s, 5s, 10s, 20s or Infinite.
+        **FULL**: turn the background grid and coordinate on.
+
+        **HALF**: turn the background grid off.
+
+        **NONE**: turn the background grid and coordinate off.
+
+        **Return Format**
+
+        The query returns FULL, HALF or NONE.
 
         **Example**
 
-        :DISP:MNUD 10 Setup the display time of menu as 10s.
-
-        :DISP:MNUD? The query returns 10s.
+        :DISPlay:GRID NONE
+        The query returns NONE.
         """
-        raise NotImplementedError()
+        self.subdevice.device.ask(":DISPlay:GRID NONE")
 
-    def menu_status(self):
+    def status(self) -> str:
         """
         **Rigol Programming Guide**
 
-        :DISPlay:MNUStatus
+        **Syntax**
 
-        **Command Format**
+        :DISPlay:GRID <grid>
+        :DISPlay:GRID?
 
-        :DISPlay:MNUStatus {ON|OFF}
+        **Description**
 
-        :DISPlay:MNUStaus?
+        Set the grid type of screen display.
+        Query the current grid type of screen display.
 
-        **Function Explanation**
+        **Parameter**
 
-        The commands set and query the state of the operation menu.
+        ======= ========= ================= =======
+        Name    Type      Range             Default
+        ======= ========= ================= =======
+        <grid>  Discrete  {FULL|HALF|NONE}  FULL
+        ======= ========= ================= =======
 
-        **Returned Format**
+        **Explanation**
 
-        The query returns ON or OFF.
+        **FULL**: turn the background grid and coordinate on.
+
+        **HALF**: turn the background grid off.
+
+        **NONE**: turn the background grid and coordinate off.
+
+        **Return Format**
+
+        The query returns FULL, HALF or NONE.
 
         **Example**
 
-        :DISP:MNUS ON Open menu for current operation.
-
-        :DISP:MNUS? The query returns ON
+        :DISPlay:GRID NONE
+        The query returns NONE.
         """
-        raise NotImplementedError()
+        return self.subdevice.device.ask(":DISPlay:GRID?").lower()
 
-    def clear(self):
+
+class Display(BaseController):
+    # 0.0 for MIN and -1.0 or math.inf for INFINITE
+    GRID_GRADING_TIMES = (0.0, 0.05, 0.1, 0.2, 0.5, 1,
+                          2, 5, 10, 20, -1.0, math.inf)
+
+    # -1 means INFINITE
+    MENU_DISPLAY_TIME = (1, 2, 5, 10, 20, -1)
+
+    def __init__(self, device) -> None:
+        super(Display, self).__init__(device)
+        self.type: DisplayType = DisplayType(self)
+        self.grid: DisplayGrid = DisplayGrid(self)
+
+    def clear(self) -> None:
         """
         **Rigol Programming Guide**
+
+        **Syntax**
 
         :DISPlay:CLEar
 
-        **Command Format**
+        **Description**
 
-        :DISPlay:CLEar
+        Clear all the waveforms on the screen.
 
-        **Function Explanation**
+        **Explanation**
 
-        The command clears out of date waveforms on the screen during waveform
-        persist.
+        If the oscilloscope is in RUN state (refer to the :RUN command), new
+        waveforms will be displayed.
+        You can also use the :CLEar command to clear all the waveforms on the
+        screen.
         """
-        raise NotImplementedError()
+        self.device.write(":DISPlay:CLEar")
 
-    def brightness(self):
+    def get_persistence_time(self) -> float:
         """
+        :return: The persistence in s, where 0.0 means Minimum and math.inf is
+                 infinite.
+
         **Rigol Programming Guide**
 
-        :DISPlay:BRIGhtness
+        **Syntax**
 
-        **Command Format**
+        :DISPlay:GRADing:TIME <time>
+        :DISPlay:GRADing:TIME?
 
-        :DISPlay:BRIGhtness <ncount>
+        **Description**
 
-        :DISPlay:BRIGhtness?
+        Set the persistence time and the unit is s.
+        Query the current persistence time.
 
-        **Function Explanation**
+        **Parameter**
 
-        The commands set and query the brightness of the grid. The range of
-        <ncount> is from 0 to 32 (from dark to bright).
+        ======= ========= ============================================ =======
+        Name    Type      Range                                        Default
+        ======= ========= ============================================ =======
+        <time>  Discrete  {MIN|0.05|0.1|0.2|0.5|1|2|5|10|20|INFinite}  MIN
+        ======= ========= ============================================ =======
 
-        **Returned Format**
+        **Explanation**
 
-        The query returns the setting value of <ncount>.
+        **MIN**: set the persistence time to its minimum to view the waveform
+        changing in high refresh rate.
+
+        **Specific Values**: a certain value between 0.05 s and 20 s, enable to
+        observe glitch that changes relatively slowly or glitch with low
+        occurrence probability.
+
+        **INFinite**: in this mode, the oscilloscope displays the newly acquired
+        waveform without clearing the waveform formerly acquired. Enable to
+        measure noise and jitter as well as capture incidental events.
+
+        **Return Format**
+
+        The query returns the persistence time set.
 
         **Example**
 
-        :DISP:BRIG 10 Setup the grid brightness as 10.
-
-        :DISP:BRIG? The query returns 10.
+        :DISPlay:GRADing:TIME 0.1
+        The query returns 0.1.
         """
-        raise NotImplementedError()
+        payload: str = self.device.ask(":DISPlay:CLEar")
 
-    def intensity(self):
+        try:
+            return float(payload)
+        except ValueError:
+            if payload.lower() == "min":
+                return -1.0
+            elif payload.lower() == "infinite":
+                return 0.0
+
+    def set_persistence_time(self, time: float = 0.0) -> None:
         """
         **Rigol Programming Guide**
 
-        :DISPlay:INTensity
+        **Syntax**
 
-        **Command Format**
+        :DISPlay:GRADing:TIME <time>
+        :DISPlay:GRADing:TIME?
 
-        :DISPlay:INTensity <count>
+        **Description**
 
-        :DISPlay:INTensity?
+        Set the persistence time and the unit is s.
+        Query the current persistence time.
 
-        **Function Explanation**
+        **Parameter**
 
-        The commands set and query the brightness of the waveform. <count>
-        could be the integer between 0 and 32.
+        ======= ========= ============================================ =======
+        Name    Type      Range                                        Default
+        ======= ========= ============================================ =======
+        <time>  Discrete  {MIN|0.05|0.1|0.2|0.5|1|2|5|10|20|INFinite}  MIN
+        ======= ========= ============================================ =======
 
-        **Returned Format**
+        **Explanation**
 
-        The query returns the setting value of <count>.
+        MIN: set the persistence time to its minimum to view the waveform
+        changing in high refresh rate.
+        Specific Values: a certain value between 0.05 s and 20 s, enable to
+        observe glitch that changes relatively slowly or glitch with low
+        occurrence probability.
+        INFinite: in this mode, the oscilloscope displays the newly acquired
+        waveform without clearing the waveform formerly acquired. Enable to
+        measure noise and jitter as well as capture incidental events.
+
+        **Return Format**
+
+        The query returns the persistence time set.
 
         **Example**
 
-        :DISP:INT 12 Setup the waveform brightness as 12.
-
-        :DISP:INT? The query returns 12.
+        :DISPlay:GRADing:TIME 0.1
+        The query returns 0.1.
         """
-        raise NotImplementedError()
+        # Assertion
+        if (not isinstance(time, float)) or (
+                time not in Display.GRID_GRADING_TIMES):
+            ValueError(
+                    "\"time\" must be of type \"float\" "
+                    f"and in {str(Display.GRID_GRADING_TIMES)}")
+
+        if time == Display.GRID_GRADING_TIMES[1]:
+            self.device.ask(":DISPlay:GRADing:TIME MIN")
+        elif time in Display.GRID_GRADING_TIMES[-2:-1]:
+            self.device.ask(":DISPlay:GRADing:TIME INFinite")
+        elif time in Display.GRID_GRADING_TIMES:
+            self.device.ask(f":DISPlay:GRADing:TIME {time}")
+
+    def get_waveform_brightness(self) -> int:
+        """
+        **Rigol Programming Guide**
+
+        **Syntax**
+
+        :DISPlay:WBRightness <time>
+        :DISPlay:WBRightness?
+
+        **Description**
+
+        Set the waveform brightness and the unit is %.
+        Query the current waveform brightness.
+
+        **Parameter**
+
+        ======= ======== ========= =======
+        Name    Type     Range     Default
+        ======= ======== ========= =======
+        <time>  Integer  0 to 100  50
+        ======= ======== ========= =======
+
+        **Return Format**
+
+        The query returns an integer between 0 and 100.
+
+        **Example**
+
+        :DISPlay:WBRightness 60
+        The query returns 60.
+        """
+        return int(self.device.ask(":DISPlay:WBRightness?"))
+
+    def set_waveform_brightness(self, brightness: int = 50) -> None:
+        """
+        **Rigol Programming Guide**
+
+        **Syntax**
+
+        :DISPlay:WBRightness <time>
+        :DISPlay:WBRightness?
+
+        **Description**
+
+        Set the waveform brightness and the unit is %.
+        Query the current waveform brightness.
+
+        **Parameter**
+
+        ======= ======== ========= =======
+        Name    Type     Range     Default
+        ======= ======== ========= =======
+        <time>  Integer  0 to 100  50
+        ======= ======== ========= =======
+
+        **Return Format**
+
+        The query returns an integer between 0 and 100.
+
+        **Example**
+
+        :DISPlay:WBRightness 60
+        The query returns 60.
+        """
+        if isinstance(brightness, int) and 0 <= brightness <= 100:
+            self.device.ask(f":DISPlay:WBRightness {brightness}")
+        else:
+            ValueError("The brightness must be of type int and between 0..100.")
+
+    def get_grid_brightness(self) -> int:
+        """
+        **Rigol Programming Guide**
+
+        **Syntax**
+
+        :DISPlay:GBRightness <brightness>
+        :DISPlay:GBRightness?
+
+        **Description**
+
+        Set the brightness of the screen grid and the unit is %.
+        Query the current brightness of the screen grid.
+
+        **Parameter**
+
+        ============= ======== ========= =======
+        Name          Type     Range     Default
+        ============= ======== ========= =======
+        <brightness>  Integer  0 to 100  50
+        ============= ======== ========= =======
+
+        **Return Format**
+
+        The query retruns an integer between 0 and 100.
+
+        **Example**
+
+        :DISPlay:GBRightness 60
+        The query returns 60.
+        """
+        return int(self.device.ask(":DISPlay:GBRightness?"))
+
+    def set_grid_brightness(self, brightness: int = 50) -> None:
+        """
+        **Rigol Programming Guide**
+
+        **Syntax**
+
+        :DISPlay:GBRightness <brightness>
+        :DISPlay:GBRightness?
+
+        **Description**
+
+        Set the brightness of the screen grid and the unit is %.
+        Query the current brightness of the screen grid.
+
+        **Parameter**
+
+        ============= ======== ========= =======
+        Name          Type     Range     Default
+        ============= ======== ========= =======
+        <brightness>  Integer  0 to 100  50
+        ============= ======== ========= =======
+
+        **Return Format**
+
+        The query retruns an integer between 0 and 100.
+
+        **Example**
+
+        :DISPlay:GBRightness 60
+        The query returns 60.
+        """
+        if isinstance(brightness, int) and 0 <= brightness <= 100:
+            self.device.ask(f":DISPlay:GBRightness {brightness}")
+        else:
+            ValueError("The brightness must be of type int and between 0..100.")
+
+    def set_menu_display_time(self, time: int = -1) -> None:
+        """
+        **Rigol Programming Guide**
+
+        **Syntax**
+
+        :DISPlay:MPERsistence <time>
+        :DISPlay:MPERsistence?
+
+        **Description**
+
+        Set the menu display time and the unit is s.
+        Query the current menu display time.
+
+        **Parameter**
+
+        ======= ========= ======================= ========
+        Name    Type      Range                   Default
+        ======= ========= ======================= ========
+        <time>  Discrete  {1|2|5|10|20|INFinite}  INFinite
+        ======= ========= ======================= ========
+
+        **Return Format**
+
+        Query the menu display time set.
+
+        **Example**
+
+        :DISPlay:MPERsistence 20
+        The query returns 20.
+        """
+        # Assertion
+        if (not isinstance(time, int)) or (
+                time not in Display.MENU_DISPLAY_TIME):
+            ValueError(
+                    "\"time\" must be of type \"float\" "
+                    f"and in {str(Display.MENU_DISPLAY_TIME)}")
+
+        if time in Display.MENU_DISPLAY_TIME[-1]:
+            self.device.ask(":DISPlay:MPERsistence INFinite")
+        elif time in Display.MENU_DISPLAY_TIME:
+            self.device.ask(f":DISPlay:GRADing:TIME {time}")
+
+    def data(self) -> bytearray:  # Screenshot bitmap raw data stream
+        """
+        **Rigol Programming Guide**
+
+        **Syntax**
+
+        :DISPlay:DATA?
+
+        **Description**
+
+        Read the bitmap data stream of the image currently displayed.
+
+        **Explanation**
+
+        The command is sent from the PC to the instrument through the VISA
+        interface. The instrument responds to the command and directly returns
+        the bitmap data stream of the image currently displayed to the buffer
+        area of the PC.
+
+        **Return Format**
+
+        The format of the bitmap data stream:
+
+        ============== ================================ =======================
+        Component      TMC Blockheader                  BMP Data
+        ============== ================================ =======================
+        Size (length)  N[1] +2                          800*480*3+54=1152054[2]
+        ============== ================================ =======================
+        Example        #9001152054                      BM...
+        ============== ================================ =======================
+        Explanation    TMC Blockheader ::= #NXXXXXX     Specific bitmap data.
+                       is used to describe the length
+                       of the data stream. Wherein, #
+                       is the start denoter of the
+                       data stream; N is less than or
+                       equal to 9 and the N figures
+                       following it denotes the length
+                       of the data stream in bytes.
+                       For example, #9001152054;
+                       wherein, N is 9 and 001152054
+                       denotes that the data stream
+                       contains 1152054 bytes of
+                       effective data.
+        ============== ================================ =======================
+
+
+        **Note[1]**: N is the width used to describe the data length in the TMC
+        header. For example, #90000.
+
+        **Note[2]**: the width is 800, the height is 480, the bit depth is
+        24Bit = 3Byte, 54 is the size of the bitmap file header.
+
+        **Example**
+
+        1. Make sure that the buffer is large enough to receive the data stream,
+           otherwise the program might be abnormal when reading the data stream.
+        2. The returned data stream contains TMC data header and you need to
+           remove the data header to make the data stream a standard bitmap data
+           stream.
+        3. When the data size is larger than 1 M and the communication speed of
+           the interface is not fast enough, you need to set an appropriate
+           timeout time
+        4. The terminator '\\n'(0X0A) at the end of the data should be removed.
+        """
+        # Write Data
+        try:
+            self.device.write(":DISPlay:DATA?")
+        except Exception:
+            raise Ds2000Exception("Write Operation was not successful.")
+
+        # Read (RAW) data from the oscilloscope (Head + Bitmap)
+        try:
+            payload = self.device.read_raw()
+        except Exception:
+            raise Ds2000Exception("Raw read Operation was not successful.")
+
+        # Get and check the payload head len.
+        # #NXXXXXX    (format)
+        # #9001152054 (example)
+        size_len_pos_offset = 2
+        size_len_from_payload = int(payload[1])
+        if payload[0] != b"#" and size_len_from_payload <= 0:
+            raise Ds2000Exception("Could not identify the incoming data.")
+
+        # Get the bitmap stream size after the head
+        try:
+            size_len_pos_start: int = size_len_pos_offset
+            size_len_pos_stop: int = size_len_from_payload + size_len_pos_offset
+
+            bpm_size = int(payload[size_len_pos_start:size_len_pos_stop])
+        except Exception:
+            raise Ds2000Exception("Could not get the bitmap stream size."
+                                  "The datastream was corrupted.")
+
+        try:
+            stream_start = size_len_pos_stop + 1
+            stream_end = stream_start + bpm_size - 1  # -1 is "Line Feed"
+
+            stream = payload[stream_start:stream_end]
+        except Exception:
+            raise Ds2000Exception("Could not get the bitmap stream."
+                                  "The datastream was corrupted.")
+
+        # Checks, if the header of the bitmap stream is included.
+        try:
+            if stream[0:1] != b"BM":  # \n
+                raise Ds2000Exception()
+        except Exception:
+            raise Ds2000Exception("The start of the datastream could not be "
+                                  "matched. The datastream was corrupted.")
+
+        # Checks if the "Line Feed" character at the end of the bitmap sile
+        # steram is present, to make sure everything is in the payload
+        # and the size was right.
+        try:
+            if payload[stream_end+1] != bytearray.fromhex("0x0A"):  # \n
+                raise Ds2000Exception()
+        except Exception:
+            raise Ds2000Exception("The end of the datastream could not be "
+                                  "matched. The datastream was corrupted.")
+
+        if bpm_size-1 != len(stream):
+            raise Ds2000Exception(
+                    "The size from the head does not match "
+                    "the number of received bytes."
+            )
+
+        return stream
