@@ -26,7 +26,7 @@ __all__ = [
 
 
 class Mode(SubController):
-    def edge(self):
+    def edge(self) -> None:
         """
         **Rigol Programming Guide**
 
@@ -60,9 +60,9 @@ class Mode(SubController):
         :TRIGger:MODE SLOPe
         The query returns SLOP.
         """
-        raise NotImplementedError()
+        self.subdevice.device.ask(":TRIGger:MODE EDGE")
 
-    def pulse(self):
+    def pulse(self) -> None:
         """
         **Rigol Programming Guide**
 
@@ -96,9 +96,9 @@ class Mode(SubController):
         :TRIGger:MODE SLOPe
         The query returns SLOP.
         """
-        raise NotImplementedError()
+        self.subdevice.device.ask(":TRIGger:MODE PULSe")
 
-    def runt(self):
+    def runt(self) -> None:
         """
         **Rigol Programming Guide**
 
@@ -132,9 +132,9 @@ class Mode(SubController):
         :TRIGger:MODE SLOPe
         The query returns SLOP.
         """
-        raise NotImplementedError()
+        self.subdevice.device.ask(":TRIGger:MODE RUNT")
 
-    def wind(self):
+    def windows(self) -> None:
         """
         **Rigol Programming Guide**
 
@@ -168,9 +168,9 @@ class Mode(SubController):
         :TRIGger:MODE SLOPe
         The query returns SLOP.
         """
-        raise NotImplementedError()
+        self.subdevice.device.ask(":TRIGger:MODE WIND")
 
-    def nedge(self):
+    def nth_edge(self) -> None:
         """
         **Rigol Programming Guide**
 
@@ -204,9 +204,9 @@ class Mode(SubController):
         :TRIGger:MODE SLOPe
         The query returns SLOP.
         """
-        raise NotImplementedError()
+        self.subdevice.device.ask(":TRIGger:MODE NEDG")
 
-    def slope(self):
+    def slope(self) -> None:
         """
         **Rigol Programming Guide**
 
@@ -240,9 +240,9 @@ class Mode(SubController):
         :TRIGger:MODE SLOPe
         The query returns SLOP.
         """
-        raise NotImplementedError()
+        self.subdevice.device.ask(":TRIGger:MODE SLOPe")
 
-    def video(self):
+    def video(self) -> None:
         """
         **Rigol Programming Guide**
 
@@ -276,9 +276,9 @@ class Mode(SubController):
         :TRIGger:MODE SLOPe
         The query returns SLOP.
         """
-        raise NotImplementedError()
+        self.subdevice.device.ask(":TRIGger:MODE VIDeo")
 
-    def pattern(self):
+    def pattern(self) -> None:
         """
         **Rigol Programming Guide**
 
@@ -312,9 +312,9 @@ class Mode(SubController):
         :TRIGger:MODE SLOPe
         The query returns SLOP.
         """
-        raise NotImplementedError()
+        self.subdevice.device.ask(":TRIGger:MODE PATTern")
 
-    def delay(self):
+    def delay(self) -> None:
         """
         **Rigol Programming Guide**
 
@@ -348,9 +348,9 @@ class Mode(SubController):
         :TRIGger:MODE SLOPe
         The query returns SLOP.
         """
-        raise NotImplementedError()
+        self.subdevice.device.ask(":TRIGger:MODE DELay")
 
-    def timeout(self):
+    def timeout(self) -> None:
         """
         **Rigol Programming Guide**
 
@@ -384,9 +384,9 @@ class Mode(SubController):
         :TRIGger:MODE SLOPe
         The query returns SLOP.
         """
-        raise NotImplementedError()
+        self.subdevice.device.ask(":TRIGger:MODE TIMeout")
 
-    def duration(self):
+    def duration(self) -> None:
         """
         **Rigol Programming Guide**
 
@@ -420,9 +420,9 @@ class Mode(SubController):
         :TRIGger:MODE SLOPe
         The query returns SLOP.
         """
-        raise NotImplementedError()
+        self.subdevice.device.ask(":TRIGger:MODE DURATion")
 
-    def shold(self):
+    def setup_hold(self) -> None:
         """
         **Rigol Programming Guide**
 
@@ -456,9 +456,9 @@ class Mode(SubController):
         :TRIGger:MODE SLOPe
         The query returns SLOP.
         """
-        raise NotImplementedError()
+        self.subdevice.device.ask(":TRIGger:MODE SHOLd")
 
-    def rs232(self):
+    def rs232(self) -> None:
         """
         **Rigol Programming Guide**
 
@@ -492,9 +492,9 @@ class Mode(SubController):
         :TRIGger:MODE SLOPe
         The query returns SLOP.
         """
-        raise NotImplementedError()
+        self.subdevice.device.ask(":TRIGger:MODE RS232")
 
-    def iic(self):
+    def i2c(self) -> None:
         """
         **Rigol Programming Guide**
 
@@ -528,9 +528,9 @@ class Mode(SubController):
         :TRIGger:MODE SLOPe
         The query returns SLOP.
         """
-        raise NotImplementedError()
+        self.subdevice.device.ask(":TRIGger:MODE IIC")
 
-    def spi(self):
+    def spi(self) -> None:
         """
         **Rigol Programming Guide**
 
@@ -564,9 +564,9 @@ class Mode(SubController):
         :TRIGger:MODE SLOPe
         The query returns SLOP.
         """
-        raise NotImplementedError()
+        self.subdevice.device.ask(":TRIGger:MODE SPI")
 
-    def usb(self):
+    def usb(self) -> None:
         """
         **Rigol Programming Guide**
 
@@ -600,4 +600,40 @@ class Mode(SubController):
         :TRIGger:MODE SLOPe
         The query returns SLOP.
         """
-        raise NotImplementedError()
+        self.subdevice.device.ask(":TRIGger:MODE USB")
+
+    def status(self) -> str:
+        """
+        **Rigol Programming Guide**
+
+        **Syntax**
+
+        :TRIGger:MODE <mode>
+        :TRIGger:MODE?
+
+        **Description**
+
+        Select the trigger type.
+        Query the current trigger type.
+
+        **Parameter**
+
+        ======= ========= ============================ =======
+        Name    Type      Range                        Default
+        ======= ========= ============================ =======
+        <mode>  Discrete  {EDGE|PULSe|RUNT|WIND|NEDG|  EDGE
+                          SLOPe|VIDeo|PATTern|DELay|
+                          TIMeout|DURATion|SHOLd|
+                          RS232|IIC|SPI|USB}
+        ======= ========= ============================ =======
+
+        **Return Format**
+
+        The query returns the current trigger type.
+
+        **Example**
+
+        :TRIGger:MODE SLOPe
+        The query returns SLOP.
+        """
+        return self.subdevice.device.ask(":TRIGger:MODE?").lower()
