@@ -26,7 +26,7 @@ __all__ = [
 
 
 class Coupling(SubController):
-    def ac(self):
+    def ac(self) -> None:
         """
         **Rigol Programming Guide**
 
@@ -61,9 +61,9 @@ class Coupling(SubController):
         :TRIGger:COUPling LFReject
         The query returns LFR.
         """
-        raise NotImplementedError()
+        self.subdevice.device.ask(":TRIGger:COUPling AC")
 
-    def dc(self):
+    def dc(self) -> None:
         """
         **Rigol Programming Guide**
 
@@ -98,9 +98,9 @@ class Coupling(SubController):
         :TRIGger:COUPling LFReject
         The query returns LFR.
         """
-        raise NotImplementedError()
+        self.subdevice.device.ask(":TRIGger:COUPling DC")
 
-    def low_frequency_reject(self):
+    def low_frequency_reject(self) -> None:
         """
         **Rigol Programming Guide**
 
@@ -135,9 +135,9 @@ class Coupling(SubController):
         :TRIGger:COUPling LFReject
         The query returns LFR.
         """
-        raise NotImplementedError()
+        self.subdevice.device.ask(":TRIGger:COUPling LFReject")
 
-    def high_frequency_reject(self):
+    def high_frequency_reject(self) -> None:
         """
         **Rigol Programming Guide**
 
@@ -172,4 +172,41 @@ class Coupling(SubController):
         :TRIGger:COUPling LFReject
         The query returns LFR.
         """
-        raise NotImplementedError()
+        self.subdevice.device.ask(":TRIGger:COUPling HFReject")
+
+    def status(self) -> str:
+        """
+        **Rigol Programming Guide**
+
+        **Syntax**
+
+        :TRIGger:COUPling <couple>
+        :TRIGger:COUPling?
+
+        **Description**
+
+        Select the desired trigger coupling mode.
+        Query the current trigger coupling mode.
+
+        **Parameter**
+
+        ========= ========= ========================== =======
+        Name      Type      Range                      Default
+        ========= ========= ========================== =======
+        <couple>  Discrete  {AC|DC|LFReject|HFReject}  DC
+        ========= ========= ========================== =======
+
+        **Explanation**
+
+        It is only available in edge trigger.
+
+        **Return Format**
+
+        The query returns AC, DC, LFR or HFR.
+
+        **Example**
+
+        :TRIGger:COUPling LFReject
+        The query returns LFR.
+        """
+        return self.subdevice.device.ask(":TRIGger:COUPling?")
