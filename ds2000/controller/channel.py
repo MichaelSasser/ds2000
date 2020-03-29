@@ -671,18 +671,18 @@ class Channel(BaseController):
                 return True  # The range and requested offset is correct.
             else:
                 ValueError(f"If your scale is between "
-                           f"{min_scl_p.value}{min_scl_p.prefix}V/div and "
-                           f"{max_scl_p.value}{max_scl_p.prefix}V/div "
+                           f"{min_scl_p.formatted}V/div and "
+                           f"{max_scl_p.formatted}V/div "
                            f"the offset must be between "
-                           f"-{off_p.value}{off_p.prefix}V and "
-                           f"{off_p.value}{off_p.prefix}V.\n"
+                           f"-{off_p.formatted}V and "
+                           f"{off_p.formatted}V.\n"
                            f"Your scale is currently set to "
-                           f"{scl_p.value}{scl_p.prefix}V/div.\n"
+                           f"{scl_p.formatted}V/div.\n"
                            f"Your requestet offset is "
-                           f"{offset_p.value}{offset_p.prefix}V.\n"
+                           f"{offset_p.formatted}V.\n"
                            f"Make sure your offset is between "
-                           f"-{off_p.value}{off_p.prefix}V "
-                           f"and {off_p.value}{off_p.prefix}V or change your "
+                           f"-{off_p.formatted}V "
+                           f"and {off_p.formatted}V or change your "
                            f"scale.\n"
                            "Keep in mind, the range of the vertical scale "
                            "is related to the probe attenuation ratio "
@@ -794,11 +794,11 @@ class Channel(BaseController):
                 min_scl_p: Prefixed = get_prefix(r.min_scl*ratio)
                 max_scl_p: Prefixed = get_prefix(r.max_scl*ratio)
                 off_p: Prefixed = get_prefix(r.off*ratio)
-                err.append(f"A scale from {min_scl_p.value}{min_scl_p.prefix}"
-                           f"V/div to {max_scl_p.value}{max_scl_p.prefix}V/div "
+                err.append(f"A scale from {min_scl_p.formatted}"
+                           f"V/div to {max_scl_p.formatted}V/div "
                            f"results in an offset range of "
-                           f"-{off_p.value}{off_p.prefix}V to "
-                           f"{off_p.value}{off_p.prefix}V.")
+                           f"-{off_p.formatted}V to "
+                           f"{off_p.formatted}V.")
             err.append("Please make sure, your are in this boundaries.")
             raise ValueError("\n".join(err))
 

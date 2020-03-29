@@ -23,9 +23,12 @@ __email__: str = 'Michael@MichaelSasser.org'
 
 __all__ = ['get_prefix', 'Prefixed']
 
-Prefixed = NamedTuple('Prefixed', [('value', float),
-                                   ('prefix', str),
-                                   ('divisor', float)])
+
+class Prefixed(NamedTuple):
+    value: float
+    prefix: str
+    divisor: float
+    formatted: str
 
 
 def get_prefix(value: float) -> Prefixed:
@@ -66,6 +69,10 @@ def get_prefix(value: float) -> Prefixed:
     while value > 1000.0:
         value /= 1000.0
         power += 3
-    return Prefixed(value=float((-value) if negative else value),
+
+    value = float((-value) if negative else value)
+
+    return Prefixed(value=value,
                     prefix=prefixes[power],
-                    divisor=float(power))
+                    divisor=float(power),
+                    formatted=f"{value}{prefixes[power]}")
