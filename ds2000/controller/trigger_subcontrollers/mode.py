@@ -636,4 +636,16 @@ class Mode(SubController):
         :TRIGger:MODE SLOPe
         The query returns SLOP.
         """
-        return self.subdevice.device.ask(":TRIGger:MODE?").lower()
+        status = self.subdevice.device.ask(":TRIGger:MODE?").lower()
+        if status in ("edge", "pulse", "runt", "slope", "video", "pattern",
+                      "delay", "timeout", "duration", "rs232", "spi", "usb"):
+            return status
+        if status == "wind":
+            return "windows"
+        if status == "nedg":
+            return "nth edge"
+        if status == "shold":
+            return "setup/hold"
+        if status == "iic":
+            return "i2c"
+

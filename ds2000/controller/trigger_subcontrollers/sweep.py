@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from ds2000.controller import SubController
+from ds2000.controller import SubController, Ds2000Exception
 
 __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
@@ -26,7 +26,7 @@ __all__ = [
 
 
 class Sweep(SubController):
-    def auto(self):
+    def auto(self) -> None:
         """
         **Rigol Programming Guide**
 
@@ -57,9 +57,9 @@ class Sweep(SubController):
         :TRIGger:SWEep SINGle
         The query returns SING.
         """
-        raise NotImplementedError()
+        self.subdevice.device.ask(":TRIGger:SWEep AUTO")
 
-    def normal(self):
+    def normal(self) -> None:
         """
         **Rigol Programming Guide**
 
@@ -90,9 +90,9 @@ class Sweep(SubController):
         :TRIGger:SWEep SINGle
         The query returns SING.
         """
-        raise NotImplementedError()
+        self.subdevice.device.ask(":TRIGger:SWEep NORMal")
 
-    def single(self):
+    def single(self) -> None:
         """
         **Rigol Programming Guide**
 
@@ -123,4 +123,45 @@ class Sweep(SubController):
         :TRIGger:SWEep SINGle
         The query returns SING.
         """
-        raise NotImplementedError()
+        self.subdevice.device.ask(":TRIGger:SWEep SINGle")
+
+    def status(self) -> str:
+        """
+        **Rigol Programming Guide**
+
+        **Syntax**
+
+        :TRIGger:SWEep <sweep>
+        :TRIGger:SWEep?
+
+        **Description**
+
+        Set the trigger mode to auto, normal or single.
+        Query the current trigger mode.
+
+        **Parameter**
+
+        ======== ========= ===================== =======
+        Name     Type      Range                 Default
+        ======== ========= ===================== =======
+        <sweep>  Discrete  {AUTO|NORMal|SINGle}  AUTO
+        ======== ========= ===================== =======
+
+        **Return Format**
+
+        The query returns AUTO, NORM or SING.
+
+        **Example**
+
+        :TRIGger:SWEep SINGle
+        The query returns SING.
+        """
+        status = self.subdevice.device.ask(":TRIGger:SWEep?").lower()
+        if status == "auto":
+            return "auto"
+        if status == "norm":
+            return "normal"
+        if status == "sing":
+            return "simgle"
+        Ds2000Exception("The sweep status could not be interpereted. I got: "
+                        f"{status}")
