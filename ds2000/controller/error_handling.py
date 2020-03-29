@@ -20,8 +20,13 @@ __email__ = "Michael@MichaelSasser.org"
 
 __all__ = [
     "Ds2000Exception",
+    "Ds2000StateError",
 ]
 
 
-class Ds2000Exception(Exception):
+class Ds2000Exception(Exception):  # ToDo: Change to Ds2000Error
+    pass
+
+
+class Ds2000StateError(Exception):
     pass
