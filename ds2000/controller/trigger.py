@@ -154,28 +154,3 @@ class Trigger(BaseController):
         The query returns 1.
         """
         raise NotImplementedError()
-
-# ToDo: From HERE
-    def level(self):
-        """
-        **Rigol Programming Guide**
-
-        **Syntax**
-        """
-        raise NotImplementedError()
-
-    def level50(self):
-        """
-        **Rigol Programming Guide**
-
-        **Syntax**
-        """
-        raise NotImplementedError()
-
-    def force(self):
-        """
-        **Rigol Programming Guide**
-
-        **Syntax**
-        """
-        raise NotImplementedError()

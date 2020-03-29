@@ -41,7 +41,7 @@ def simple_plot(inst, title: str = "", recorded: bool = False) -> None:
     """
     p = inst.waveform.preamble()
     t_scale = inst.timebase.get_scale()
-    c_scale = inst.channel1.scale
+    c_scale = inst.channel1.get_scale()
     inst.waveform.channel(1)
     inst.waveform.format.byte()
     inst.waveform.mode.raw()
@@ -85,13 +85,13 @@ def simple_plot(inst, title: str = "", recorded: bool = False) -> None:
 
     plt.xlim(0, get_prefix(inst.timebase.scale).value * 14)
     plt.ylim(
-            - get_prefix(inst.channel1.scale).value * 8 / 2,
-            get_prefix(inst.channel1.scale).value * 8 / 2,
+            - get_prefix(inst.channel1.get_scale()).value * 8 / 2,
+            get_prefix(inst.channel1.get_scale()).value * 8 / 2,
     )
     plt.show()
-    print(f"lower: {(- inst.waveform.y_origin - inst.waveform.y_reference) * 10 ** get_prefix(inst.channel1.scale).divisor}")
+    print(f"lower: {(- inst.waveform.y_origin - inst.waveform.y_reference) * 10 ** get_prefix(inst.channel1.get_scale()).divisor}")
 
-    print(f"r.channel1.scale={inst.channel1.scale}\n")
+    print(f"r.channel1.get_scale()={inst.channel1.get_scale()}\n")
 
     print(f"r.waveform.x_increment={inst.waveform.x_increment}")
     print(f"r.waveform.x_origin={inst.waveform.x_origin}")

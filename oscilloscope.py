@@ -62,7 +62,7 @@ class DS2000(object):
     def __exit__(self, exc_type, exc_val, exc_tb):
         self.disconnect()
 
-    def ask(self, msg: str):
+    def ask(self, msg: str) -> str:
         """This is a Wrapper for the ask method of vxi11.
         With a wrapper it makes it possible to change the underlying
         package behaviour, vxi11 itself.
@@ -214,7 +214,7 @@ class DS2000(object):
         """
         self.write(":STOP")
 
-    def t_force(self):  # ToDo: Prob. to Trigger Menu
+    def force(self):
         """
         **Rigol Programming Guide**
 
@@ -232,7 +232,7 @@ class DS2000(object):
         """
         self.ask(":TFORce")
 
-    def t_half(self):  # ToDo: Prob. to Trigger Menu
+    def level50(self):
         """
         **Rigol Programming Guide**
 

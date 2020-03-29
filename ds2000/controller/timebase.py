@@ -128,7 +128,7 @@ class TimebaseDelay(SubController):
         """
         return bool(int(self.subdevice.device.ask(":TIMebase:DELay:ENABle?")))
 
-    def get_offset(self, offset: float = 0) -> float:
+    def get_offset(self) -> float:
         """
         **Rigol Programming Guide**
 
