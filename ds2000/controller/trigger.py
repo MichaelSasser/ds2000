@@ -33,7 +33,8 @@ from ds2000.controller.trigger_subcontrollers import (Mode,
                                                       SetupHold,
                                                       Rs232,
                                                       I2c,
-                                                      Spi, )
+                                                      Spi,
+                                                      Usb,)
 
 
 __author__ = "Michael Sasser"
@@ -53,7 +54,7 @@ class Trigger(BaseController):
         self.edge: Edge = Edge(self)
         self.pulse: Pulse = Pulse(self)
         self.runt: Runt = Runt(self)
-        self.window: Windows = Windows(self)
+        self.windows: Windows = Windows(self)
         self.nth_edge: NthEdge = NthEdge(self)
         self.slope: Slope = Slope(self)
         self.video: Video = Video(self)
@@ -65,8 +66,9 @@ class Trigger(BaseController):
         self.rs232: Rs232 = Rs232(self)
         self.iic: I2c = I2c(self)
         self.spi: Spi = Spi(self)
+        self.usb: Usb = Usb(self)
 
-    def status(self):
+    def status(self) -> str:
         """
         **Rigol Programming Guide**
 
@@ -84,7 +86,7 @@ class Trigger(BaseController):
         """
         return self.device.ask("TRIGger:STATus?").lower()
 
-    def holdoff(self):
+    def get_holdoff(self) -> float:
         """
         **Rigol Programming Guide**
 
@@ -120,9 +122,50 @@ class Trigger(BaseController):
         :TRIGger:HOLDoff 0.0000002
         The query returns 2.000000e-07.
         """
-        raise NotImplementedError()
+        return float(self.device.ask(":TRIGger:HOLDoff?"))
 
-    def noise_reject(self):
+    def set_holdoff(self, time: float = 100.E-9) -> None:
+        """
+        **Rigol Programming Guide**
+
+        **Syntax**
+
+        :TRIGger:HOLDoff <value>
+        :TRIGger:HOLDoff?
+
+        **Description**
+
+        Set the trigger holdoff time and the unit is s.
+        Query the current trigger holdoff time.
+
+        **Parameter**
+
+        ======== ===== ============= =======
+        Name     Type  Range         Default
+        ======== ===== ============= =======
+        <value>  Real  100ns to 10s  100ns
+        ======== ===== ============= =======
+
+        **Explanation**
+
+        This setting is not available for the Nth edge trigger, video trigger,
+        RS232 trigger, IIC trigger, SPI trigger and USB trigger.
+
+        **Return Format**
+
+        The query returns the trigger holdoff time in scientific notation.
+
+        Example
+
+        :TRIGger:HOLDoff 0.0000002
+        The query returns 2.000000e-07.
+        """
+        if not isinstance(time, float) or not 100.E-9 <= time <= 10:
+            ValueError(f"\"time\" must be of type float and between "
+                       f"100ns..10s. You entered {type(time)}.")
+        self.device.ask(f":TRIGger:HOLDoff {time}")
+
+    def get_noise_reject(self) -> bool:
         """
         **Rigol Programming Guide**
 
@@ -153,4 +196,40 @@ class Trigger(BaseController):
         :TRIGger:NREJect ON
         The query returns 1.
         """
-        raise NotImplementedError()
+        return bool(int(self.device.ask(":TRIGger:NREJect?")))
+
+    def set_noise_reject(self, enable: bool = False) -> None:
+        """
+        **Rigol Programming Guide**
+
+        **Syntax**
+
+        :TRIGger:NREJect <bool>
+        :TRIGger:NREJect?
+
+        **Description**
+
+        Enable or disable noise reject.
+        Query the current status of noise reject.
+
+        **Parameter**
+
+        ======= ===== ================= =======
+        Name    Type  Range             Default
+        ======= ===== ================= =======
+        <bool>  Bool  {{0|OFF}|{1|ON}}  0|OFF
+        ======= ===== ================= =======
+
+        **Return Format**
+
+        The query returns 0 or 1.
+
+        ++Example**
+
+        :TRIGger:NREJect ON
+        The query returns 1.
+        """
+        if not isinstance(enable, bool):
+            ValueError(f"\"enable\" must be of type bool, you entered "
+                       f"{type(enable)}.")
+        self.device.ask(f":TRIGger:NREJect {enable}")
