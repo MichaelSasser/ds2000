@@ -93,7 +93,7 @@ def check_input(arg: Any,
     # Check for the argument type.
     if (arg_type is not None) and not isinstance(arg, arg_type):
         raise TypeError(f"The argument \"{arg_name}\" needs to be of type "
-                        f"{type(arg)}. You entered a {type(arg)}"
+                        f"{type(arg)}. You entered {arg} ({type(arg)})"
                         f"{'. ' if ext_type_err else '.'}"
                         f"{ext_type_err if ext_type_err else ''}")
 
@@ -102,6 +102,8 @@ def check_input(arg: Any,
         raise ValueError(f"The argument \"{arg_name}\" needs to be in between "
                          f"{get_prefix(mini).formatted+unit if unit else mini}"
                          f" and "
-                         f"{get_prefix(maxi).formatted+unit if unit else maxi}"
+                         f"{get_prefix(maxi).formatted+unit if unit else maxi}."
+                         f" You entered "
+                         f"{get_prefix(arg).formatted+unit if unit else arg}"
                          f"{'. ' if ext_range_err else '.'}"
                          f"{ext_range_err if ext_range_err else ''}")
