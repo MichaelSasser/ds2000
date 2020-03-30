@@ -16,6 +16,9 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import numpy as np
 import matplotlib.pyplot as plt
+
+from logging import debug
+from oscilloscope import DEBUGGING
 from matplotlib.ticker import (
     MultipleLocator,
     FormatStrFormatter,
@@ -31,6 +34,8 @@ __all__ = [
 ]
 
 
+
+
 def simple_plot(inst, title: str = "", recorded: bool = False) -> None:
     """
 
@@ -39,10 +44,11 @@ def simple_plot(inst, title: str = "", recorded: bool = False) -> None:
     :param recorded: If recorded is False, the plot will be only the current
                      waveform on the screen. None
     """
+    # ToDo: Add offset
     p = inst.waveform.preamble()
     t_scale = inst.timebase.get_scale()
     c_scale = inst.channel1.get_scale()
-    inst.waveform.channel(1)
+    inst.waveform.channel(1)  # ToDo: Check for active channels; make argument.
     inst.waveform.format.byte()
     inst.waveform.mode.raw()
 
@@ -83,24 +89,25 @@ def simple_plot(inst, title: str = "", recorded: bool = False) -> None:
 
     # fig.savefig("test.png")
 
-    plt.xlim(0, get_prefix(inst.timebase.scale).value * 14)
+    plt.xlim(0, get_prefix(inst.timebase.get_scale()).value * 14)
     plt.ylim(
             - get_prefix(inst.channel1.get_scale()).value * 8 / 2,
             get_prefix(inst.channel1.get_scale()).value * 8 / 2,
     )
     plt.show()
-    print(f"lower: {(- inst.waveform.y_origin - inst.waveform.y_reference) * 10 ** get_prefix(inst.channel1.get_scale()).divisor}")
 
-    print(f"r.channel1.get_scale()={inst.channel1.get_scale()}\n")
+    debug(f"lower: {(- inst.waveform.y_origin - inst.waveform.y_reference) * 10 ** get_prefix(inst.channel1.get_scale()).divisor}")
 
-    print(f"r.waveform.x_increment={inst.waveform.x_increment}")
-    print(f"r.waveform.x_origin={inst.waveform.x_origin}")
-    print(f"r.waveform.x_reference={inst.waveform.x_reference}\n")
+    debug(f"r.channel1.get_scale()={inst.channel1.get_scale()}\n")
 
-    print(
+    debug(f"r.waveform.x_increment={inst.waveform.x_increment}")
+    debug(f"r.waveform.x_origin={inst.waveform.x_origin}")
+    debug(f"r.waveform.x_reference={inst.waveform.x_reference}\n")
+
+    debug(
             f"r.waveform.y_increment={inst.waveform.y_increment}"
     )  # voltage value per unit
-    print(f"r.waveform.y_origin={inst.waveform.y_origin}")  # vertical offset
-    print(f"r.waveform.y_reference={inst.waveform.y_reference}")  # vertical ref
+    debug(f"r.waveform.y_origin={inst.waveform.y_origin}")  # vertical offset
+    debug(f"r.waveform.y_reference={inst.waveform.y_reference}")  # vertical ref
 
-    print(get_prefix(inst.timebase.scale))
+    debug(get_prefix(inst.timebase.get_scale()))

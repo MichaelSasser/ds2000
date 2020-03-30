@@ -72,7 +72,7 @@ class ChannelCoupling(SubController):
 
         """
         self.subdevice.device.ask(
-                f":CHANnel{self.subdevice.__channel}:COUPling AC")
+                f":CHANnel{self.subdevice._channel}:COUPling AC")
 
     def dc(self) -> None:
         """
@@ -108,7 +108,7 @@ class ChannelCoupling(SubController):
 
         """
         self.subdevice.device.ask(
-                f":CHANnel{self.subdevice.__channel}:COUPling DC")
+                f":CHANnel{self.subdevice._channel}:COUPling DC")
 
     def gnd(self) -> None:
         """
@@ -144,7 +144,7 @@ class ChannelCoupling(SubController):
 
         """
         self.subdevice.device.ask(
-                f":CHANnel{self.subdevice.__channel}:COUPling GND")
+                f":CHANnel{self.subdevice._channel}:COUPling GND")
 
     def status(self) -> str:
         """
@@ -180,7 +180,7 @@ class ChannelCoupling(SubController):
 
         """
         return self.subdevice.device.ask(
-                f":CHANnel{self.subdevice.__channel}:COUPling?").lower()
+                f":CHANnel{self.subdevice._channel}:COUPling?").lower()
 
 
 class ChannelUnits(SubController):
@@ -218,7 +218,7 @@ class ChannelUnits(SubController):
 
         """
         self.subdevice.device.ask(
-                f":CHANnel{self.subdevice.__channel}::UNITs VOLTage")
+                f":CHANnel{self.subdevice._channel}::UNITs VOLTage")
 
     def power(self) -> None:
         """
@@ -254,7 +254,7 @@ class ChannelUnits(SubController):
 
         """
         self.subdevice.device.ask(
-                f":CHANnel{self.subdevice.__channel}::UNITs WATT")
+                f":CHANnel{self.subdevice._channel}::UNITs WATT")
 
     def current(self) -> None:
         """
@@ -290,7 +290,7 @@ class ChannelUnits(SubController):
 
         """
         self.subdevice.device.ask(
-                f":CHANnel{self.subdevice.__channel}::UNITs AMPere")
+                f":CHANnel{self.subdevice._channel}::UNITs AMPere")
 
     def unknown(self) -> None:
         """
@@ -326,7 +326,7 @@ class ChannelUnits(SubController):
 
         """
         self.subdevice.device.ask(
-                f":CHANnel{self.subdevice.__channel}::UNITs UNKNown")
+                f":CHANnel{self.subdevice._channel}::UNITs UNKNown")
 
     def status(self) -> str:
         """
@@ -362,7 +362,7 @@ class ChannelUnits(SubController):
 
         """
         unit: str = self.subdevice.device.ask(
-                f":CHANnel{self.subdevice.__channel}::UNITs?")
+                f":CHANnel{self.subdevice._channel}::UNITs?")
         if unit == "VOLT":
             return "voltage"
         if unit == "WATT":
@@ -411,7 +411,7 @@ class ChannelBandwidthLimit(SubController):
         The query returns 20M.
         """
         self.subdevice.device.ask(
-                f":CHANnel{self.subdevice.__channel}:BWLimit OFF")
+                f":CHANnel{self.subdevice._channel}:BWLimit OFF")
 
     def bw_20m(self):
         """
@@ -449,7 +449,7 @@ class ChannelBandwidthLimit(SubController):
         The query returns 20M.
         """
         self.subdevice.device.ask(
-                f":CHANnel{self.subdevice.__channel}:BWLimit 20M")
+                f":CHANnel{self.subdevice._channel}:BWLimit 20M")
 
     def bw_100m(self):  # ToDo: not for DS2072 & DS2012
         """
@@ -487,7 +487,7 @@ class ChannelBandwidthLimit(SubController):
         The query returns 20M.
         """
         self.subdevice.device.ask(
-                f":CHANnel{self.subdevice.__channel}:BWLimit 100M")
+                f":CHANnel{self.subdevice._channel}:BWLimit 100M")
 
     def status(self):
         """
@@ -525,7 +525,7 @@ class ChannelBandwidthLimit(SubController):
         The query returns 20M.
         """
         self.subdevice.device.ask(
-                f":CHANnel{self.subdevice.__channel}:BWLimit?")
+                f":CHANnel{self.subdevice._channel}:BWLimit?")
 
 
 class Channel(BaseController):
@@ -558,7 +558,7 @@ class Channel(BaseController):
     def __init__(self, device, channel):
         super(Channel, self).__init__(device)
 
-        self.__channel = channel
+        self._channel = channel
 
         self.coupling: ChannelCoupling = ChannelCoupling(self)
         self.units: ChannelUnits = ChannelUnits(self)
@@ -597,7 +597,7 @@ class Channel(BaseController):
         :CHANnel1:INVert ON
         The query returns 1.
         """
-        return bool(int(self.device.ask(f":CHANnel{self.__channel}:INVert?")))
+        return bool(int(self.device.ask(f":CHANnel{self._channel}:INVert?")))
 
     def set_invert(self, enable: bool = False) -> None:
         """
@@ -634,7 +634,7 @@ class Channel(BaseController):
         if not isinstance(enable, bool):
             raise ValueError("\"enable\" must be of type \"bool\". You entered"
                              f"{type(enable)}.")
-        self.device.ask(f":CHANnel{self.__channel}:INVert {int(enable)}")
+        self.device.ask(f":CHANnel{self._channel}:INVert {int(enable)}")
 
     @staticmethod
     def __offset_check_range(rge: ChannelOffsetRange,
@@ -729,7 +729,7 @@ class Channel(BaseController):
         :CHANnel1:OFFSet 0.01
         The query returns 1.000000e-02.
         """
-        return float(self.device.ask(f":CHANnel{self.__channel}:OFFSet?"))
+        return float(self.device.ask(f":CHANnel{self._channel}:OFFSet?"))
 
     def set_offset(self, offset: Optional[float] = None) -> None:
         """
@@ -773,8 +773,8 @@ class Channel(BaseController):
         """
         ratio: float = self.get_probe_attenuation_ratio()  # Probe att. ratio
         if offset is None:
-            default: float = 2.0*ratio if self.__channel == 1 else -2.0*ratio
-            self.device.ask(f":CHANnel{self.__channel}:OFFSet {default}")
+            default: float = 2.0*ratio if self._channel == 1 else -2.0*ratio
+            self.device.ask(f":CHANnel{self._channel}:OFFSet {default}")
             return
 
         # if offset is of type float, generate the boundaries
@@ -785,7 +785,7 @@ class Channel(BaseController):
             # of scale.
             for r in self.__class__.OFFSET_RANGES:
                 if self.__offset_check_range(r, scale, offset, ratio):
-                    self.device.ask(f":CHANnel{self.__channel}:OFFSet {offset}")
+                    self.device.ask(f":CHANnel{self._channel}:OFFSet {offset}")
                     return
 
             # Anything between or none of that. Generate and throw an error.
@@ -846,7 +846,7 @@ class Channel(BaseController):
 
         The query returns 1.000000e+00.
         """
-        return float(self.device.ask(f":CHANnel{self.__channel}:SCALe?"))
+        return float(self.device.ask(f":CHANnel{self._channel}:SCALe?"))
 
     def set_scale(self, scale: float = 1) -> None:
         """
@@ -895,7 +895,7 @@ class Channel(BaseController):
                        f"and of type float. You entered the type: "
                        f"{type(scale)}. Remember, this values depend on the"
                        f"probe attenuation ratio.")
-        float(self.device.ask(f":CHANnel{self.__channel}:SCALe {scale}"))
+        float(self.device.ask(f":CHANnel{self._channel}:SCALe {scale}"))
 
     def get_probe_attenuation_ratio(self) -> float:
         """
@@ -935,7 +935,7 @@ class Channel(BaseController):
         The query returns 10.
 
         """
-        return float(self.device.ask(f":CHANnel{self.__channel}:PROBe?"))
+        return float(self.device.ask(f":CHANnel{self._channel}:PROBe?"))
 
     def set_probe_attenuation_ratio(self, ratio: float = 1) -> None:
         """
@@ -982,7 +982,7 @@ class Channel(BaseController):
             ValueError(f"\"ratio\" must be one of: "
                        f"{', '.join(lst)} and of type float. You entered "
                        f"{type(ratio)}.")
-        self.device.ask(f":CHANnel{self.__channel}:PROBe {ratio}")
+        self.device.ask(f":CHANnel{self._channel}:PROBe {ratio}")
 
     def get_fine_adjust(self) -> bool:
         """
@@ -1018,7 +1018,7 @@ class Channel(BaseController):
         :CHANnel1:VERNier ON
         The query returns 1.
         """
-        return bool(int(self.device.ask(f":CHANnel{self.__channel}:VERNier?")))
+        return bool(int(self.device.ask(f":CHANnel{self._channel}:VERNier?")))
 
     def set_fine_adjust(self, enabled: bool = False) -> None:
         """
@@ -1054,4 +1054,4 @@ class Channel(BaseController):
         :CHANnel1:VERNier ON
         The query returns 1.
         """
-        self.device.ask(f":CHANnel{self.__channel}:VERNier {int(enabled)}")
+        self.device.ask(f":CHANnel{self._channel}:VERNier {int(enabled)}")

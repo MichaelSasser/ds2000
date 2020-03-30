@@ -32,7 +32,7 @@ __email__ = "Michael@MichaelSasser.org"
 import vxi11
 
 from collections import namedtuple
-from logging import DEBUG, WARN, error, debug
+from logging import DEBUG, WARN, error, debug, getLogger
 from logging import basicConfig as loggingBasicConfig
 
 Instrument = namedtuple("Instrument", "company model serial software_version")
@@ -264,13 +264,14 @@ class DS2000(object):
 
 
 def main():
-    ip = "192.168.30.186"
+    ip = "192.168.30.196"
     # r = DS2000(ip)
     # r.connect()
     with DS2000(ip) as r:
         print("info:", r.info())
         from ds2000.func import simple_plot
 
+        print(f"{r.channel1.coupling.status()=}")
         r.waveform.start(1)
         simple_plot(r, recorded=False)
 
@@ -290,4 +291,5 @@ if __name__ == "__main__":
         level=DEBUG if DEBUGGING else WARN,
         format="%(asctime)s - %(levelname)s - %(message)s",
     )
+    getLogger('matplotlib.font_manager').disabled = True
     main()

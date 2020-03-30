@@ -14,7 +14,7 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
-from typing import Any, Optional
+from typing import Any, Optional, Union
 
 from ds2000.controller import Ds2000InternalSyntaxError
 from ds2000.math.format import get_prefix
@@ -43,8 +43,8 @@ class SubSubController(object):
 def check_input(arg: Any,
                 arg_name: str,
                 arg_type: Optional[Any] = None,
-                mini: Optional[int, float] = None,
-                maxi: Optional[int, float] = None,
+                mini: Union[None, int, float] = None,
+                maxi: Union[None, int, float] = None,
                 unit: Optional[str] = None,
                 ext_type_err: Optional[str] = None,
                 ext_range_err: Optional[str] = None) -> None:

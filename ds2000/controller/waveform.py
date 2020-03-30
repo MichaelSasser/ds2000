@@ -14,14 +14,18 @@
 
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
+from logging import debug
 import numpy as np
 from typing import NamedTuple
 from ds2000.controller import BaseController, SubController, Ds2000Exception
+
 
 __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
 
 __all__ = ["Waveform", "WaveformStatus"]
+
+
 
 WaveformStatus = NamedTuple(
     "WaveformStatus", [("status", bool), ("points", int)]
@@ -823,7 +827,8 @@ class Waveform(BaseController):
             data = get_data()
 
         # print(data)
-        print(data)
+
+        debug(f"{data=}")
         # exit(0)
         if data[:7] == b"#900000":  # screen waveform data
             # #900000dddd -> dddd
