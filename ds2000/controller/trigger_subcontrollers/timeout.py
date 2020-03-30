@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from ds2000.controller import SubController, SubSubController
+from ds2000.controller import SubController, SubSubController, check_input
 
 __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
@@ -26,7 +26,7 @@ __all__ = [
 
 
 class TimeoutSlope(SubSubController):
-    def positive(self):
+    def rising_edge(self) -> None:
         """
         **Rigol Programming Guide**
 
@@ -57,9 +57,10 @@ class TimeoutSlope(SubSubController):
         :TRIGger:TIMeout:SLOPe NEGative
         The query returns NEG.
         """
-        raise NotImplementedError()
+        self.subsubdevice.subdevice.device.ask(
+                ":TRIGger:TIMeout:SLOPe POSitive")
 
-    def negative(self):
+    def falling_edge(self) -> None:
         """
         **Rigol Programming Guide**
 
@@ -90,9 +91,10 @@ class TimeoutSlope(SubSubController):
         :TRIGger:TIMeout:SLOPe NEGative
         The query returns NEG.
         """
-        raise NotImplementedError()
+        self.subsubdevice.subdevice.device.ask(
+                ":TRIGger:TIMeout:SLOPe NEGative")
 
-    def r_fall(self):  # ToDo: RFALl (?)
+    def both_edges(self) -> None:
         """
         **Rigol Programming Guide**
 
@@ -123,15 +125,52 @@ class TimeoutSlope(SubSubController):
         :TRIGger:TIMeout:SLOPe NEGative
         The query returns NEG.
         """
-        raise NotImplementedError()
+        self.subsubdevice.subdevice.device.ask(
+                ":TRIGger:TIMeout:SLOPe RFALl")
+
+    def status(self) -> str:
+        """
+        **Rigol Programming Guide**
+
+        **Syntax**
+
+        :TRIGger:TIMeout:SLOPe <slope>
+        :TRIGger:TIMeout:SLOPe?
+
+        **Description**
+
+        Set the edge type of timeout trigger.
+        Query the current edge type of timeout trigger.
+
+        **Parameter**
+
+        ======== ========= ========================== ========
+        Name     Type      Range                      Default
+        ======== ========= ========================== ========
+        <slope>  Discrete  {POSitive|NEGative|RFALl}  POSitive
+        ======== ========= ========================== ========
+
+        **Return Format**
+
+        The query returns POS, NEG or RFAL.
+
+        **Example**
+
+        :TRIGger:TIMeout:SLOPe NEGative
+        The query returns NEG.
+        """
+        status: str = self.subsubdevice.subdevice.device.ask(
+                ":TRIGger:TIMeout:SLOPe?")
+        if status == "POS":
+            return "rising edge"
+        if status == "NEG":
+            return "falling edge"
+        if status == "RFAL":
+            return "both edges"
 
 
-class Timeout(SubController):
-    def __init__(self, device):
-        super(Timeout, self).__init__(device)
-        self.slope: TimeoutSlope = TimeoutSlope(self)
-
-    def source(self):
+class TimeoutChannel(SubSubController):
+    def channel1(self) -> None:
         """
         **Rigol Programming Guide**
 
@@ -162,9 +201,93 @@ class Timeout(SubController):
         :TRIGger:TIMeout:SOURce CHANnel2
         The query returns CHAN2.
         """
-        raise NotImplementedError()
 
-    def time(self):
+        self.subsubdevice.subdevice.device.ask(
+                f":TRIGger:TIMeout:SOURce CHANnel1")
+
+    def channel2(self) -> None:
+        """
+        **Rigol Programming Guide**
+
+        **Syntax**
+
+        :TRIGger:TIMeout:SOURce <source>
+        :TRIGger:TIMeout:SOURce?
+
+        **Description**
+
+        Select the trigger source of timeout trigger.
+        Query the current trigger source of timeout trigger.
+
+        **Parameter**
+
+        ========= ========= ==================== ========
+        Name      Type      Range                Default
+        ========= ========= ==================== ========
+        <source>  Discrete  {CHANnel1|CHANnel2}  CHANnel1
+        ========= ========= ==================== ========
+
+        **Return Format**
+
+        The query returns CHAN1 or CHAN2.
+
+        **Example**
+
+        :TRIGger:TIMeout:SOURce CHANnel2
+        The query returns CHAN2.
+        """
+
+        self.subsubdevice.subdevice.device.ask(
+                f":TRIGger:TIMeout:SOURce CHANnel2")
+
+    def status(self) -> str:
+        """
+        **Rigol Programming Guide**
+
+        **Syntax**
+
+        :TRIGger:TIMeout:SOURce <source>
+        :TRIGger:TIMeout:SOURce?
+
+        **Description**
+
+        Select the trigger source of timeout trigger.
+        Query the current trigger source of timeout trigger.
+
+        **Parameter**
+
+        ========= ========= ==================== ========
+        Name      Type      Range                Default
+        ========= ========= ==================== ========
+        <source>  Discrete  {CHANnel1|CHANnel2}  CHANnel1
+        ========= ========= ==================== ========
+
+        **Return Format**
+
+        The query returns CHAN1 or CHAN2.
+
+        **Example**
+
+        :TRIGger:TIMeout:SOURce CHANnel2
+        The query returns CHAN2.
+        """
+
+        status: str = self.subsubdevice.subdevice.device.ask(
+                f":TRIGger:TIMeout:SOURce?").lower()
+
+        if status == "chan1":
+            return "channel 1"
+        if status == "chan2":
+            return "channel 2"
+
+
+class Timeout(SubController):
+    def __init__(self, device):
+        super(Timeout, self).__init__(device)
+        self.slope: TimeoutSlope = TimeoutSlope(self)
+        self.channel: TimeoutChannel = TimeoutChannel(self)
+
+    def get_time(self) -> float:
         """
         **Rigol Programming Guide**
 
@@ -195,4 +318,38 @@ class Timeout(SubController):
         :TRIGger:TIMeout:TIMe 0.002
         The query returns 2.000000e+06.
         """
-        raise NotImplementedError()
+        return float(self.subdevice.device.ask(":TRIGger:TIMeout:TIMe?"))
+
+    def set_time(self, time: float = 1.E-6) -> None:
+        """
+        **Rigol Programming Guide**
+
+        **Syntax**
+
+        :TRIGger:TIMeout:TIMe <NR3>
+        :TRIGger:TIMeout:TIMe?
+
+        **Description**
+
+        Set the timeout time of timeout trigger.
+        Query the current timeout time of timeout trigger.
+
+        **Parameter**
+
+        ====== ===== =========== =======
+        Name   Type  Range       Default
+        ====== ===== =========== =======
+        <NR3>  Real  16ns to 4s  1μs
+        ====== ===== =========== =======
+
+        **Return Format**
+
+        The query returns the timeout time in scientific notation.
+
+        **Example**
+
+        :TRIGger:TIMeout:TIMe 0.002
+        The query returns 2.000000e+06.
+        """
+        check_input(time, "time", float, 16.E-9, 4.0, "s")
+        self.subdevice.device.ask(f":TRIGger:TIMeout:TIMe {time}")
