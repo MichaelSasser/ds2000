@@ -396,7 +396,7 @@ class TimebaseHorizontalRefMode(SubSubController):
 
         self.subsubdevice.subdevice.device.ask(":TIMebase:HREF:MODE CENTer")
 
-    def status(self) -> None:
+    def status(self) -> str:
         """
         **Rigol Programming Guide**
 
@@ -439,7 +439,7 @@ class TimebaseHorizontalRefMode(SubSubController):
         The query returns TPOS.
         """
 
-        self.subsubdevice.subdevice.device.ask(":TIMebase:HREF:MODE?")
+        return self.subsubdevice.subdevice.device.ask(":TIMebase:HREF:MODE?")
 
 
 class TimebaseHorizontalRef(SubController):
