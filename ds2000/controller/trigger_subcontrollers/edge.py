@@ -190,15 +190,15 @@ class EdgeSource(SubSubController):
         The query returns CHAN2.
         """
         status: str = self.subsubdevice.subdevice.device.ask(
-                ":TRIGger:EDGe:SOURce?").lower()
+            ":TRIGger:EDGe:SOURce?"
+        ).lower()
         if status == "chan1":
             return "channel 1"
         if status == "chan2":
             return "channel 2"
         if status == "ext":
             return "ext"
-        if status == "acl":
-            return "ac line"
+        return "ac line"
 
 
 class EdgeSlope(SubSubController):
@@ -337,8 +337,7 @@ class EdgeSlope(SubSubController):
             return "rising edge"
         if status == "NEG":
             return "falling edge"
-        if status == "RFAL":
-            return "both edges"
+        return "both edges"
 
 
 class Edge(SubController):
@@ -434,15 +433,18 @@ class Edge(SubController):
             scale = self.subdevice.device.channel2.scale()
             offset = self.subdevice.device.channel2.get_offset()
         else:
-            Ds2000StateError("The level coul'd only be set, if the source is"
-                             "Channel 1 or Channel 2.")  # ToDo: Right??
+            Ds2000StateError(
+                "The level coul'd only be set, if the source is"
+                "Channel 1 or Channel 2."
+            )  # ToDo: Right??
 
         min_rng = -5 * scale - offset
-        max_rng = -5 * scale - offset
+        max_rng = 5 * scale - offset
 
         if not isinstance(level, float) or not min_rng <= level <= max_rng:
-            ValueError(f"\"level\" must be of type float and between "
-                       f"{min_rng}..{max_rng}. You entered type {type(level)}.")
+            ValueError(
+                f'"level" must be of type float and between '
+                f"{min_rng}..{max_rng}. You entered type {type(level)}."
+            )
 
         self.subdevice.device.ask(f":TRIGger:EDGe:LEVel {level}")
-

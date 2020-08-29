@@ -15,7 +15,13 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from ds2000.controller import SubController
+from ds2000.controller import (
+    SubController,
+    check_input,
+    Ds2000StateError,
+    SubSubController,
+)
+
 
 __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
@@ -25,8 +31,8 @@ __all__ = [
 ]
 
 
-class NthEdge(SubController):
-    def source(self):
+class NthEdgeSource(SubSubController):
+    def channel1(self) -> None:
         """
         **Rigol Programming Guide**
 
@@ -57,9 +63,83 @@ class NthEdge(SubController):
         :TRIGger:NEDGe:SOURce CHANnel2
         The query returns CHAN2.
         """
-        raise NotImplementedError()
+        self.subsubdevice.subdevice.device.ask(":TRIGger:NEDGe:SOURce CHANnel1")
 
-    def slope(self):
+    def channel2(self) -> None:
+        """
+        **Rigol Programming Guide**
+
+        **Syntax**
+
+        :TRIGger:NEDGe:SOURce <source>
+        :TRIGger:NEDGe:SOURce?
+
+        **Description**
+
+        Select the trigger source of Nth egde trigger.
+        Query the current trigger source of Nth edge trigger.
+
+        **Parameter**
+
+        ========= ========= ==================== ========
+        Name      Type      Range                Default
+        ========= ========= ==================== ========
+        <source>  Discrete  {CHANnel1|CHANnel2}  CHANnel1
+        ========= ========= ==================== ========
+
+        **Return Format**
+
+        The query returns CHAN1 or CHAN2.
+
+        **Example**
+
+        :TRIGger:NEDGe:SOURce CHANnel2
+        The query returns CHAN2.
+        """
+        self.subsubdevice.subdevice.device.ask(":TRIGger:NEDGe:SOURce CHANnel2")
+
+    def status(self) -> int:
+        """
+        **Rigol Programming Guide**
+
+        **Syntax**
+
+        :TRIGger:NEDGe:SOURce <source>
+        :TRIGger:NEDGe:SOURce?
+
+        **Description**
+
+        Select the trigger source of Nth egde trigger.
+        Query the current trigger source of Nth edge trigger.
+
+        **Parameter**
+
+        ========= ========= ==================== ========
+        Name      Type      Range                Default
+        ========= ========= ==================== ========
+        <source>  Discrete  {CHANnel1|CHANnel2}  CHANnel1
+        ========= ========= ==================== ========
+
+        **Return Format**
+
+        The query returns CHAN1 or CHAN2.
+
+        **Example**
+
+        :TRIGger:NEDGe:SOURce CHANnel2
+        The query returns CHAN2.
+        """
+        return int(
+            self.subsubdevice.subdevice.device.ask(":TRIGger:NEDGe:SOURce?")[-1]
+        )
+
+
+class NthEdge(SubController):
+    def __init__(self, device):
+        super(NthEdge, self).__init__(device)
+        self.source: NthEdgeSource = NthEdgeSource(self)
+
+    def set_slope(self, positive: bool = True) -> None:
         """
         **Rigol Programming Guide**
 
@@ -90,9 +170,51 @@ class NthEdge(SubController):
         :TRIGger:NEDGe:SLOPe NEGative
         The query returns NEG.
         """
-        raise NotImplementedError()
+        self.subdevice.device.ask(
+            f":TRIGger:NEDGe:SLOPe {'POSitive' if positive else 'NEGative'}"
+        )
 
-    def idle(self):
+    def slope_is_positive(self) -> bool:
+        """
+        **Rigol Programming Guide**
+
+        **Syntax**
+
+        :TRIGger:NEDGe:SLOPe <slope>
+        :TRIGger:NEDGe:SLOPe?
+
+        **Description**
+
+        Select the edge type of Nth edge trigger.
+        Query the current edge type of Nth edge trigger.
+
+        **Parameter**
+
+        ======== ========= ==================== ========
+        Name     Type      Range                Default
+        ======== ========= ==================== ========
+        <slope>  Discrete  {POSitive|NEGative}  POSitive
+        ======== ========= ==================== ========
+
+        **Return Format**
+
+        The query returns POSitive or NEGative.
+
+        **Example**
+
+        :TRIGger:NEDGe:SLOPe NEGative
+        The query returns NEG.
+        """
+        return (
+            True
+            if self.subdevice.device.ask(":TRIGger:NEDGe:SLOPe?") == "POS"
+            else False
+        )
+
+    def slope_is_negative(self) -> bool:
+        return not self.slope_is_positive()
+
+    def set_idle(self, time: float = 1.0e-9) -> None:
         """
         **Rigol Programming Guide**
 
@@ -123,9 +245,43 @@ class NthEdge(SubController):
         :TRIGger:NEDGe:IDLE 0.002
         The query returns 2.000000e-03.
         """
-        raise NotImplementedError()
+        check_input(time, "time", float, 16.0e-9, 4.0, "s")
+        self.subdevice.device.ask(f":TRIGger:NEDGe:IDLE {time}")
 
-    def edge(self):
+    def get_idle(self) -> float:
+        """
+        **Rigol Programming Guide**
+
+        **Syntax**
+
+        :TRIGger:NEDGe:IDLE <NR3>
+        :TRIGger:NEDGe:IDLE?
+
+        **Description**
+
+        Set the idle time of Nth edge trigger.
+        Query the current idle time of Nth edge trigger.
+
+        **Parameter**
+
+        ====== ===== =========== =======
+        Name   Type  Range       Default
+        ====== ===== =========== =======
+        <NR3>  Real  16ns to 4s  1μs
+        ====== ===== =========== =======
+
+        **Return Format**
+
+        The query returns the idle time value in scientific notation.
+
+        **Example**
+
+        :TRIGger:NEDGe:IDLE 0.002
+        The query returns 2.000000e-03.
+        """
+        return float(self.subdevice.device.ask(":TRIGger:NEDGe:IDLE?"))
+
+    def set_edge(self, number: int = 2) -> None:
         """
         **Rigol Programming Guide**
 
@@ -155,9 +311,42 @@ class NthEdge(SubController):
 
         :TRIGger:NEDGe:EDGE
         """
-        raise NotImplementedError()
+        check_input(number, "number", int, 1, 65535, "")
+        self.subdevice.device.ask(f":TRIGger:NEDGe:EDGE {number}")
 
-    def level(self):
+    def get_edge(self) -> int:
+        """
+        **Rigol Programming Guide**
+
+        **Syntax**
+
+        :TRIGger:NEDGe:EDGE <NR1>
+        :TRIGger:NEDGe:EDGE?
+
+        **Description**
+
+        Set the edge number of Nth edge trigger.
+        Query the current edge number of Nth edge trigger.
+
+        **Parameter**
+
+        ====== ======== =========== =======
+        Name   Type     Range       Default
+        ====== ======== =========== =======
+        <NR1>  Integer  1 to 65535  2
+        ====== ======== =========== =======
+
+        **Return Format**
+
+        The query returns an integer between 1 and 65535.
+
+        **Example**
+
+        :TRIGger:NEDGe:EDGE
+        """
+        return int(self.subdevice.device.ask(":TRIGger:NEDGe:EDGE?"))
+
+    def set_level(self, level: int = 0) -> None:
         """
         **Rigol Programming Guide**
 
@@ -194,4 +383,63 @@ class NthEdge(SubController):
         :TRIGger:NEDGe:LEVel 0.16
         The query returns 1.600000e-01.
         """
-        raise NotImplementedError()
+        scale: float = -1.0
+        offset: float = -1.0
+        source = self.source.status()
+        if source == "channel 1":
+            scale = self.subdevice.device.channel1.get_scale()
+            offset = self.subdevice.device.channel1.get_offset()
+        elif source == "channel 2":
+            scale = self.subdevice.device.channel2.scale()
+            offset = self.subdevice.device.channel2.get_offset()
+        else:
+            Ds2000StateError(
+                "The level coul'd only be set, if the source is"
+                "Channel 1 or Channel 2."
+            )  # ToDo: Right??
+
+        min_rng = -5 * scale - offset
+        max_rng = 5 * scale - offset
+
+        check_input(level, "level", int, min_rng, max_rng, "")
+
+        self.subdevice.device.ask(f":TRIGger:NEDGe:LEVel {level}")
+
+    def get_level(self) -> int:
+        """
+        **Rigol Programming Guide**
+
+        **Syntax**
+
+        :TRIGger:NEDGe:LEVel <level>
+        :TRIGger:NEDGe:LEVel?
+
+        **Description**
+
+        Set the trigger level in Nth edge trigger and the unit is the same with
+        the current amplitude unit.
+        Query the current trigger level in Nth edge trigger.
+
+        **Parameter**
+
+        ======== ===== =========================== =======
+        Name     Type  Range                       Default
+        ======== ===== =========================== =======
+        <level>  Real  ± 5 × VerticalScale from    0
+                       the screen center - OFFSet
+        ======== ===== =========================== =======
+
+        Note:
+        For VerticalScale, refer to the :CHANnel<n>:SCALe command.
+        For the OFFSet, refer to the :CHANNel<n>:OFFSet command.
+
+        **Return Format**
+
+        The query returns the trigger level in scientific notation.
+
+        **Example**
+
+        :TRIGger:NEDGe:LEVel 0.16
+        The query returns 1.600000e-01.
+        """
+        return int(self.subdevice.device.ask(":TRIGger:NEDGe:LEVel?"))
