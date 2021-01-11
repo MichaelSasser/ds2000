@@ -14,8 +14,12 @@
 
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
+from __future__ import annotations
 
-from ds2000.controller import SubController
+from typing import List
+from typing import Tuple
+
+from ds2000.controller import SubController, check_level
 
 __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
@@ -26,7 +30,7 @@ __all__ = [
 
 
 class Pattern(SubController):
-    def pattern(self):
+    def set_pattern(self, pattern: List[str] = ["H", "L"]) -> None:
         """
         **Rigol Programming Guide**
 
@@ -67,9 +71,63 @@ class Pattern(SubController):
         :TRIGger:PATTern:PATTern H,R
         The query returns H,R.
         """
-        raise NotImplementedError()
+        # TODO validate pattern
+        pattern = [b.upper() for b in pattern]
+        for b in pattern:
+            if b not in ("H", "L", "X", "R", "F"):
+                raise ValueError(
+                    'The pattern must only contain "H", "L", "X", "R" or "F".'
+                )
+        self.subdevice.device.ask(
+            f":TRIGger:PATTern:PATTern {','.join(pattern)}"
+        )
 
-    def level(self):
+    def get_pattern(self) -> Tuple[str, ...]:
+        """
+        **Rigol Programming Guide**
+
+        **Syntax**
+
+        :TRIGger:PATTern:PATTern <pattern>
+        :TRIGger:PATTern:PATTern?
+
+        **Description**
+
+        Set the pattern code of each channel in pattern trigger.
+        Query the current pattern code of each channel in pattern trigger.
+
+        **Parameter**
+
+        ========== ========= ============ =======
+        Name       Type      Range        Default
+        ========== ========= ============ =======
+        <pattern>  Discrete  {H,L,X,R,F}  H,L
+        ========== ========= ============ =======
+
+        Note: they are the default pattern codes for CH1 and CH2 from the left
+        to the right.
+
+        **Explanation**
+
+        In the pattern, you can only specify one rising edge or falling edge.
+        If one edge item is currently defined and then another edge item is
+        defined in the other channel in the pattern, the former edge item
+        defined will be replaced by X.
+
+        **Return Format**
+
+        The query returns the current pattern codes of both the channels.
+
+        **Example**
+
+        :TRIGger:PATTern:PATTern H,R
+        The query returns H,R.
+        """
+        return tuple(
+            self.subdevice.device.ask(":TRIGger:PATTern:PATTern?}").split(",")
+        )
+
+    def set_level(self, channel: int = 1, level: float = 0) -> None:
         """
         **Rigol Programming Guide**
 
@@ -107,4 +165,17 @@ class Pattern(SubController):
         :TRIGger:PATTern:LEVel CHANnel2,0.16
         The query returns 1.600000e-01.
         """
-        raise NotImplementedError()
+        scale: float = -1.0
+        offset: float = -1.0
+        if channel == 1:
+            scale = self.subdevice.device.channel1.get_scale()
+            offset = self.subdevice.device.channel1.get_offset()
+        elif channel == 2:
+            scale = self.subdevice.device.channel2.scale()
+            offset = self.subdevice.device.channel2.get_offset()
+        else:
+            raise RuntimeError("The oscilloscope returned an unknown channel")
+        check_level(level, scale, offset)
+        self.subdevice.device.ask(
+            f":TRIGger:PATTern:LEVel CHANnel{channel},", f"{level}"
+        )

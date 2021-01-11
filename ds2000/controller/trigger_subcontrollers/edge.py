@@ -15,7 +15,12 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from ds2000.controller import SubController, SubSubController, Ds2000StateError
+from ds2000.controller import (
+    SubController,
+    SubSubController,
+    Ds2000StateError,
+    check_level,
+)
 
 __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
@@ -438,13 +443,5 @@ class Edge(SubController):
                 "Channel 1 or Channel 2."
             )  # ToDo: Right??
 
-        min_rng = -5 * scale - offset
-        max_rng = 5 * scale - offset
-
-        if not isinstance(level, float) or not min_rng <= level <= max_rng:
-            ValueError(
-                f'"level" must be of type float and between '
-                f"{min_rng}..{max_rng}. You entered type {type(level)}."
-            )
-
+        check_level(level, scale, offset)
         self.subdevice.device.ask(f":TRIGger:EDGe:LEVel {level}")

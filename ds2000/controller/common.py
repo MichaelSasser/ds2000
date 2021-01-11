@@ -22,7 +22,13 @@ from ds2000.math.format import get_prefix
 __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
 
-__all__ = ['BaseController', 'SubController', 'SubSubController', 'check_input']
+__all__ = [
+    "BaseController",
+    "SubController",
+    "SubSubController",
+    "check_input",
+    "check_level",
+]
 
 
 class BaseController(object):
@@ -40,14 +46,16 @@ class SubSubController(object):
         self.subsubdevice = subsubdevice
 
 
-def check_input(arg: Any,
-                arg_name: str,
-                arg_type: Optional[Any] = None,
-                mini: Union[None, int, float] = None,
-                maxi: Union[None, int, float] = None,
-                unit: Optional[str] = None,
-                ext_type_err: Optional[str] = None,
-                ext_range_err: Optional[str] = None) -> None:
+def check_input(
+    arg: Any,
+    arg_name: str,
+    arg_type: Optional[Any] = None,
+    mini: Union[None, int, float] = None,
+    maxi: Union[None, int, float] = None,
+    unit: Optional[str] = None,
+    ext_type_err: Optional[str] = None,
+    ext_range_err: Optional[str] = None,
+) -> None:
     """Validating input type and input value is a oftten done thing here.
     To not repeate it the whole time, this should help quite a bit.
 
@@ -74,36 +82,55 @@ def check_input(arg: Any,
     # Check, if this function is used as intended: One or both checks are
     # active.
     if (arg_type is None) and (mini is None or maxi is None):
-        raise Ds2000InternalSyntaxError("This check does nothing. If this is "
-                                        "intended, remove this check. "
-                                        "otherwhise make sure it checks for "
-                                        "the argument type and/or the argument "
-                                        "value range.")
+        raise Ds2000InternalSyntaxError(
+            "This check does nothing. If this is "
+            "intended, remove this check. "
+            "otherwhise make sure it checks for "
+            "the argument type and/or the argument "
+            "value range."
+        )
     # Check, if this function is used as intended: mini and maxi have the same
     # type.
     if (mini is None or maxi is None) and type(mini) != type(maxi):
-        raise Ds2000InternalSyntaxError("The arguments mini and maxi have"
-                                        "a different type. Make sure you"
-                                        "always compare same types.\n"
-                                        f"mini: {type(mini)}\n"
-                                        f"maxi: {type(maxi)}\n"
-                                        f"Keep in mind. 1 is an integer and "
-                                        f"1.0 is a float type.")
+        raise Ds2000InternalSyntaxError(
+            "The arguments mini and maxi have"
+            "a different type. Make sure you"
+            "always compare same types.\n"
+            f"mini: {type(mini)}\n"
+            f"maxi: {type(maxi)}\n"
+            f"Keep in mind. 1 is an integer and "
+            f"1.0 is a float type."
+        )
 
     # Check for the argument type.
     if (arg_type is not None) and not isinstance(arg, arg_type):
-        raise TypeError(f"The argument \"{arg_name}\" needs to be of type "
-                        f"{type(arg)}. You entered {arg} ({type(arg)})"
-                        f"{'. ' if ext_type_err else '.'}"
-                        f"{ext_type_err if ext_type_err else ''}")
+        raise TypeError(
+            f'The argument "{arg_name}" needs to be of type '
+            f"{type(arg)}. You entered {arg} ({type(arg)})"
+            f"{'. ' if ext_type_err else '.'}"
+            f"{ext_type_err if ext_type_err else ''}"
+        )
 
     # Check for the argument range.
     if (mini is not None) and (maxi is not None) and not (mini <= arg <= maxi):
-        raise ValueError(f"The argument \"{arg_name}\" needs to be in between "
-                         f"{get_prefix(mini).formatted+unit if unit else mini}"
-                         f" and "
-                         f"{get_prefix(maxi).formatted+unit if unit else maxi}."
-                         f" You entered "
-                         f"{get_prefix(arg).formatted+unit if unit else arg}"
-                         f"{'. ' if ext_range_err else '.'}"
-                         f"{ext_range_err if ext_range_err else ''}")
+        raise ValueError(
+            f'The argument "{arg_name}" needs to be in between '
+            f"{get_prefix(mini).formatted+unit if unit else mini}"
+            f" and "
+            f"{get_prefix(maxi).formatted+unit if unit else maxi}."
+            f" You entered "
+            f"{get_prefix(arg).formatted+unit if unit else arg}"
+            f"{'. ' if ext_range_err else '.'}"
+            f"{ext_range_err if ext_range_err else ''}"
+        )
+
+
+def check_level(level: float, scale: float, offset: float):
+    min_rng = -5.0 * scale - offset
+    max_rng = 5.0 * scale - offset
+
+    if not isinstance(level, float) or not min_rng <= level <= max_rng:
+        ValueError(
+            f'"level" must be of type float and between '
+            f"{min_rng}..{max_rng}. You entered type {type(level)}."
+        )
