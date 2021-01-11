@@ -179,3 +179,47 @@ class Pattern(SubController):
         self.subdevice.device.ask(
             f":TRIGger:PATTern:LEVel CHANnel{channel},", f"{level}"
         )
+
+    def get_level(self, channel: int = 1) -> float:
+        """
+        **Rigol Programming Guide**
+
+        **Syntax**
+
+        :TRIGger:PATTern:LEVel <chan>,<level>
+        :TRIGger:PATTern:LEVel? <chan>
+
+        **Description**
+
+        Set the trigger level of each channel in pattern trigger and the unit
+        is the same with the current amplitude unit.
+        Query the current trigger level of each channel in pattern trigger.
+
+        **Parameter**
+
+        ======== ========= ========================= ========
+        Name     Type      Range                     Default
+        ======== ========= ========================= ========
+        <chan>   Discrete  {CHANnel1|CHANnel2}       CHANnel1
+        <level>  Real      ± 5 × VerticalScale from  0
+                           the screen - OFFSet
+        ======== ========= ========================= ========
+
+        Note:
+        For the VerticalScale, refer to the :CHANnel<n>:SCALe command.
+        For the OFFSet, refer to the :CHANNel<n>:OFFSet command.
+
+        **Return Format**
+
+        The query returns the trigger level in scientific notation.
+
+        **Example**
+
+        :TRIGger:PATTern:LEVel CHANnel2,0.16
+        The query returns 1.600000e-01.
+        """
+        return float(
+            self.subdevice.device.ask(
+                f":TRIGger:PATTern:LEVel? CHANnel{channel}"
+            )
+        )
