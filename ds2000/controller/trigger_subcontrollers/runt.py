@@ -15,7 +15,12 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from ds2000.controller import SubController, SubSubController
+from ds2000.controller import (
+    SubController,
+    SubSubController,
+    check_input,
+    check_level,
+)
 
 __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
@@ -27,7 +32,7 @@ __all__ = [
 
 # ToDo: Shorter function names!!!
 class RuntWhen(SubSubController):
-    def none(self):
+    def set_none(self) -> None:
         """
         **Rigol Programming Guide**
 
@@ -74,9 +79,9 @@ class RuntWhen(SubSubController):
         :TRIGger:RUNT:WHEN LESS
         The query returns LESS.
         """
-        raise NotImplementedError()
+        self.subsubdevice.subdevice.device.ask(":TRIGger:RUNT:WHEN NONE")
 
-    def pulse_width_greater_than_lower_limit(self):
+    def set_pulse_width_greater_than_lower_limit(self) -> None:
         """
         **Rigol Programming Guide**
 
@@ -123,9 +128,9 @@ class RuntWhen(SubSubController):
         :TRIGger:RUNT:WHEN LESS
         The query returns LESS.
         """
-        raise NotImplementedError()
+        self.subsubdevice.subdevice.device.ask(":TRIGger:RUNT:WHEN GREater")
 
-    def pulse_width_lower_than_upper_limit(self):
+    def set_pulse_width_lower_than_upper_limit(self) -> None:
         """
         **Rigol Programming Guide**
 
@@ -172,9 +177,9 @@ class RuntWhen(SubSubController):
         :TRIGger:RUNT:WHEN LESS
         The query returns LESS.
         """
-        raise NotImplementedError()
+        self.subsubdevice.subdevice.device.ask(":TRIGger:RUNT:WHEN LESS")
 
-    def pulse_width_between_lower_and_upper_limit(self):
+    def set_pulse_width_between_lower_and_upper_limit(self) -> None:
         """
         **Rigol Programming Guide**
 
@@ -221,7 +226,56 @@ class RuntWhen(SubSubController):
         :TRIGger:RUNT:WHEN LESS
         The query returns LESS.
         """
-        raise NotImplementedError()
+        self.subsubdevice.subdevice.device.ask(":TRIGger:RUNT:WHEN GLESs")
+
+    def status(self) -> str:
+        """
+        **Rigol Programming Guide**
+
+        **Syntax**
+
+        :TRIGger:RUNT:WHEN <when>
+        :TRIGger:RUNT:WHEN?
+
+        **Description**
+
+        Select the qualifier of runt trigger.
+        Query the current qualifier of runt trigger.
+
+        **Parameter**
+
+        ======= ========= ========================== =======
+        Name    Type      Range                      Default
+        ======= ========= ========================== =======
+        <when>  Discrete  {NONE|GREater|LESS|GLESs}  NONE
+        ======= ========= ========================== =======
+
+        **Explanation**
+
+        **NONE**: do not set the trigger condition of runt trigger.
+
+        **GREater**: trigger when the runt pulse width is greater than the
+        lower limit of pulse width (refer to the :TRIGger:RUNT:WLOWer command).
+
+        **LESS**: trigger when the runt pulse width is lower than the upper
+        limit of pulse width (refer to the :TRIGger:RUNT:WUPPer command).
+
+        **GLESs**: trigger when the runt pulse width is greater than the lower
+        limit (refer to the :TRIGger:RUNT:WLOWer command) and lower than the
+        upper limit (refer to the :TRIGger:RUNT:WUPPer command) of pulse width.
+        Note: the lower limit of the pulse width must be lower than the upper
+        limit.
+
+        **Return Format**
+
+        The query returns NONE, GRE, LESS or GLES.
+
+        **Example**
+
+        :TRIGger:RUNT:WHEN LESS
+        The query returns LESS.
+        """
+        return self.subsubdevice.subdevice.device.ask(":TRIGger:RUNT:WHEN?")
 
 
 class Runt(SubController):
@@ -229,7 +283,7 @@ class Runt(SubController):
         super(Runt, self).__init__(device)
         self.when: RuntWhen = RuntWhen(self)
 
-    def source(self):
+    def set_source(self, channel: int = 1) -> None:
         """
         **Rigol Programming Guide**
 
@@ -260,9 +314,43 @@ class Runt(SubController):
         :TRIGger:RUNT:SOURce CHANnel2
         The query returns CHAN2.
         """
-        raise NotImplementedError()
+        check_input(channel, "channel", int, 1, 2)
+        self.subdevice.device.ask(f":TRIGger:RUNT:SOURce CHANnel{channel}")
 
-    def polarity(self, positive: bool = True):
+    def get_source(self) -> str:
+        """
+        **Rigol Programming Guide**
+
+        **Syntax**
+
+        :TRIGger:RUNT:SOURce <source>
+        :TRIGger:RUNT:SOURce?
+
+        **Description**
+
+        Select the trigger source of runt trigger.
+        Query the current trigger source of runt trigger.
+
+        **Parameter**
+
+        ========= ========= ==================== ========
+        Name      Type      Range                Default
+        ========= ========= ==================== ========
+        <source>  Discrete  {CHANnel1|CHANnel2}  CHANnel1
+        ========= ========= ==================== ========
+
+        **Return Format**
+
+        The query returns CHAN1 or CHAN2.
+
+        **Example**
+
+        :TRIGger:RUNT:SOURce CHANnel2
+        The query returns CHAN2.
+        """
+        return self.subdevice.device.ask(":TRIGger:RUNT:SOURce?")
+
+    def set_polarity_positive(self) -> None:
         """
         **Rigol Programming Guide**
 
@@ -293,9 +381,75 @@ class Runt(SubController):
         :TRIGger:RUNT:POLarity NEGative
         The query returns NEG.
         """
-        raise NotImplementedError()
+        self.subdevice.device.ask(":TRIGger:RUNT:POLarity POSitive")
 
-    def lower_limit(self):
+    def set_polarity_negative(self) -> None:
+        """
+        **Rigol Programming Guide**
+
+        **Syntax**
+
+        :TRIGger:RUNT:POLarity <polarity>
+        :TRIGger:RUNT:POLarity?
+
+        **Description**
+
+        Select the pulse polarity of runt trigger.
+        Query the current pulse polarity of runt trigger.
+
+        **Parameter**
+
+        =========== ========= ==================== ========
+        Name        Type      Range                Default
+        =========== ========= ==================== ========
+        <polarity>  Discrete  {POSitive|NEGative}  POSitive
+        =========== ========= ==================== ========
+
+        **Return Format**
+
+        The query returns POS or NEG.
+
+        **Example**
+
+        :TRIGger:RUNT:POLarity NEGative
+        The query returns NEG.
+        """
+        self.subdevice.device.ask(":TRIGger:RUNT:POLarity NEGative")
+
+    def get_polarity(self) -> str:
+        """
+        **Rigol Programming Guide**
+
+        **Syntax**
+
+        :TRIGger:RUNT:POLarity <polarity>
+        :TRIGger:RUNT:POLarity?
+
+        **Description**
+
+        Select the pulse polarity of runt trigger.
+        Query the current pulse polarity of runt trigger.
+
+        **Parameter**
+
+        =========== ========= ==================== ========
+        Name        Type      Range                Default
+        =========== ========= ==================== ========
+        <polarity>  Discrete  {POSitive|NEGative}  POSitive
+        =========== ========= ==================== ========
+
+        **Return Format**
+
+        The query returns POS or NEG.
+
+        **Example**
+
+        :TRIGger:RUNT:POLarity NEGative
+        The query returns NEG.
+        """
+        return self.subdevice.device.ask(":TRIGger:RUNT:POLarity?")
+
+    def set_lower_limit(self, time: float = 1.0e-6) -> None:
         """
         **Rigol Programming Guide**
 
@@ -335,9 +489,52 @@ class Runt(SubController):
         :TRIGger:RUNT:WLOWer 0.02
         The query returns 2.000000e-02.
         """
-        raise NotImplementedError()
+        check_input(time, "time", float, 2.0e-9, 4.0, "s")
+        self.subdevice.device.ask(f":TRIGger:RUNT:WLOWer {time}")
 
-    def upper_limit(self):
+    def get_lower_limit(self) -> float:
+        """
+        **Rigol Programming Guide**
+
+        **Syntax**
+
+        :TRIGger:RUNT:WLOWer <NR3>
+        :TRIGger:RUNT:WLOWer?
+
+        **Description**
+
+        Set the lower limit of the pulse width in runt trigger.
+        Query the current lower limit of the pulse width in runt trigger.
+
+        **Parameter**
+
+        ====== ========= ========== =======
+        Name   Type      Range      Default
+        ====== ========= ========== =======
+        <NR3>  Discrete  2ns to 4s  1μs
+        ====== ========= ========== =======
+
+        Note: when the qualifier is GLESs, the range of the lower limit of the
+        pulse width is from 2ns to 3.99s.
+
+        **Explanation**
+
+        This command is available when the qualifier (refer to the
+        :TRIGger:RUNT:WHEN command) is set to GREater or GLESs.
+
+        **Return Format**
+
+        The query returns the lower limit of the pulse width in scientific
+        notation.
+
+        **Example**
+
+        :TRIGger:RUNT:WLOWer 0.02
+        The query returns 2.000000e-02.
+        """
+        return float(self.subdevice.device.ask(":TRIGger:RUNT:WLOWer?"))
+
+    def set_upper_limit(self, time: float = 2.0e-6) -> None:
         """
         **Rigol Programming Guide**
 
@@ -377,9 +574,52 @@ class Runt(SubController):
         :TRIGger:RUNT:WUPPer 0.02
         The query returns 2.000000e-02.
         """
-        raise NotImplementedError()
+        check_input(time, "time", float, 2.0e-9, 4.0, "s")
+        self.subdevice.device.ask(f":TRIGger:RUNT:WUPPer {time}")
 
-    def upper_limit_trigger_level(self):
+    def get_upper_limit(self) -> float:
+        """
+        **Rigol Programming Guide**
+
+        **Syntax**
+
+        :TRIGger:RUNT:WUPPer <NR3>
+        :TRIGger:RUNT:WUPPer?
+
+        **Description**
+
+        Set the upper limit of the pulse width in runt trigger.
+        Query the current upper limit of the pulse width in runt trigger.
+
+        **Parameter**
+
+        ====== ========= ========== =======
+        Name   Type      Range      Default
+        ====== ========= ========== =======
+        <NR3>  Discrete  2ns to 4s  2μs
+        ====== ========= ========== =======
+
+        Note: when the qualifier is GLESs, the range of the upper limit of the
+        pulse width is from 10ns to 4s.
+
+        **Explanation**
+
+        This command is available when the qualifier (refer to the
+        :TRIGger:RUNT:WHEN command) is set to LESS or GLESs.
+
+        **Return Format**
+
+        The query returns the upper limit of the pulse width in scientific
+        notation.
+
+        **Example**
+
+        :TRIGger:RUNT:WUPPer 0.02
+        The query returns 2.000000e-02.
+        """
+        return float(self.subdevice.device.ask(":TRIGger:RUNT:WUPPer?"))
+
+    def set_upper_limit_trigger_level(self, level: float = 0.0) -> None:
         """
         **Rigol Programming Guide**
 
@@ -417,10 +657,63 @@ class Runt(SubController):
 
         :TRIGger:RUNT:ALEVel 0.16
         The query returns 1.600000e-01.
-         """
-        raise NotImplementedError()
+        """
+        scale: float = -1.0
+        offset: float = -1.0
+        channel: str = self.get_source()
+        if channel == "CHANnel1":
+            scale = self.subdevice.device.channel1.get_scale()
+            offset = self.subdevice.device.channel1.get_offset()
+        elif channel == "CHANnel2":
+            scale = self.subdevice.device.channel2.scale()
+            offset = self.subdevice.device.channel2.get_offset()
+        else:
+            raise RuntimeError("The oscilloscope returned an unknown channel")
+        self.subdevice.device.ask(f":TRIGger:RUNT:ALEVel {level}")
+        check_level(level, scale, offset)
 
-    def lower_limit_trigger_level(self):
+    def get_upper_limit_trigger_level(self) -> float:
+        """
+        **Rigol Programming Guide**
+
+        **Syntax**
+
+        :TRIGger:RUNT:ALEVel <level>
+        :TRIGger:RUNT:ALEVel?
+
+        **Description**
+
+        Set the upper limit of the trigger level in runt trigger and the unit
+        is the same with the current amplitude unit.
+
+        Query the current upper limit of the trigger level in runt trigger.
+
+        **Parameter**
+
+        ======== ===== =========================== =======
+        Name     Type  Range                       Default
+        ======== ===== =========================== =======
+        <level>  Real  ± 5 × VerticalScale from    0
+                       the screen center - OFFSet
+        ======== ===== =========================== =======
+
+        Note:
+        For the VerticalScale, refer to the :CHANnel<n>:SCALe command.
+        For the OFFSet, refer to the :CHANNel<n>:OFFSet command.
+
+        **Return Format**
+
+        The query returns the upper limit of the trigger level in scientific
+        notation.
+
+        **Example**
+
+        :TRIGger:RUNT:ALEVel 0.16
+        The query returns 1.600000e-01.
+        """
+        return float(self.subdevice.device.ask(":TRIGger:RUNT:ALEVel?"))
+
+    def set_lower_limit_trigger_level(self, level: float = 0.0) -> None:
         """
         **Rigol Programming Guide**
 
@@ -459,4 +752,57 @@ class Runt(SubController):
         :TRIGger:RUNT:BLEVel 0.16
         The query returns 1.600000e-01.
         """
-        raise NotImplementedError()
+        scale: float = -1.0
+        offset: float = -1.0
+        channel: str = self.get_source()
+        if channel == "CHANnel1":
+            scale = self.subdevice.device.channel1.get_scale()
+            offset = self.subdevice.device.channel1.get_offset()
+        elif channel == "CHANnel2":
+            scale = self.subdevice.device.channel2.scale()
+            offset = self.subdevice.device.channel2.get_offset()
+        else:
+            raise RuntimeError("The oscilloscope returned an unknown channel")
+        check_level(level, scale, offset)
+        self.subdevice.device.ask(f":TRIGger:RUNT:BLEVel {level}")
+
+    def get_lower_limit_trigger_level(self) -> float:
+        """
+        **Rigol Programming Guide**
+
+        **Syntax**
+
+        :TRIGger:RUNT:BLEVel <level>
+        :TRIGger:RUNT:BLEVel?
+
+        **Description**
+
+        Set the lower limit of the trigger level in runt trigger and the unit
+        is the same with the current amplitude unit.
+
+        Query the current lower limit of the trigger level in runt trigger.
+
+        **Parameter**
+
+        ======== ===== =========================== =======
+        Name     Type  Range                       Default
+        ======== ===== =========================== =======
+        <level>  Real  ± 5 × VerticalScale from    0
+                       the screen center - OFFSet
+        ======== ===== =========================== =======
+
+        Note:
+        For the VerticalScale, refer to the :CHANnel<n>:SCALe command.
+        For the OFFSet, refer to the :CHANNel<n>:OFFSet command.
+
+        **Return Format**
+
+        The query returns the lower limit of the trigger level in scientific
+        notation.
+
+        **Example**
+
+        :TRIGger:RUNT:BLEVel 0.16
+        The query returns 1.600000e-01.
+        """
+        return float(self.subdevice.device.ask(":TRIGger:RUNT:BLEVel?"))
