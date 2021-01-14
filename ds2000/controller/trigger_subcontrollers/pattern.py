@@ -124,7 +124,7 @@ class Pattern(SubController):
         The query returns H,R.
         """
         return tuple(
-            self.subdevice.device.ask(":TRIGger:PATTern:PATTern?}").split(",")
+            self.subdevice.device.ask(":TRIGger:PATTern:PATTern?").split(",")
         )
 
     def set_level(self, channel: int = 1, level: float = 0) -> None:
