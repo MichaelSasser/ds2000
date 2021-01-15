@@ -1393,3 +1393,42 @@ class Video(SubController):
             raise RuntimeError("The oscilloscope returned an unknown channel")
         check_level(level, scale, offset)
         self.subdevice.device.ask(f":TRIGger:VIDeo:LEVel {level}")
+
+    def get_level(self) -> float:
+        """
+        **Rigol Programming Guide**
+
+        **Syntax**
+
+        :TRIGger:VIDeo:LEVel <level>
+        :TRIGger:VIDeo:LEVel?
+
+        **Description**
+
+        Set the trigger level in video trigger and the unit is the same with
+        the current amplitude unit.
+        Query the current trigger level in video trigger.
+
+        **Parameter**
+
+        ======== ===== =========================== =======
+        Name     Type  Range                       Default
+        ======== ===== =========================== =======
+        <level>  Real  ± 5 × VerticalScale from    0
+                       the screen center - OFFSet
+        ======== ===== =========================== =======
+
+        Note:
+        For the VerticalScale, refer to the :CHANnel<n>:SCALe command.
+        For the OFFSet, refer to the :CHANNel<n>:OFFSet command.
+
+        **Return Format**
+
+        The query returns the trigger level in scientific notation.
+
+        **Example**
+
+        :TRIGger:VIDeo:LEVel 0.16
+        The query returns 1.600000e-01.
+        """
+        return float(self.subdevice.device.ask(":TRIGger:VIDeo:LEVel?"))
