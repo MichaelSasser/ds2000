@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from ds2000.controller import SubController
+from ds2000.common import SubController
 
 __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"

@@ -14,15 +14,14 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
+from __future__ import annotations
 
-from ds2000.controller import BaseController, SubController, SubSubController
+from .common import BaseController
+from .common import SubController
+from .common import SubSubController
 
 __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
-
-__all__ = [
-    "Timebase",
-]
 
 
 class TimebaseDelay(SubController):
@@ -217,11 +216,13 @@ class TimebaseDelay(SubController):
         right_time: float = 7.0 * main_scale + main_offset
         delay_range: float = 14.0 * delay_scale
         min_off: float = -(left_time - delay_range / 2)
-        max_off: float = (right_time - delay_range / 2)
+        max_off: float = right_time - delay_range / 2
         if not isinstance(offset, float) or not min_off <= offset <= max_off:
-            raise ValueError(f"In this configuration \"offset\" have to be "
-                             f"between: {min_off}..{max_off}. It also needs"
-                             f"to be of type float. You used: {type(offset)}.")
+            raise ValueError(
+                f'In this configuration "offset" have to be '
+                f"between: {min_off}..{max_off}. It also needs"
+                f"to be of type float. You used: {type(offset)}."
+            )
         self.subdevice.device.ask(f":TIMebase:DELay:OFFSet {offset}")
 
     def get_scale(self) -> float:
@@ -260,7 +261,7 @@ class TimebaseDelay(SubController):
         """
         return float(self.subdevice.device.ask(f":TIMebase:DELay:SCALe?"))
 
-    def set_scale(self, scale: float = 500.E-9) -> None:
+    def set_scale(self, scale: float = 500.0e-9) -> None:
         """
         **Rigol Programming Guide**
 
@@ -296,13 +297,19 @@ class TimebaseDelay(SubController):
         """
         # ToDo: is this my unterstanding correct?
         sampl_rate: float = float(
-                self.subdevice.device.acquire.get_samplerate())
+            self.subdevice.device.acquire.get_samplerate()
+        )
         max_scale: float = self.subdevice.get_scale()
         min_scale: float = 5 / (4 * sampl_rate)
-        if not isinstance(scale, float) and not min_scale >= scale >= max_scale:
-            ValueError(f"scale must be of type float and between the main "
-                       f"scale and (1×50/real-time sample rate)×1/40:"
-                       f"{min_scale}..{max_scale}.")
+        if (
+            not isinstance(scale, float)
+            and not min_scale >= scale >= max_scale
+        ):
+            ValueError(
+                f"scale must be of type float and between the main "
+                f"scale and (1×50/real-time sample rate)×1/40:"
+                f"{min_scale}..{max_scale}."
+            )
         self.subdevice.device.ask(f":TIMebase:DELay:SCALe {scale}")
 
 
@@ -516,8 +523,10 @@ class TimebaseHorizontalRef(SubController):
         The query returns 150.
         """
         if not isinstance(pos, int) or not -350 <= pos <= 350:
-            raise ValueError(f"pos must be of type int between -350..350. "
-                             f"You entered {pos=} of type {type(pos)}.")
+            raise ValueError(
+                f"pos must be of type int between -350..350. "
+                f"You entered {pos=} of type {type(pos)}."
+            )
 
         self.subdevice.device.ask(":TIMebase:HREF:MODE USER")
         self.subdevice.device.ask(f":TIMebase:HREF:POSition {pos}")
@@ -661,7 +670,9 @@ class Timebase(BaseController):
     def __init__(self, device):
         super(Timebase, self).__init__(device)
         self.delay: TimebaseDelay = TimebaseDelay(self)
-        self.horizontal_ref: TimebaseHorizontalRef = TimebaseHorizontalRef(self)
+        self.horizontal_ref: TimebaseHorizontalRef = TimebaseHorizontalRef(
+            self
+        )
         self.mode: TimebaseMode = TimebaseMode(self)
 
     def get_offset(self) -> int:
@@ -753,8 +764,10 @@ class Timebase(BaseController):
         The query returns 2.000000e-04.
         """
         if not isinstance(seconds, int):
-            raise ValueError(f"pos must be of type float. "
-                             f"You entered type: {type(seconds)}.")
+            raise ValueError(
+                f"pos must be of type float. "
+                f"You entered type: {type(seconds)}."
+            )
 
         trigger: str = self.device.trigger.status()
         mode: str = self.mode.status()
@@ -762,44 +775,53 @@ class Timebase(BaseController):
         # Checks, if the entered value is legal.
         if trigger == "run":
             if mode == "ROLL":
-                raise RuntimeError("You need to be in STOP mode. to perform "
-                                   "this action!")
+                raise RuntimeError(
+                    "You need to be in STOP mode. to perform " "this action!"
+                )
             mem_depth: float = float(self.device.acquire.get_memorydepth())
             sampl_rate: float = float(self.device.acquire.get_samplerate())
             time_scale: float = self.get_scale()
             min_offset: float = -mem_depth / sampl_rate
-            if time_scale < 20.E-3 and not (min_offset <= seconds <= 1.0):
-                raise ValueError(f"\"seconds\" in \"{trigger.upper()}\" "
-                                 f"mode must be between "
-                                 f"-MemDepth/SamplingRate .. 1.0.\n "
-                                 f"MemDepth := {mem_depth}\n"
-                                 f"SamplingRate := {sampl_rate}\n"
-                                 f"-MemDepth/SamplingRate = {min_offset}\n"
-                                 f"This means your limits are "
-                                 f"{min_offset}..1")
-            elif time_scale >= 20.E-3 and not (min_offset
-                                               <= seconds
-                                               <= 10.0 * time_scale):
-                raise ValueError(f"\"seconds\" in \"{trigger.upper()}\" "
-                                 f"mode must be between "
-                                 f"-MemDepth/SamplingRate .. 10.0*TimeScale.\n "
-                                 f"MemDepth := {mem_depth}\n"
-                                 f"SamplingRate := {sampl_rate}\n"
-                                 f"-MemDepth/SamplingRate = {min_offset}\n"
-                                 f"TimeScale := {time_scale}\n"
-                                 f"TimeScale * 10 = {10 * time_scale}\n"
-                                 f"This means your limits are "
-                                 f"{min_offset}..{10 * time_scale}")
+            if time_scale < 20.0e-3 and not (min_offset <= seconds <= 1.0):
+                raise ValueError(
+                    f'"seconds" in "{trigger.upper()}" '
+                    f"mode must be between "
+                    f"-MemDepth/SamplingRate .. 1.0.\n "
+                    f"MemDepth := {mem_depth}\n"
+                    f"SamplingRate := {sampl_rate}\n"
+                    f"-MemDepth/SamplingRate = {min_offset}\n"
+                    f"This means your limits are "
+                    f"{min_offset}..1"
+                )
+            elif time_scale >= 20.0e-3 and not (
+                min_offset <= seconds <= 10.0 * time_scale
+            ):
+                raise ValueError(
+                    f'"seconds" in "{trigger.upper()}" '
+                    f"mode must be between "
+                    f"-MemDepth/SamplingRate .. 10.0*TimeScale.\n "
+                    f"MemDepth := {mem_depth}\n"
+                    f"SamplingRate := {sampl_rate}\n"
+                    f"-MemDepth/SamplingRate = {min_offset}\n"
+                    f"TimeScale := {time_scale}\n"
+                    f"TimeScale * 10 = {10 * time_scale}\n"
+                    f"This means your limits are "
+                    f"{min_offset}..{10 * time_scale}"
+                )
 
         elif trigger == "stop":
             if mode == "ROLL" and not (-7000.0 <= seconds <= 0):
-                raise ValueError(f"\"seconds\" in \"{trigger.upper()}\" "
-                                 f"+ {mode.upper()} mode must be between "
-                                 "-7000.0 .. 0.0.")
+                raise ValueError(
+                    f'"seconds" in "{trigger.upper()}" '
+                    f"+ {mode.upper()} mode must be between "
+                    "-7000.0 .. 0.0."
+                )
 
             elif not (-7000.0 <= seconds <= 7000):
-                raise ValueError(f"\"seconds\" in \"{trigger.upper()}\" "
-                                 f"mode must be between -7000.0 .. 7000.0.")
+                raise ValueError(
+                    f'"seconds" in "{trigger.upper()}" '
+                    f"mode must be between -7000.0 .. 7000.0."
+                )
 
         self.device.ask(f":TIMebase:MAIN:OFFSet {seconds}")
 
@@ -847,7 +869,7 @@ class Timebase(BaseController):
         """
         return float(self.device.ask(":TIMebase:MAIN:SCALe?"))
 
-    def set_scale(self, seconds: float = 1.E-6) -> float:
+    def set_scale(self, seconds: float = 1.0e-6) -> float:
         """
         **Rigol Programming Guide**
 
@@ -891,9 +913,11 @@ class Timebase(BaseController):
         """
         # ToDo: Really arb. input?
         # ToDo: MinMax dependend on model
-        if not isinstance(seconds, int) or not 2.E-9 <= seconds <= 1000:
-            raise ValueError(f"pos must be of type float between 2.0E-9..1000. "
-                             f"You entered {seconds=} of type {type(seconds)}.")
+        if not isinstance(seconds, int) or not 2.0e-9 <= seconds <= 1000:
+            raise ValueError(
+                f"pos must be of type float between 2.0E-9..1000. "
+                f"You entered {seconds=} of type {type(seconds)}."
+            )
         return float(self.device.ask(f":TIMebase:MAIN:SCALe {seconds}"))
 
     def enable_fine_adjustment(self) -> None:

@@ -15,14 +15,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from ds2000.controller import SubController, SubSubController, check_input
+from ds2000.common import SubController, SubSubController, check_input
+from ds2000.errors import DS2000StateError
 
 __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
-
-__all__ = [
-    "SetupHold",
-]
 
 
 class SetupHoldType(SubSubController):
@@ -205,7 +202,8 @@ class SetupHoldType(SubSubController):
         The query returns SETHOL.
         """
         status = self.subsubdevice.subdevice.device.ask(
-                ":TRIGger:SHOLd:TYPe?").lower()
+            ":TRIGger:SHOLd:TYPe?"
+        ).lower()
 
         if status == "setup":
             return "setup"
@@ -213,6 +211,7 @@ class SetupHoldType(SubSubController):
             return "hold"
         if status == "sethold":
             return "setup hold"
+        raise DS2000StateError()
 
 
 class SetupHoldDataSource(SubSubController):
@@ -314,12 +313,14 @@ class SetupHoldDataSource(SubSubController):
         The query returns CHAN2.
         """
         status = self.subsubdevice.subdevice.device.ask(
-                ":TRIGger:SHOLd:DSrc?").lower()
+            ":TRIGger:SHOLd:DSrc?"
+        ).lower()
 
         if status == "chan1":
             return "channel 1"
         if status == "chan2":
             return "channel 2"
+        raise DS2000StateError()
 
 
 class SetupHoldClockSource(SubSubController):
@@ -421,12 +422,14 @@ class SetupHoldClockSource(SubSubController):
         The query returns CHAN2.
         """
         status = self.subsubdevice.subdevice.device.ask(
-                ":TRIGger:SHOLd:CSrc?").lower()
+            ":TRIGger:SHOLd:CSrc?"
+        ).lower()
 
         if status == "chan1":
             return "channel 1"
         if status == "chan2":
             return "channel 2"
+        raise DS2000StateError()
 
 
 class SetupHoldSlope(SubSubController):
@@ -531,11 +534,13 @@ class SetupHoldSlope(SubSubController):
         The query returns NEG.
         """
         status: str = self.subsubdevice.subdevice.device.ask(
-                ":TRIGger:SHOLd:SLOPe?").lower()
+            ":TRIGger:SHOLd:SLOPe?"
+        ).lower()
         if status == "POSitive":
             return "rising edge"
         if status == "NEGative":
             return "falling edge"
+        raise DS2000StateError()
 
 
 class SetupHoldPattern(SubSubController):
@@ -637,7 +642,8 @@ class SetupHoldPattern(SubSubController):
         The query returns L.
         """
         return self.subsubdevice.subdevice.device.ask(
-                ":TRIGger:SHOLd:PATTern?").lower()
+            ":TRIGger:SHOLd:PATTern?"
+        ).lower()
 
 
 class SetupHold(SubController):
@@ -685,7 +691,7 @@ class SetupHold(SubController):
         """
         return float(self.subdevice.device.ask(":TRIGger:SHOLd:STIMe?"))
 
-    def set_setup_time(self, time: float = 50.E-9) -> None:
+    def set_setup_time(self, time: float = 50.0e-9) -> None:
         """
         **Rigol Programming Guide**
 
@@ -719,7 +725,7 @@ class SetupHold(SubController):
         :TRIGger:SHOLd:STIMe 0.002
         The query returns 2.000000e-03.
         """
-        check_input(time, "time", float, 2.E-9, 1.0, 's')
+        check_input(time, "time", float, 2.0e-9, 1.0, "s")
         self.subdevice.device.ask(f":TRIGger:SHOLd:STIMe {time}")
 
     def get_hold_time(self) -> float:
@@ -758,7 +764,7 @@ class SetupHold(SubController):
         """
         return float(self.subdevice.device.ask(":TRIGger:SHOLd:HTIMe?"))
 
-    def set_hold_time(self, time: float = 50.E-9) -> None:
+    def set_hold_time(self, time: float = 50.0e-9) -> None:
         """
         **Rigol Programming Guide**
 
@@ -792,5 +798,5 @@ class SetupHold(SubController):
         :TRIGger:SHOLd:HTIMe 0.002
         The query returns 2.000000e-03.
         """
-        check_input(time, "time", float, 2.E-9, 1.0, 's')
+        check_input(time, "time", float, 2.0e-9, 1.0, "s")
         self.subdevice.device.ask(f":TRIGger:SHOLd:HTIMe {time}")

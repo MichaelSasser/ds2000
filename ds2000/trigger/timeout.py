@@ -15,7 +15,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from ds2000.controller import SubController, SubSubController, check_input
+from ds2000.common import SubController, SubSubController, check_input
+from ds2000.errors import DS2000StateError
 
 __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
@@ -58,7 +59,8 @@ class TimeoutSlope(SubSubController):
         The query returns NEG.
         """
         self.subsubdevice.subdevice.device.ask(
-                ":TRIGger:TIMeout:SLOPe POSitive")
+            ":TRIGger:TIMeout:SLOPe POSitive"
+        )
 
     def falling_edge(self) -> None:
         """
@@ -92,7 +94,8 @@ class TimeoutSlope(SubSubController):
         The query returns NEG.
         """
         self.subsubdevice.subdevice.device.ask(
-                ":TRIGger:TIMeout:SLOPe NEGative")
+            ":TRIGger:TIMeout:SLOPe NEGative"
+        )
 
     def both_edges(self) -> None:
         """
@@ -125,8 +128,7 @@ class TimeoutSlope(SubSubController):
         :TRIGger:TIMeout:SLOPe NEGative
         The query returns NEG.
         """
-        self.subsubdevice.subdevice.device.ask(
-                ":TRIGger:TIMeout:SLOPe RFALl")
+        self.subsubdevice.subdevice.device.ask(":TRIGger:TIMeout:SLOPe RFALl")
 
     def status(self) -> str:
         """
@@ -160,13 +162,15 @@ class TimeoutSlope(SubSubController):
         The query returns NEG.
         """
         status: str = self.subsubdevice.subdevice.device.ask(
-                ":TRIGger:TIMeout:SLOPe?")
+            ":TRIGger:TIMeout:SLOPe?"
+        )
         if status == "POS":
             return "rising edge"
         if status == "NEG":
             return "falling edge"
         if status == "RFAL":
             return "both edges"
+        raise DS2000StateError()
 
 
 class TimeoutChannel(SubSubController):
@@ -203,7 +207,8 @@ class TimeoutChannel(SubSubController):
         """
 
         self.subsubdevice.subdevice.device.ask(
-                f":TRIGger:TIMeout:SOURce CHANnel1")
+            ":TRIGger:TIMeout:SOURce CHANnel1"
+        )
 
     def channel2(self) -> None:
         """
@@ -238,7 +243,8 @@ class TimeoutChannel(SubSubController):
         """
 
         self.subsubdevice.subdevice.device.ask(
-                f":TRIGger:TIMeout:SOURce CHANnel2")
+            ":TRIGger:TIMeout:SOURce CHANnel2"
+        )
 
     def status(self) -> str:
         """
@@ -273,12 +279,14 @@ class TimeoutChannel(SubSubController):
         """
 
         status: str = self.subsubdevice.subdevice.device.ask(
-                f":TRIGger:TIMeout:SOURce?").lower()
+            ":TRIGger:TIMeout:SOURce?"
+        ).lower()
 
         if status == "chan1":
             return "channel 1"
         if status == "chan2":
             return "channel 2"
+        raise DS2000StateError()
 
 
 class Timeout(SubController):
@@ -320,7 +328,7 @@ class Timeout(SubController):
         """
         return float(self.subdevice.device.ask(":TRIGger:TIMeout:TIMe?"))
 
-    def set_time(self, time: float = 1.E-6) -> None:
+    def set_time(self, time: float = 1.0e-6) -> None:
         """
         **Rigol Programming Guide**
 
@@ -351,5 +359,5 @@ class Timeout(SubController):
         :TRIGger:TIMeout:TIMe 0.002
         The query returns 2.000000e+06.
         """
-        check_input(time, "time", float, 16.E-9, 4.0, "s")
+        check_input(time, "time", float, 16.0e-9, 4.0, "s")
         self.subdevice.device.ask(f":TRIGger:TIMeout:TIMe {time}")

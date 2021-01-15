@@ -15,20 +15,16 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from ds2000.controller import (
+from ds2000.common import (
     SubController,
     check_input,
-    Ds2000StateError,
     SubSubController,
 )
+from ds2000.errors import DS2000StateError
 
 
 __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
-
-__all__ = [
-    "NthEdge",
-]
 
 
 class NthEdgeSource(SubSubController):
@@ -63,7 +59,9 @@ class NthEdgeSource(SubSubController):
         :TRIGger:NEDGe:SOURce CHANnel2
         The query returns CHAN2.
         """
-        self.subsubdevice.subdevice.device.ask(":TRIGger:NEDGe:SOURce CHANnel1")
+        self.subsubdevice.subdevice.device.ask(
+            ":TRIGger:NEDGe:SOURce CHANnel1"
+        )
 
     def channel2(self) -> None:
         """
@@ -96,7 +94,9 @@ class NthEdgeSource(SubSubController):
         :TRIGger:NEDGe:SOURce CHANnel2
         The query returns CHAN2.
         """
-        self.subsubdevice.subdevice.device.ask(":TRIGger:NEDGe:SOURce CHANnel2")
+        self.subsubdevice.subdevice.device.ask(
+            ":TRIGger:NEDGe:SOURce CHANnel2"
+        )
 
     def status(self) -> int:
         """
@@ -130,7 +130,9 @@ class NthEdgeSource(SubSubController):
         The query returns CHAN2.
         """
         return int(
-            self.subsubdevice.subdevice.device.ask(":TRIGger:NEDGe:SOURce?")[-1]
+            self.subsubdevice.subdevice.device.ask(":TRIGger:NEDGe:SOURce?")[
+                -1
+            ]
         )
 
 
@@ -393,7 +395,7 @@ class NthEdge(SubController):
             scale = self.subdevice.device.channel2.scale()
             offset = self.subdevice.device.channel2.get_offset()
         else:
-            Ds2000StateError(
+            DS2000StateError(
                 "The level coul'd only be set, if the source is"
                 "Channel 1 or Channel 2."
             )  # ToDo: Right??

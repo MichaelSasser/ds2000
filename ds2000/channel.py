@@ -14,17 +14,20 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
-from typing import Optional, Tuple, NamedTuple, List
+from __future__ import annotations
 
-from ds2000.controller import BaseController, SubController, Ds2000Exception
-from ds2000.math import get_prefix, Prefixed
+from typing import Optional
+from typing import Tuple
+from typing import NamedTuple
+from typing import List
+
+from .common import BaseController
+from .common import SubController
+from .errors import DS2000Error
+from .math.format import get_prefix, Prefixed
 
 __author__: str = "Michael Sasser"
 __email__: str = "Michael@MichaelSasser.org"
-
-__all__ = [
-    "Channel",
-]
 
 
 class ChannelOffsetRange(NamedTuple):
@@ -32,6 +35,7 @@ class ChannelOffsetRange(NamedTuple):
     A structure to get get a iterable to check a entered offset against
     the ranges defined below.
     """
+
     min_scl: float  # minimal scale
     max_scl: float  # maximal scale
     off: float  # minimal offset: -off; maximal offset: off
@@ -72,7 +76,8 @@ class ChannelCoupling(SubController):
 
         """
         self.subdevice.device.ask(
-                f":CHANnel{self.subdevice._channel}:COUPling AC")
+            f":CHANnel{self.subdevice._channel}:COUPling AC"
+        )
 
     def dc(self) -> None:
         """
@@ -108,7 +113,8 @@ class ChannelCoupling(SubController):
 
         """
         self.subdevice.device.ask(
-                f":CHANnel{self.subdevice._channel}:COUPling DC")
+            f":CHANnel{self.subdevice._channel}:COUPling DC"
+        )
 
     def gnd(self) -> None:
         """
@@ -144,7 +150,8 @@ class ChannelCoupling(SubController):
 
         """
         self.subdevice.device.ask(
-                f":CHANnel{self.subdevice._channel}:COUPling GND")
+            f":CHANnel{self.subdevice._channel}:COUPling GND"
+        )
 
     def status(self) -> str:
         """
@@ -180,7 +187,8 @@ class ChannelCoupling(SubController):
 
         """
         return self.subdevice.device.ask(
-                f":CHANnel{self.subdevice._channel}:COUPling?").lower()
+            f":CHANnel{self.subdevice._channel}:COUPling?"
+        ).lower()
 
 
 class ChannelUnits(SubController):
@@ -218,7 +226,8 @@ class ChannelUnits(SubController):
 
         """
         self.subdevice.device.ask(
-                f":CHANnel{self.subdevice._channel}::UNITs VOLTage")
+            f":CHANnel{self.subdevice._channel}::UNITs VOLTage"
+        )
 
     def power(self) -> None:
         """
@@ -254,7 +263,8 @@ class ChannelUnits(SubController):
 
         """
         self.subdevice.device.ask(
-                f":CHANnel{self.subdevice._channel}::UNITs WATT")
+            f":CHANnel{self.subdevice._channel}::UNITs WATT"
+        )
 
     def current(self) -> None:
         """
@@ -290,7 +300,8 @@ class ChannelUnits(SubController):
 
         """
         self.subdevice.device.ask(
-                f":CHANnel{self.subdevice._channel}::UNITs AMPere")
+            f":CHANnel{self.subdevice._channel}::UNITs AMPere"
+        )
 
     def unknown(self) -> None:
         """
@@ -326,7 +337,8 @@ class ChannelUnits(SubController):
 
         """
         self.subdevice.device.ask(
-                f":CHANnel{self.subdevice._channel}::UNITs UNKNown")
+            f":CHANnel{self.subdevice._channel}::UNITs UNKNown"
+        )
 
     def status(self) -> str:
         """
@@ -362,7 +374,8 @@ class ChannelUnits(SubController):
 
         """
         unit: str = self.subdevice.device.ask(
-                f":CHANnel{self.subdevice._channel}::UNITs?")
+            f":CHANnel{self.subdevice._channel}::UNITs?"
+        )
         if unit == "VOLT":
             return "voltage"
         if unit == "WATT":
@@ -371,7 +384,7 @@ class ChannelUnits(SubController):
             return "current"
         if unit == "UNKN":
             return "unknown"
-        Ds2000Exception("The channel unit couldn't be recognized.")
+        DS2000Error("The channel unit couldn't be recognized.")
 
 
 class ChannelBandwidthLimit(SubController):
@@ -411,7 +424,8 @@ class ChannelBandwidthLimit(SubController):
         The query returns 20M.
         """
         self.subdevice.device.ask(
-                f":CHANnel{self.subdevice._channel}:BWLimit OFF")
+            f":CHANnel{self.subdevice._channel}:BWLimit OFF"
+        )
 
     def bw_20m(self):
         """
@@ -449,7 +463,8 @@ class ChannelBandwidthLimit(SubController):
         The query returns 20M.
         """
         self.subdevice.device.ask(
-                f":CHANnel{self.subdevice._channel}:BWLimit 20M")
+            f":CHANnel{self.subdevice._channel}:BWLimit 20M"
+        )
 
     def bw_100m(self):  # ToDo: not for DS2072 & DS2012
         """
@@ -487,7 +502,8 @@ class ChannelBandwidthLimit(SubController):
         The query returns 20M.
         """
         self.subdevice.device.ask(
-                f":CHANnel{self.subdevice._channel}:BWLimit 100M")
+            f":CHANnel{self.subdevice._channel}:BWLimit 100M"
+        )
 
     def status(self):
         """
@@ -525,14 +541,15 @@ class ChannelBandwidthLimit(SubController):
         The query returns 20M.
         """
         self.subdevice.device.ask(
-                f":CHANnel{self.subdevice._channel}:BWLimit?")
+            f":CHANnel{self.subdevice._channel}:BWLimit?"
+        )
 
 
 class Channel(BaseController):
     OFFSET_RANGES: Tuple[ChannelOffsetRange, ...] = (
-        ChannelOffsetRange(500.E-6, 50.E-3, 2),
-        ChannelOffsetRange(51.E-3, 200.E-3, 10),
-        ChannelOffsetRange(205.E-3, 2, 50),
+        ChannelOffsetRange(500.0e-6, 50.0e-3, 2),
+        ChannelOffsetRange(51.0e-3, 200.0e-3, 10),
+        ChannelOffsetRange(205.0e-3, 2, 50),
         ChannelOffsetRange(2.05, 10, 100),
     )
     PROBE_ATTENUATION_RATIOS: Tuple[float, ...] = (
@@ -563,7 +580,8 @@ class Channel(BaseController):
         self.coupling: ChannelCoupling = ChannelCoupling(self)
         self.units: ChannelUnits = ChannelUnits(self)
         self.bandwidth_limit: ChannelBandwidthLimit = ChannelBandwidthLimit(
-                self)
+            self
+        )
 
     def get_invert(self) -> bool:
         """
@@ -632,15 +650,16 @@ class Channel(BaseController):
         The query returns 1.
         """
         if not isinstance(enable, bool):
-            raise ValueError("\"enable\" must be of type \"bool\". You entered"
-                             f"{type(enable)}.")
+            raise ValueError(
+                '"enable" must be of type "bool". You entered'
+                f"{type(enable)}."
+            )
         self.device.ask(f":CHANnel{self._channel}:INVert {int(enable)}")
 
     @staticmethod
-    def __offset_check_range(rge: ChannelOffsetRange,
-                             scale: float,
-                             offset: float,
-                             ratio: float) -> bool:
+    def __offset_check_range(
+        rge: ChannelOffsetRange, scale: float, offset: float, ratio: float
+    ) -> bool:
         """This function checks if the entered offset was within the possible
         scale range. If not, a detailed error will show the user, What the
         limits are.
@@ -660,33 +679,35 @@ class Channel(BaseController):
                  - False, if the scale range was incorrect.
 
         """
-        min_scl_p: Prefixed = get_prefix(rge.min_scl*ratio)
+        min_scl_p: Prefixed = get_prefix(rge.min_scl * ratio)
         scl_p: Prefixed = get_prefix(scale)  # ratio comes from scope
-        max_scl_p: Prefixed = get_prefix(rge.max_scl*ratio)
-        off_p: Prefixed = get_prefix(rge.off*ratio)
+        max_scl_p: Prefixed = get_prefix(rge.max_scl * ratio)
+        off_p: Prefixed = get_prefix(rge.off * ratio)
         offset_p: Prefixed = get_prefix(offset)
 
-        if rge.min_scl*ratio <= scale <= rge.max_scl*ratio:
-            if -rge.off*ratio <= offset <= rge.off*ratio:
+        if rge.min_scl * ratio <= scale <= rge.max_scl * ratio:
+            if -rge.off * ratio <= offset <= rge.off * ratio:
                 return True  # The range and requested offset is correct.
             else:
-                ValueError(f"If your scale is between "
-                           f"{min_scl_p.formatted}V/div and "
-                           f"{max_scl_p.formatted}V/div "
-                           f"the offset must be between "
-                           f"-{off_p.formatted}V and "
-                           f"{off_p.formatted}V.\n"
-                           f"Your scale is currently set to "
-                           f"{scl_p.formatted}V/div.\n"
-                           f"Your requestet offset is "
-                           f"{offset_p.formatted}V.\n"
-                           f"Make sure your offset is between "
-                           f"-{off_p.formatted}V "
-                           f"and {off_p.formatted}V or change your "
-                           f"scale.\n"
-                           "Keep in mind, the range of the vertical scale "
-                           "is related to the probe attenuation ratio "
-                           "currently set.")
+                ValueError(
+                    f"If your scale is between "
+                    f"{min_scl_p.formatted}V/div and "
+                    f"{max_scl_p.formatted}V/div "
+                    f"the offset must be between "
+                    f"-{off_p.formatted}V and "
+                    f"{off_p.formatted}V.\n"
+                    f"Your scale is currently set to "
+                    f"{scl_p.formatted}V/div.\n"
+                    f"Your requestet offset is "
+                    f"{offset_p.formatted}V.\n"
+                    f"Make sure your offset is between "
+                    f"-{off_p.formatted}V "
+                    f"and {off_p.formatted}V or change your "
+                    f"scale.\n"
+                    "Keep in mind, the range of the vertical scale "
+                    "is related to the probe attenuation ratio "
+                    "currently set."
+                )
         return False  # This was not the correct range
 
     def get_offset(self) -> float:
@@ -773,7 +794,9 @@ class Channel(BaseController):
         """
         ratio: float = self.get_probe_attenuation_ratio()  # Probe att. ratio
         if offset is None:
-            default: float = 2.0*ratio if self._channel == 1 else -2.0*ratio
+            default: float = (
+                2.0 * ratio if self._channel == 1 else -2.0 * ratio
+            )
             self.device.ask(f":CHANnel{self._channel}:OFFSet {default}")
             return
 
@@ -789,22 +812,26 @@ class Channel(BaseController):
                     return
 
             # Anything between or none of that. Generate and throw an error.
-            err = ["The offset depends on the \"scale\" range:"]
+            err = ['The offset depends on the "scale" range:']
             for r in self.__class__.OFFSET_RANGES:
-                min_scl_p: Prefixed = get_prefix(r.min_scl*ratio)
-                max_scl_p: Prefixed = get_prefix(r.max_scl*ratio)
-                off_p: Prefixed = get_prefix(r.off*ratio)
-                err.append(f"A scale from {min_scl_p.formatted}"
-                           f"V/div to {max_scl_p.formatted}V/div "
-                           f"results in an offset range of "
-                           f"-{off_p.formatted}V to "
-                           f"{off_p.formatted}V.")
+                min_scl_p: Prefixed = get_prefix(r.min_scl * ratio)
+                max_scl_p: Prefixed = get_prefix(r.max_scl * ratio)
+                off_p: Prefixed = get_prefix(r.off * ratio)
+                err.append(
+                    f"A scale from {min_scl_p.formatted}"
+                    f"V/div to {max_scl_p.formatted}V/div "
+                    f"results in an offset range of "
+                    f"-{off_p.formatted}V to "
+                    f"{off_p.formatted}V."
+                )
             err.append("Please make sure, your are in this boundaries.")
             raise ValueError("\n".join(err))
 
         else:
-            raise ValueError("\"offset\" must be of type float. You enterd "
-                             f"{type(offset)}.")
+            raise ValueError(
+                '"offset" must be of type float. You enterd '
+                f"{type(offset)}."
+            )
 
     def get_scale(self) -> float:
         """
@@ -889,12 +916,15 @@ class Channel(BaseController):
         The query returns 1.000000e+00.
         """
         ratio: float = self.get_probe_attenuation_ratio()
-        if (not isinstance(scale, float)
-                or not (500.E-6*ratio <= scale <= 10*ratio)):
-            ValueError(f"The scale must be within {500*ratio}μV..{10*ratio}V "
-                       f"and of type float. You entered the type: "
-                       f"{type(scale)}. Remember, this values depend on the"
-                       f"probe attenuation ratio.")
+        if not isinstance(scale, float) or not (
+            500.0e-6 * ratio <= scale <= 10 * ratio
+        ):
+            ValueError(
+                f"The scale must be within {500*ratio}μV..{10*ratio}V "
+                f"and of type float. You entered the type: "
+                f"{type(scale)}. Remember, this values depend on the"
+                f"probe attenuation ratio."
+            )
         float(self.device.ask(f":CHANnel{self._channel}:SCALe {scale}"))
 
     def get_probe_attenuation_ratio(self) -> float:
@@ -975,13 +1005,17 @@ class Channel(BaseController):
         The query returns 10.
 
         """
-        if (not isinstance(ratio, float)
-           or ratio not in self.__class__.PROBE_ATTENUATION_RATIOS):
+        if (
+            not isinstance(ratio, float)
+            or ratio not in self.__class__.PROBE_ATTENUATION_RATIOS
+        ):
             lst: List[str, ...]
             lst = [str(s) for s in self.__class__.PROBE_ATTENUATION_RATIOS]
-            ValueError(f"\"ratio\" must be one of: "
-                       f"{', '.join(lst)} and of type float. You entered "
-                       f"{type(ratio)}.")
+            ValueError(
+                f'"ratio" must be one of: '
+                f"{', '.join(lst)} and of type float. You entered "
+                f"{type(ratio)}."
+            )
         self.device.ask(f":CHANnel{self._channel}:PROBe {ratio}")
 
     def get_fine_adjust(self) -> bool:

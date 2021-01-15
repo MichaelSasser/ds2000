@@ -14,16 +14,17 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
-from ds2000.controller import BaseController, SubController, Ds2000Exception
+from __future__ import annotations
 
 import math
 
+from .common import BaseController
+from .common import SubController
+from .errors import DS2000Error
+
+
 __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
-
-__all__ = [
-    "Display",
-]
 
 
 class DisplayType(SubController):
@@ -145,7 +146,7 @@ class DisplayType(SubController):
         display_type = self.subdevice.device.ask(":DISPlay:TYPE?").lower()
         if display_type in ("dots", "vectors"):
             return display_type
-        raise Ds2000Exception("Unknown type of display grid.")
+        raise DS2000Error("Unknown type of display grid.")
 
 
 class DisplayGrid(SubController):
@@ -316,8 +317,20 @@ class DisplayGrid(SubController):
 
 class Display(BaseController):
     # 0.0 for MIN and -1.0 or math.inf for INFINITE
-    GRID_GRADING_TIMES = (0.0, 0.05, 0.1, 0.2, 0.5, 1,
-                          2, 5, 10, 20, -1.0, math.inf)
+    GRID_GRADING_TIMES = (
+        0.0,
+        0.05,
+        0.1,
+        0.2,
+        0.5,
+        1,
+        2,
+        5,
+        10,
+        20,
+        -1.0,
+        math.inf,
+    )
 
     # -1 means INFINITE
     MENU_DISPLAY_TIME = (1, 2, 5, 10, 20, -1)
@@ -404,6 +417,7 @@ class Display(BaseController):
                 return -1.0
             elif payload.lower() == "infinite":
                 return 0.0
+        raise DS2000Error()
 
     def set_persistence_time(self, time: float = 0.0) -> None:
         """
@@ -449,10 +463,12 @@ class Display(BaseController):
         """
         # Assertion
         if (not isinstance(time, float)) or (
-                time not in Display.GRID_GRADING_TIMES):
+            time not in Display.GRID_GRADING_TIMES
+        ):
             ValueError(
-                    "\"time\" must be of type \"float\" "
-                    f"and in {str(Display.GRID_GRADING_TIMES)}")
+                '"time" must be of type "float" '
+                f"and in {str(Display.GRID_GRADING_TIMES)}"
+            )
 
         if time == Display.GRID_GRADING_TIMES[1]:
             self.device.ask(":DISPlay:GRADing:TIME MIN")
@@ -528,7 +544,9 @@ class Display(BaseController):
         if isinstance(brightness, int) and 0 <= brightness <= 100:
             self.device.ask(f":DISPlay:WBRightness {brightness}")
         else:
-            ValueError("The brightness must be of type int and between 0..100.")
+            ValueError(
+                "The brightness must be of type int and between 0..100."
+            )
 
     def get_grid_brightness(self) -> int:
         """
@@ -597,7 +615,9 @@ class Display(BaseController):
         if isinstance(brightness, int) and 0 <= brightness <= 100:
             self.device.ask(f":DISPlay:GBRightness {brightness}")
         else:
-            ValueError("The brightness must be of type int and between 0..100.")
+            ValueError(
+                "The brightness must be of type int and between 0..100."
+            )
 
     def set_menu_display_time(self, time: int = -1) -> None:
         """
@@ -632,10 +652,12 @@ class Display(BaseController):
         """
         # Assertion
         if (not isinstance(time, int)) or (
-                time not in Display.MENU_DISPLAY_TIME):
+            time not in Display.MENU_DISPLAY_TIME
+        ):
             ValueError(
-                    "\"time\" must be of type \"float\" "
-                    f"and in {str(Display.MENU_DISPLAY_TIME)}")
+                '"time" must be of type "float" '
+                f"and in {str(Display.MENU_DISPLAY_TIME)}"
+            )
 
         if time in Display.MENU_DISPLAY_TIME[-1]:
             self.device.ask(":DISPlay:MPERsistence INFinite")
@@ -710,13 +732,13 @@ class Display(BaseController):
         try:
             self.device.write(":DISPlay:DATA?")
         except Exception:
-            raise Ds2000Exception("Write Operation was not successful.")
+            raise DS2000Error("Write Operation was not successful.")
 
         # Read (RAW) data from the oscilloscope (Head + Bitmap)
         try:
             payload = self.device.read_raw()
         except Exception:
-            raise Ds2000Exception("Raw read Operation was not successful.")
+            raise DS2000Error("Raw read Operation was not successful.")
 
         # Get and check the payload head len.
         # #NXXXXXX    (format)
@@ -724,17 +746,21 @@ class Display(BaseController):
         size_len_pos_offset = 2
         size_len_from_payload = int(payload[1])
         if payload[0] != b"#" and size_len_from_payload <= 0:
-            raise Ds2000Exception("Could not identify the incoming data.")
+            raise DS2000Error("Could not identify the incoming data.")
 
         # Get the bitmap stream size after the head
         try:
             size_len_pos_start: int = size_len_pos_offset
-            size_len_pos_stop: int = size_len_from_payload + size_len_pos_offset
+            size_len_pos_stop: int = (
+                size_len_from_payload + size_len_pos_offset
+            )
 
             bpm_size = int(payload[size_len_pos_start:size_len_pos_stop])
         except Exception:
-            raise Ds2000Exception("Could not get the bitmap stream size."
-                                  "The datastream was corrupted.")
+            raise DS2000Error(
+                "Could not get the bitmap stream size."
+                "The datastream was corrupted."
+            )
 
         try:
             stream_start = size_len_pos_stop + 1
@@ -742,31 +768,37 @@ class Display(BaseController):
 
             stream = payload[stream_start:stream_end]
         except Exception:
-            raise Ds2000Exception("Could not get the bitmap stream."
-                                  "The datastream was corrupted.")
+            raise DS2000Error(
+                "Could not get the bitmap stream."
+                "The datastream was corrupted."
+            )
 
         # Checks, if the header of the bitmap stream is included.
         try:
             if stream[0:1] != b"BM":  # \n
-                raise Ds2000Exception()
+                raise DS2000Error()
         except Exception:
-            raise Ds2000Exception("The start of the datastream could not be "
-                                  "matched. The datastream was corrupted.")
+            raise DS2000Error(
+                "The start of the datastream could not be "
+                "matched. The datastream was corrupted."
+            )
 
         # Checks if the "Line Feed" character at the end of the bitmap sile
         # steram is present, to make sure everything is in the payload
         # and the size was right.
         try:
-            if payload[stream_end+1] != bytearray.fromhex("0x0A"):  # \n
-                raise Ds2000Exception()
+            if payload[stream_end + 1] != bytearray.fromhex("0x0A"):  # \n
+                raise DS2000Error()
         except Exception:
-            raise Ds2000Exception("The end of the datastream could not be "
-                                  "matched. The datastream was corrupted.")
+            raise DS2000Error(
+                "The end of the datastream could not be "
+                "matched. The datastream was corrupted."
+            )
 
-        if bpm_size-1 != len(stream):
-            raise Ds2000Exception(
-                    "The size from the head does not match "
-                    "the number of received bytes."
+        if bpm_size - 1 != len(stream):
+            raise DS2000Error(
+                "The size from the head does not match "
+                "the number of received bytes."
             )
 
         return stream

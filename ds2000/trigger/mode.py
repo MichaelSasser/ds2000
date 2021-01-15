@@ -15,14 +15,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from ds2000.controller import SubController
+from ds2000.common import SubController
+from ds2000.errors import DS2000StateError
 
 __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
-
-__all__ = [
-    "Mode",
-]
 
 
 class Mode(SubController):
@@ -637,8 +634,20 @@ class Mode(SubController):
         The query returns SLOP.
         """
         status = self.subdevice.device.ask(":TRIGger:MODE?").lower()
-        if status in ("edge", "pulse", "runt", "slope", "video", "pattern",
-                      "delay", "timeout", "duration", "rs232", "spi", "usb"):
+        if status in (
+            "edge",
+            "pulse",
+            "runt",
+            "slope",
+            "video",
+            "pattern",
+            "delay",
+            "timeout",
+            "duration",
+            "rs232",
+            "spi",
+            "usb",
+        ):
             return status
         if status == "wind":
             return "windows"
@@ -648,4 +657,4 @@ class Mode(SubController):
             return "setup/hold"
         if status == "iic":
             return "i2c"
-
+        raise DS2000StateError()

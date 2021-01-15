@@ -17,14 +17,10 @@
 from enum import Enum
 from typing import Union
 
-from ds2000.controller import SubController, SubSubController, check_input
+from ds2000.common import SubController, SubSubController, check_input
 
 __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
-
-__all__ = [
-    "Delay",
-]
 
 
 class DelayTypeEnum(Enum):
@@ -319,7 +315,8 @@ class DelayType(SubSubController):
         The query returns GOUT.
         """
         ret: str = self.subsubdevice.subdevice.device.ask(
-            ":TRIGger:DELay:TYPe?")
+            ":TRIGger:DELay:TYPe?"
+        )
 
         if ret == "GRE":
             return DelayTypeEnum.GRE
@@ -336,8 +333,9 @@ class Delay(SubController):
         super(Delay, self).__init__(device)
         self.type: DelayType = DelayType(self)
 
-    def set_signal(self, source: Union[str, int],
-                   channel: int) -> None:  # SA/SB
+    def set_signal(
+        self, source: Union[str, int], channel: int
+    ) -> None:  # SA/SB
         """
         source must be "a", "b", "A", "B" 1 or 2
         channel must be 1 or 2
@@ -481,7 +479,8 @@ class Delay(SubController):
 
         self.subdevice.device.ask(
             f":TRIGger:DELay:SLOP{source} "
-            f"{'POSitive' if positive else 'NEGative'}")
+            f"{'POSitive' if positive else 'NEGative'}"
+        )
 
     def slope_is_positive(self, source) -> bool:  # SLOPA/SLOPB
         """
@@ -528,10 +527,14 @@ class Delay(SubController):
         elif source == 2:
             source = "B"
 
-        return True if self.subdevice.device.ask(
-            f':TRIGger:DELay:SLOP{source}?') == "POS" else False
+        return (
+            True
+            if self.subdevice.device.ask(f":TRIGger:DELay:SLOP{source}?")
+            == "POS"
+            else False
+        )
 
-    def set_upper_limit(self, time: float = 2.E-9) -> None:
+    def set_upper_limit(self, time: float = 2.0e-9) -> None:
         """
         **Rigol Programming Guide**
 
@@ -572,10 +575,11 @@ class Delay(SubController):
         The query returns 2.000000e-03.
         """
         delay_type: DelayTypeEnum = self.type.status()
-        if delay_type not in (DelayTypeEnum.LESS,
-                              DelayTypeEnum.GOUT,
-                              DelayTypeEnum.GLES
-                              ):
+        if delay_type not in (
+            DelayTypeEnum.LESS,
+            DelayTypeEnum.GOUT,
+            DelayTypeEnum.GLES,
+        ):
             raise TypeError(
                 "To set the upper limit your delay type has to be: "
                 f"{DelayTypeEnum.LESS.value}, "
@@ -585,9 +589,9 @@ class Delay(SubController):
             )
 
         if delay_type in (DelayTypeEnum.GLES, DelayTypeEnum.GOUT):
-            check_input(time, "time", float, 12.E-9, 4.0, "s")
+            check_input(time, "time", float, 12.0e-9, 4.0, "s")
         else:
-            check_input(time, "time", float, 2.E-9, 4.0, "s")
+            check_input(time, "time", float, 2.0e-9, 4.0, "s")
 
         self.subdevice.device.ask(f":TRIGger:DELay:TUPPer {time}")
 
@@ -632,20 +636,22 @@ class Delay(SubController):
         The query returns 2.000000e-03.
         """
         delay_type: DelayTypeEnum = self.type.status()
-        if delay_type not in (DelayTypeEnum.LESS,
-                              DelayTypeEnum.GOUT,
-                              DelayTypeEnum.GLES
-                              ):
+        if delay_type not in (
+            DelayTypeEnum.LESS,
+            DelayTypeEnum.GOUT,
+            DelayTypeEnum.GLES,
+        ):
             raise TypeError(
-                    "To get the upper limit your delay type has to be: "
-                    f"{DelayTypeEnum.LESS.value}, "
-                    f"{DelayTypeEnum.GOUT.value}, "
-                    "or "
-                    f"{DelayTypeEnum.GLES.value}")
+                "To get the upper limit your delay type has to be: "
+                f"{DelayTypeEnum.LESS.value}, "
+                f"{DelayTypeEnum.GOUT.value}, "
+                "or "
+                f"{DelayTypeEnum.GLES.value}"
+            )
 
         return float(self.subdevice.device.ask(f":TRIGger:DELay:TUPPer?"))
 
-    def set_lower_limit(self, time: float = 1.E-6) -> None:
+    def set_lower_limit(self, time: float = 1.0e-6) -> None:
         """
         ToDo: The range in the note is the same as in the table?
         **Rigol Programming Guide**
@@ -687,19 +693,20 @@ class Delay(SubController):
         The query returns 2.000000e-03.
         """
         delay_type: DelayTypeEnum = self.type.status()
-        if delay_type not in (DelayTypeEnum.LESS,
-                              DelayTypeEnum.GOUT,
-                              DelayTypeEnum.GLES
-                              ):
+        if delay_type not in (
+            DelayTypeEnum.LESS,
+            DelayTypeEnum.GOUT,
+            DelayTypeEnum.GLES,
+        ):
             raise TypeError(
-                    "To set the lower limit your delay type has to be: "
-                    f"{DelayTypeEnum.LESS.value}, "
-                    f"{DelayTypeEnum.GOUT.value}, "
-                    "or "
-                    f"{DelayTypeEnum.GLES.value} "
+                "To set the lower limit your delay type has to be: "
+                f"{DelayTypeEnum.LESS.value}, "
+                f"{DelayTypeEnum.GOUT.value}, "
+                "or "
+                f"{DelayTypeEnum.GLES.value} "
             )
 
-        check_input(time, "time", float, 2.E-9, 3.99, "s")
+        check_input(time, "time", float, 2.0e-9, 3.99, "s")
 
         self.subdevice.device.ask(f":TRIGger:DELay:TLOWer {time}")
 
@@ -745,16 +752,17 @@ class Delay(SubController):
         The query returns 2.000000e-03.
         """
         delay_type: DelayTypeEnum = self.type.status()
-        if delay_type not in (DelayTypeEnum.LESS,
-                              DelayTypeEnum.GOUT,
-                              DelayTypeEnum.GLES
-                              ):
+        if delay_type not in (
+            DelayTypeEnum.LESS,
+            DelayTypeEnum.GOUT,
+            DelayTypeEnum.GLES,
+        ):
             raise TypeError(
-                    "To set the lower limit your delay type has to be: "
-                    f"{DelayTypeEnum.LESS.value}, "
-                    f"{DelayTypeEnum.GOUT.value}, "
-                    "or "
-                    f"{DelayTypeEnum.GLES.value} "
+                "To set the lower limit your delay type has to be: "
+                f"{DelayTypeEnum.LESS.value}, "
+                f"{DelayTypeEnum.GOUT.value}, "
+                "or "
+                f"{DelayTypeEnum.GLES.value} "
             )
 
         return float(self.subdevice.device.ask(f":TRIGger:DELay:TLOWer?"))

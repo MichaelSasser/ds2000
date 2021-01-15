@@ -15,17 +15,13 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from ds2000.controller import SubController, check_input, check_level
+from ds2000.common import SubController, check_input, check_level
 
 __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
 
-__all__ = [
-    "Spi",
-]
 
-
-class Spi(SubController):
+class SPI(SubController):
     # def __init__(self, device) -> None:
     #     super(Spi, self).__init__(device)
 

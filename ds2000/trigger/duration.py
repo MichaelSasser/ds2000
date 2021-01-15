@@ -15,14 +15,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from ds2000.controller import SubController, SubSubController, check_input
+from ds2000.common import SubController, SubSubController, check_input
 
 __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
-
-__all__ = [
-    "Duration",
-]
 
 
 # TODO: Shorter method names
@@ -74,7 +70,9 @@ class DurationWhen(SubSubController):
         :TRIGger:DURATion:WHEN LESS
         The query returns LESS.
         """
-        self.subsubdevice.subdevice.device.ask(":TRIGger:DURATion:WHEN GREater")
+        self.subsubdevice.subdevice.device.ask(
+            ":TRIGger:DURATion:WHEN GREater"
+        )
 
     def duration_of_pattern_lower_than_upper_limit(self) -> None:
         """
@@ -221,7 +219,9 @@ class DurationWhen(SubSubController):
         :TRIGger:DURATion:WHEN LESS
         The query returns LESS.
         """
-        return self.subsubdevice.subdevice.device.ask(":TRIGger:DURATion:WHEN?")
+        return self.subsubdevice.subdevice.device.ask(
+            ":TRIGger:DURATion:WHEN?"
+        )
 
 
 class Duration(SubController):

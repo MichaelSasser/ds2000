@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from ds2000.controller import (
+from ds2000.common import (
     SubController,
     SubSubController,
     check_input,
@@ -25,12 +25,8 @@ from ds2000.controller import (
 __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
 
-__all__ = [
-    "Usb",
-]
 
-
-class UsbWhen(SubSubController):
+class USBWhen(SubSubController):
     def set_sop(self) -> None:
         """
         **Rigol Programming Guide**
@@ -314,10 +310,10 @@ class UsbWhen(SubSubController):
         return self.subsubdevice.subdevice.device.ask(":TRIGger:USB:WHEN?")
 
 
-class Usb(SubController):
+class USB(SubController):
     def __init__(self, device):
-        super(Usb, self).__init__(device)
-        self.when: UsbWhen = UsbWhen(self)
+        super(USB, self).__init__(device)
+        self.when: USBWhen = USBWhen(self)
 
     def set_data_plus_source(self, channel: int = 1) -> None:
         """

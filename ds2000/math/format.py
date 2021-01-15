@@ -14,14 +14,12 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
 from __future__ import annotations
+
 from typing import NamedTuple
 
-__author__: str = 'Michael Sasser'
-__email__: str = 'Michael@MichaelSasser.org'
-
-__all__ = ['get_prefix', 'Prefixed']
+__author__: str = "Michael Sasser"
+__email__: str = "Michael@MichaelSasser.org"
 
 
 class Prefixed(NamedTuple):
@@ -33,27 +31,27 @@ class Prefixed(NamedTuple):
 
 def get_prefix(value: float) -> Prefixed:
     prefixes = {
-        -24: 'y',  # yocto
-        -21: 'z',  # zepto
-        -18: 'a',  # atto
-        -15: 'f',  # femto
-        -12: 'p',  # pico
-        -9 : 'n',  # nano
-        -6 : 'µ',  # micro
-        -3 : 'm',  # milli
+        -24: "y",  # yocto
+        -21: "z",  # zepto
+        -18: "a",  # atto
+        -15: "f",  # femto
+        -12: "p",  # pico
+        -9: "n",  # nano
+        -6: "µ",  # micro
+        -3: "m",  # milli
         # -2 : 'c',  # centi (Not used in eletronics)
         # -1 : 'd',  # deci (Not used in eletronics)
-        0  : '',  # None
+        0: "",  # None
         # 1  : 'da',  # deca (Not used in eletronics)
         # 2  : 'h',  # hecto (Not used in eletronics)
-        3  : 'k',  # kilo
-        6  : 'M',  # mega
-        9  : 'G',  # giga
-        12 : 'T',  # tera
-        15 : 'P',  # peta
-        18 : 'E',  # exa
-        21 : 'Z',  # zetta
-        24 : 'Y',  # yotta
+        3: "k",  # kilo
+        6: "M",  # mega
+        9: "G",  # giga
+        12: "T",  # tera
+        15: "P",  # peta
+        18: "E",  # exa
+        21: "Z",  # zetta
+        24: "Y",  # yotta
     }
 
     negative = False
@@ -62,17 +60,18 @@ def get_prefix(value: float) -> Prefixed:
         negative = True
 
     power = 0
-    while value < 1:
-        value *= 1000.0
-        power -= 3
+    if value != 0:
+        while value < 1:
+            value *= 1000.0
+            power -= 3
 
-    while value > 1000.0:
+    while value >= 1000.0:
         value /= 1000.0
         power += 3
 
-    value = float((-value) if negative else value)
-
-    return Prefixed(value=value,
-                    prefix=prefixes[power],
-                    divisor=float(power),
-                    formatted=f"{value}{prefixes[power]}")
+    return Prefixed(
+        value=float((-value) if negative else value),
+        prefix=prefixes[power],
+        divisor=float(power),
+        formatted=f"{value}{prefixes[power]}",
+    )

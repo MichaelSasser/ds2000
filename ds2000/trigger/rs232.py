@@ -18,7 +18,7 @@ from __future__ import annotations
 
 from typing import Dict
 
-from ds2000.controller import (
+from ds2000.common import (
     SubController,
     SubSubController,
     check_input,
@@ -28,12 +28,8 @@ from ds2000.controller import (
 __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
 
-__all__ = [
-    "Rs232",
-]
 
-
-class Rs232When(SubSubController):
+class RS232When(SubSubController):
     def set_start_frame_position(self) -> None:
         """
         **Rigol Programming Guide**
@@ -260,7 +256,7 @@ class Rs232When(SubSubController):
         return self.subsubdevice.subdevice.device.ask(":TRIGger:RS232:WHEN?")
 
 
-class Rs232Parity(SubSubController):
+class RS232Parity(SubSubController):
     def set_even(self) -> None:
         """
         **Rigol Programming Guide**
@@ -431,11 +427,11 @@ class Rs232Parity(SubSubController):
 
 
 # TODO: Check selected trigger before settitng values
-class Rs232(SubController):
+class RS232(SubController):
     def __init__(self, device) -> None:
-        super(Rs232, self).__init__(device)
-        self.when: Rs232When = Rs232When(self)
-        self.parity: Rs232Parity = Rs232Parity(self)
+        super(RS232, self).__init__(device)
+        self.when: RS232When = RS232When(self)
+        self.parity: RS232Parity = RS232Parity(self)
 
     def set_source(self, channel: int = 1) -> None:
         """

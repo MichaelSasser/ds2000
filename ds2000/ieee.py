@@ -14,15 +14,12 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
+from __future__ import annotations
 
-from ds2000.controller import BaseController
+from .common import BaseController
 
 __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
-
-__all__ = [
-    "IEEE",
-]
 
 
 class IEEE(BaseController):
@@ -34,7 +31,7 @@ class IEEE(BaseController):
         super(IEEE, self).__init__(device)
 
     def idn(self) -> str:
-        """ This method returns the ID character string of the device_address
+        """This method returns the ID character string of the device_address
         as a Instrument Tuple.
 
         **Rigol Programming Guide**

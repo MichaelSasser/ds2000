@@ -18,7 +18,7 @@ from __future__ import annotations
 
 from typing import Dict
 
-from ds2000.controller import (
+from ds2000.common import (
     SubController,
     SubSubController,
     check_input,
@@ -27,10 +27,6 @@ from ds2000.controller import (
 
 __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
-
-__all__ = [
-    "Video",
-]
 
 
 class VideoMode(SubSubController):

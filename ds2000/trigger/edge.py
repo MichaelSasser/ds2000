@@ -15,19 +15,15 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from ds2000.controller import (
+from ds2000.common import (
     SubController,
     SubSubController,
-    Ds2000StateError,
     check_level,
 )
+from ds2000.errors import DS2000StateError
 
 __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
-
-__all__ = [
-    "Edge",
-]
 
 
 class EdgeSource(SubSubController):
@@ -438,7 +434,7 @@ class Edge(SubController):
             scale = self.subdevice.device.channel2.scale()
             offset = self.subdevice.device.channel2.get_offset()
         else:
-            Ds2000StateError(
+            DS2000StateError(
                 "The level coul'd only be set, if the source is"
                 "Channel 1 or Channel 2."
             )  # ToDo: Right??

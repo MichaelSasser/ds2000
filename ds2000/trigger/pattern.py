@@ -19,14 +19,10 @@ from __future__ import annotations
 from typing import List
 from typing import Tuple
 
-from ds2000.controller import SubController, check_level
+from ds2000.common import SubController, check_level
 
 __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
-
-__all__ = [
-    "Pattern",
-]
 
 
 class Pattern(SubController):

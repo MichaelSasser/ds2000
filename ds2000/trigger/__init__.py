@@ -1,48 +1,45 @@
 #!/usr/bin/env python
 # ds2000 - The Python Library for Rigol DS2000 Oscilloscopes
-# Copyright (C) 2018-2020  Michael Sasser <Michael@MichaelSasser.org>
-
+# Copyright (C) 2020  Michael Sasser <Michael@MichaelSasser.org>
+#
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
-
+#
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-
+#
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
+from __future__ import annotations
 
 from ds2000.controller import BaseController
-from ds2000.controller.trigger_subcontrollers import (Mode,
-                                                      Coupling,
-                                                      Sweep,
-                                                      Edge,
-                                                      Pulse,
-                                                      Windows,
-                                                      Runt,
-                                                      NthEdge,
-                                                      Slope,
-                                                      Video,
-                                                      Pattern,
-                                                      Delay,
-                                                      Timeout,
-                                                      Duration,
-                                                      SetupHold,
-                                                      Rs232,
-                                                      I2c,
-                                                      Spi,
-                                                      Usb,)
 
+from .coupling import Coupling
+from .delay import Delay
+from .duration import Duration
+from .edge import Edge
+from .i2c import I2C
+from .mode import Mode
+from .nth_edge import NthEdge
+from .pattern import Pattern
+from .pulse import Pulse
+from .rs232 import RS232
+from .runt import Runt
+from .setup_hold import SetupHold
+from .slope import Slope
+from .spi import SPI
+from .sweep import Sweep
+from .timeout import Timeout
+from .usb import USB
+from .video import Video
+from .windows import Windows
 
 __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
-
-__all__ = [
-    "Trigger",
-]
 
 
 class Trigger(BaseController):
@@ -63,10 +60,10 @@ class Trigger(BaseController):
         self.timeout: Timeout = Timeout(self)
         self.duration: Duration = Duration(self)
         self.setup_hold: SetupHold = SetupHold(self)
-        self.rs232: Rs232 = Rs232(self)
-        self.iic: I2c = I2c(self)
-        self.spi: Spi = Spi(self)
-        self.usb: Usb = Usb(self)
+        self.rs232: RS232 = RS232(self)
+        self.iic: I2C = I2C(self)  # change to i2c
+        self.spi: SPI = SPI(self)
+        self.usb: USB = USB(self)
 
     def status(self) -> str:
         """
@@ -124,7 +121,7 @@ class Trigger(BaseController):
         """
         return float(self.device.ask(":TRIGger:HOLDoff?"))
 
-    def set_holdoff(self, time: float = 100.E-9) -> None:
+    def set_holdoff(self, time: float = 100.0e-9) -> None:
         """
         **Rigol Programming Guide**
 
@@ -160,9 +157,11 @@ class Trigger(BaseController):
         :TRIGger:HOLDoff 0.0000002
         The query returns 2.000000e-07.
         """
-        if not isinstance(time, float) or not 100.E-9 <= time <= 10:
-            ValueError(f"\"time\" must be of type float and between "
-                       f"100ns..10s. You entered {type(time)}.")
+        if not isinstance(time, float) or not 100.0e-9 <= time <= 10:
+            ValueError(
+                f'"time" must be of type float and between '
+                f"100ns..10s. You entered {type(time)}."
+            )
         self.device.ask(f":TRIGger:HOLDoff {time}")
 
     def get_noise_reject(self) -> bool:
@@ -230,6 +229,8 @@ class Trigger(BaseController):
         The query returns 1.
         """
         if not isinstance(enable, bool):
-            ValueError(f"\"enable\" must be of type bool, you entered "
-                       f"{type(enable)}.")
+            ValueError(
+                f'"enable" must be of type bool, you entered '
+                f"{type(enable)}."
+            )
         self.device.ask(f":TRIGger:NREJect {enable}")

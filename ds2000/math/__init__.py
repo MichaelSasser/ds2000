@@ -17,9 +17,3 @@
 
 __author__: str = "Michael Sasser"
 __email__: str = "Michael@MichaelSasser.org"
-
-# Don't change the import sequence
-from .format import *
-
-
-__all__ = (*format.__all__,)

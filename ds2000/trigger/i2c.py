@@ -15,22 +15,18 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 from __future__ import annotations
-from ds2000.controller import (
+from ds2000.common import (
     SubController,
     SubSubController,
     check_input,
-    Ds2000StateError,
 )
+from ds2000.errors import DS2000StateError
 
 __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
 
-__all__ = [
-    "I2c",
-]
 
-
-class I2cWhen(SubSubController):
+class I2CWhen(SubSubController):
     def start(self) -> None:
         """
         **Rigol Programming Guide**
@@ -261,7 +257,9 @@ class I2cWhen(SubSubController):
         :TRIGger:IIC:WHEN RESTart
         The query returns REST.
         """
-        self.subsubdevice.subdevice.device.ask(":TRIGger:IIC:WHEN NACKnowledge")
+        self.subsubdevice.subdevice.device.ask(
+            ":TRIGger:IIC:WHEN NACKnowledge"
+        )
 
     def address(self) -> None:
         """
@@ -496,7 +494,7 @@ class I2cWhen(SubSubController):
         return self.subsubdevice.subdevice.device.ask(":TRIGger:IIC:WHEN?")
 
 
-class I2cDirection(SubSubController):
+class I2CDirection(SubSubController):
     def read(self) -> None:
         """
         **Rigol Programming Guide**
@@ -655,14 +653,16 @@ class I2cDirection(SubSubController):
         :TRIGger:IIC:DIRection RWRite
         The query returns RWR.
         """
-        return self.subsubdevice.subdevice.device.ask(":TRIGger:IIC:DIRection?")
+        return self.subsubdevice.subdevice.device.ask(
+            ":TRIGger:IIC:DIRection?"
+        )
 
 
-class I2c(SubController):
+class I2C(SubController):
     def __init__(self, device):
-        super(I2c, self).__init__(device)
-        self.when: I2cWhen = I2cWhen(self)
-        self.direction: I2cDirection = I2cDirection(self)
+        super(I2C, self).__init__(device)
+        self.when: I2CWhen = I2CWhen(self)
+        self.direction: I2CDirection = I2CDirection(self)
 
     def set_scl_source(self, channel: int = 1) -> None:
         """
@@ -1114,7 +1114,7 @@ class I2c(SubController):
             scale = self.subdevice.device.channel2.scale()
             offset = self.subdevice.device.channel2.get_offset()
         else:
-            Ds2000StateError(
+            DS2000StateError(
                 "The level coul'd only be set, if the source is"
                 "Channel 1 or Channel 2."
             )  # TODO: Right??

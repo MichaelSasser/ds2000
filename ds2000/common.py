@@ -16,32 +16,24 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 from typing import Any, Optional, Union
 
-from ds2000.controller import Ds2000InternalSyntaxError
-from ds2000.math.format import get_prefix
+from .errors import DS2000InternalSyntaxError
+from .math.format import get_prefix
 
 __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
 
-__all__ = [
-    "BaseController",
-    "SubController",
-    "SubSubController",
-    "check_input",
-    "check_level",
-]
 
-
-class BaseController(object):
+class BaseController:  # pylint: disable=R0903
     def __init__(self, device):
         self.device = device
 
 
-class SubController(object):
+class SubController:  # pylint: disable=R0903
     def __init__(self, subdevice):
         self.subdevice = subdevice
 
 
-class SubSubController(object):
+class SubSubController:  # pylint: disable=R0903
     def __init__(self, subsubdevice):
         self.subsubdevice = subsubdevice
 
@@ -82,7 +74,7 @@ def check_input(
     # Check, if this function is used as intended: One or both checks are
     # active.
     if (arg_type is None) and (mini is None or maxi is None):
-        raise Ds2000InternalSyntaxError(
+        raise DS2000InternalSyntaxError(
             "This check does nothing. If this is "
             "intended, remove this check. "
             "otherwhise make sure it checks for "
@@ -92,7 +84,7 @@ def check_input(
     # Check, if this function is used as intended: mini and maxi have the same
     # type.
     if (mini is None or maxi is None) and type(mini) != type(maxi):
-        raise Ds2000InternalSyntaxError(
+        raise DS2000InternalSyntaxError(
             "The arguments mini and maxi have"
             "a different type. Make sure you"
             "always compare same types.\n"

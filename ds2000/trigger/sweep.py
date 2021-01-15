@@ -15,14 +15,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from ds2000.controller import SubController, Ds2000Exception
+from ds2000.common import SubController
+from ds2000.errors import DS2000Error
 
 __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
-
-__all__ = [
-    "Sweep",
-]
 
 
 class Sweep(SubController):
@@ -163,5 +160,6 @@ class Sweep(SubController):
             return "normal"
         if status == "sing":
             return "simgle"
-        Ds2000Exception("The sweep status could not be interpereted. I got: "
-                        f"{status}")
+        raise DS2000Error(
+            "The sweep status could not be interpereted. I got: " f"{status}"
+        )

@@ -14,179 +14,182 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
+from __future__ import annotations
 
-from collections import namedtuple
 from typing import Tuple
+from typing import NamedTuple
 
-from ds2000.controller import BaseController, SubController, Ds2000Exception
+from .common import BaseController
+from .common import SubController
+
+from .errors import DS2000Error
 
 __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
 
-__all__ = [
-    "Acquire",
-]
 
-AcquireType = namedtuple("AcquireType", "type average_count")
+class AcquireType(NamedTuple):
+    type: str
+    average_count: int
 
 
 class Type(SubController):
     def normal(self) -> None:
         """
-          **Rigol Programming Guide**
+        **Rigol Programming Guide**
 
-          **Syntax**
+        **Syntax**
 
-          :ACQuire:TYPE <type>
+        :ACQuire:TYPE <type>
 
-          :ACQuire:TYPE?
+        :ACQuire:TYPE?
 
-          **Description**
+        **Description**
 
-          Set the acquisition mode of the sample.
-          Query the current acquisition mode of the sample.
+        Set the acquisition mode of the sample.
+        Query the current acquisition mode of the sample.
 
-          **Parameter**
+        **Parameter**
 
-          ======= ========== ==================================== =======
-          Name    Type       Range                                Default
-          ======= ========== ==================================== =======
-          <type>  Discrete   {NORMal|AVERages|PEAK|HRESolution}   NORMal
-          ======= ========== ==================================== =======
+        ======= ========== ==================================== =======
+        Name    Type       Range                                Default
+        ======= ========== ==================================== =======
+        <type>  Discrete   {NORMal|AVERages|PEAK|HRESolution}   NORMal
+        ======= ========== ==================================== =======
 
-          **Explanation**
+        **Explanation**
 
-          When AVERages is selected, use the :ACQuire:AVERages command to set
-          the number of averages.
+        When AVERages is selected, use the :ACQuire:AVERages command to set
+        the number of averages.
 
-          **Return Format**
-          The query returns NORM, AVER, PEAK or HRES.
+        **Return Format**
+        The query returns NORM, AVER, PEAK or HRES.
 
-          **Example**
+        **Example**
 
-          :ACQuire:TYPE AVERages
+        :ACQuire:TYPE AVERages
 
-          The query returns AVER.
-          """
+        The query returns AVER.
+        """
         self.subdevice.device.ask(":ACQuire:TYPE NORMal")
 
     def average(self) -> None:
         """
-          **Rigol Programming Guide**
+        **Rigol Programming Guide**
 
-          **Syntax**
+        **Syntax**
 
-          :ACQuire:TYPE <type>
-          :ACQuire:TYPE?
+        :ACQuire:TYPE <type>
+        :ACQuire:TYPE?
 
-          **Description**
+        **Description**
 
-          Set the acquisition mode of the sample.
-          Query the current acquisition mode of the sample.
+        Set the acquisition mode of the sample.
+        Query the current acquisition mode of the sample.
 
-          **Parameter**
+        **Parameter**
 
-          ======= ========== ==================================== =======
-          Name    Type       Range                                Default
-          ======= ========== ==================================== =======
-          <type>  Discrete   {NORMal|AVERages|PEAK|HRESolution}   NORMal
-          ======= ========== ==================================== =======
+        ======= ========== ==================================== =======
+        Name    Type       Range                                Default
+        ======= ========== ==================================== =======
+        <type>  Discrete   {NORMal|AVERages|PEAK|HRESolution}   NORMal
+        ======= ========== ==================================== =======
 
-          **Explanation**
+        **Explanation**
 
-          When AVERages is selected, use the :ACQuire:AVERages command to set
-          the number of averages.
+        When AVERages is selected, use the :ACQuire:AVERages command to set
+        the number of averages.
 
-          **Return Format**
+        **Return Format**
 
-          The query returns NORM, AVER, PEAK or HRES.
+        The query returns NORM, AVER, PEAK or HRES.
 
-          **Example**
+        **Example**
 
-          :ACQuire:TYPE AVERages
+        :ACQuire:TYPE AVERages
 
-          The query returns AVER.
-          """
+        The query returns AVER.
+        """
         self.subdevice.device.ask(":ACQuire:TYPE AVERages")
 
     def peakdetect(self) -> None:
         """
-          **Rigol Programming Guide**
+        **Rigol Programming Guide**
 
-          **Syntax**
+        **Syntax**
 
-          :ACQuire:TYPE <type>
+        :ACQuire:TYPE <type>
 
-          :ACQuire:TYPE?
+        :ACQuire:TYPE?
 
-          **Description**
+        **Description**
 
-          Set the acquisition mode of the sample.
-          Query the current acquisition mode of the sample.
+        Set the acquisition mode of the sample.
+        Query the current acquisition mode of the sample.
 
-          **Parameter**
+        **Parameter**
 
-          ======= ========== ==================================== =======
-          Name    Type       Range                                Default
-          ======= ========== ==================================== =======
-          <type>  Discrete   {NORMal|AVERages|PEAK|HRESolution}   NORMal
-          ======= ========== ==================================== =======
+        ======= ========== ==================================== =======
+        Name    Type       Range                                Default
+        ======= ========== ==================================== =======
+        <type>  Discrete   {NORMal|AVERages|PEAK|HRESolution}   NORMal
+        ======= ========== ==================================== =======
 
-          **Explanation**
-          
-          When AVERages is selected, use the :ACQuire:AVERages command to set
-          the number of averages.
+        **Explanation**
 
-          **Return Format**
+        When AVERages is selected, use the :ACQuire:AVERages command to set
+        the number of averages.
 
-          The query returns NORM, AVER, PEAK or HRES.
+        **Return Format**
 
-          **Example**
+        The query returns NORM, AVER, PEAK or HRES.
 
-          :ACQuire:TYPE AVERages
+        **Example**
 
-          The query returns AVER.
-          """
+        :ACQuire:TYPE AVERages
+
+        The query returns AVER.
+        """
         self.subdevice.device.ask(":ACQuire:TYPE PEAK")
 
     def highres(self) -> None:
         """
-          **Rigol Programming Guide**
+        **Rigol Programming Guide**
 
-          **Syntax**
+        **Syntax**
 
-          :ACQuire:TYPE <type>
+        :ACQuire:TYPE <type>
 
-          :ACQuire:TYPE?
+        :ACQuire:TYPE?
 
-          **Description**
+        **Description**
 
-          Set the acquisition mode of the sample.
-          Query the current acquisition mode of the sample.
+        Set the acquisition mode of the sample.
+        Query the current acquisition mode of the sample.
 
-          **Parameter**
+        **Parameter**
 
-          ======= ========== ==================================== =======
-          Name    Type       Range                                Default
-          ======= ========== ==================================== =======
-          <type>  Discrete   {NORMal|AVERages|PEAK|HRESolution}   NORMal
-          ======= ========== ==================================== =======
+        ======= ========== ==================================== =======
+        Name    Type       Range                                Default
+        ======= ========== ==================================== =======
+        <type>  Discrete   {NORMal|AVERages|PEAK|HRESolution}   NORMal
+        ======= ========== ==================================== =======
 
-          **Explanation**
+        **Explanation**
 
-          When AVERages is selected, use the :ACQuire:AVERages command to set
-          the number of averages.
+        When AVERages is selected, use the :ACQuire:AVERages command to set
+        the number of averages.
 
-          **Return Format**
+        **Return Format**
 
-          The query returns NORM, AVER, PEAK or HRES.
+        The query returns NORM, AVER, PEAK or HRES.
 
-          **Example**
+        **Example**
 
-          :ACQuire:TYPE AVERages
+        :ACQuire:TYPE AVERages
 
-          The query returns AVER.
-          """
+        The query returns AVER.
+        """
         self.subdevice.device.ask(":ACQuire:TYPE HRESolution")
 
     def status(self):
@@ -199,7 +202,7 @@ class Type(SubController):
             return "Peak"
         elif answer == "HRES":
             return "High Resolution"
-        raise Ds2000Exception("Unknown Return Value")
+        raise DS2000Error("Unknown Return Value")
 
     def __str__(self) -> str:
         return self.status()
@@ -269,7 +272,7 @@ class Acquire(BaseController):
         The query returns an integer between 2 and 8192.
 
         **Example**
-        
+
         :ACQuire:AVERages 128
 
         The query returns 128.
@@ -291,7 +294,7 @@ class Acquire(BaseController):
         of 2. Query the current number of averages of the oscilloscope.
 
         **Parameter**
-        
+
         ========= ========= =========== =======
         Name      Type      Range       Default
         ========= ========= =========== =======
