@@ -1,5 +1,6 @@
 ![GitHub](https://img.shields.io/github/license/MichaelSasser/ds2000?style=flat-square)
-![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/MichaelSasser/ds2000/pythonpackage.yml/master?style=flat-square)
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/MichaelSasser/ds2000/Build%20and%20Tests?style=flat-square)
+
 # ds2000 - The Python Library for Rigol DS2000 Oscilloscopes
 
 ds2000 is a Python package for Rigol DS2000(A) Series Oscilloscopes.
