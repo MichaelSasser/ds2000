@@ -10,7 +10,7 @@ Welcome to ds2000's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-
+   ds2000
 
 Indices and tables
 ==================

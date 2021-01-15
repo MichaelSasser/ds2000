@@ -1,22 +1,11 @@
-ds2000.math package
-===================
+**Mathematics Modules** - ds2000.math
+=====================================
 
-Submodules
-----------
+**Format Math Module** - format.py
+----------------------------------
 
-ds2000.math.format module
--------------------------
 
 .. automodule:: ds2000.math.format
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-
-Module contents
----------------
-
-.. automodule:: ds2000.math
    :members:
    :undoc-members:
    :show-inheritance:
