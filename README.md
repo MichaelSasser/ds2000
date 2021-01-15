@@ -1,14 +1,11 @@
 ![GitHub](https://img.shields.io/github/license/MichaelSasser/ds2000?style=flat-square)
 ![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/MichaelSasser/ds2000/pythonpackage.yml/master?style=flat-square)
-![Matrix](https://img.shields.io/matrix/projects:michaelsasser.org?server_fqdn=matrix.michaelsasser.org&style=flat-square)
 # ds2000 - The Python Library for Rigol DS2000 Oscilloscopes
 
 ds2000 is a Python package for Rigol DS2000(A) Series Oscilloscopes.
-With this package you are able to navigate through the functions of your
-Oscilloscope with the Python autocomplete feature of your editor.
-You will never need to touch any SCPI command. This package parses every
-return value and gives you a complete python interface for your scope.
-It is an abstraction layer between the real world hardware and the programming.
+Without touching any SCPI command, you will be able to use any function of
+your oscilloscope with an python interface. It wraps every command and puts it
+in an logical high level interface for you. 
 
 It uses the "[python-vxi11](https://github.com/python-ivi/python-vxi11)"
 package to communicate with your Oscilloscope.
@@ -24,14 +21,26 @@ stable. Most features are not implemented yet and untested.
 
 [Check out current development status](https://github.com/MichaelSasser/ds2000/projects/2)
 
-#### A "NotImplementedError"-Error is not a bug
-Mostly I create the structure first and fill it with the Rigol programming
-documentation. This takes the most time. These methods and functions don't
-contain any code, except the NotImplementedError raise.
-These methods and functions are getting implemented later.
+## Semantic Versioning
+
+This repository uses [SemVer](https://semver.org/) for its release
+cycle.
+
+## Branching Model
+
+This repository uses the
+[git-flow](https://danielkummer.github.io/git-flow-cheatsheet/index.html)
+branching model by [Vincent Driessen](https://nvie.com/about/).
+It has two branches with infinite lifetime:
+
+* [master](https://github.com/MichaelSasser/ds2000/tree/master)
+* [develop](https://github.com/MichaelSasser/ds2000/tree/develop)
+
+The master branch gets updated on every release. The develop branch is the
+merging branch.
 
 ## License
-Copyright &copy; 2020 Michael Sasser <Info@MichaelSasser.org>. 
+Copyright &copy; 2020-2021 Michael Sasser <Info@MichaelSasser.org>. 
 Released under the GPLv3 license. 
 
 
