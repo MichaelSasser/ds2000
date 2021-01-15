@@ -18,7 +18,7 @@ from __future__ import annotations
 
 import re
 
-from matrixctl import __version__
+from ds2000 import __version__
 
 __author__: str = "Michael Sasser"
 __email__: str = "Michael@MichaelSasser.org"
@@ -27,7 +27,7 @@ __email__: str = "Michael@MichaelSasser.org"
 def test_version() -> None:
     """Test, if the version matches SemVer.
 
-    The regular expression is form:
+    The regular expression is from:
     https://semver.org/#is-there-a-suggested-regular-expression-regex-to-
             check-a-semver-string
     """

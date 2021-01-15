@@ -14,7 +14,13 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
+from __future__ import annotations
+
+from pathlib import Path
+
+from pkg_resources import get_distribution
 
 __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
 
+__version__ = get_distribution("ds2000").version
