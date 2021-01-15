@@ -14,8 +14,16 @@
 
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
+from __future__ import annotations
 
-from ds2000.controller import SubController, SubSubController
+from typing import Dict
+
+from ds2000.controller import (
+    SubController,
+    SubSubController,
+    check_input,
+    check_level,
+)
 
 __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
@@ -26,7 +34,7 @@ __all__ = [
 
 
 class VideoMode(SubSubController):
-    def odd_field(self):
+    def set_odd_field(self) -> None:
         """
         **Rigol Programming Guide**
 
@@ -86,9 +94,9 @@ class VideoMode(SubSubController):
         :TRIGger:VIDeo:MODE ODDField
         The query returns ODDF.
         """
-        raise NotImplementedError()
+        self.subsubdevice.subdevice.device.ask(":TRIGger:VIDeo:MODE ODDField")
 
-    def even_field(self):
+    def set_even_field(self) -> None:
         """
         **Rigol Programming Guide**
 
@@ -148,9 +156,9 @@ class VideoMode(SubSubController):
         :TRIGger:VIDeo:MODE ODDField
         The query returns ODDF.
         """
-        raise NotImplementedError()
+        self.subsubdevice.subdevice.device.ask(":TRIGger:VIDeo:MODE EVENfield")
 
-    def specific_line(self):
+    def set_specific_line(self) -> None:
         """
         **Rigol Programming Guide**
 
@@ -210,9 +218,9 @@ class VideoMode(SubSubController):
         :TRIGger:VIDeo:MODE ODDField
         The query returns ODDF.
         """
-        raise NotImplementedError()
+        self.subsubdevice.subdevice.device.ask(":TRIGger:VIDeo:MODE LINE")
 
-    def all_lines(self):
+    def set_all_lines(self) -> None:
         """
         **Rigol Programming Guide**
 
@@ -272,11 +280,73 @@ class VideoMode(SubSubController):
         :TRIGger:VIDeo:MODE ODDField
         The query returns ODDF.
         """
-        raise NotImplementedError()
+        self.subsubdevice.subdevice.device.ask(":TRIGger:VIDeo:MODE ALINes")
+
+    def status(self) -> str:
+        """
+        **Rigol Programming Guide**
+
+        **Syntax**
+
+        :TRIGger:VIDeo:MODE <mode>
+        :TRIGger:VIDeo:MODE?
+
+        **Description**
+
+        Set the sync type in video trigger to AllLine, Line Number, Odd Field
+        or Even Field.
+        Query the current sync type in video trigger.
+
+        **Parameter**
+
+        ======= ========= ================================= =======
+        Name    Type      Range                             Default
+        ======= ========= ================================= =======
+        <mode>  Discrete  {ODDField|EVENfield|LINE|ALINes}  ALINes
+        ======= ========= ================================= =======
+
+
+        Note: when the video standard is HDTV, the sync type could only be set
+        to AllLine or Line Number. For the video standard, refer to the
+        :TRIGger:VIDeo:STANdard command.
+
+        **Explanation**
+
+        ODDField: trigger on the rising edge of the first ramp waveform pulse
+        in the odd field.
+
+        EVENfield: trigger on the rising edge of the first ramp waveform pulse
+        in the even field.
+
+        LINE for NTSC and PAL/SECAM video standards, trigger on the specified
+        line in the odd or even field; for HDTV video standard, trigger on the
+        specified line. Note that when this sync trigger mode is selected, you
+        can modify the line number using in the “Line Num” menu with a step
+        of 1. The range of the line number is from
+        1 to 525 (NTSC),
+        1 to 625 (PAL/SECAM),
+        1 to 525 (480P),
+        1 to 625 (576P),
+        1 to 750 (720P),
+        1 to 1125 (1080P) or
+        1 to 1125 (1080I).
+
+        ALINes: trigger on all the horizontal sync pulses.
+
+        **Return Format**
+
+        The query returns ODDF, EVEN, LINE or ALIN.
+
+        **Example**
+
+        :TRIGger:VIDeo:MODE ODDField
+        The query returns ODDF.
+        """
+        return self.subsubdevice.subdevice.device.ask(":TRIGger:VIDeo:MODE?")
 
 
 class VideoStandard(SubSubController):
-    def pal_secam(self):
+    def set_pal_secam(self) -> None:
         """
         **Rigol Programming Guide**
 
@@ -311,9 +381,11 @@ class VideoStandard(SubSubController):
         :TRIGger:VIDeo:STANdard NTSC
         The query returns NTSC.
         """
-        raise NotImplementedError()
+        self.subsubdevice.subdevice.device.ask(
+            ":TRIGger:VIDeo:STANdard PALSecam"
+        )
 
-    def ntsc(self):
+    def set_ntsc(self) -> None:
         """
         **Rigol Programming Guide**
 
@@ -348,9 +420,9 @@ class VideoStandard(SubSubController):
         :TRIGger:VIDeo:STANdard NTSC
         The query returns NTSC.
         """
-        raise NotImplementedError()
+        self.subsubdevice.subdevice.device.ask(":TRIGger:VIDeo:STANdard NTSC")
 
-    def on_480p(self):
+    def set_on_480p(self) -> None:
         """
         **Rigol Programming Guide**
 
@@ -385,9 +457,9 @@ class VideoStandard(SubSubController):
         :TRIGger:VIDeo:STANdard NTSC
         The query returns NTSC.
         """
-        raise NotImplementedError()
+        self.subsubdevice.subdevice.device.ask(":TRIGger:VIDeo:STANdard 480P")
 
-    def on_576p(self):
+    def set_on_576p(self) -> None:
         """
         **Rigol Programming Guide**
 
@@ -422,9 +494,9 @@ class VideoStandard(SubSubController):
         :TRIGger:VIDeo:STANdard NTSC
         The query returns NTSC.
         """
-        raise NotImplementedError()
+        self.subsubdevice.subdevice.device.ask(":TRIGger:VIDeo:STANdard 576P")
 
-    def on_720p60hz(self):
+    def set_on_720p60hz(self) -> None:
         """
         **Rigol Programming Guide**
 
@@ -459,9 +531,11 @@ class VideoStandard(SubSubController):
         :TRIGger:VIDeo:STANdard NTSC
         The query returns NTSC.
         """
-        raise NotImplementedError()
+        self.subsubdevice.subdevice.device.ask(
+            ":TRIGger:VIDeo:STANdard 720P60HZ"
+        )
 
-    def on_720p50hz(self):
+    def set_on_720p50hz(self) -> None:
         """
         **Rigol Programming Guide**
 
@@ -496,9 +570,11 @@ class VideoStandard(SubSubController):
         :TRIGger:VIDeo:STANdard NTSC
         The query returns NTSC.
         """
-        raise NotImplementedError()
+        self.subsubdevice.subdevice.device.ask(
+            ":TRIGger:VIDeo:STANdard 720P50HZ"
+        )
 
-    def on_720p30hz(self):
+    def set_on_720p30hz(self) -> None:
         """
         **Rigol Programming Guide**
 
@@ -533,9 +609,11 @@ class VideoStandard(SubSubController):
         :TRIGger:VIDeo:STANdard NTSC
         The query returns NTSC.
         """
-        raise NotImplementedError()
+        self.subsubdevice.subdevice.device.ask(
+            ":TRIGger:VIDeo:STANdard 720P30HZ"
+        )
 
-    def on_720p25hz(self):
+    def set_on_720p25hz(self) -> None:
         """
         **Rigol Programming Guide**
 
@@ -570,9 +648,11 @@ class VideoStandard(SubSubController):
         :TRIGger:VIDeo:STANdard NTSC
         The query returns NTSC.
         """
-        raise NotImplementedError()
+        self.subsubdevice.subdevice.device.ask(
+            ":TRIGger:VIDeo:STANdard 720P25HZ"
+        )
 
-    def on_720p24hz(self):
+    def set_on_720p24hz(self) -> None:
         """
         **Rigol Programming Guide**
 
@@ -607,9 +687,11 @@ class VideoStandard(SubSubController):
         :TRIGger:VIDeo:STANdard NTSC
         The query returns NTSC.
         """
-        raise NotImplementedError()
+        self.subsubdevice.subdevice.device.ask(
+            ":TRIGger:VIDeo:STANdard 720P24HZ"
+        )
 
-    def on_1080p60hz(self):
+    def set_on_1080p60hz(self) -> None:
         """
         **Rigol Programming Guide**
 
@@ -644,9 +726,11 @@ class VideoStandard(SubSubController):
         :TRIGger:VIDeo:STANdard NTSC
         The query returns NTSC.
         """
-        raise NotImplementedError()
+        self.subsubdevice.subdevice.device.ask(
+            ":TRIGger:VIDeo:STANdard 1080P60HZ"
+        )
 
-    def on_1080p50hz(self):
+    def set_on_1080p50hz(self) -> None:
         """
         **Rigol Programming Guide**
 
@@ -681,9 +765,11 @@ class VideoStandard(SubSubController):
         :TRIGger:VIDeo:STANdard NTSC
         The query returns NTSC.
         """
-        raise NotImplementedError()
+        self.subsubdevice.subdevice.device.ask(
+            ":TRIGger:VIDeo:STANdard 1080P50HZ"
+        )
 
-    def on_1080p30hz(self):
+    def set_on_1080p30hz(self) -> None:
         """
         **Rigol Programming Guide**
 
@@ -718,9 +804,11 @@ class VideoStandard(SubSubController):
         :TRIGger:VIDeo:STANdard NTSC
         The query returns NTSC.
         """
-        raise NotImplementedError()
+        self.subsubdevice.subdevice.device.ask(
+            ":TRIGger:VIDeo:STANdard 1080P30HZ"
+        )
 
-    def on_1080p25hz(self):
+    def set_on_1080p25hz(self) -> None:
         """
         **Rigol Programming Guide**
 
@@ -755,9 +843,11 @@ class VideoStandard(SubSubController):
         :TRIGger:VIDeo:STANdard NTSC
         The query returns NTSC.
         """
-        raise NotImplementedError()
+        self.subsubdevice.subdevice.device.ask(
+            ":TRIGger:VIDeo:STANdard 1080P25HZ"
+        )
 
-    def on_1080p24hz(self):
+    def set_on_1080p24hz(self) -> None:
         """
         **Rigol Programming Guide**
 
@@ -792,9 +882,11 @@ class VideoStandard(SubSubController):
         :TRIGger:VIDeo:STANdard NTSC
         The query returns NTSC.
         """
-        raise NotImplementedError()
+        self.subsubdevice.subdevice.device.ask(
+            ":TRIGger:VIDeo:STANdard 1080P24HZ"
+        )
 
-    def on_1080i30hz(self):
+    def set_on_1080i30hz(self) -> None:
         """
         **Rigol Programming Guide**
 
@@ -829,9 +921,11 @@ class VideoStandard(SubSubController):
         :TRIGger:VIDeo:STANdard NTSC
         The query returns NTSC.
         """
-        raise NotImplementedError()
+        self.subsubdevice.subdevice.device.ask(
+            ":TRIGger:VIDeo:STANdard 1080I30HZ"
+        )
 
-    def on_1080i25hz(self):
+    def set_on_1080i25hz(self) -> None:
         """
         **Rigol Programming Guide**
 
@@ -866,9 +960,11 @@ class VideoStandard(SubSubController):
         :TRIGger:VIDeo:STANdard NTSC
         The query returns NTSC.
         """
-        raise NotImplementedError()
+        self.subsubdevice.subdevice.device.ask(
+            ":TRIGger:VIDeo:STANdard 1080I25HZ"
+        )
 
-    def on_1080i24hz(self):
+    def set_on_1080i24hz(self) -> None:
         """
         **Rigol Programming Guide**
 
@@ -903,16 +999,78 @@ class VideoStandard(SubSubController):
         :TRIGger:VIDeo:STANdard NTSC
         The query returns NTSC.
         """
-        raise NotImplementedError()
+        self.subsubdevice.subdevice.device.ask(
+            ":TRIGger:VIDeo:STANdard 1080I24HZ"
+        )
+
+    def status(self) -> str:
+        """
+        **Rigol Programming Guide**
+
+        **Syntax**
+
+        :TRIGger:VIDeo:STANdard <standard>
+        :TRIGger:VIDeo:STANdard?
+
+        **Description**
+
+        Select the video standard in video trigger.
+        Query the current video standard in video trigger.
+
+        **Parameter**
+
+        =========== ========= ==================================== =======
+        Name        Type      Range                                Default
+        =========== ========= ==================================== =======
+        <standard>  Discrete  {PALSecam|NTSC|480P|576P|720P60HZ|   NTSC
+                              720P50HZ|720P30HZ|720P25HZ|
+                              720P24HZ|1080P60HZ|1080P50HZ|
+                              1080P30HZ|1080P25HZ|1080P24HZ|
+                              1080I30HZ|1080I25HZ|1080I24HZ}
+        =========== ========= ==================================== =======
+
+        **Return Format**
+
+        The query returns the video standard selected.
+
+        **Example**
+
+        :TRIGger:VIDeo:STANdard NTSC
+        The query returns NTSC.
+        """
+        return self.subsubdevice.subdevice.device.ask(
+            ":TRIGger:VIDeo:STANdard?"
+        )
 
 
 class Video(SubController):
+
+    MAX_LINES_OF_VIDEO_STANDATD: Dict[str, int] = {
+        "NTSC": 525,
+        "PAL": 625,
+        "480P": 525,
+        "576P": 625,
+        "720P60HZ": 750,
+        "720P50HZ": 750,
+        "720P30HZ": 750,
+        "720P25HZ": 750,
+        "720P24HZ": 750,
+        "1080P60HZ": 1125,
+        "1080P50HZ": 1125,
+        "1080P30HZ": 1125,
+        "1080P25HZ": 1125,
+        "1080P24HZ": 1125,
+        "1080I30HZ": 1125,
+        "1080I25HZ": 1125,
+        "1080I24HZ": 1125,
+    }
+
     def __init__(self, device):
         super(Video, self).__init__(device)
         self.mode: VideoMode = VideoMode(self)
         self.standard: VideoStandard = VideoStandard(self)
 
-    def source(self):
+    def set_source(self, channel: int = 1) -> None:
         """
         **Rigol Programming Guide**
 
@@ -943,9 +1101,43 @@ class Video(SubController):
         :TRIGger:VIDeo:SOURce CHANnel2
         The query returns CHAN2.
         """
-        raise NotImplementedError()
+        check_input(channel, "channel", 1, 2)
+        self.subdevice.device.ask(f":TRIGger:VIDeo:SOURce CHANnel{channel}")
 
-    def polarity(self, positive: bool = True):
+    def get_source(self) -> str:
+        """
+        **Rigol Programming Guide**
+
+        **Syntax**
+
+        :TRIGger:VIDeo:SOURce <source>
+        :TRIGger:VIDeo:SOURce?
+
+        **Description**
+
+        Select the trigger source of video trigger.
+        Query the current trigger source of video trigger.
+
+        **Parameter**
+
+        ========= ========= ==================== ========
+        Name      Type      Range                Default
+        ========= ========= ==================== ========
+        <source>  Discrete  {CHANnel1|CHANnel2}  CHANnel1
+        ========= ========= ==================== ========
+
+        **Return Format**
+
+        The query returns CHAN1 or CHAN2.
+
+        **Example**
+
+        :TRIGger:VIDeo:SOURce CHANnel2
+        The query returns CHAN2.
+        """
+        return self.subdevice.device.ask(":TRIGger:VIDeo:SOURce?")
+
+    def set_polarity_positive(self) -> None:
         """
         **Rigol Programming Guide**
 
@@ -976,9 +1168,75 @@ class Video(SubController):
         :TRIGger:VIDeo:POLarity POSitive
         The query returns POS.
         """
-        raise NotImplementedError()
+        self.subdevice.device.ask(":TRIGger:VIDeo:POLarity POSitive")
 
-    def line(self, line: int = 1):
+    def set_polarity_negative(self) -> None:
+        """
+        **Rigol Programming Guide**
+
+        **Syntax**
+
+        :TRIGger:VIDeo:POLarity <polarity>
+        :TRIGger:VIDeo:POLarity?
+
+        **Description**
+
+        Set the video polarity in video trigger.
+        Query the current video polarity in video trigger.
+
+        **Parameter**
+
+        =========== ========= ==================== ========
+        Name        Type      Range                Default
+        =========== ========= ==================== ========
+        <polarity>  Discrete  {POSitive|NEGative}  POSitive
+        =========== ========= ==================== ========
+
+        **Return Format**
+
+        The query returns POS or NEG.
+
+        **Example**
+
+        :TRIGger:VIDeo:POLarity POSitive
+        The query returns POS.
+        """
+        self.subdevice.device.ask(":TRIGger:VIDeo:POLarity NEGative")
+
+    def get_polarity(self) -> str:
+        """
+        **Rigol Programming Guide**
+
+        **Syntax**
+
+        :TRIGger:VIDeo:POLarity <polarity>
+        :TRIGger:VIDeo:POLarity?
+
+        **Description**
+
+        Set the video polarity in video trigger.
+        Query the current video polarity in video trigger.
+
+        **Parameter**
+
+        =========== ========= ==================== ========
+        Name        Type      Range                Default
+        =========== ========= ==================== ========
+        <polarity>  Discrete  {POSitive|NEGative}  POSitive
+        =========== ========= ==================== ========
+
+        **Return Format**
+
+        The query returns POS or NEG.
+
+        **Example**
+
+        :TRIGger:VIDeo:POLarity POSitive
+        The query returns POS.
+        """
+        return self.subdevice.device.ask(":TRIGger:VIDeo:POLarity?")
+
+    def set_line(self, line: int = 1) -> None:
         """
         **Rigol Programming Guide**
 
@@ -1026,9 +1284,66 @@ class Video(SubController):
         :TRIGger:VIDeo:LINE 100
         The query returns 100.
         """
-        raise NotImplementedError()
+        check_input(
+            line,
+            "line",
+            int,
+            1,
+            self.__class__.MAX_LINES_OF_VIDEO_STANDATD[self.standard.status()],
+        )
+        self.subdevice.device.ask(f":TRIGger:VIDeo:LINE {line}")
 
-    def level(self):
+    def get_line(self) -> int:
+        """
+        **Rigol Programming Guide**
+
+        **Syntax**
+
+        :TRIGger:VIDeo:LINE <line>
+        :TRIGger:VIDeo:LINE?
+
+        **Description**
+
+        Set the line number in video trigger when the sync type is Line Number
+        (refer to the :TRIGger:VIDeo:MODE command).
+        Query the current line number of the specified line.
+
+        **Parameter**
+
+        ======= ======== ===================== =======
+        Name    Type     Range                 Default
+        ======= ======== ===================== =======
+        <line>  Integer  NTSC：1 to 525        1
+                         PAL：1 to 625
+                         480P：1 to 525
+                         576P：1 to 625
+                         720P60HZ：1 to 750
+                         720P50HZ：1 to 750
+                         720P30HZ：1 to 750
+                         720P25HZ：1 to 750
+                         720P24HZ：1 to 750
+                         1080P60HZ：1 to 1125
+                         1080P50HZ：1 to 1125
+                         1080P30HZ：1 to 1125
+                         1080P25HZ：1 to 1125
+                         1080P24HZ：1 to 1125
+                         1080I30HZ：1 to 1125
+                         1080I25HZ：1 to 1125
+                         1080I24HZ：1 to 1125
+        ======= ======== ===================== =======
+
+        **Return Format**
+
+        The query returns an integer.
+
+        **Example**
+
+        :TRIGger:VIDeo:LINE 100
+        The query returns 100.
+        """
+        return int(self.subdevice.device.ask(":TRIGger:VIDeo:LINE?"))
+
+    def set_level(self, level: float = 0.0) -> None:
         """
         **Rigol Programming Guide**
 
@@ -1065,4 +1380,16 @@ class Video(SubController):
         :TRIGger:VIDeo:LEVel 0.16
         The query returns 1.600000e-01.
         """
-        raise NotImplementedError()
+        scale: float = -1.0
+        offset: float = -1.0
+        channel: str = self.get_source()
+        if channel == "CHANnel1":
+            scale = self.subdevice.device.channel1.get_scale()
+            offset = self.subdevice.device.channel1.get_offset()
+        elif channel == "CHANnel2":
+            scale = self.subdevice.device.channel2.scale()
+            offset = self.subdevice.device.channel2.get_offset()
+        else:
+            raise RuntimeError("The oscilloscope returned an unknown channel")
+        check_level(level, scale, offset)
+        self.subdevice.device.ask(f":TRIGger:VIDeo:LEVel {level}")
