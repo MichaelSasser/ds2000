@@ -16,7 +16,7 @@
 
 [tool.poetry]
 name = "ds2000"
-version = "0.0.0.dev0"
+version = "0.1.0"
 description = "The Python Library for Rigol DS2000 Oscilloscopes"
 license = "GPL-3.0+"
 authors = ["Michael Sasser <Michael@MichaelSasser.org>"]
