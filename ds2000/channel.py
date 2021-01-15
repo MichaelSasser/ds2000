@@ -16,15 +16,17 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 from __future__ import annotations
 
+from typing import List
+from typing import NamedTuple
 from typing import Optional
 from typing import Tuple
-from typing import NamedTuple
-from typing import List
 
 from .common import BaseController
 from .common import SubController
 from .errors import DS2000Error
-from .math.format import get_prefix, Prefixed
+from .math.format import Prefixed
+from .math.format import get_prefix
+
 
 __author__: str = "Michael Sasser"
 __email__: str = "Michael@MichaelSasser.org"

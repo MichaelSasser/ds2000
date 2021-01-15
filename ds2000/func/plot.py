@@ -16,15 +16,14 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 from logging import debug
 
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
 
-from matplotlib.ticker import (
-    MultipleLocator,
-    FormatStrFormatter,
-)
+from matplotlib.ticker import FormatStrFormatter
+from matplotlib.ticker import MultipleLocator
 
 from ds2000.math.format import get_prefix
+
 
 __author__: str = "Michael Sasser"
 __email__: str = "Michael@MichaelSasser.org"

@@ -16,8 +16,8 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 from __future__ import annotations
 
-from typing import NamedTuple
 from logging import debug
+from typing import NamedTuple
 
 import numpy as np
 

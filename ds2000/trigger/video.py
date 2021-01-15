@@ -18,12 +18,11 @@ from __future__ import annotations
 
 from typing import Dict
 
-from ds2000.common import (
-    SubController,
-    SubSubController,
-    check_input,
-    check_level,
-)
+from ds2000.common import SubController
+from ds2000.common import SubSubController
+from ds2000.common import check_input
+from ds2000.common import check_level
+
 
 __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"

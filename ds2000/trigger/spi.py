@@ -15,7 +15,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from ds2000.common import SubController, check_input, check_level
+from ds2000.common import SubController
+from ds2000.common import check_input
+from ds2000.common import check_level
+
 
 __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"

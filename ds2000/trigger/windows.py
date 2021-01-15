@@ -16,11 +16,10 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 from __future__ import annotations
 
-from ds2000.common import (
-    SubController,
-    SubSubController,
-    check_input,
-)
+from ds2000.common import SubController
+from ds2000.common import SubSubController
+from ds2000.common import check_input
+
 
 __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"

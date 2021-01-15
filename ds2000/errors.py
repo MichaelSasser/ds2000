@@ -15,12 +15,13 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 from __future__ import annotations
+
+from sys import version_info
 from typing import Any
 from typing import Optional
 
-from sys import version_info
-
 from . import __version__
+
 
 __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"

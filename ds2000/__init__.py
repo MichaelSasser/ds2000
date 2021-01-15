@@ -16,23 +16,24 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 from __future__ import annotations
 
-from typing import Optional
-from typing import NamedTuple
-from logging import error
 from logging import debug
+from logging import error
 from pathlib import Path
-
-from pkg_resources import get_distribution
+from typing import NamedTuple
+from typing import Optional
 
 import vxi11
 
+from pkg_resources import get_distribution
+
 from .acquire import Acquire
+from .channel import Channel
 from .display import Display
 from .ieee import IEEE
 from .timebase import Timebase
 from .trigger import Trigger
 from .waveform import Waveform
-from .channel import Channel
+
 
 __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
@@ -264,10 +265,10 @@ class DS2000(object):
         self.__inst.close()
 
     def __str__(self) -> str:
-        return f"DS2000Object.{self.id.serial}"
+        return self.__repr__()
 
     def __repr__(self) -> str:
-        return f"{self.__class__.__qualname__}.{self.id.serial}"
+        return f"{self.__class__.__qualname__}({self.id.serial})"
 
     def __del__(self):
         self.disconnect()

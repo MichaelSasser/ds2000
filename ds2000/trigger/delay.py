@@ -17,7 +17,10 @@
 from enum import Enum
 from typing import Union
 
-from ds2000.common import SubController, SubSubController, check_input
+from ds2000.common import SubController
+from ds2000.common import SubSubController
+from ds2000.common import check_input
+
 
 __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"

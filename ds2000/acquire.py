@@ -16,13 +16,13 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 from __future__ import annotations
 
-from typing import Tuple
 from typing import NamedTuple
+from typing import Tuple
 
 from .common import BaseController
 from .common import SubController
-
 from .errors import DS2000Error
+
 
 __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
