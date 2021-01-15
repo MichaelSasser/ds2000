@@ -15,7 +15,12 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from ds2000.controller import SubController, SubSubController
+from ds2000.controller import (
+    SubController,
+    SubSubController,
+    check_input,
+    check_level,
+)
 
 __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
@@ -26,7 +31,7 @@ __all__ = [
 
 
 class UsbWhen(SubSubController):
-    def sop(self):
+    def set_sop(self) -> None:
         """
         **Rigol Programming Guide**
 
@@ -71,8 +76,9 @@ class UsbWhen(SubSubController):
         :TRIGger:USB:WHEN RC
         The query returns RC.
         """
-        raise NotImplementedError()
-    def eop(self):
+        self.subsubdevice.subdevice.device.ask(":TRIGger:USB:WHEN SOP")
+
+    def set_eop(self) -> None:
         """
         **Rigol Programming Guide**
 
@@ -117,8 +123,9 @@ class UsbWhen(SubSubController):
         :TRIGger:USB:WHEN RC
         The query returns RC.
         """
-        raise NotImplementedError()
-    def rc(self):
+        self.subsubdevice.subdevice.device.ask(":TRIGger:USB:WHEN EOP")
+
+    def set_rc(self) -> None:
         """
         **Rigol Programming Guide**
 
@@ -163,8 +170,9 @@ class UsbWhen(SubSubController):
         :TRIGger:USB:WHEN RC
         The query returns RC.
         """
-        raise NotImplementedError()
-    def suspend(self):
+        self.subsubdevice.subdevice.device.ask(":TRIGger:USB:WHEN RC")
+
+    def set_suspend(self) -> None:
         """
         **Rigol Programming Guide**
 
@@ -209,8 +217,9 @@ class UsbWhen(SubSubController):
         :TRIGger:USB:WHEN RC
         The query returns RC.
         """
-        raise NotImplementedError()
-    def exit_suspend(self):
+        self.subsubdevice.subdevice.device.ask(":TRIGger:USB:WHEN SUSPend")
+
+    def set_exit_suspend(self) -> None:
         """
         **Rigol Programming Guide**
 
@@ -255,7 +264,54 @@ class UsbWhen(SubSubController):
         :TRIGger:USB:WHEN RC
         The query returns RC.
         """
-        raise NotImplementedError()
+        self.subsubdevice.subdevice.device.ask(":TRIGger:USB:WHEN EXITsuspend")
+
+    def status(self) -> str:
+        """
+        **Rigol Programming Guide**
+
+        **Syntax**
+
+        :TRIGger:USB:WHEN <condition>
+        :TRIGger:USB:WHEN?
+
+        **Description**
+
+        Set the trigger condition of USB trigger.
+        Query the current trigger condition of USB trigger.
+
+        **Parameter**
+
+        ============ ========= ================================= =======
+        Name         Type      Range                             Default
+        ============ ========= ================================= =======
+        <condition>  Discrete  {SOP|EOP|RC|SUSPend|EXITsuspend}  SOP
+        ============ ========= ================================= =======
+
+        **Explanation**
+
+        SOP: trigger at the sync bit at the start of the data packet (SOP).
+
+        EOP: trigger at the end of the SEO portion of the EOP of the data
+        packet.
+
+        RC: trigger when SEO is greater than 10 ms.
+
+        SUSPend: trigger when the idle time of the bus is greater than 3 ms.
+
+        EXITsuspend: trigger when the bus exits from idle state for more
+        than 10 ms.
+
+        **Return Format**
+
+        The query returns SOP, EOP, RC, SUSP or EXIT.
+
+        **Example**
+
+        :TRIGger:USB:WHEN RC
+        The query returns RC.
+        """
+        return self.subsubdevice.subdevice.device.ask(":TRIGger:USB:WHEN?")
 
 
 class Usb(SubController):
@@ -263,7 +319,7 @@ class Usb(SubController):
         super(Usb, self).__init__(device)
         self.when: UsbWhen = UsbWhen(self)
 
-    def data_plus_source(self):
+    def set_data_plus_source(self, channel: int = 1) -> None:
         """
         **Rigol Programming Guide**
 
@@ -294,9 +350,43 @@ class Usb(SubController):
         :TRIGger:USB:DPLus CHANnel2
         The query returns CHAN2.
         """
-        raise NotImplementedError()
+        check_input(channel, "channel", int, 1, 2)
+        self.subdevice.device.ask(f":TRIGger:USB:DPLus CHANnel{channel}")
 
-    def data_minus_source(self):
+    def get_data_plus_source(self) -> str:
+        """
+        **Rigol Programming Guide**
+
+        **Syntax**
+
+        :TRIGger:USB:DPLus <source>
+        :TRIGger:USB:DPLus?
+
+        **Description**
+
+        Select the D+ data channel source in USB trigger.
+        Query the current D+ data channel source in USB trigger.
+
+        **Parameter**
+
+        ========= ========= ==================== ========
+        Name      Type      Range                Default
+        ========= ========= ==================== ========
+        <source>  Discrete  {CHANnel1|CHANnel2}  CHANnel1
+        ========= ========= ==================== ========
+
+        **Return Format**
+
+        The query returns CHAN1 or CHAN2.
+
+        **Example**
+
+        :TRIGger:USB:DPLus CHANnel2
+        The query returns CHAN2.
+        """
+        return self.subdevice.device.ask(":TRIGger:USB:DPLus?")
+
+    def set_data_minus_source(self, channel: int = 2) -> None:
         """
         **Rigol Programming Guide**
 
@@ -327,9 +417,43 @@ class Usb(SubController):
         :TRIGger:USB:DMINus CHANnel2
         The query returns CHAN2.
         """
-        raise NotImplementedError()
+        check_input(channel, "channel", int, 1, 2)
+        self.subdevice.device.ask(f":TRIGger:USB:DMINus CHANnel{channel}")
 
-    def speed(self, full: bool = False):
+    def get_data_minus_source(self) -> str:
+        """
+        **Rigol Programming Guide**
+
+        **Syntax**
+
+        :TRIGger:USB:DMINus <source>
+        :TRIGger:USB:DMINus?
+
+        **Description**
+
+        Select the D- data channel source in USB trigger.
+        Query the current D- data channel source in USB trigger.
+
+        **Parameter**
+
+        ========= ========= ==================== ========
+        Name      Type      Range                Default
+        ========= ========= ==================== ========
+        <source>  Discrete  {CHANnel1|CHANnel2}  CHANnel2
+        ========= ========= ==================== ========
+
+        **Return Format**
+
+        The query returns CHAN1 or CHAN2.
+
+        **Example**
+
+        :TRIGger:USB:DMINus CHANnel2
+        The query returns CHAN2.
+        """
+        return self.subdevice.device.ask(":TRIGger:USB:DMINus?")
+
+    def set_speed_full(self) -> None:
         """
         **Rigol Programming Guide**
 
@@ -360,9 +484,75 @@ class Usb(SubController):
         :TRIGger:USB:SPEed FULL
         The query returns FULL.
         """
-        raise NotImplementedError()
+        self.subdevice.device.ask(":TRIGger:USB:SPEed FULL")
 
-    def data_plus_trigger_level(self):
+    def set_speed_low(self) -> None:
+        """
+        **Rigol Programming Guide**
+
+        **Syntax**
+
+        :TRIGger:USB:SPEed <value>
+        :TRIGger:USB:SPEed?
+
+        **Description**
+
+        Set the signal speed in USB trigger to Low Speed or Full Speed.
+        Query the current signal speed in USB trigger.
+
+        **Parameter**
+
+        ======== ========= =========== ========
+        Name     Type      Range       Default
+        ======== ========= =========== ========
+        <value>  Discrete  {LOW|FULL}  LOW
+        ======== ========= =========== ========
+
+        **Return Format**
+
+        The query returns LOW or FULL.
+
+        **Example**
+
+        :TRIGger:USB:SPEed FULL
+        The query returns FULL.
+        """
+        self.subdevice.device.ask(":TRIGger:USB:SPEed LOW")
+
+    def get_speed(self) -> str:
+        """
+        **Rigol Programming Guide**
+
+        **Syntax**
+
+        :TRIGger:USB:SPEed <value>
+        :TRIGger:USB:SPEed?
+
+        **Description**
+
+        Set the signal speed in USB trigger to Low Speed or Full Speed.
+        Query the current signal speed in USB trigger.
+
+        **Parameter**
+
+        ======== ========= =========== ========
+        Name     Type      Range       Default
+        ======== ========= =========== ========
+        <value>  Discrete  {LOW|FULL}  LOW
+        ======== ========= =========== ========
+
+        **Return Format**
+
+        The query returns LOW or FULL.
+
+        **Example**
+
+        :TRIGger:USB:SPEed FULL
+        The query returns FULL.
+        """
+        return self.subdevice.device.ask(":TRIGger:USB:SPEed?")
+
+    def set_data_plus_trigger_level(self, level: float = 0.0) -> None:
         """
         **Rigol Programming Guide**
 
@@ -399,9 +589,60 @@ class Usb(SubController):
         :TRIGger:USB:PLEVel 0.16
         The query returns 1.600000e-01.
         """
-        raise NotImplementedError()
+        scale: float = -1.0
+        offset: float = -1.0
+        channel: str = self.get_data_plus_source()
+        if channel == "CHANnel1":
+            scale = self.subdevice.device.channel1.get_scale()
+            offset = self.subdevice.device.channel1.get_offset()
+        elif channel == "CHANnel2":
+            scale = self.subdevice.device.channel2.scale()
+            offset = self.subdevice.device.channel2.get_offset()
+        else:
+            raise RuntimeError("The oscilloscope returned an unknown channel")
+        check_level(level, scale, offset)
+        self.subdevice.device.ask(f":TRIGger:USB:PLEVel {level}")
 
-    def data_minus_trigger_level(self):
+    def get_data_plus_trigger_level(self) -> float:
+        """
+        **Rigol Programming Guide**
+
+        **Syntax**
+
+        :TRIGger:USB:PLEVel <level>
+        :TRIGger:USB:PLEVel?
+
+        **Description**
+
+        Set the trigger level of the D+ data line in USB trigger and the unit
+        is the same with the current amplitude unit.
+        Query the current trigger level of the D+ data line in USB trigger.
+
+        **Parameter**
+
+        ======== ===== =========================== =======
+        Name     Type  Range                       Default
+        ======== ===== =========================== =======
+        <level>  Real  ± 5× VerticalScale from     0
+                       the screen center - OFFSet
+        ======== ===== =========================== =======
+
+        Note:
+        For the VerticalScale, refer to the :CHANnel<n>:SCALe command.
+        For the OFFSet, refer to the :CHANNel<n>:OFFSet command.
+
+        **Return Format**
+
+        The query returns the trigger level in scientific notation.
+
+        **Example**
+
+        :TRIGger:USB:PLEVel 0.16
+        The query returns 1.600000e-01.
+        """
+        return float(self.subdevice.device.ask(":TRIGger:USB:PLEVel?"))
+
+    def set_data_minus_trigger_level(self, level: float = 0.0) -> None:
         """
         **Rigol Programming Guide**
 
@@ -438,4 +679,55 @@ class Usb(SubController):
         :TRIGger:USB:MLEVel 0.16
         The query returns 1.600000e-01.
         """
-        raise NotImplementedError()
+        scale: float = -1.0
+        offset: float = -1.0
+        channel: str = self.get_data_minus_source()
+        if channel == "CHANnel1":
+            scale = self.subdevice.device.channel1.get_scale()
+            offset = self.subdevice.device.channel1.get_offset()
+        elif channel == "CHANnel2":
+            scale = self.subdevice.device.channel2.scale()
+            offset = self.subdevice.device.channel2.get_offset()
+        else:
+            raise RuntimeError("The oscilloscope returned an unknown channel")
+        check_level(level, scale, offset)
+        self.subdevice.device.ask(f":TRIGger:USB:MLEVel {level}")
+
+    def get_data_minus_trigger_level(self) -> float:
+        """
+        **Rigol Programming Guide**
+
+        **Syntax**
+
+        :TRIGger:USB:MLEVel <level>
+        :TRIGger:USB:MLEVel?
+
+        **Description**
+
+        Set the trigger level of the D- data line in USB trigger and the unit
+        is the same with the current amplitude unit.
+        Query the current trigger level of the D- data line in USB trigger.
+
+        **Parameter**
+
+        ======== ===== =========================== =======
+        Name     Type  Range                       Default
+        ======== ===== =========================== =======
+        <level>  Real  ± 5 × VerticalScale from    0
+                       the screen center - OFFSet
+        ======== ===== =========================== =======
+
+        Note:
+        For the VerticalScale, refer to the :CHANnel<n>:SCALe command.
+        For the OFFSet, refer to the :CHANNel<n>:OFFSet command.
+
+        **Return Format**
+
+        The query returns the trigger level in scientific notation.
+
+        **Example**
+
+        :TRIGger:USB:MLEVel 0.16
+        The query returns 1.600000e-01.
+        """
+        return float(self.subdevice.device.ask(":TRIGger:USB:MLEVel?"))
