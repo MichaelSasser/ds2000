@@ -5,7 +5,7 @@
 ds2000 is a Python package for Rigol DS2000(A) Series Oscilloscopes.
 Without touching any SCPI command, you will be able to use any function of
 your oscilloscope with an python interface. It wraps every command and puts it
-in an logical high level interface for you. 
+in an logical high level interface for you.
 
 It uses the "[python-vxi11](https://github.com/python-ivi/python-vxi11)"
 package to communicate with your Oscilloscope.
@@ -40,7 +40,5 @@ The master branch gets updated on every release. The develop branch is the
 merging branch.
 
 ## License
-Copyright &copy; 2020-2021 Michael Sasser <Info@MichaelSasser.org>. 
-Released under the GPLv3 license. 
-
-
+Copyright &copy; 2020-2021 Michael Sasser <Info@MichaelSasser.org>.
+Released under the GPLv3 license.
