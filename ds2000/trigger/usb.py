@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # ds2000 - The Python Library for Rigol DS2000 Oscilloscopes
-# Copyright (C) 2020  Michael Sasser <Michael@MichaelSasser.org>
+# Copyright (C) 2020-2021  Michael Sasser <Michael@MichaelSasser.org>
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,8 +15,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from ds2000.common import SubController
-from ds2000.common import SubSubController
+from ds2000.common import SFunc
+from ds2000.common import SSFunc
 from ds2000.common import check_input
 from ds2000.common import check_level
 
@@ -25,7 +25,7 @@ __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
 
 
-class USBWhen(SubSubController):
+class USBWhen(SSFunc):
     def set_sop(self) -> None:
         """
         **Rigol Programming Guide**
@@ -71,7 +71,7 @@ class USBWhen(SubSubController):
         :TRIGger:USB:WHEN RC
         The query returns RC.
         """
-        self.subsubdevice.subdevice.device.ask(":TRIGger:USB:WHEN SOP")
+        self.ssdev.sdev.dev.ask(":TRIGger:USB:WHEN SOP")
 
     def set_eop(self) -> None:
         """
@@ -118,7 +118,7 @@ class USBWhen(SubSubController):
         :TRIGger:USB:WHEN RC
         The query returns RC.
         """
-        self.subsubdevice.subdevice.device.ask(":TRIGger:USB:WHEN EOP")
+        self.ssdev.sdev.dev.ask(":TRIGger:USB:WHEN EOP")
 
     def set_rc(self) -> None:
         """
@@ -165,7 +165,7 @@ class USBWhen(SubSubController):
         :TRIGger:USB:WHEN RC
         The query returns RC.
         """
-        self.subsubdevice.subdevice.device.ask(":TRIGger:USB:WHEN RC")
+        self.ssdev.sdev.dev.ask(":TRIGger:USB:WHEN RC")
 
     def set_suspend(self) -> None:
         """
@@ -212,7 +212,7 @@ class USBWhen(SubSubController):
         :TRIGger:USB:WHEN RC
         The query returns RC.
         """
-        self.subsubdevice.subdevice.device.ask(":TRIGger:USB:WHEN SUSPend")
+        self.ssdev.sdev.dev.ask(":TRIGger:USB:WHEN SUSPend")
 
     def set_exit_suspend(self) -> None:
         """
@@ -259,7 +259,7 @@ class USBWhen(SubSubController):
         :TRIGger:USB:WHEN RC
         The query returns RC.
         """
-        self.subsubdevice.subdevice.device.ask(":TRIGger:USB:WHEN EXITsuspend")
+        self.ssdev.sdev.dev.ask(":TRIGger:USB:WHEN EXITsuspend")
 
     def status(self) -> str:
         """
@@ -306,10 +306,10 @@ class USBWhen(SubSubController):
         :TRIGger:USB:WHEN RC
         The query returns RC.
         """
-        return self.subsubdevice.subdevice.device.ask(":TRIGger:USB:WHEN?")
+        return self.ssdev.sdev.dev.ask(":TRIGger:USB:WHEN?")
 
 
-class USB(SubController):
+class USB(SFunc):
     def __init__(self, device):
         super(USB, self).__init__(device)
         self.when: USBWhen = USBWhen(self)
@@ -346,7 +346,7 @@ class USB(SubController):
         The query returns CHAN2.
         """
         check_input(channel, "channel", int, 1, 2)
-        self.subdevice.device.ask(f":TRIGger:USB:DPLus CHANnel{channel}")
+        self.sdev.dev.ask(f":TRIGger:USB:DPLus CHANnel{channel}")
 
     def get_data_plus_source(self) -> str:
         """
@@ -379,7 +379,7 @@ class USB(SubController):
         :TRIGger:USB:DPLus CHANnel2
         The query returns CHAN2.
         """
-        return self.subdevice.device.ask(":TRIGger:USB:DPLus?")
+        return self.sdev.dev.ask(":TRIGger:USB:DPLus?")
 
     def set_data_minus_source(self, channel: int = 2) -> None:
         """
@@ -413,7 +413,7 @@ class USB(SubController):
         The query returns CHAN2.
         """
         check_input(channel, "channel", int, 1, 2)
-        self.subdevice.device.ask(f":TRIGger:USB:DMINus CHANnel{channel}")
+        self.sdev.dev.ask(f":TRIGger:USB:DMINus CHANnel{channel}")
 
     def get_data_minus_source(self) -> str:
         """
@@ -446,7 +446,7 @@ class USB(SubController):
         :TRIGger:USB:DMINus CHANnel2
         The query returns CHAN2.
         """
-        return self.subdevice.device.ask(":TRIGger:USB:DMINus?")
+        return self.sdev.dev.ask(":TRIGger:USB:DMINus?")
 
     def set_speed_full(self) -> None:
         """
@@ -479,7 +479,7 @@ class USB(SubController):
         :TRIGger:USB:SPEed FULL
         The query returns FULL.
         """
-        self.subdevice.device.ask(":TRIGger:USB:SPEed FULL")
+        self.sdev.dev.ask(":TRIGger:USB:SPEed FULL")
 
     def set_speed_low(self) -> None:
         """
@@ -512,7 +512,7 @@ class USB(SubController):
         :TRIGger:USB:SPEed FULL
         The query returns FULL.
         """
-        self.subdevice.device.ask(":TRIGger:USB:SPEed LOW")
+        self.sdev.dev.ask(":TRIGger:USB:SPEed LOW")
 
     def get_speed(self) -> str:
         """
@@ -545,7 +545,7 @@ class USB(SubController):
         :TRIGger:USB:SPEed FULL
         The query returns FULL.
         """
-        return self.subdevice.device.ask(":TRIGger:USB:SPEed?")
+        return self.sdev.dev.ask(":TRIGger:USB:SPEed?")
 
     def set_data_plus_trigger_level(self, level: float = 0.0) -> None:
         """
@@ -588,15 +588,15 @@ class USB(SubController):
         offset: float = -1.0
         channel: str = self.get_data_plus_source()
         if channel == "CHANnel1":
-            scale = self.subdevice.device.channel1.get_scale()
-            offset = self.subdevice.device.channel1.get_offset()
+            scale = self.sdev.dev.channel1.get_scale()
+            offset = self.sdev.dev.channel1.get_offset()
         elif channel == "CHANnel2":
-            scale = self.subdevice.device.channel2.scale()
-            offset = self.subdevice.device.channel2.get_offset()
+            scale = self.sdev.dev.channel2.scale()
+            offset = self.sdev.dev.channel2.get_offset()
         else:
             raise RuntimeError("The oscilloscope returned an unknown channel")
         check_level(level, scale, offset)
-        self.subdevice.device.ask(f":TRIGger:USB:PLEVel {level}")
+        self.sdev.dev.ask(f":TRIGger:USB:PLEVel {level}")
 
     def get_data_plus_trigger_level(self) -> float:
         """
@@ -635,7 +635,7 @@ class USB(SubController):
         :TRIGger:USB:PLEVel 0.16
         The query returns 1.600000e-01.
         """
-        return float(self.subdevice.device.ask(":TRIGger:USB:PLEVel?"))
+        return float(self.sdev.dev.ask(":TRIGger:USB:PLEVel?"))
 
     def set_data_minus_trigger_level(self, level: float = 0.0) -> None:
         """
@@ -678,15 +678,15 @@ class USB(SubController):
         offset: float = -1.0
         channel: str = self.get_data_minus_source()
         if channel == "CHANnel1":
-            scale = self.subdevice.device.channel1.get_scale()
-            offset = self.subdevice.device.channel1.get_offset()
+            scale = self.sdev.dev.channel1.get_scale()
+            offset = self.sdev.dev.channel1.get_offset()
         elif channel == "CHANnel2":
-            scale = self.subdevice.device.channel2.scale()
-            offset = self.subdevice.device.channel2.get_offset()
+            scale = self.sdev.dev.channel2.scale()
+            offset = self.sdev.dev.channel2.get_offset()
         else:
             raise RuntimeError("The oscilloscope returned an unknown channel")
         check_level(level, scale, offset)
-        self.subdevice.device.ask(f":TRIGger:USB:MLEVel {level}")
+        self.sdev.dev.ask(f":TRIGger:USB:MLEVel {level}")
 
     def get_data_minus_trigger_level(self) -> float:
         """
@@ -725,4 +725,4 @@ class USB(SubController):
         :TRIGger:USB:MLEVel 0.16
         The query returns 1.600000e-01.
         """
-        return float(self.subdevice.device.ask(":TRIGger:USB:MLEVel?"))
+        return float(self.sdev.dev.ask(":TRIGger:USB:MLEVel?"))

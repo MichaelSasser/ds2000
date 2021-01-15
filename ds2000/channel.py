@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # ds2000 - The Python Library for Rigol DS2000 Oscilloscopes
-# Copyright (C) 2019-2020  Michael Sasser <Michael@MichaelSasser.org>
+# Copyright (C) 2019-2021  Michael Sasser <Michael@MichaelSasser.org>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -21,8 +21,8 @@ from typing import NamedTuple
 from typing import Optional
 from typing import Tuple
 
-from .common import BaseController
-from .common import SubController
+from .common import Func
+from .common import SFunc
 from .errors import DS2000Error
 from .math.format import Prefixed
 from .math.format import get_prefix
@@ -43,7 +43,7 @@ class ChannelOffsetRange(NamedTuple):
     off: float  # minimal offset: -off; maximal offset: off
 
 
-class ChannelCoupling(SubController):
+class ChannelCoupling(SFunc):
     def ac(self) -> None:
         """
         **Rigol Programming Guide**
@@ -77,8 +77,8 @@ class ChannelCoupling(SubController):
         The query returns AC.
 
         """
-        self.subdevice.device.ask(
-            f":CHANnel{self.subdevice._channel}:COUPling AC"
+        self.sdev.dev.ask(
+            f":CHANnel{self.sdev._channel}:COUPling AC"
         )
 
     def dc(self) -> None:
@@ -114,8 +114,8 @@ class ChannelCoupling(SubController):
         The query returns AC.
 
         """
-        self.subdevice.device.ask(
-            f":CHANnel{self.subdevice._channel}:COUPling DC"
+        self.sdev.dev.ask(
+            f":CHANnel{self.sdev._channel}:COUPling DC"
         )
 
     def gnd(self) -> None:
@@ -151,8 +151,8 @@ class ChannelCoupling(SubController):
         The query returns AC.
 
         """
-        self.subdevice.device.ask(
-            f":CHANnel{self.subdevice._channel}:COUPling GND"
+        self.sdev.dev.ask(
+            f":CHANnel{self.sdev._channel}:COUPling GND"
         )
 
     def status(self) -> str:
@@ -188,12 +188,12 @@ class ChannelCoupling(SubController):
         The query returns AC.
 
         """
-        return self.subdevice.device.ask(
-            f":CHANnel{self.subdevice._channel}:COUPling?"
+        return self.sdev.dev.ask(
+            f":CHANnel{self.sdev._channel}:COUPling?"
         ).lower()
 
 
-class ChannelUnits(SubController):
+class ChannelUnits(SFunc):
     def voltage(self) -> None:
         """
         **Rigol Programming Guide**
@@ -227,8 +227,8 @@ class ChannelUnits(SubController):
         The query returns VOLT.
 
         """
-        self.subdevice.device.ask(
-            f":CHANnel{self.subdevice._channel}::UNITs VOLTage"
+        self.sdev.dev.ask(
+            f":CHANnel{self.sdev._channel}::UNITs VOLTage"
         )
 
     def power(self) -> None:
@@ -264,8 +264,8 @@ class ChannelUnits(SubController):
         The query returns VOLT.
 
         """
-        self.subdevice.device.ask(
-            f":CHANnel{self.subdevice._channel}::UNITs WATT"
+        self.sdev.dev.ask(
+            f":CHANnel{self.sdev._channel}::UNITs WATT"
         )
 
     def current(self) -> None:
@@ -301,8 +301,8 @@ class ChannelUnits(SubController):
         The query returns VOLT.
 
         """
-        self.subdevice.device.ask(
-            f":CHANnel{self.subdevice._channel}::UNITs AMPere"
+        self.sdev.dev.ask(
+            f":CHANnel{self.sdev._channel}::UNITs AMPere"
         )
 
     def unknown(self) -> None:
@@ -338,8 +338,8 @@ class ChannelUnits(SubController):
         The query returns VOLT.
 
         """
-        self.subdevice.device.ask(
-            f":CHANnel{self.subdevice._channel}::UNITs UNKNown"
+        self.sdev.dev.ask(
+            f":CHANnel{self.sdev._channel}::UNITs UNKNown"
         )
 
     def status(self) -> str:
@@ -375,8 +375,8 @@ class ChannelUnits(SubController):
         The query returns VOLT.
 
         """
-        unit: str = self.subdevice.device.ask(
-            f":CHANnel{self.subdevice._channel}::UNITs?"
+        unit: str = self.sdev.dev.ask(
+            f":CHANnel{self.sdev._channel}::UNITs?"
         )
         if unit == "VOLT":
             return "voltage"
@@ -389,7 +389,7 @@ class ChannelUnits(SubController):
         DS2000Error("The channel unit couldn't be recognized.")
 
 
-class ChannelBandwidthLimit(SubController):
+class ChannelBandwidthLimit(SFunc):
     def off(self):
         """
         **Rigol Programming Guide**
@@ -425,8 +425,8 @@ class ChannelBandwidthLimit(SubController):
         :CHANnel1:BWLimit 20M
         The query returns 20M.
         """
-        self.subdevice.device.ask(
-            f":CHANnel{self.subdevice._channel}:BWLimit OFF"
+        self.sdev.dev.ask(
+            f":CHANnel{self.sdev._channel}:BWLimit OFF"
         )
 
     def bw_20m(self):
@@ -464,8 +464,8 @@ class ChannelBandwidthLimit(SubController):
         :CHANnel1:BWLimit 20M
         The query returns 20M.
         """
-        self.subdevice.device.ask(
-            f":CHANnel{self.subdevice._channel}:BWLimit 20M"
+        self.sdev.dev.ask(
+            f":CHANnel{self.sdev._channel}:BWLimit 20M"
         )
 
     def bw_100m(self):  # ToDo: not for DS2072 & DS2012
@@ -503,8 +503,8 @@ class ChannelBandwidthLimit(SubController):
         :CHANnel1:BWLimit 20M
         The query returns 20M.
         """
-        self.subdevice.device.ask(
-            f":CHANnel{self.subdevice._channel}:BWLimit 100M"
+        self.sdev.dev.ask(
+            f":CHANnel{self.sdev._channel}:BWLimit 100M"
         )
 
     def status(self):
@@ -542,12 +542,12 @@ class ChannelBandwidthLimit(SubController):
         :CHANnel1:BWLimit 20M
         The query returns 20M.
         """
-        self.subdevice.device.ask(
-            f":CHANnel{self.subdevice._channel}:BWLimit?"
+        self.sdev.dev.ask(
+            f":CHANnel{self.sdev._channel}:BWLimit?"
         )
 
 
-class Channel(BaseController):
+class Channel(Func):
     OFFSET_RANGES: Tuple[ChannelOffsetRange, ...] = (
         ChannelOffsetRange(500.0e-6, 50.0e-3, 2),
         ChannelOffsetRange(51.0e-3, 200.0e-3, 10),
@@ -574,8 +574,8 @@ class Channel(BaseController):
         1000.0,
     )
 
-    def __init__(self, device, channel):
-        super(Channel, self).__init__(device)
+    def __init__(self, dev, channel):
+        super(Channel, self).__init__(dev)
 
         self._channel = channel
 
@@ -617,7 +617,7 @@ class Channel(BaseController):
         :CHANnel1:INVert ON
         The query returns 1.
         """
-        return bool(int(self.device.ask(f":CHANnel{self._channel}:INVert?")))
+        return bool(int(self.dev.ask(f":CHANnel{self._channel}:INVert?")))
 
     def set_invert(self, enable: bool = False) -> None:
         """
@@ -656,7 +656,7 @@ class Channel(BaseController):
                 '"enable" must be of type "bool". You entered'
                 f"{type(enable)}."
             )
-        self.device.ask(f":CHANnel{self._channel}:INVert {int(enable)}")
+        self.dev.ask(f":CHANnel{self._channel}:INVert {int(enable)}")
 
     @staticmethod
     def __offset_check_range(
@@ -752,7 +752,7 @@ class Channel(BaseController):
         :CHANnel1:OFFSet 0.01
         The query returns 1.000000e-02.
         """
-        return float(self.device.ask(f":CHANnel{self._channel}:OFFSet?"))
+        return float(self.dev.ask(f":CHANnel{self._channel}:OFFSet?"))
 
     def set_offset(self, offset: Optional[float] = None) -> None:
         """
@@ -799,7 +799,7 @@ class Channel(BaseController):
             default: float = (
                 2.0 * ratio if self._channel == 1 else -2.0 * ratio
             )
-            self.device.ask(f":CHANnel{self._channel}:OFFSet {default}")
+            self.dev.ask(f":CHANnel{self._channel}:OFFSet {default}")
             return
 
         # if offset is of type float, generate the boundaries
@@ -810,7 +810,7 @@ class Channel(BaseController):
             # of scale.
             for r in self.__class__.OFFSET_RANGES:
                 if self.__offset_check_range(r, scale, offset, ratio):
-                    self.device.ask(f":CHANnel{self._channel}:OFFSet {offset}")
+                    self.dev.ask(f":CHANnel{self._channel}:OFFSet {offset}")
                     return
 
             # Anything between or none of that. Generate and throw an error.
@@ -875,7 +875,7 @@ class Channel(BaseController):
 
         The query returns 1.000000e+00.
         """
-        return float(self.device.ask(f":CHANnel{self._channel}:SCALe?"))
+        return float(self.dev.ask(f":CHANnel{self._channel}:SCALe?"))
 
     def set_scale(self, scale: float = 1) -> None:
         """
@@ -927,7 +927,7 @@ class Channel(BaseController):
                 f"{type(scale)}. Remember, this values depend on the"
                 f"probe attenuation ratio."
             )
-        float(self.device.ask(f":CHANnel{self._channel}:SCALe {scale}"))
+        float(self.dev.ask(f":CHANnel{self._channel}:SCALe {scale}"))
 
     def get_probe_attenuation_ratio(self) -> float:
         """
@@ -967,7 +967,7 @@ class Channel(BaseController):
         The query returns 10.
 
         """
-        return float(self.device.ask(f":CHANnel{self._channel}:PROBe?"))
+        return float(self.dev.ask(f":CHANnel{self._channel}:PROBe?"))
 
     def set_probe_attenuation_ratio(self, ratio: float = 1) -> None:
         """
@@ -1018,7 +1018,7 @@ class Channel(BaseController):
                 f"{', '.join(lst)} and of type float. You entered "
                 f"{type(ratio)}."
             )
-        self.device.ask(f":CHANnel{self._channel}:PROBe {ratio}")
+        self.dev.ask(f":CHANnel{self._channel}:PROBe {ratio}")
 
     def get_fine_adjust(self) -> bool:
         """
@@ -1054,7 +1054,7 @@ class Channel(BaseController):
         :CHANnel1:VERNier ON
         The query returns 1.
         """
-        return bool(int(self.device.ask(f":CHANnel{self._channel}:VERNier?")))
+        return bool(int(self.dev.ask(f":CHANnel{self._channel}:VERNier?")))
 
     def set_fine_adjust(self, enabled: bool = False) -> None:
         """
@@ -1090,4 +1090,4 @@ class Channel(BaseController):
         :CHANnel1:VERNier ON
         The query returns 1.
         """
-        self.device.ask(f":CHANnel{self._channel}:VERNier {int(enabled)}")
+        self.dev.ask(f":CHANnel{self._channel}:VERNier {int(enabled)}")

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # ds2000 - The Python Library for Rigol DS2000 Oscilloscopes
-# Copyright (C) 2020  Michael Sasser <Michael@MichaelSasser.org>
+# Copyright (C) 2020-2021  Michael Sasser <Michael@MichaelSasser.org>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -16,7 +16,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 from __future__ import annotations
 
-from ds2000.common import BaseController
+from ds2000.common import Func
 
 from .coupling import Coupling
 from .delay import Delay
@@ -43,9 +43,9 @@ __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
 
 
-class Trigger(BaseController):
-    def __init__(self, device):
-        super(Trigger, self).__init__(device)
+class Trigger(Func):
+    def __init__(self, dev):
+        super(Trigger, self).__init__(dev)
         self.mode: Mode = Mode(self)
         self.coupling: Coupling = Coupling(self)
         self.sweep: Sweep = Sweep(self)
@@ -82,7 +82,7 @@ class Trigger(BaseController):
 
         The query returns TD, WAIT, RUN, AUTO or STOP.
         """
-        return self.device.ask("TRIGger:STATus?").lower()
+        return self.dev.ask("TRIGger:STATus?").lower()
 
     def get_holdoff(self) -> float:
         """
@@ -120,7 +120,7 @@ class Trigger(BaseController):
         :TRIGger:HOLDoff 0.0000002
         The query returns 2.000000e-07.
         """
-        return float(self.device.ask(":TRIGger:HOLDoff?"))
+        return float(self.dev.ask(":TRIGger:HOLDoff?"))
 
     def set_holdoff(self, time: float = 100.0e-9) -> None:
         """
@@ -163,7 +163,7 @@ class Trigger(BaseController):
                 f'"time" must be of type float and between '
                 f"100ns..10s. You entered {type(time)}."
             )
-        self.device.ask(f":TRIGger:HOLDoff {time}")
+        self.dev.ask(f":TRIGger:HOLDoff {time}")
 
     def get_noise_reject(self) -> bool:
         """
@@ -196,7 +196,7 @@ class Trigger(BaseController):
         :TRIGger:NREJect ON
         The query returns 1.
         """
-        return bool(int(self.device.ask(":TRIGger:NREJect?")))
+        return bool(int(self.dev.ask(":TRIGger:NREJect?")))
 
     def set_noise_reject(self, enable: bool = False) -> None:
         """
@@ -234,4 +234,4 @@ class Trigger(BaseController):
                 f'"enable" must be of type bool, you entered '
                 f"{type(enable)}."
             )
-        self.device.ask(f":TRIGger:NREJect {enable}")
+        self.dev.ask(f":TRIGger:NREJect {enable}")

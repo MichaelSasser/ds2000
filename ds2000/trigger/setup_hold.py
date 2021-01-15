@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # ds2000 - The Python Library for Rigol DS2000 Oscilloscopes
-# Copyright (C) 2020  Michael Sasser <Michael@MichaelSasser.org>
+# Copyright (C) 2020-2021  Michael Sasser <Michael@MichaelSasser.org>
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,8 +15,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from ds2000.common import SubController
-from ds2000.common import SubSubController
+from ds2000.common import SFunc
+from ds2000.common import SSFunc
 from ds2000.common import check_input
 from ds2000.errors import DS2000StateError
 
@@ -25,7 +25,7 @@ __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
 
 
-class SetupHoldType(SubSubController):
+class SetupHoldType(SSFunc):
     def setup(self) -> None:
         """
         **Rigol Programming Guide**
@@ -69,7 +69,7 @@ class SetupHoldType(SubSubController):
         :TRIGger:SHOLd:TYPe SETHOLd
         The query returns SETHOL.
         """
-        self.subsubdevice.subdevice.device.ask(":TRIGger:SHOLd:TYPe SETup")
+        self.ssdev.sdev.dev.ask(":TRIGger:SHOLd:TYPe SETup")
 
     def hold(self) -> None:
         """
@@ -114,7 +114,7 @@ class SetupHoldType(SubSubController):
         :TRIGger:SHOLd:TYPe SETHOLd
         The query returns SETHOL.
         """
-        self.subsubdevice.subdevice.device.ask(":TRIGger:SHOLd:TYPe HOLd")
+        self.ssdev.sdev.dev.ask(":TRIGger:SHOLd:TYPe HOLd")
 
     def setup_hold(self) -> None:
         """
@@ -159,7 +159,7 @@ class SetupHoldType(SubSubController):
         :TRIGger:SHOLd:TYPe SETHOLd
         The query returns SETHOL.
         """
-        self.subsubdevice.subdevice.device.ask(":TRIGger:SHOLd:TYPe SETHOLd")
+        self.ssdev.sdev.dev.ask(":TRIGger:SHOLd:TYPe SETHOLd")
 
     def status(self) -> str:
         """
@@ -204,7 +204,7 @@ class SetupHoldType(SubSubController):
         :TRIGger:SHOLd:TYPe SETHOLd
         The query returns SETHOL.
         """
-        status = self.subsubdevice.subdevice.device.ask(
+        status = self.ssdev.sdev.dev.ask(
             ":TRIGger:SHOLd:TYPe?"
         ).lower()
 
@@ -217,7 +217,7 @@ class SetupHoldType(SubSubController):
         raise DS2000StateError()
 
 
-class SetupHoldDataSource(SubSubController):
+class SetupHoldDataSource(SSFunc):
     def channel1(self) -> None:
         """
         **Rigol Programming Guide**
@@ -249,7 +249,7 @@ class SetupHoldDataSource(SubSubController):
         :TRIGger:SHOLd:DSrc CHANnel1
         The query returns CHAN2.
         """
-        self.subsubdevice.subdevice.device.ask(":TRIGger:SHOLd:DSrc CHANel1")
+        self.ssdev.sdev.dev.ask(":TRIGger:SHOLd:DSrc CHANel1")
 
     def channel2(self) -> None:
         """
@@ -282,7 +282,7 @@ class SetupHoldDataSource(SubSubController):
         :TRIGger:SHOLd:DSrc CHANnel1
         The query returns CHAN2.
         """
-        self.subsubdevice.subdevice.device.ask(":TRIGger:SHOLd:DSrc CHANel2")
+        self.ssdev.sdev.dev.ask(":TRIGger:SHOLd:DSrc CHANel2")
 
     def status(self) -> str:
         """
@@ -315,7 +315,7 @@ class SetupHoldDataSource(SubSubController):
         :TRIGger:SHOLd:DSrc CHANnel1
         The query returns CHAN2.
         """
-        status = self.subsubdevice.subdevice.device.ask(
+        status = self.ssdev.sdev.dev.ask(
             ":TRIGger:SHOLd:DSrc?"
         ).lower()
 
@@ -326,7 +326,7 @@ class SetupHoldDataSource(SubSubController):
         raise DS2000StateError()
 
 
-class SetupHoldClockSource(SubSubController):
+class SetupHoldClockSource(SSFunc):
     def channel1(self) -> None:
         """
         **Rigol Programming Guide**
@@ -358,7 +358,7 @@ class SetupHoldClockSource(SubSubController):
         :TRIGger:SHOLd:CSrc CHANnel2
         The query returns CHAN2.
         """
-        self.subsubdevice.subdevice.device.ask(":TRIGger:SHOLd:CSrc CHANel1")
+        self.ssdev.sdev.dev.ask(":TRIGger:SHOLd:CSrc CHANel1")
 
     def channel2(self) -> None:
         """
@@ -391,7 +391,7 @@ class SetupHoldClockSource(SubSubController):
         :TRIGger:SHOLd:CSrc CHANnel2
         The query returns CHAN2.
         """
-        self.subsubdevice.subdevice.device.ask(":TRIGger:SHOLd:CSrc CHANel2")
+        self.ssdev.sdev.dev.ask(":TRIGger:SHOLd:CSrc CHANel2")
 
     def status(self) -> str:
         """
@@ -424,7 +424,7 @@ class SetupHoldClockSource(SubSubController):
         :TRIGger:SHOLd:CSrc CHANnel2
         The query returns CHAN2.
         """
-        status = self.subsubdevice.subdevice.device.ask(
+        status = self.ssdev.sdev.dev.ask(
             ":TRIGger:SHOLd:CSrc?"
         ).lower()
 
@@ -435,7 +435,7 @@ class SetupHoldClockSource(SubSubController):
         raise DS2000StateError()
 
 
-class SetupHoldSlope(SubSubController):
+class SetupHoldSlope(SSFunc):
     def rising_edge(self) -> None:
         """
         **Rigol Programming Guide**
@@ -468,7 +468,7 @@ class SetupHoldSlope(SubSubController):
         :TRIGger:SHOLd:SLOPe NEGative
         The query returns NEG.
         """
-        self.subsubdevice.subdevice.device.ask(":TRIGger:SHOLd:SLOPe POSitive")
+        self.ssdev.sdev.dev.ask(":TRIGger:SHOLd:SLOPe POSitive")
 
     def falling_edge(self) -> None:
         """
@@ -502,7 +502,7 @@ class SetupHoldSlope(SubSubController):
         :TRIGger:SHOLd:SLOPe NEGative
         The query returns NEG.
         """
-        self.subsubdevice.subdevice.device.ask(":TRIGger:SHOLd:SLOPe NEGative")
+        self.ssdev.sdev.dev.ask(":TRIGger:SHOLd:SLOPe NEGative")
 
     def status(self) -> str:
         """
@@ -536,7 +536,7 @@ class SetupHoldSlope(SubSubController):
         :TRIGger:SHOLd:SLOPe NEGative
         The query returns NEG.
         """
-        status: str = self.subsubdevice.subdevice.device.ask(
+        status: str = self.ssdev.sdev.dev.ask(
             ":TRIGger:SHOLd:SLOPe?"
         ).lower()
         if status == "POSitive":
@@ -546,7 +546,7 @@ class SetupHoldSlope(SubSubController):
         raise DS2000StateError()
 
 
-class SetupHoldPattern(SubSubController):
+class SetupHoldPattern(SSFunc):
     def high(self) -> None:
         """
         **Rigol Programming Guide**
@@ -578,7 +578,7 @@ class SetupHoldPattern(SubSubController):
         :TRIGger:SHOLd:PATTern L
         The query returns L.
         """
-        self.subsubdevice.subdevice.device.ask(":TRIGger:SHOLd:PATTern H")
+        self.ssdev.sdev.dev.ask(":TRIGger:SHOLd:PATTern H")
 
     def low(self) -> None:
         """
@@ -611,7 +611,7 @@ class SetupHoldPattern(SubSubController):
         :TRIGger:SHOLd:PATTern L
         The query returns L.
         """
-        self.subsubdevice.subdevice.device.ask(":TRIGger:SHOLd:PATTern L")
+        self.ssdev.sdev.dev.ask(":TRIGger:SHOLd:PATTern L")
 
     def status(self) -> str:
         """
@@ -644,12 +644,12 @@ class SetupHoldPattern(SubSubController):
         :TRIGger:SHOLd:PATTern L
         The query returns L.
         """
-        return self.subsubdevice.subdevice.device.ask(
+        return self.ssdev.sdev.dev.ask(
             ":TRIGger:SHOLd:PATTern?"
         ).lower()
 
 
-class SetupHold(SubController):
+class SetupHold(SFunc):
     def __init__(self, device):
         super(SetupHold, self).__init__(device)
         self.type: SetupHoldType = SetupHoldType(self)
@@ -692,7 +692,7 @@ class SetupHold(SubController):
         :TRIGger:SHOLd:STIMe 0.002
         The query returns 2.000000e-03.
         """
-        return float(self.subdevice.device.ask(":TRIGger:SHOLd:STIMe?"))
+        return float(self.sdev.dev.ask(":TRIGger:SHOLd:STIMe?"))
 
     def set_setup_time(self, time: float = 50.0e-9) -> None:
         """
@@ -729,7 +729,7 @@ class SetupHold(SubController):
         The query returns 2.000000e-03.
         """
         check_input(time, "time", float, 2.0e-9, 1.0, "s")
-        self.subdevice.device.ask(f":TRIGger:SHOLd:STIMe {time}")
+        self.sdev.dev.ask(f":TRIGger:SHOLd:STIMe {time}")
 
     def get_hold_time(self) -> float:
         """
@@ -765,7 +765,7 @@ class SetupHold(SubController):
         :TRIGger:SHOLd:HTIMe 0.002
         The query returns 2.000000e-03.
         """
-        return float(self.subdevice.device.ask(":TRIGger:SHOLd:HTIMe?"))
+        return float(self.sdev.dev.ask(":TRIGger:SHOLd:HTIMe?"))
 
     def set_hold_time(self, time: float = 50.0e-9) -> None:
         """
@@ -802,4 +802,4 @@ class SetupHold(SubController):
         The query returns 2.000000e-03.
         """
         check_input(time, "time", float, 2.0e-9, 1.0, "s")
-        self.subdevice.device.ask(f":TRIGger:SHOLd:HTIMe {time}")
+        self.sdev.dev.ask(f":TRIGger:SHOLd:HTIMe {time}")

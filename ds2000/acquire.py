@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # ds2000 - The Python Library for Rigol DS2000 Oscilloscopes
-# Copyright (C) 2018  Michael Sasser <Michael@MichaelSasser.org>
+# Copyright (C) 2018-2021  Michael Sasser <Michael@MichaelSasser.org>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,8 +19,8 @@ from __future__ import annotations
 from typing import NamedTuple
 from typing import Tuple
 
-from .common import BaseController
-from .common import SubController
+from .common import Func
+from .common import SFunc
 from .errors import DS2000Error
 
 
@@ -33,7 +33,7 @@ class AcquireType(NamedTuple):
     average_count: int
 
 
-class Type(SubController):
+class Type(SFunc):
     def normal(self) -> None:
         """
         **Rigol Programming Guide**
@@ -71,7 +71,7 @@ class Type(SubController):
 
         The query returns AVER.
         """
-        self.subdevice.device.ask(":ACQuire:TYPE NORMal")
+        self.sdev.dev.ask(":ACQuire:TYPE NORMal")
 
     def average(self) -> None:
         """
@@ -110,7 +110,7 @@ class Type(SubController):
 
         The query returns AVER.
         """
-        self.subdevice.device.ask(":ACQuire:TYPE AVERages")
+        self.sdev.dev.ask(":ACQuire:TYPE AVERages")
 
     def peakdetect(self) -> None:
         """
@@ -150,7 +150,7 @@ class Type(SubController):
 
         The query returns AVER.
         """
-        self.subdevice.device.ask(":ACQuire:TYPE PEAK")
+        self.sdev.dev.ask(":ACQuire:TYPE PEAK")
 
     def highres(self) -> None:
         """
@@ -190,10 +190,10 @@ class Type(SubController):
 
         The query returns AVER.
         """
-        self.subdevice.device.ask(":ACQuire:TYPE HRESolution")
+        self.sdev.dev.ask(":ACQuire:TYPE HRESolution")
 
     def status(self):
-        answer: str = self.subdevice.device.ask(":ACQuire:TYPE?")
+        answer: str = self.sdev.dev.ask(":ACQuire:TYPE?")
         if answer == "NORM":
             return "Normal"
         elif answer == "AVER":
@@ -211,7 +211,7 @@ class Type(SubController):
         return self.status()
 
 
-class Acquire(BaseController):
+class Acquire(Func):
     AVERAGES: Tuple[int] = (
         2,
         4,
@@ -230,8 +230,8 @@ class Acquire(BaseController):
     MEMDEPTH_SINGLE: Tuple[int] = (14000, 140000, 1400000, 14000000, 56000000)
     MEMDEPTH_DUAL: Tuple[int] = (7000, 70000, 700000, 7000000, 28000000)
 
-    def __init__(self, device):
-        super(Acquire, self).__init__(device)
+    def __init__(self, dev):
+        super(Acquire, self).__init__(dev)
         self.type: Type = Type(self)
 
     def get_averages(self) -> int:
@@ -277,7 +277,7 @@ class Acquire(BaseController):
 
         The query returns 128.
         """
-        return self.device.ask(":ACQuire:AVERages?")
+        return self.dev.ask(":ACQuire:AVERages?")
 
     def set_averages(self, count: int = 2):
         """
@@ -325,7 +325,7 @@ class Acquire(BaseController):
         if count == 0:
             return
         elif count in Acquire.AVERAGES:
-            self.device.ask(f":ACQuire:AVERages {count}")
+            self.dev.ask(f":ACQuire:AVERages {count}")
         raise ValueError(
             'The "count" must be 0, to leave the count'
             f"untouched or set it to {Acquire.AVERAGES}."
@@ -373,7 +373,7 @@ class Acquire(BaseController):
 
         The query returns 1400000.
         """
-        return self.device.ask(":ACQuire:MDEPth?")
+        return self.dev.ask(":ACQuire:MDEPth?")
 
     def set_memorydepth(self, memdepth: int = 0):
         """
@@ -421,12 +421,12 @@ class Acquire(BaseController):
         """
         assert isinstance(memdepth, int)
         if memdepth == 0:
-            self.device.ask(":ACQuire:MEMDepth AUTO")
+            self.dev.ask(":ACQuire:MEMDepth AUTO")
         # ToDo: Check if osc uses one or two channels
         elif memdepth in Acquire.MEMDEPTH_SINGLE:
-            self.device.ask(f":ACQuire:MDEPth {memdepth}")
+            self.dev.ask(f":ACQuire:MDEPth {memdepth}")
         elif memdepth in Acquire.MEMDEPTH_DUAL:
-            self.device.ask(f":ACQuire:MDEPth {memdepth}")
+            self.dev.ask(f":ACQuire:MDEPth {memdepth}")
 
     def get_samplerate(self) -> int:
         """
@@ -450,7 +450,7 @@ class Acquire(BaseController):
 
         The query returns 2.000000e+09.
         """
-        return int(self.device.ask(":ACQuire:SRATe?"))
+        return int(self.dev.ask(":ACQuire:SRATe?"))
 
     def get_antialiasing(self) -> bool:
         """
@@ -486,7 +486,7 @@ class Acquire(BaseController):
 
         The query returns 1.
         """
-        return bool(self.device.ask(":ACQuire:AALias?"))
+        return bool(self.dev.ask(":ACQuire:AALias?"))
 
     def set_antialiasing(self, enabled: bool = False):
         """
@@ -523,4 +523,4 @@ class Acquire(BaseController):
         The query returns 1.
         """
         assert isinstance(enabled, bool)
-        self.device.ask(f":ACQuire:AALias {1 if enabled else 0}")
+        self.dev.ask(f":ACQuire:AALias {1 if enabled else 0}")

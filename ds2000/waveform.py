@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # ds2000 - The Python Library for Rigol DS2000 Oscilloscopes
-# Copyright (C) 2019  Michael Sasser <Michael@MichaelSasser.org>
+# Copyright (C) 2019-2021  Michael Sasser <Michael@MichaelSasser.org>
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -21,8 +21,8 @@ from typing import NamedTuple
 
 import numpy as np
 
-from .common import BaseController
-from .common import SubController
+from .common import Func
+from .common import SFunc
 from .errors import DS2000Error
 
 
@@ -48,7 +48,7 @@ class Preamble(NamedTuple):
     y_ref: float
 
 
-class Mode(SubController):
+class Mode(SFunc):
     def normal(self):
         """
         **Rigol Programming Guide:**
@@ -99,7 +99,7 @@ class Mode(SubController):
 
         The query returns RAW.
         """
-        self.subdevice.device.write(":WAVeform:MODE NORMal")
+        self.sdev.dev.write(":WAVeform:MODE NORMal")
 
     def maximum(self):
         """
@@ -152,7 +152,7 @@ class Mode(SubController):
 
         The query returns RAW.
         """
-        self.subdevice.device.write(":WAVeform:MODE MAXimum")
+        self.sdev.dev.write(":WAVeform:MODE MAXimum")
 
     def raw(self):
         """
@@ -205,10 +205,10 @@ class Mode(SubController):
 
         The query returns RAW.
         """
-        self.subdevice.device.write(":WAVeform:MODE RAW")
+        self.sdev.dev.write(":WAVeform:MODE RAW")
 
     def get(self):
-        answer: str = self.subdevice.device.ask(":WAVeform:MODE?")
+        answer: str = self.sdev.dev.ask(":WAVeform:MODE?")
         if answer == "NORM":
             return "Normal"
         elif answer == "MAX":
@@ -225,7 +225,7 @@ class Mode(SubController):
         return self.get()
 
 
-class Format(SubController):
+class Format(SFunc):
     def word(self):
         """
         **Rigol Programming Guide**
@@ -277,7 +277,7 @@ class Format(SubController):
 
         The query returns WORD.
         """
-        self.subdevice.device.write(":WAVeform:FORMat WORD")
+        self.sdev.dev.write(":WAVeform:FORMat WORD")
 
     def byte(self):
         """
@@ -328,7 +328,7 @@ class Format(SubController):
 
         The query returns WORD.
         """
-        self.subdevice.device.write(":WAVeform:FORMat BYTE")
+        self.sdev.dev.write(":WAVeform:FORMat BYTE")
 
     def ascii(self):
         """
@@ -378,10 +378,10 @@ class Format(SubController):
 
         The query returns WORD.
         """
-        self.subdevice.device.write(":WAVeform:FORMat ASCii")
+        self.sdev.dev.write(":WAVeform:FORMat ASCii")
 
     def get(self):
-        answer: str = self.subdevice.device.ask(":WAVeform:FORMAT?")
+        answer: str = self.sdev.dev.ask(":WAVeform:FORMAT?")
         if answer == "WORD":
             return "word"
         elif answer == "BYTE":
@@ -398,9 +398,9 @@ class Format(SubController):
         return self.get()
 
 
-class Waveform(BaseController):
-    def __init__(self, device):
-        super(Waveform, self).__init__(device)
+class Waveform(Func):
+    def __init__(self, dev):
+        super(Waveform, self).__init__(dev)
         self.mode: Mode = Mode(self)
         self.format: Format = Format(self)
 
@@ -441,7 +441,7 @@ class Waveform(BaseController):
         """
         if channel > 2 and isinstance(channel, int):
             raise ValueError("The channel must be 1 or 2 of the type int.")
-        self.device.write(f":WAVeform:SOURce CHANnel{channel}")
+        self.dev.write(f":WAVeform:SOURce CHANnel{channel}")
 
     def points(self, points: int):
         """
@@ -507,7 +507,7 @@ class Waveform(BaseController):
                 "The parameter points in maximal mode must be"
                 "between 1 and the current maximum memory depth."
             )
-        points = self.device.ask(f"WAVeform:POINts {points}")
+        points = self.dev.ask(f"WAVeform:POINts {points}")
         return points
 
     def data(self, recorded: bool = False):
@@ -797,23 +797,23 @@ class Waveform(BaseController):
 
         def get_data():
             try:
-                self.device.write(":WAVeform:DATA?")
+                self.dev.write(":WAVeform:DATA?")
             except Exception:
                 raise DS2000Error("Write Operation was not successful.")
 
             # Read (RAW)
             try:
-                dat = self.device.read_raw()
+                dat = self.dev.read_raw()
             except Exception:
                 raise DS2000Error("Raw read Operation was not successful.")
             return dat
 
         if recorded:
-            self.device.stop()
+            self.dev.stop()
             self.mode.raw()
             self.reset()
             self.start(1)
-            self.stop(self.device.acquire.memorydepth)
+            self.stop(self.dev.acquire.memorydepth)
             self.begin()
             data = []
             while True:
@@ -882,7 +882,7 @@ class Waveform(BaseController):
 
         The query returns 1.000000e-08.
         """
-        return float(self.device.ask(":WAVeform:XINCrement?"))
+        return float(self.dev.ask(":WAVeform:XINCrement?"))
 
     @property
     def x_origin(self) -> float:
@@ -909,7 +909,7 @@ class Waveform(BaseController):
 
         The query returns -7.000000e-06.
         """
-        return float(self.device.ask(":WAVeform:XORigin?"))
+        return float(self.dev.ask(":WAVeform:XORigin?"))
 
     @property
     def x_reference(self) -> float:
@@ -936,7 +936,7 @@ class Waveform(BaseController):
 
         The query returns 0.
         """
-        return float(self.device.ask(":WAVeform:XREFerence?"))
+        return float(self.dev.ask(":WAVeform:XREFerence?"))
 
     @property
     def y_increment(self) -> float:
@@ -963,7 +963,7 @@ class Waveform(BaseController):
 
         The query returns 4.000000e-02.
         """
-        return float(self.device.ask(":WAVeform:YINCrement?"))
+        return float(self.dev.ask(":WAVeform:YINCrement?"))
 
     @property
     def y_origin(self) -> float:
@@ -991,7 +991,7 @@ class Waveform(BaseController):
 
         The query returns 2.000000e+00.
         """
-        return float(self.device.ask(":WAVeform:YORigin?"))
+        return float(self.dev.ask(":WAVeform:YORigin?"))
 
     @property
     def y_reference(self) -> float:
@@ -1018,7 +1018,7 @@ class Waveform(BaseController):
 
         The query returns 127.
         """
-        return float(self.device.ask(":WAVeform:YREFerence?"))
+        return float(self.dev.ask(":WAVeform:YREFerence?"))
 
     def start(self, start: int = 1):
         """
@@ -1085,7 +1085,7 @@ class Waveform(BaseController):
                 "The parameter points in maximal mode must be"
                 "between 1 and the current maximum memory depth."
             )
-        self.device.write(f":WAVeform:STARt {start}")
+        self.dev.write(f":WAVeform:STARt {start}")
 
     def stop(self, stop: int):
         """
@@ -1152,7 +1152,7 @@ class Waveform(BaseController):
                 "The parameter points in maximal mode must be"
                 "between 1 and the current maximum memory depth."
             )
-        self.device.write(f":WAVeform:STOP {stop}")
+        self.dev.write(f":WAVeform:STOP {stop}")
 
     def begin(self):
         """
@@ -1168,7 +1168,7 @@ class Waveform(BaseController):
 
         Enable the waveform reading.
         """
-        self.device.write(":WAVeform:BEGin")
+        self.dev.write(":WAVeform:BEGin")
 
     def end(self):
         """
@@ -1184,7 +1184,7 @@ class Waveform(BaseController):
 
         Stop the waveform reading.
         """
-        self.device.write(":WAVeform:END")
+        self.dev.write(":WAVeform:END")
 
     def reset(self):
         """
@@ -1200,7 +1200,7 @@ class Waveform(BaseController):
 
         Reset the waveform reading.
         """
-        self.device.write(":WAVeform:RESet")
+        self.dev.write(":WAVeform:RESet")
 
     def preamble(self) -> Preamble:
         """
@@ -1252,7 +1252,7 @@ class Waveform(BaseController):
 
         The query returns 0,0,1400,1,0.000000,-0.000007,0,0.040000,2.000000,127.
         """
-        pre = self.device.ask(":WAVeform:PREamble?").split(",")
+        pre = self.dev.ask(":WAVeform:PREamble?").split(",")
         if len(pre) != 10:
             raise DS2000Error("Unexpected waveform preamble length.")
         return Preamble(
@@ -1294,7 +1294,7 @@ class Waveform(BaseController):
 
         The query returns IDLE,n or READ,n.
         """
-        status = self.device.ask(":WAVeform:STATus?").split(",")
+        status = self.dev.ask(":WAVeform:STATus?").split(",")
         print(status)
         if len(status) != 2:
             raise DS2000Error("Unexpected waveform status length.")

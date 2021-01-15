@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # ds2000 - The Python Library for Rigol DS2000 Oscilloscopes
-# Copyright (C) 2020  Michael Sasser <Michael@MichaelSasser.org>
+# Copyright (C) 2020-2021  Michael Sasser <Michael@MichaelSasser.org>
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from ds2000.common import SubController
+from ds2000.common import SFunc
 
 
 __author__ = "Michael Sasser"
@@ -26,7 +26,7 @@ __all__ = [
 ]
 
 
-class Coupling(SubController):
+class Coupling(SFunc):
     def ac(self) -> None:
         """
         **Rigol Programming Guide**
@@ -62,7 +62,7 @@ class Coupling(SubController):
         :TRIGger:COUPling LFReject
         The query returns LFR.
         """
-        self.subdevice.device.ask(":TRIGger:COUPling AC")
+        self.sdev.dev.ask(":TRIGger:COUPling AC")
 
     def dc(self) -> None:
         """
@@ -99,7 +99,7 @@ class Coupling(SubController):
         :TRIGger:COUPling LFReject
         The query returns LFR.
         """
-        self.subdevice.device.ask(":TRIGger:COUPling DC")
+        self.sdev.dev.ask(":TRIGger:COUPling DC")
 
     def low_frequency_reject(self) -> None:
         """
@@ -136,7 +136,7 @@ class Coupling(SubController):
         :TRIGger:COUPling LFReject
         The query returns LFR.
         """
-        self.subdevice.device.ask(":TRIGger:COUPling LFReject")
+        self.sdev.dev.ask(":TRIGger:COUPling LFReject")
 
     def high_frequency_reject(self) -> None:
         """
@@ -173,7 +173,7 @@ class Coupling(SubController):
         :TRIGger:COUPling LFReject
         The query returns LFR.
         """
-        self.subdevice.device.ask(":TRIGger:COUPling HFReject")
+        self.sdev.dev.ask(":TRIGger:COUPling HFReject")
 
     def status(self) -> str:
         """
@@ -210,4 +210,4 @@ class Coupling(SubController):
         :TRIGger:COUPling LFReject
         The query returns LFR.
         """
-        return self.subdevice.device.ask(":TRIGger:COUPling?")
+        return self.sdev.dev.ask(":TRIGger:COUPling?")

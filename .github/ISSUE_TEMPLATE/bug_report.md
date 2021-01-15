@@ -18,10 +18,10 @@ from ds2000 import DS2000
 from ds2000.func import simple_plot
 
 ip = "192.168.30.186"
-    with DS2000(ip) as osc:
-        print("info:", osc.info())
-        r.waveform.start(1)
-        simple_plot(osc, recorded=False)
+with DS2000(ip) as o:
+    print("info:", o.info())
+    o.waveform.start(1)
+    simple_plot(o, recorded=False)
 ```
 
 ```
@@ -32,7 +32,7 @@ The complete traceback here.
 A clear and concise description of what you expected to happen.
 
 **Desktop (please complete the following information):**
- - OS: [e.g. Windows 10 x64 Workstation Build: 1903]
+ - OS: [e.g. Windows 10 x64 Workstation Build: 19042.746 (20H2)]
  - Version of ds2000 [e.g. 0.1.0]
 
 **Additional context**

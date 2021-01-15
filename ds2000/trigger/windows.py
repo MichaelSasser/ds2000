@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # ds2000 - The Python Library for Rigol DS2000 Oscilloscopes
-# Copyright (C) 2020  Michael Sasser <Michael@MichaelSasser.org>
+# Copyright (C) 2020-2021  Michael Sasser <Michael@MichaelSasser.org>
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -16,8 +16,8 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 from __future__ import annotations
 
-from ds2000.common import SubController
-from ds2000.common import SubSubController
+from ds2000.common import SFunc
+from ds2000.common import SSFunc
 from ds2000.common import check_input
 
 
@@ -25,7 +25,7 @@ __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
 
 
-class WindowsSlope(SubSubController):
+class WindowsSlope(SSFunc):
     def set_positive(self) -> None:
         """
         **Rigol Programming Guide**
@@ -56,7 +56,7 @@ class WindowsSlope(SubSubController):
         :TRIGger:WINDows:SLOPe NEGative
         The query returns NEG.
         """
-        self.subsubdevice.subdevice.device.ask(
+        self.ssdev.sdev.dev.ask(
             ":TRIGger:WINDows:SLOPe POSitive"
         )
 
@@ -90,7 +90,7 @@ class WindowsSlope(SubSubController):
         :TRIGger:WINDows:SLOPe NEGative
         The query returns NEG.
         """
-        self.subsubdevice.subdevice.device.ask(
+        self.ssdev.sdev.dev.ask(
             ":TRIGger:WINDows:SLOPe NEGative"
         )
 
@@ -124,7 +124,7 @@ class WindowsSlope(SubSubController):
         :TRIGger:WINDows:SLOPe NEGative
         The query returns NEG.
         """
-        self.subsubdevice.subdevice.device.ask(":TRIGger:WINDows:SLOPe RFALl")
+        self.ssdev.sdev.dev.ask(":TRIGger:WINDows:SLOPe RFALl")
 
     def status(self) -> str:
         """
@@ -156,12 +156,12 @@ class WindowsSlope(SubSubController):
         :TRIGger:WINDows:SLOPe NEGative
         The query returns NEG.
         """
-        return self.subsubdevice.subdevice.device.ask(
+        return self.ssdev.sdev.dev.ask(
             ":TRIGger:WINDows:SLOPe?"
         )
 
 
-class WindowsPosition(SubSubController):
+class WindowsPosition(SSFunc):
     def set_exit(self) -> None:
         """
         **Rigol Programming Guide**
@@ -193,7 +193,7 @@ class WindowsPosition(SubSubController):
         :TRIGger:WINDows:POSition ENTER
         The query returns ENTER.
         """
-        self.subsubdevice.subdevice.device.ask(
+        self.ssdev.sdev.dev.ask(
             ":TRIGger:WINDows:POSition EXIT"
         )
 
@@ -228,7 +228,7 @@ class WindowsPosition(SubSubController):
         :TRIGger:WINDows:POSition ENTER
         The query returns ENTER.
         """
-        self.subsubdevice.subdevice.device.ask(
+        self.ssdev.sdev.dev.ask(
             ":TRIGger:WINDows:POSition ENTER"
         )
 
@@ -263,7 +263,7 @@ class WindowsPosition(SubSubController):
         :TRIGger:WINDows:POSition ENTER
         The query returns ENTER.
         """
-        self.subsubdevice.subdevice.device.ask(
+        self.ssdev.sdev.dev.ask(
             ":TRIGger:WINDows:POSition TIMe"
         )
 
@@ -298,12 +298,12 @@ class WindowsPosition(SubSubController):
         :TRIGger:WINDows:POSition ENTER
         The query returns ENTER.
         """
-        return self.subsubdevice.subdevice.device.ask(
+        return self.ssdev.sdev.dev.ask(
             ":TRIGger:WINDows:POSition?"
         )
 
 
-class Windows(SubController):
+class Windows(SFunc):
     def __init__(self, device):
         super(Windows, self).__init__(device)
         self.slope: WindowsSlope = WindowsSlope(self)
@@ -341,7 +341,7 @@ class Windows(SubController):
         The query returns CHAN2.
         """
         check_input(channel, "channel", 1, 2)
-        self.subdevice.device.ask(f":TRIGger:WINDows:SOURce CHANnel{channel}")
+        self.sdev.dev.ask(f":TRIGger:WINDows:SOURce CHANnel{channel}")
 
     def get_source(self) -> str:
         """
@@ -374,7 +374,7 @@ class Windows(SubController):
         :TRIGger:WINDows:SOURce CHANnel2
         The query returns CHAN2.
         """
-        return self.subdevice.device.ask(":TRIGger:WINDows:SOURce?")
+        return self.sdev.dev.ask(":TRIGger:WINDows:SOURce?")
 
     def set_time(self, time: float = 1.0e-6) -> None:
         """
@@ -414,7 +414,7 @@ class Windows(SubController):
         The query returns 2.000000e-03.
         """
         check_input(time, "time", float, 16.0e-9, 4.0, "s")
-        self.subdevice.device.ask(f":TRIGger:WINDows:TIMe {time}")
+        self.sdev.dev.ask(f":TRIGger:WINDows:TIMe {time}")
 
     def get_time(self) -> float:
         """
@@ -453,4 +453,4 @@ class Windows(SubController):
         :TRIGger:WINDows:TIMe 0.002
         The query returns 2.000000e-03.
         """
-        return float(self.subdevice.device.ask(":TRIGger:WINDows:TIMe?"))
+        return float(self.sdev.dev.ask(":TRIGger:WINDows:TIMe?"))

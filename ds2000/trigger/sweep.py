@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # ds2000 - The Python Library for Rigol DS2000 Oscilloscopes
-# Copyright (C) 2020  Michael Sasser <Michael@MichaelSasser.org>
+# Copyright (C) 2020-2021  Michael Sasser <Michael@MichaelSasser.org>
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from ds2000.common import SubController
+from ds2000.common import SFunc
 from ds2000.errors import DS2000Error
 
 
@@ -23,7 +23,7 @@ __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
 
 
-class Sweep(SubController):
+class Sweep(SFunc):
     def auto(self) -> None:
         """
         **Rigol Programming Guide**
@@ -55,7 +55,7 @@ class Sweep(SubController):
         :TRIGger:SWEep SINGle
         The query returns SING.
         """
-        self.subdevice.device.ask(":TRIGger:SWEep AUTO")
+        self.sdev.dev.ask(":TRIGger:SWEep AUTO")
 
     def normal(self) -> None:
         """
@@ -88,7 +88,7 @@ class Sweep(SubController):
         :TRIGger:SWEep SINGle
         The query returns SING.
         """
-        self.subdevice.device.ask(":TRIGger:SWEep NORMal")
+        self.sdev.dev.ask(":TRIGger:SWEep NORMal")
 
     def single(self) -> None:
         """
@@ -121,7 +121,7 @@ class Sweep(SubController):
         :TRIGger:SWEep SINGle
         The query returns SING.
         """
-        self.subdevice.device.ask(":TRIGger:SWEep SINGle")
+        self.sdev.dev.ask(":TRIGger:SWEep SINGle")
 
     def status(self) -> str:
         """
@@ -154,7 +154,7 @@ class Sweep(SubController):
         :TRIGger:SWEep SINGle
         The query returns SING.
         """
-        status = self.subdevice.device.ask(":TRIGger:SWEep?").lower()
+        status = self.sdev.dev.ask(":TRIGger:SWEep?").lower()
         if status == "auto":
             return "auto"
         if status == "norm":

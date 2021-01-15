@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # ds2000 - The Python Library for Rigol DS2000 Oscilloscopes
-# Copyright (C) 2020  Michael Sasser <Michael@MichaelSasser.org>
+# Copyright (C) 2020-2021  Michael Sasser <Michael@MichaelSasser.org>
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,8 +15,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from ds2000.common import SubController
-from ds2000.common import SubSubController
+from ds2000.common import SFunc
+from ds2000.common import SSFunc
 from ds2000.common import check_input
 from ds2000.common import check_level
 
@@ -26,7 +26,7 @@ __email__ = "Michael@MichaelSasser.org"
 
 
 # ToDo: Shorter function names!!!
-class RuntWhen(SubSubController):
+class RuntWhen(SSFunc):
     def set_none(self) -> None:
         """
         **Rigol Programming Guide**
@@ -74,7 +74,7 @@ class RuntWhen(SubSubController):
         :TRIGger:RUNT:WHEN LESS
         The query returns LESS.
         """
-        self.subsubdevice.subdevice.device.ask(":TRIGger:RUNT:WHEN NONE")
+        self.ssdev.sdev.dev.ask(":TRIGger:RUNT:WHEN NONE")
 
     def set_pulse_width_greater_than_lower_limit(self) -> None:
         """
@@ -123,7 +123,7 @@ class RuntWhen(SubSubController):
         :TRIGger:RUNT:WHEN LESS
         The query returns LESS.
         """
-        self.subsubdevice.subdevice.device.ask(":TRIGger:RUNT:WHEN GREater")
+        self.ssdev.sdev.dev.ask(":TRIGger:RUNT:WHEN GREater")
 
     def set_pulse_width_lower_than_upper_limit(self) -> None:
         """
@@ -172,7 +172,7 @@ class RuntWhen(SubSubController):
         :TRIGger:RUNT:WHEN LESS
         The query returns LESS.
         """
-        self.subsubdevice.subdevice.device.ask(":TRIGger:RUNT:WHEN LESS")
+        self.ssdev.sdev.dev.ask(":TRIGger:RUNT:WHEN LESS")
 
     def set_pulse_width_between_lower_and_upper_limit(self) -> None:
         """
@@ -221,7 +221,7 @@ class RuntWhen(SubSubController):
         :TRIGger:RUNT:WHEN LESS
         The query returns LESS.
         """
-        self.subsubdevice.subdevice.device.ask(":TRIGger:RUNT:WHEN GLESs")
+        self.ssdev.sdev.dev.ask(":TRIGger:RUNT:WHEN GLESs")
 
     def status(self) -> str:
         """
@@ -270,10 +270,10 @@ class RuntWhen(SubSubController):
         :TRIGger:RUNT:WHEN LESS
         The query returns LESS.
         """
-        return self.subsubdevice.subdevice.device.ask(":TRIGger:RUNT:WHEN?")
+        return self.ssdev.sdev.dev.ask(":TRIGger:RUNT:WHEN?")
 
 
-class Runt(SubController):
+class Runt(SFunc):
     def __init__(self, device):
         super(Runt, self).__init__(device)
         self.when: RuntWhen = RuntWhen(self)
@@ -310,7 +310,7 @@ class Runt(SubController):
         The query returns CHAN2.
         """
         check_input(channel, "channel", int, 1, 2)
-        self.subdevice.device.ask(f":TRIGger:RUNT:SOURce CHANnel{channel}")
+        self.sdev.dev.ask(f":TRIGger:RUNT:SOURce CHANnel{channel}")
 
     def get_source(self) -> str:
         """
@@ -343,7 +343,7 @@ class Runt(SubController):
         :TRIGger:RUNT:SOURce CHANnel2
         The query returns CHAN2.
         """
-        return self.subdevice.device.ask(":TRIGger:RUNT:SOURce?")
+        return self.sdev.dev.ask(":TRIGger:RUNT:SOURce?")
 
     def set_polarity_positive(self) -> None:
         """
@@ -376,7 +376,7 @@ class Runt(SubController):
         :TRIGger:RUNT:POLarity NEGative
         The query returns NEG.
         """
-        self.subdevice.device.ask(":TRIGger:RUNT:POLarity POSitive")
+        self.sdev.dev.ask(":TRIGger:RUNT:POLarity POSitive")
 
     def set_polarity_negative(self) -> None:
         """
@@ -409,7 +409,7 @@ class Runt(SubController):
         :TRIGger:RUNT:POLarity NEGative
         The query returns NEG.
         """
-        self.subdevice.device.ask(":TRIGger:RUNT:POLarity NEGative")
+        self.sdev.dev.ask(":TRIGger:RUNT:POLarity NEGative")
 
     def get_polarity(self) -> str:
         """
@@ -442,7 +442,7 @@ class Runt(SubController):
         :TRIGger:RUNT:POLarity NEGative
         The query returns NEG.
         """
-        return self.subdevice.device.ask(":TRIGger:RUNT:POLarity?")
+        return self.sdev.dev.ask(":TRIGger:RUNT:POLarity?")
 
     def set_lower_limit(self, time: float = 1.0e-6) -> None:
         """
@@ -485,7 +485,7 @@ class Runt(SubController):
         The query returns 2.000000e-02.
         """
         check_input(time, "time", float, 2.0e-9, 4.0, "s")
-        self.subdevice.device.ask(f":TRIGger:RUNT:WLOWer {time}")
+        self.sdev.dev.ask(f":TRIGger:RUNT:WLOWer {time}")
 
     def get_lower_limit(self) -> float:
         """
@@ -527,7 +527,7 @@ class Runt(SubController):
         :TRIGger:RUNT:WLOWer 0.02
         The query returns 2.000000e-02.
         """
-        return float(self.subdevice.device.ask(":TRIGger:RUNT:WLOWer?"))
+        return float(self.sdev.dev.ask(":TRIGger:RUNT:WLOWer?"))
 
     def set_upper_limit(self, time: float = 2.0e-6) -> None:
         """
@@ -570,7 +570,7 @@ class Runt(SubController):
         The query returns 2.000000e-02.
         """
         check_input(time, "time", float, 2.0e-9, 4.0, "s")
-        self.subdevice.device.ask(f":TRIGger:RUNT:WUPPer {time}")
+        self.sdev.dev.ask(f":TRIGger:RUNT:WUPPer {time}")
 
     def get_upper_limit(self) -> float:
         """
@@ -612,7 +612,7 @@ class Runt(SubController):
         :TRIGger:RUNT:WUPPer 0.02
         The query returns 2.000000e-02.
         """
-        return float(self.subdevice.device.ask(":TRIGger:RUNT:WUPPer?"))
+        return float(self.sdev.dev.ask(":TRIGger:RUNT:WUPPer?"))
 
     def set_upper_limit_trigger_level(self, level: float = 0.0) -> None:
         """
@@ -657,14 +657,14 @@ class Runt(SubController):
         offset: float = -1.0
         channel: str = self.get_source()
         if channel == "CHANnel1":
-            scale = self.subdevice.device.channel1.get_scale()
-            offset = self.subdevice.device.channel1.get_offset()
+            scale = self.sdev.dev.channel1.get_scale()
+            offset = self.sdev.dev.channel1.get_offset()
         elif channel == "CHANnel2":
-            scale = self.subdevice.device.channel2.scale()
-            offset = self.subdevice.device.channel2.get_offset()
+            scale = self.sdev.dev.channel2.scale()
+            offset = self.sdev.dev.channel2.get_offset()
         else:
             raise RuntimeError("The oscilloscope returned an unknown channel")
-        self.subdevice.device.ask(f":TRIGger:RUNT:ALEVel {level}")
+        self.sdev.dev.ask(f":TRIGger:RUNT:ALEVel {level}")
         check_level(level, scale, offset)
 
     def get_upper_limit_trigger_level(self) -> float:
@@ -706,7 +706,7 @@ class Runt(SubController):
         :TRIGger:RUNT:ALEVel 0.16
         The query returns 1.600000e-01.
         """
-        return float(self.subdevice.device.ask(":TRIGger:RUNT:ALEVel?"))
+        return float(self.sdev.dev.ask(":TRIGger:RUNT:ALEVel?"))
 
     def set_lower_limit_trigger_level(self, level: float = 0.0) -> None:
         """
@@ -751,15 +751,15 @@ class Runt(SubController):
         offset: float = -1.0
         channel: str = self.get_source()
         if channel == "CHANnel1":
-            scale = self.subdevice.device.channel1.get_scale()
-            offset = self.subdevice.device.channel1.get_offset()
+            scale = self.sdev.dev.channel1.get_scale()
+            offset = self.sdev.dev.channel1.get_offset()
         elif channel == "CHANnel2":
-            scale = self.subdevice.device.channel2.scale()
-            offset = self.subdevice.device.channel2.get_offset()
+            scale = self.sdev.dev.channel2.scale()
+            offset = self.sdev.dev.channel2.get_offset()
         else:
             raise RuntimeError("The oscilloscope returned an unknown channel")
         check_level(level, scale, offset)
-        self.subdevice.device.ask(f":TRIGger:RUNT:BLEVel {level}")
+        self.sdev.dev.ask(f":TRIGger:RUNT:BLEVel {level}")
 
     def get_lower_limit_trigger_level(self) -> float:
         """
@@ -800,4 +800,4 @@ class Runt(SubController):
         :TRIGger:RUNT:BLEVel 0.16
         The query returns 1.600000e-01.
         """
-        return float(self.subdevice.device.ask(":TRIGger:RUNT:BLEVel?"))
+        return float(self.sdev.dev.ask(":TRIGger:RUNT:BLEVel?"))

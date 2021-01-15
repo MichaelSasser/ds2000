@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # ds2000 - The Python Library for Rigol DS2000 Oscilloscopes
-# Copyright (C) 2020  Michael Sasser <Michael@MichaelSasser.org>
+# Copyright (C) 2020-2021  Michael Sasser <Michael@MichaelSasser.org>
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,8 +15,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from ds2000.common import SubController
-from ds2000.common import SubSubController
+from ds2000.common import SFunc
+from ds2000.common import SSFunc
 from ds2000.common import check_input
 from ds2000.common import check_level
 
@@ -26,7 +26,7 @@ __email__ = "Michael@MichaelSasser.org"
 
 
 # ToDo: Shorter function names!!!
-class PulseWhen(SubSubController):
+class PulseWhen(SSFunc):
     def set_pos_pulse_width_greater_than_specified_lower_pulse_width(
         self,
     ) -> None:
@@ -95,7 +95,7 @@ class PulseWhen(SubSubController):
         :TRIGger:PULSe:WHEN PGReater
         The query returns PGR.
         """
-        self.subsubdevice.subdevice.device.ask(":TRIGger:PULSe:WHEN GReater")
+        self.ssdev.sdev.dev.ask(":TRIGger:PULSe:WHEN GReater")
 
     def set_pos_pulse_width_lower_than_specified_upper_pulse_width(
         self,
@@ -166,7 +166,7 @@ class PulseWhen(SubSubController):
         The query returns PGR.
         """
 
-        self.subsubdevice.subdevice.device.ask(":TRIGger:PULSe:WHEN PLESs")
+        self.ssdev.sdev.dev.ask(":TRIGger:PULSe:WHEN PLESs")
 
     def set_neg_pulse_width_greater_than_specified_lower_pulse_width(
         self,
@@ -236,7 +236,7 @@ class PulseWhen(SubSubController):
         :TRIGger:PULSe:WHEN PGReater
         The query returns PGR.
         """
-        self.subsubdevice.subdevice.device.ask(":TRIGger:PULSe:WHEN NGReater")
+        self.ssdev.sdev.dev.ask(":TRIGger:PULSe:WHEN NGReater")
 
     def set_neg_pulse_width_lower_than_specified_upper_pulse_width(
         self,
@@ -306,7 +306,7 @@ class PulseWhen(SubSubController):
         :TRIGger:PULSe:WHEN PGReater
         The query returns PGR.
         """
-        self.subsubdevice.subdevice.device.ask(":TRIGger:PULSe:WHEN NLESs")
+        self.ssdev.sdev.dev.ask(":TRIGger:PULSe:WHEN NLESs")
 
     def set_pos_pulse_width_between_specified_upper_and_lower_pulse_width(
         self,
@@ -376,7 +376,7 @@ class PulseWhen(SubSubController):
         :TRIGger:PULSe:WHEN PGReater
         The query returns PGR.
         """
-        self.subsubdevice.subdevice.device.ask(":TRIGger:PULSe:WHEN PGLess")
+        self.ssdev.sdev.dev.ask(":TRIGger:PULSe:WHEN PGLess")
 
     def set_neg_pulse_width_between_specified_upper_and_lower_pulse_width(
         self,
@@ -446,7 +446,7 @@ class PulseWhen(SubSubController):
         :TRIGger:PULSe:WHEN PGReater
         The query returns PGR.
         """
-        self.subsubdevice.subdevice.device.ask(":TRIGger:PULSe:WHEN NGLess")
+        self.ssdev.sdev.dev.ask(":TRIGger:PULSe:WHEN NGLess")
 
     def status(self) -> str:
         """
@@ -514,10 +514,10 @@ class PulseWhen(SubSubController):
         :TRIGger:PULSe:WHEN PGReater
         The query returns PGR.
         """
-        return self.subsubdevice.subdevice.device.ask(":TRIGger:PULSe:WHEN?")
+        return self.ssdev.sdev.dev.ask(":TRIGger:PULSe:WHEN?")
 
 
-class Pulse(SubController):
+class Pulse(SFunc):
     def __init__(self, device):
         super(Pulse, self).__init__(device)
         self.when: PulseWhen = PulseWhen(self)
@@ -552,7 +552,7 @@ class Pulse(SubController):
         :TRIGger:PULSe:SOURce CHANnel2
         The query returns CHAN2.
         """
-        self.subdevice.device.ask(f":TRIGger:PULSe:SOURce CHANnel{channel}")
+        self.sdev.dev.ask(f":TRIGger:PULSe:SOURce CHANnel{channel}")
 
     def get_source(self) -> str:
         """
@@ -584,7 +584,7 @@ class Pulse(SubController):
         :TRIGger:PULSe:SOURce CHANnel2
         The query returns CHAN2.
         """
-        return self.subdevice.device.ask(":TRIGger:PULSe:SOURce?")
+        return self.sdev.dev.ask(":TRIGger:PULSe:SOURce?")
 
     def set_upper_pulse_width(self, time: float = 2.0e-6) -> None:
         """
@@ -628,7 +628,7 @@ class Pulse(SubController):
         The query returns 3.000000e-06.
         """
         check_input(time, "time", float, 2.0e-9, 4.0, "s")
-        self.subdevice.device.ask(f":TRIGger:PULSe:UWIDth {time}")
+        self.sdev.dev.ask(f":TRIGger:PULSe:UWIDth {time}")
 
     def get_upper_pulse_width(self) -> float:
         """
@@ -671,7 +671,7 @@ class Pulse(SubController):
         :TRIGger:PULSe:UWIDth 0.000003
         The query returns 3.000000e-06.
         """
-        return float(self.subdevice.device.ask(":TRIGger:PULSe:UWIDth?"))
+        return float(self.sdev.dev.ask(":TRIGger:PULSe:UWIDth?"))
 
     def set_lower_pulse_width(self, time: float = 1.0e-6) -> None:
         """
@@ -715,7 +715,7 @@ class Pulse(SubController):
         The query returns 3.000000e-06.
         """
         check_input(time, "time", float, 2.0e-9, 4.0, "s")
-        self.subdevice.device.ask(f":TRIGger:PULSe:LWIDth {time}")
+        self.sdev.dev.ask(f":TRIGger:PULSe:LWIDth {time}")
 
     def get_lower_pulse_width(self) -> float:
         """
@@ -758,7 +758,7 @@ class Pulse(SubController):
         :TRIGger:PULSe:LWIDth 0.000003
         The query returns 3.000000e-06.
         """
-        return float(self.subdevice.device.ask(":TRIGger:PULSe:LWIDth?"))
+        return float(self.sdev.dev.ask(":TRIGger:PULSe:LWIDth?"))
 
     def set_level(self, level: float = 0.0) -> None:
         """
@@ -801,15 +801,15 @@ class Pulse(SubController):
         offset: float = -1.0
         channel: str = self.get_source()
         if channel == "CHANnel1":
-            scale = self.subdevice.device.channel1.get_scale()
-            offset = self.subdevice.device.channel1.get_offset()
+            scale = self.sdev.dev.channel1.get_scale()
+            offset = self.sdev.dev.channel1.get_offset()
         elif channel == "CHANnel2":
-            scale = self.subdevice.device.channel2.scale()
-            offset = self.subdevice.device.channel2.get_offset()
+            scale = self.sdev.dev.channel2.scale()
+            offset = self.sdev.dev.channel2.get_offset()
         else:
             raise RuntimeError("The oscilloscope returned an unknown channel")
         check_level(level, scale, offset)
-        self.subdevice.device.ask(f":TRIGger:PULSe:LEVel {level}")
+        self.sdev.dev.ask(f":TRIGger:PULSe:LEVel {level}")
 
     def get_level(self) -> float:
         """
@@ -848,4 +848,4 @@ class Pulse(SubController):
         :TRIGger:PULSe:LEVel 0.16
         The query returns 1.600000e-01.
         """
-        return float(self.subdevice.device.ask(":TRIGger:PULSe:LEVel?"))
+        return float(self.sdev.dev.ask(":TRIGger:PULSe:LEVel?"))

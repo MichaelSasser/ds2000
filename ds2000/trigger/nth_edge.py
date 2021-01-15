@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # ds2000 - The Python Library for Rigol DS2000 Oscilloscopes
-# Copyright (C) 2020  Michael Sasser <Michael@MichaelSasser.org>
+# Copyright (C) 2020-2021  Michael Sasser <Michael@MichaelSasser.org>
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,8 +15,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from ds2000.common import SubController
-from ds2000.common import SubSubController
+from ds2000.common import SFunc
+from ds2000.common import SSFunc
 from ds2000.common import check_input
 from ds2000.errors import DS2000StateError
 
@@ -25,7 +25,7 @@ __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
 
 
-class NthEdgeSource(SubSubController):
+class NthEdgeSource(SSFunc):
     def channel1(self) -> None:
         """
         **Rigol Programming Guide**
@@ -57,7 +57,7 @@ class NthEdgeSource(SubSubController):
         :TRIGger:NEDGe:SOURce CHANnel2
         The query returns CHAN2.
         """
-        self.subsubdevice.subdevice.device.ask(
+        self.ssdev.sdev.dev.ask(
             ":TRIGger:NEDGe:SOURce CHANnel1"
         )
 
@@ -92,7 +92,7 @@ class NthEdgeSource(SubSubController):
         :TRIGger:NEDGe:SOURce CHANnel2
         The query returns CHAN2.
         """
-        self.subsubdevice.subdevice.device.ask(
+        self.ssdev.sdev.dev.ask(
             ":TRIGger:NEDGe:SOURce CHANnel2"
         )
 
@@ -128,13 +128,13 @@ class NthEdgeSource(SubSubController):
         The query returns CHAN2.
         """
         return int(
-            self.subsubdevice.subdevice.device.ask(":TRIGger:NEDGe:SOURce?")[
+            self.ssdev.sdev.dev.ask(":TRIGger:NEDGe:SOURce?")[
                 -1
             ]
         )
 
 
-class NthEdge(SubController):
+class NthEdge(SFunc):
     def __init__(self, device):
         super(NthEdge, self).__init__(device)
         self.source: NthEdgeSource = NthEdgeSource(self)
@@ -170,7 +170,7 @@ class NthEdge(SubController):
         :TRIGger:NEDGe:SLOPe NEGative
         The query returns NEG.
         """
-        self.subdevice.device.ask(
+        self.sdev.dev.ask(
             f":TRIGger:NEDGe:SLOPe {'POSitive' if positive else 'NEGative'}"
         )
 
@@ -207,7 +207,7 @@ class NthEdge(SubController):
         """
         return (
             True
-            if self.subdevice.device.ask(":TRIGger:NEDGe:SLOPe?") == "POS"
+            if self.sdev.dev.ask(":TRIGger:NEDGe:SLOPe?") == "POS"
             else False
         )
 
@@ -246,7 +246,7 @@ class NthEdge(SubController):
         The query returns 2.000000e-03.
         """
         check_input(time, "time", float, 16.0e-9, 4.0, "s")
-        self.subdevice.device.ask(f":TRIGger:NEDGe:IDLE {time}")
+        self.sdev.dev.ask(f":TRIGger:NEDGe:IDLE {time}")
 
     def get_idle(self) -> float:
         """
@@ -279,7 +279,7 @@ class NthEdge(SubController):
         :TRIGger:NEDGe:IDLE 0.002
         The query returns 2.000000e-03.
         """
-        return float(self.subdevice.device.ask(":TRIGger:NEDGe:IDLE?"))
+        return float(self.sdev.dev.ask(":TRIGger:NEDGe:IDLE?"))
 
     def set_edge(self, number: int = 2) -> None:
         """
@@ -312,7 +312,7 @@ class NthEdge(SubController):
         :TRIGger:NEDGe:EDGE
         """
         check_input(number, "number", int, 1, 65535, "")
-        self.subdevice.device.ask(f":TRIGger:NEDGe:EDGE {number}")
+        self.sdev.dev.ask(f":TRIGger:NEDGe:EDGE {number}")
 
     def get_edge(self) -> int:
         """
@@ -344,7 +344,7 @@ class NthEdge(SubController):
 
         :TRIGger:NEDGe:EDGE
         """
-        return int(self.subdevice.device.ask(":TRIGger:NEDGe:EDGE?"))
+        return int(self.sdev.dev.ask(":TRIGger:NEDGe:EDGE?"))
 
     def set_level(self, level: int = 0) -> None:
         """
@@ -387,11 +387,11 @@ class NthEdge(SubController):
         offset: float = -1.0
         source = self.source.status()
         if source == "channel 1":
-            scale = self.subdevice.device.channel1.get_scale()
-            offset = self.subdevice.device.channel1.get_offset()
+            scale = self.sdev.dev.channel1.get_scale()
+            offset = self.sdev.dev.channel1.get_offset()
         elif source == "channel 2":
-            scale = self.subdevice.device.channel2.scale()
-            offset = self.subdevice.device.channel2.get_offset()
+            scale = self.sdev.dev.channel2.scale()
+            offset = self.sdev.dev.channel2.get_offset()
         else:
             DS2000StateError(
                 "The level coul'd only be set, if the source is"
@@ -403,7 +403,7 @@ class NthEdge(SubController):
 
         check_input(level, "level", int, min_rng, max_rng, "")
 
-        self.subdevice.device.ask(f":TRIGger:NEDGe:LEVel {level}")
+        self.sdev.dev.ask(f":TRIGger:NEDGe:LEVel {level}")
 
     def get_level(self) -> int:
         """
@@ -442,4 +442,4 @@ class NthEdge(SubController):
         :TRIGger:NEDGe:LEVel 0.16
         The query returns 1.600000e-01.
         """
-        return int(self.subdevice.device.ask(":TRIGger:NEDGe:LEVel?"))
+        return int(self.sdev.dev.ask(":TRIGger:NEDGe:LEVel?"))

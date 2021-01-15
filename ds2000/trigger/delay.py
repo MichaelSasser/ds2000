@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # ds2000 - The Python Library for Rigol DS2000 Oscilloscopes
-# Copyright (C) 2020  Michael Sasser <Michael@MichaelSasser.org>
+# Copyright (C) 2020-2021  Michael Sasser <Michael@MichaelSasser.org>
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -17,8 +17,8 @@
 from enum import Enum
 from typing import Union
 
-from ds2000.common import SubController
-from ds2000.common import SubSubController
+from ds2000.common import SFunc
+from ds2000.common import SSFunc
 from ds2000.common import check_input
 
 
@@ -33,7 +33,7 @@ class DelayTypeEnum(Enum):
     GOUT = "outside"  # GOUT
 
 
-class DelayType(SubSubController):
+class DelayType(SSFunc):
     def greater(self) -> None:
         """
         **Rigol Programming Guide**
@@ -89,7 +89,7 @@ class DelayType(SubSubController):
         :TRIGger:DELay:TYPe GOUT
         The query returns GOUT.
         """
-        self.subsubdevice.subdevice.device.ask(":TRIGger:DELay:TYPe GREater")
+        self.ssdev.sdev.dev.ask(":TRIGger:DELay:TYPe GREater")
 
     def less(self) -> None:
         """
@@ -146,7 +146,7 @@ class DelayType(SubSubController):
         :TRIGger:DELay:TYPe GOUT
         The query returns GOUT.
         """
-        self.subsubdevice.subdevice.device.ask(":TRIGger:DELay:TYPe LESS")
+        self.ssdev.sdev.dev.ask(":TRIGger:DELay:TYPe LESS")
 
     def between(self) -> None:
         """
@@ -203,7 +203,7 @@ class DelayType(SubSubController):
         :TRIGger:DELay:TYPe GOUT
         The query returns GOUT.
         """
-        self.subsubdevice.subdevice.device.ask(":TRIGger:DELay:TYPe GLESs")
+        self.ssdev.sdev.dev.ask(":TRIGger:DELay:TYPe GLESs")
 
     def outside(self) -> None:
         """
@@ -260,7 +260,7 @@ class DelayType(SubSubController):
         :TRIGger:DELay:TYPe GOUT
         The query returns GOUT.
         """
-        self.subsubdevice.subdevice.device.ask(":TRIGger:DELay:TYPe GOUT")
+        self.ssdev.sdev.dev.ask(":TRIGger:DELay:TYPe GOUT")
 
     def status(self) -> DelayTypeEnum:
         """
@@ -317,7 +317,7 @@ class DelayType(SubSubController):
         :TRIGger:DELay:TYPe GOUT
         The query returns GOUT.
         """
-        ret: str = self.subsubdevice.subdevice.device.ask(
+        ret: str = self.ssdev.sdev.dev.ask(
             ":TRIGger:DELay:TYPe?"
         )
 
@@ -331,7 +331,7 @@ class DelayType(SubSubController):
             return DelayTypeEnum.GOUT
 
 
-class Delay(SubController):
+class Delay(SFunc):
     def __init__(self, device):
         super(Delay, self).__init__(device)
         self.type: DelayType = DelayType(self)
@@ -388,7 +388,7 @@ class Delay(SubController):
             elif source == 2:
                 source = "B"
 
-        self.subdevice.device.ask(f":TRIGger:DELay:S{source} CHANnel{channel}")
+        self.sdev.dev.ask(f":TRIGger:DELay:S{source} CHANnel{channel}")
 
     def get_signal(self, source: Union[str, int]) -> int:  # SA/SB
         """
@@ -434,7 +434,7 @@ class Delay(SubController):
         :TRIGger:DELay:SB CHANnel2
         The query returns CHAN2.
         """
-        return int(self.subdevice.device.ask(f":TRIGger:DELay:S{source}?")[-1])
+        return int(self.sdev.dev.ask(f":TRIGger:DELay:S{source}?")[-1])
 
     def set_slope(self, source, positive: bool = True) -> None:  # SLOPA/SLOPB
         """
@@ -480,7 +480,7 @@ class Delay(SubController):
         elif source == 2:
             source = "B"
 
-        self.subdevice.device.ask(
+        self.sdev.dev.ask(
             f":TRIGger:DELay:SLOP{source} "
             f"{'POSitive' if positive else 'NEGative'}"
         )
@@ -532,7 +532,7 @@ class Delay(SubController):
 
         return (
             True
-            if self.subdevice.device.ask(f":TRIGger:DELay:SLOP{source}?")
+            if self.sdev.dev.ask(f":TRIGger:DELay:SLOP{source}?")
             == "POS"
             else False
         )
@@ -596,7 +596,7 @@ class Delay(SubController):
         else:
             check_input(time, "time", float, 2.0e-9, 4.0, "s")
 
-        self.subdevice.device.ask(f":TRIGger:DELay:TUPPer {time}")
+        self.sdev.dev.ask(f":TRIGger:DELay:TUPPer {time}")
 
     def get_upper_limit(self) -> float:
         """
@@ -652,7 +652,7 @@ class Delay(SubController):
                 f"{DelayTypeEnum.GLES.value}"
             )
 
-        return float(self.subdevice.device.ask(f":TRIGger:DELay:TUPPer?"))
+        return float(self.sdev.dev.ask(f":TRIGger:DELay:TUPPer?"))
 
     def set_lower_limit(self, time: float = 1.0e-6) -> None:
         """
@@ -711,7 +711,7 @@ class Delay(SubController):
 
         check_input(time, "time", float, 2.0e-9, 3.99, "s")
 
-        self.subdevice.device.ask(f":TRIGger:DELay:TLOWer {time}")
+        self.sdev.dev.ask(f":TRIGger:DELay:TLOWer {time}")
 
     def get_lower_limit(self) -> float:
         """
@@ -768,4 +768,4 @@ class Delay(SubController):
                 f"{DelayTypeEnum.GLES.value} "
             )
 
-        return float(self.subdevice.device.ask(f":TRIGger:DELay:TLOWer?"))
+        return float(self.sdev.dev.ask(f":TRIGger:DELay:TLOWer?"))

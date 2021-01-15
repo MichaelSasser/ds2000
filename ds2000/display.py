@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # ds2000 - The Python Library for Rigol DS2000 Oscilloscopes
-# Copyright (C) 2018-2020  Michael Sasser <Michael@MichaelSasser.org>
+# Copyright (C) 2018-2021  Michael Sasser <Michael@MichaelSasser.org>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -18,8 +18,8 @@ from __future__ import annotations
 
 import math
 
-from .common import BaseController
-from .common import SubController
+from .common import Func
+from .common import SFunc
 from .errors import DS2000Error
 
 
@@ -27,7 +27,7 @@ __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
 
 
-class DisplayType(SubController):
+class DisplayType(SFunc):
     def vectors(self):
         """
         **Rigol Programming Guide**
@@ -69,7 +69,7 @@ class DisplayType(SubController):
         :DISPlay:TYPE DOTS
         The query returns DOTS.
         """
-        self.subdevice.device.ask(":DISPlay:TYPE VECTors")
+        self.sdev.dev.ask(":DISPlay:TYPE VECTors")
 
     def dots(self):
         """
@@ -111,7 +111,7 @@ class DisplayType(SubController):
         :DISPlay:TYPE DOTS
         The query returns DOTS.
         """
-        self.subdevice.device.ask(":DISPlay:TYPE DOTS")
+        self.sdev.dev.ask(":DISPlay:TYPE DOTS")
 
     def status(self):
         """
@@ -153,13 +153,13 @@ class DisplayType(SubController):
         :DISPlay:TYPE DOTS
         The query returns DOTS.
         """
-        display_type = self.subdevice.device.ask(":DISPlay:TYPE?").lower()
+        display_type = self.sdev.dev.ask(":DISPlay:TYPE?").lower()
         if display_type in ("dots", "vectors"):
             return display_type
         raise DS2000Error("Unknown type of display grid.")
 
 
-class DisplayGrid(SubController):
+class DisplayGrid(SFunc):
     def full(self):
         """
         **Rigol Programming Guide**
@@ -199,7 +199,7 @@ class DisplayGrid(SubController):
         :DISPlay:GRID NONE
         The query returns NONE.
         """
-        self.subdevice.device.ask(":DISPlay:GRID FULL")
+        self.sdev.dev.ask(":DISPlay:GRID FULL")
 
     def half(self):
         """
@@ -240,7 +240,7 @@ class DisplayGrid(SubController):
         :DISPlay:GRID NONE
         The query returns NONE.
         """
-        self.subdevice.device.ask(":DISPlay:GRID HALF")
+        self.sdev.dev.ask(":DISPlay:GRID HALF")
 
     def none(self):
         """
@@ -281,7 +281,7 @@ class DisplayGrid(SubController):
         :DISPlay:GRID NONE
         The query returns NONE.
         """
-        self.subdevice.device.ask(":DISPlay:GRID NONE")
+        self.sdev.dev.ask(":DISPlay:GRID NONE")
 
     def status(self) -> str:
         """
@@ -322,10 +322,10 @@ class DisplayGrid(SubController):
         :DISPlay:GRID NONE
         The query returns NONE.
         """
-        return self.subdevice.device.ask(":DISPlay:GRID?").lower()
+        return self.sdev.dev.ask(":DISPlay:GRID?").lower()
 
 
-class Display(BaseController):
+class Display(Func):
     # 0.0 for MIN and -1.0 or math.inf for INFINITE
     GRID_GRADING_TIMES = (
         0.0,
@@ -345,8 +345,8 @@ class Display(BaseController):
     # -1 means INFINITE
     MENU_DISPLAY_TIME = (1, 2, 5, 10, 20, -1)
 
-    def __init__(self, device) -> None:
-        super(Display, self).__init__(device)
+    def __init__(self, dev) -> None:
+        super(Display, self).__init__(dev)
         self.type: DisplayType = DisplayType(self)
         self.grid: DisplayGrid = DisplayGrid(self)
 
@@ -369,7 +369,7 @@ class Display(BaseController):
         You can also use the :CLEar command to clear all the waveforms on the
         screen.
         """
-        self.device.write(":DISPlay:CLEar")
+        self.dev.write(":DISPlay:CLEar")
 
     def get_persistence_time(self) -> float:
         """
@@ -418,7 +418,7 @@ class Display(BaseController):
         :DISPlay:GRADing:TIME 0.1
         The query returns 0.1.
         """
-        payload: str = self.device.ask(":DISPlay:CLEar")
+        payload: str = self.dev.ask(":DISPlay:CLEar")
 
         try:
             return float(payload)
@@ -481,11 +481,11 @@ class Display(BaseController):
             )
 
         if time == Display.GRID_GRADING_TIMES[1]:
-            self.device.ask(":DISPlay:GRADing:TIME MIN")
+            self.dev.ask(":DISPlay:GRADing:TIME MIN")
         elif time in Display.GRID_GRADING_TIMES[-2:-1]:
-            self.device.ask(":DISPlay:GRADing:TIME INFinite")
+            self.dev.ask(":DISPlay:GRADing:TIME INFinite")
         elif time in Display.GRID_GRADING_TIMES:
-            self.device.ask(f":DISPlay:GRADing:TIME {time}")
+            self.dev.ask(f":DISPlay:GRADing:TIME {time}")
 
     def get_waveform_brightness(self) -> int:
         """
@@ -518,7 +518,7 @@ class Display(BaseController):
         :DISPlay:WBRightness 60
         The query returns 60.
         """
-        return int(self.device.ask(":DISPlay:WBRightness?"))
+        return int(self.dev.ask(":DISPlay:WBRightness?"))
 
     def set_waveform_brightness(self, brightness: int = 50) -> None:
         """
@@ -552,7 +552,7 @@ class Display(BaseController):
         The query returns 60.
         """
         if isinstance(brightness, int) and 0 <= brightness <= 100:
-            self.device.ask(f":DISPlay:WBRightness {brightness}")
+            self.dev.ask(f":DISPlay:WBRightness {brightness}")
         else:
             ValueError(
                 "The brightness must be of type int and between 0..100."
@@ -589,7 +589,7 @@ class Display(BaseController):
         :DISPlay:GBRightness 60
         The query returns 60.
         """
-        return int(self.device.ask(":DISPlay:GBRightness?"))
+        return int(self.dev.ask(":DISPlay:GBRightness?"))
 
     def set_grid_brightness(self, brightness: int = 50) -> None:
         """
@@ -623,7 +623,7 @@ class Display(BaseController):
         The query returns 60.
         """
         if isinstance(brightness, int) and 0 <= brightness <= 100:
-            self.device.ask(f":DISPlay:GBRightness {brightness}")
+            self.dev.ask(f":DISPlay:GBRightness {brightness}")
         else:
             ValueError(
                 "The brightness must be of type int and between 0..100."
@@ -670,9 +670,9 @@ class Display(BaseController):
             )
 
         if time in Display.MENU_DISPLAY_TIME[-1]:
-            self.device.ask(":DISPlay:MPERsistence INFinite")
+            self.dev.ask(":DISPlay:MPERsistence INFinite")
         elif time in Display.MENU_DISPLAY_TIME:
-            self.device.ask(f":DISPlay:GRADing:TIME {time}")
+            self.dev.ask(f":DISPlay:GRADing:TIME {time}")
 
     def data(self) -> bytearray:  # Screenshot bitmap raw data stream
         """
@@ -740,13 +740,13 @@ class Display(BaseController):
         """
         # Write Data
         try:
-            self.device.write(":DISPlay:DATA?")
+            self.dev.write(":DISPlay:DATA?")
         except Exception:
             raise DS2000Error("Write Operation was not successful.")
 
         # Read (RAW) data from the oscilloscope (Head + Bitmap)
         try:
-            payload = self.device.read_raw()
+            payload = self.dev.read_raw()
         except Exception:
             raise DS2000Error("Raw read Operation was not successful.")
 

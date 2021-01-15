@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # ds2000 - The Python Library for Rigol DS2000 Oscilloscopes
-# Copyright (C) 2020  Michael Sasser <Michael@MichaelSasser.org>
+# Copyright (C) 2020-2021  Michael Sasser <Michael@MichaelSasser.org>
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from ds2000.common import SubController
+from ds2000.common import SFunc
 from ds2000.errors import DS2000StateError
 
 
@@ -23,7 +23,7 @@ __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
 
 
-class Mode(SubController):
+class Mode(SFunc):
     def edge(self) -> None:
         """
         **Rigol Programming Guide**
@@ -58,7 +58,7 @@ class Mode(SubController):
         :TRIGger:MODE SLOPe
         The query returns SLOP.
         """
-        self.subdevice.device.ask(":TRIGger:MODE EDGE")
+        self.sdev.dev.ask(":TRIGger:MODE EDGE")
 
     def pulse(self) -> None:
         """
@@ -94,7 +94,7 @@ class Mode(SubController):
         :TRIGger:MODE SLOPe
         The query returns SLOP.
         """
-        self.subdevice.device.ask(":TRIGger:MODE PULSe")
+        self.sdev.dev.ask(":TRIGger:MODE PULSe")
 
     def runt(self) -> None:
         """
@@ -130,7 +130,7 @@ class Mode(SubController):
         :TRIGger:MODE SLOPe
         The query returns SLOP.
         """
-        self.subdevice.device.ask(":TRIGger:MODE RUNT")
+        self.sdev.dev.ask(":TRIGger:MODE RUNT")
 
     def windows(self) -> None:
         """
@@ -166,7 +166,7 @@ class Mode(SubController):
         :TRIGger:MODE SLOPe
         The query returns SLOP.
         """
-        self.subdevice.device.ask(":TRIGger:MODE WIND")
+        self.sdev.dev.ask(":TRIGger:MODE WIND")
 
     def nth_edge(self) -> None:
         """
@@ -202,7 +202,7 @@ class Mode(SubController):
         :TRIGger:MODE SLOPe
         The query returns SLOP.
         """
-        self.subdevice.device.ask(":TRIGger:MODE NEDG")
+        self.sdev.dev.ask(":TRIGger:MODE NEDG")
 
     def slope(self) -> None:
         """
@@ -238,7 +238,7 @@ class Mode(SubController):
         :TRIGger:MODE SLOPe
         The query returns SLOP.
         """
-        self.subdevice.device.ask(":TRIGger:MODE SLOPe")
+        self.sdev.dev.ask(":TRIGger:MODE SLOPe")
 
     def video(self) -> None:
         """
@@ -274,7 +274,7 @@ class Mode(SubController):
         :TRIGger:MODE SLOPe
         The query returns SLOP.
         """
-        self.subdevice.device.ask(":TRIGger:MODE VIDeo")
+        self.sdev.dev.ask(":TRIGger:MODE VIDeo")
 
     def pattern(self) -> None:
         """
@@ -310,7 +310,7 @@ class Mode(SubController):
         :TRIGger:MODE SLOPe
         The query returns SLOP.
         """
-        self.subdevice.device.ask(":TRIGger:MODE PATTern")
+        self.sdev.dev.ask(":TRIGger:MODE PATTern")
 
     def delay(self) -> None:
         """
@@ -346,7 +346,7 @@ class Mode(SubController):
         :TRIGger:MODE SLOPe
         The query returns SLOP.
         """
-        self.subdevice.device.ask(":TRIGger:MODE DELay")
+        self.sdev.dev.ask(":TRIGger:MODE DELay")
 
     def timeout(self) -> None:
         """
@@ -382,7 +382,7 @@ class Mode(SubController):
         :TRIGger:MODE SLOPe
         The query returns SLOP.
         """
-        self.subdevice.device.ask(":TRIGger:MODE TIMeout")
+        self.sdev.dev.ask(":TRIGger:MODE TIMeout")
 
     def duration(self) -> None:
         """
@@ -418,7 +418,7 @@ class Mode(SubController):
         :TRIGger:MODE SLOPe
         The query returns SLOP.
         """
-        self.subdevice.device.ask(":TRIGger:MODE DURATion")
+        self.sdev.dev.ask(":TRIGger:MODE DURATion")
 
     def setup_hold(self) -> None:
         """
@@ -454,7 +454,7 @@ class Mode(SubController):
         :TRIGger:MODE SLOPe
         The query returns SLOP.
         """
-        self.subdevice.device.ask(":TRIGger:MODE SHOLd")
+        self.sdev.dev.ask(":TRIGger:MODE SHOLd")
 
     def rs232(self) -> None:
         """
@@ -490,7 +490,7 @@ class Mode(SubController):
         :TRIGger:MODE SLOPe
         The query returns SLOP.
         """
-        self.subdevice.device.ask(":TRIGger:MODE RS232")
+        self.sdev.dev.ask(":TRIGger:MODE RS232")
 
     def i2c(self) -> None:
         """
@@ -526,7 +526,7 @@ class Mode(SubController):
         :TRIGger:MODE SLOPe
         The query returns SLOP.
         """
-        self.subdevice.device.ask(":TRIGger:MODE IIC")
+        self.sdev.dev.ask(":TRIGger:MODE IIC")
 
     def spi(self) -> None:
         """
@@ -562,7 +562,7 @@ class Mode(SubController):
         :TRIGger:MODE SLOPe
         The query returns SLOP.
         """
-        self.subdevice.device.ask(":TRIGger:MODE SPI")
+        self.sdev.dev.ask(":TRIGger:MODE SPI")
 
     def usb(self) -> None:
         """
@@ -598,7 +598,7 @@ class Mode(SubController):
         :TRIGger:MODE SLOPe
         The query returns SLOP.
         """
-        self.subdevice.device.ask(":TRIGger:MODE USB")
+        self.sdev.dev.ask(":TRIGger:MODE USB")
 
     def status(self) -> str:
         """
@@ -634,7 +634,7 @@ class Mode(SubController):
         :TRIGger:MODE SLOPe
         The query returns SLOP.
         """
-        status = self.subdevice.device.ask(":TRIGger:MODE?").lower()
+        status = self.sdev.dev.ask(":TRIGger:MODE?").lower()
         if status in (
             "edge",
             "pulse",

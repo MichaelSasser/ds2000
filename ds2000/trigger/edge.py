@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # ds2000 - The Python Library for Rigol DS2000 Oscilloscopes
-# Copyright (C) 2020  Michael Sasser <Michael@MichaelSasser.org>
+# Copyright (C) 2020-2021  Michael Sasser <Michael@MichaelSasser.org>
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,8 +15,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from ds2000.common import SubController
-from ds2000.common import SubSubController
+from ds2000.common import SFunc
+from ds2000.common import SSFunc
 from ds2000.common import check_level
 from ds2000.errors import DS2000StateError
 
@@ -25,7 +25,7 @@ __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
 
 
-class EdgeSource(SubSubController):
+class EdgeSource(SSFunc):
     def channel1(self) -> None:
         """
         **Rigol Programming Guide**
@@ -57,7 +57,7 @@ class EdgeSource(SubSubController):
         :TRIGger:EDGe:SOURce CHANnel2
         The query returns CHAN2.
         """
-        self.subsubdevice.subdevice.device.ask(":TRIGger:EDGe:SOURce CHANnel1")
+        self.ssdev.sdev.dev.ask(":TRIGger:EDGe:SOURce CHANnel1")
 
     def channel2(self) -> None:
         """
@@ -90,7 +90,7 @@ class EdgeSource(SubSubController):
         :TRIGger:EDGe:SOURce CHANnel2
         The query returns CHAN2.
         """
-        self.subsubdevice.subdevice.device.ask(":TRIGger:EDGe:SOURce CHANnel2")
+        self.ssdev.sdev.dev.ask(":TRIGger:EDGe:SOURce CHANnel2")
 
     def ext(self) -> None:
         """
@@ -123,7 +123,7 @@ class EdgeSource(SubSubController):
         :TRIGger:EDGe:SOURce CHANnel2
         The query returns CHAN2.
         """
-        self.subsubdevice.subdevice.device.ask(":TRIGger:EDGe:SOURce EXT")
+        self.ssdev.sdev.dev.ask(":TRIGger:EDGe:SOURce EXT")
 
     def ac_line(self) -> None:
         """
@@ -156,7 +156,7 @@ class EdgeSource(SubSubController):
         :TRIGger:EDGe:SOURce CHANnel2
         The query returns CHAN2.
         """
-        self.subsubdevice.subdevice.device.ask(":TRIGger:EDGe:SOURce ACLine")
+        self.ssdev.sdev.dev.ask(":TRIGger:EDGe:SOURce ACLine")
 
     def status(self) -> str:
         """
@@ -189,7 +189,7 @@ class EdgeSource(SubSubController):
         :TRIGger:EDGe:SOURce CHANnel2
         The query returns CHAN2.
         """
-        status: str = self.subsubdevice.subdevice.device.ask(
+        status: str = self.ssdev.sdev.dev.ask(
             ":TRIGger:EDGe:SOURce?"
         ).lower()
         if status == "chan1":
@@ -201,7 +201,7 @@ class EdgeSource(SubSubController):
         return "ac line"
 
 
-class EdgeSlope(SubSubController):
+class EdgeSlope(SSFunc):
     def rising_edge(self) -> None:
         """
         **Rigol Programming Guide**
@@ -233,7 +233,7 @@ class EdgeSlope(SubSubController):
         :TRIGger:EDGe:SLOPe NEGative
         The query returns NEG.
         """
-        self.subsubdevice.subdevice.device.ask(":TRIGger:EDGe:SLOPe POSitive")
+        self.ssdev.sdev.dev.ask(":TRIGger:EDGe:SLOPe POSitive")
 
     def falling_edge(self) -> None:
         """
@@ -266,7 +266,7 @@ class EdgeSlope(SubSubController):
         :TRIGger:EDGe:SLOPe NEGative
         The query returns NEG.
         """
-        self.subsubdevice.subdevice.device.ask(":TRIGger:EDGe:SLOPe NEGative")
+        self.ssdev.sdev.dev.ask(":TRIGger:EDGe:SLOPe NEGative")
 
     def both_edges(self) -> None:
         """
@@ -299,7 +299,7 @@ class EdgeSlope(SubSubController):
         :TRIGger:EDGe:SLOPe NEGative
         The query returns NEG.
         """
-        self.subsubdevice.subdevice.device.ask(":TRIGger:EDGe:SLOPe RFALl")
+        self.ssdev.sdev.dev.ask(":TRIGger:EDGe:SLOPe RFALl")
 
     def status(self) -> str:
         """
@@ -332,7 +332,7 @@ class EdgeSlope(SubSubController):
         :TRIGger:EDGe:SLOPe NEGative
         The query returns NEG.
         """
-        status = self.subsubdevice.subdevice.device.ask(":TRIGger:EDGe:SLOPe?")
+        status = self.ssdev.sdev.dev.ask(":TRIGger:EDGe:SLOPe?")
         if status == "POS":
             return "rising edge"
         if status == "NEG":
@@ -340,7 +340,7 @@ class EdgeSlope(SubSubController):
         return "both edges"
 
 
-class Edge(SubController):
+class Edge(SFunc):
     def __init__(self, device):
         super(Edge, self).__init__(device)
         self.source: EdgeSource = EdgeSource(self)
@@ -383,7 +383,7 @@ class Edge(SubController):
         :TRIGger:EDGe:LEVel 0.16
         The query returns 1.600000e-01.
         """
-        return float(self.subdevice.device.ask(":TRIGger:EDGe:LEVel?"))
+        return float(self.sdev.dev.ask(":TRIGger:EDGe:LEVel?"))
 
     def set_level(self, level: float = 0.0) -> None:
         """
@@ -427,11 +427,11 @@ class Edge(SubController):
         offset: float = -1.0
         source = self.source.status()
         if source == "channel 1":
-            scale = self.subdevice.device.channel1.get_scale()
-            offset = self.subdevice.device.channel1.get_offset()
+            scale = self.sdev.dev.channel1.get_scale()
+            offset = self.sdev.dev.channel1.get_offset()
         elif source == "channel 2":
-            scale = self.subdevice.device.channel2.scale()
-            offset = self.subdevice.device.channel2.get_offset()
+            scale = self.sdev.dev.channel2.scale()
+            offset = self.sdev.dev.channel2.get_offset()
         else:
             DS2000StateError(
                 "The level coul'd only be set, if the source is"
@@ -439,4 +439,4 @@ class Edge(SubController):
             )  # ToDo: Right??
 
         check_level(level, scale, offset)
-        self.subdevice.device.ask(f":TRIGger:EDGe:LEVel {level}")
+        self.sdev.dev.ask(f":TRIGger:EDGe:LEVel {level}")

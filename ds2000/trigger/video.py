@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # ds2000 - The Python Library for Rigol DS2000 Oscilloscopes
-# Copyright (C) 2020  Michael Sasser <Michael@MichaelSasser.org>
+# Copyright (C) 2020-2021  Michael Sasser <Michael@MichaelSasser.org>
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -18,8 +18,8 @@ from __future__ import annotations
 
 from typing import Dict
 
-from ds2000.common import SubController
-from ds2000.common import SubSubController
+from ds2000.common import SFunc
+from ds2000.common import SSFunc
 from ds2000.common import check_input
 from ds2000.common import check_level
 
@@ -28,7 +28,7 @@ __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
 
 
-class VideoMode(SubSubController):
+class VideoMode(SSFunc):
     def set_odd_field(self) -> None:
         """
         **Rigol Programming Guide**
@@ -89,7 +89,7 @@ class VideoMode(SubSubController):
         :TRIGger:VIDeo:MODE ODDField
         The query returns ODDF.
         """
-        self.subsubdevice.subdevice.device.ask(":TRIGger:VIDeo:MODE ODDField")
+        self.ssdev.sdev.dev.ask(":TRIGger:VIDeo:MODE ODDField")
 
     def set_even_field(self) -> None:
         """
@@ -151,7 +151,7 @@ class VideoMode(SubSubController):
         :TRIGger:VIDeo:MODE ODDField
         The query returns ODDF.
         """
-        self.subsubdevice.subdevice.device.ask(":TRIGger:VIDeo:MODE EVENfield")
+        self.ssdev.sdev.dev.ask(":TRIGger:VIDeo:MODE EVENfield")
 
     def set_specific_line(self) -> None:
         """
@@ -213,7 +213,7 @@ class VideoMode(SubSubController):
         :TRIGger:VIDeo:MODE ODDField
         The query returns ODDF.
         """
-        self.subsubdevice.subdevice.device.ask(":TRIGger:VIDeo:MODE LINE")
+        self.ssdev.sdev.dev.ask(":TRIGger:VIDeo:MODE LINE")
 
     def set_all_lines(self) -> None:
         """
@@ -275,7 +275,7 @@ class VideoMode(SubSubController):
         :TRIGger:VIDeo:MODE ODDField
         The query returns ODDF.
         """
-        self.subsubdevice.subdevice.device.ask(":TRIGger:VIDeo:MODE ALINes")
+        self.ssdev.sdev.dev.ask(":TRIGger:VIDeo:MODE ALINes")
 
     def status(self) -> str:
         """
@@ -337,10 +337,10 @@ class VideoMode(SubSubController):
         :TRIGger:VIDeo:MODE ODDField
         The query returns ODDF.
         """
-        return self.subsubdevice.subdevice.device.ask(":TRIGger:VIDeo:MODE?")
+        return self.ssdev.sdev.dev.ask(":TRIGger:VIDeo:MODE?")
 
 
-class VideoStandard(SubSubController):
+class VideoStandard(SSFunc):
     def set_pal_secam(self) -> None:
         """
         **Rigol Programming Guide**
@@ -376,7 +376,7 @@ class VideoStandard(SubSubController):
         :TRIGger:VIDeo:STANdard NTSC
         The query returns NTSC.
         """
-        self.subsubdevice.subdevice.device.ask(
+        self.ssdev.sdev.dev.ask(
             ":TRIGger:VIDeo:STANdard PALSecam"
         )
 
@@ -415,7 +415,7 @@ class VideoStandard(SubSubController):
         :TRIGger:VIDeo:STANdard NTSC
         The query returns NTSC.
         """
-        self.subsubdevice.subdevice.device.ask(":TRIGger:VIDeo:STANdard NTSC")
+        self.ssdev.sdev.dev.ask(":TRIGger:VIDeo:STANdard NTSC")
 
     def set_on_480p(self) -> None:
         """
@@ -452,7 +452,7 @@ class VideoStandard(SubSubController):
         :TRIGger:VIDeo:STANdard NTSC
         The query returns NTSC.
         """
-        self.subsubdevice.subdevice.device.ask(":TRIGger:VIDeo:STANdard 480P")
+        self.ssdev.sdev.dev.ask(":TRIGger:VIDeo:STANdard 480P")
 
     def set_on_576p(self) -> None:
         """
@@ -489,7 +489,7 @@ class VideoStandard(SubSubController):
         :TRIGger:VIDeo:STANdard NTSC
         The query returns NTSC.
         """
-        self.subsubdevice.subdevice.device.ask(":TRIGger:VIDeo:STANdard 576P")
+        self.ssdev.sdev.dev.ask(":TRIGger:VIDeo:STANdard 576P")
 
     def set_on_720p60hz(self) -> None:
         """
@@ -526,7 +526,7 @@ class VideoStandard(SubSubController):
         :TRIGger:VIDeo:STANdard NTSC
         The query returns NTSC.
         """
-        self.subsubdevice.subdevice.device.ask(
+        self.ssdev.sdev.dev.ask(
             ":TRIGger:VIDeo:STANdard 720P60HZ"
         )
 
@@ -565,7 +565,7 @@ class VideoStandard(SubSubController):
         :TRIGger:VIDeo:STANdard NTSC
         The query returns NTSC.
         """
-        self.subsubdevice.subdevice.device.ask(
+        self.ssdev.sdev.dev.ask(
             ":TRIGger:VIDeo:STANdard 720P50HZ"
         )
 
@@ -604,7 +604,7 @@ class VideoStandard(SubSubController):
         :TRIGger:VIDeo:STANdard NTSC
         The query returns NTSC.
         """
-        self.subsubdevice.subdevice.device.ask(
+        self.ssdev.sdev.dev.ask(
             ":TRIGger:VIDeo:STANdard 720P30HZ"
         )
 
@@ -643,7 +643,7 @@ class VideoStandard(SubSubController):
         :TRIGger:VIDeo:STANdard NTSC
         The query returns NTSC.
         """
-        self.subsubdevice.subdevice.device.ask(
+        self.ssdev.sdev.dev.ask(
             ":TRIGger:VIDeo:STANdard 720P25HZ"
         )
 
@@ -682,7 +682,7 @@ class VideoStandard(SubSubController):
         :TRIGger:VIDeo:STANdard NTSC
         The query returns NTSC.
         """
-        self.subsubdevice.subdevice.device.ask(
+        self.ssdev.sdev.dev.ask(
             ":TRIGger:VIDeo:STANdard 720P24HZ"
         )
 
@@ -721,7 +721,7 @@ class VideoStandard(SubSubController):
         :TRIGger:VIDeo:STANdard NTSC
         The query returns NTSC.
         """
-        self.subsubdevice.subdevice.device.ask(
+        self.ssdev.sdev.dev.ask(
             ":TRIGger:VIDeo:STANdard 1080P60HZ"
         )
 
@@ -760,7 +760,7 @@ class VideoStandard(SubSubController):
         :TRIGger:VIDeo:STANdard NTSC
         The query returns NTSC.
         """
-        self.subsubdevice.subdevice.device.ask(
+        self.ssdev.sdev.dev.ask(
             ":TRIGger:VIDeo:STANdard 1080P50HZ"
         )
 
@@ -799,7 +799,7 @@ class VideoStandard(SubSubController):
         :TRIGger:VIDeo:STANdard NTSC
         The query returns NTSC.
         """
-        self.subsubdevice.subdevice.device.ask(
+        self.ssdev.sdev.dev.ask(
             ":TRIGger:VIDeo:STANdard 1080P30HZ"
         )
 
@@ -838,7 +838,7 @@ class VideoStandard(SubSubController):
         :TRIGger:VIDeo:STANdard NTSC
         The query returns NTSC.
         """
-        self.subsubdevice.subdevice.device.ask(
+        self.ssdev.sdev.dev.ask(
             ":TRIGger:VIDeo:STANdard 1080P25HZ"
         )
 
@@ -877,7 +877,7 @@ class VideoStandard(SubSubController):
         :TRIGger:VIDeo:STANdard NTSC
         The query returns NTSC.
         """
-        self.subsubdevice.subdevice.device.ask(
+        self.ssdev.sdev.dev.ask(
             ":TRIGger:VIDeo:STANdard 1080P24HZ"
         )
 
@@ -916,7 +916,7 @@ class VideoStandard(SubSubController):
         :TRIGger:VIDeo:STANdard NTSC
         The query returns NTSC.
         """
-        self.subsubdevice.subdevice.device.ask(
+        self.ssdev.sdev.dev.ask(
             ":TRIGger:VIDeo:STANdard 1080I30HZ"
         )
 
@@ -955,7 +955,7 @@ class VideoStandard(SubSubController):
         :TRIGger:VIDeo:STANdard NTSC
         The query returns NTSC.
         """
-        self.subsubdevice.subdevice.device.ask(
+        self.ssdev.sdev.dev.ask(
             ":TRIGger:VIDeo:STANdard 1080I25HZ"
         )
 
@@ -994,7 +994,7 @@ class VideoStandard(SubSubController):
         :TRIGger:VIDeo:STANdard NTSC
         The query returns NTSC.
         """
-        self.subsubdevice.subdevice.device.ask(
+        self.ssdev.sdev.dev.ask(
             ":TRIGger:VIDeo:STANdard 1080I24HZ"
         )
 
@@ -1033,12 +1033,12 @@ class VideoStandard(SubSubController):
         :TRIGger:VIDeo:STANdard NTSC
         The query returns NTSC.
         """
-        return self.subsubdevice.subdevice.device.ask(
+        return self.ssdev.sdev.dev.ask(
             ":TRIGger:VIDeo:STANdard?"
         )
 
 
-class Video(SubController):
+class Video(SFunc):
 
     MAX_LINES_OF_VIDEO_STANDATD: Dict[str, int] = {
         "NTSC": 525,
@@ -1097,7 +1097,7 @@ class Video(SubController):
         The query returns CHAN2.
         """
         check_input(channel, "channel", 1, 2)
-        self.subdevice.device.ask(f":TRIGger:VIDeo:SOURce CHANnel{channel}")
+        self.sdev.dev.ask(f":TRIGger:VIDeo:SOURce CHANnel{channel}")
 
     def get_source(self) -> str:
         """
@@ -1130,7 +1130,7 @@ class Video(SubController):
         :TRIGger:VIDeo:SOURce CHANnel2
         The query returns CHAN2.
         """
-        return self.subdevice.device.ask(":TRIGger:VIDeo:SOURce?")
+        return self.sdev.dev.ask(":TRIGger:VIDeo:SOURce?")
 
     def set_polarity_positive(self) -> None:
         """
@@ -1163,7 +1163,7 @@ class Video(SubController):
         :TRIGger:VIDeo:POLarity POSitive
         The query returns POS.
         """
-        self.subdevice.device.ask(":TRIGger:VIDeo:POLarity POSitive")
+        self.sdev.dev.ask(":TRIGger:VIDeo:POLarity POSitive")
 
     def set_polarity_negative(self) -> None:
         """
@@ -1196,7 +1196,7 @@ class Video(SubController):
         :TRIGger:VIDeo:POLarity POSitive
         The query returns POS.
         """
-        self.subdevice.device.ask(":TRIGger:VIDeo:POLarity NEGative")
+        self.sdev.dev.ask(":TRIGger:VIDeo:POLarity NEGative")
 
     def get_polarity(self) -> str:
         """
@@ -1229,7 +1229,7 @@ class Video(SubController):
         :TRIGger:VIDeo:POLarity POSitive
         The query returns POS.
         """
-        return self.subdevice.device.ask(":TRIGger:VIDeo:POLarity?")
+        return self.sdev.dev.ask(":TRIGger:VIDeo:POLarity?")
 
     def set_line(self, line: int = 1) -> None:
         """
@@ -1286,7 +1286,7 @@ class Video(SubController):
             1,
             self.__class__.MAX_LINES_OF_VIDEO_STANDATD[self.standard.status()],
         )
-        self.subdevice.device.ask(f":TRIGger:VIDeo:LINE {line}")
+        self.sdev.dev.ask(f":TRIGger:VIDeo:LINE {line}")
 
     def get_line(self) -> int:
         """
@@ -1336,7 +1336,7 @@ class Video(SubController):
         :TRIGger:VIDeo:LINE 100
         The query returns 100.
         """
-        return int(self.subdevice.device.ask(":TRIGger:VIDeo:LINE?"))
+        return int(self.sdev.dev.ask(":TRIGger:VIDeo:LINE?"))
 
     def set_level(self, level: float = 0.0) -> None:
         """
@@ -1379,15 +1379,15 @@ class Video(SubController):
         offset: float = -1.0
         channel: str = self.get_source()
         if channel == "CHANnel1":
-            scale = self.subdevice.device.channel1.get_scale()
-            offset = self.subdevice.device.channel1.get_offset()
+            scale = self.sdev.dev.channel1.get_scale()
+            offset = self.sdev.dev.channel1.get_offset()
         elif channel == "CHANnel2":
-            scale = self.subdevice.device.channel2.scale()
-            offset = self.subdevice.device.channel2.get_offset()
+            scale = self.sdev.dev.channel2.scale()
+            offset = self.sdev.dev.channel2.get_offset()
         else:
             raise RuntimeError("The oscilloscope returned an unknown channel")
         check_level(level, scale, offset)
-        self.subdevice.device.ask(f":TRIGger:VIDeo:LEVel {level}")
+        self.sdev.dev.ask(f":TRIGger:VIDeo:LEVel {level}")
 
     def get_level(self) -> float:
         """
@@ -1426,4 +1426,4 @@ class Video(SubController):
         :TRIGger:VIDeo:LEVel 0.16
         The query returns 1.600000e-01.
         """
-        return float(self.subdevice.device.ask(":TRIGger:VIDeo:LEVel?"))
+        return float(self.sdev.dev.ask(":TRIGger:VIDeo:LEVel?"))

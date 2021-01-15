@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # ds2000 - The Python Library for Rigol DS2000 Oscilloscopes
-# Copyright (C) 2018  Michael Sasser <Michael@MichaelSasser.org>
+# Copyright (C) 2018-2021  Michael Sasser <Michael@MichaelSasser.org>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -16,16 +16,16 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 from __future__ import annotations
 
-from .common import BaseController
-from .common import SubController
-from .common import SubSubController
+from .common import Func
+from .common import SFunc
+from .common import SSFunc
 
 
 __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
 
 
-class TimebaseDelay(SubController):
+class TimebaseDelay(SFunc):
     def enable(self) -> None:
         """
         **Rigol Programming Guide**
@@ -58,7 +58,7 @@ class TimebaseDelay(SubController):
         The query returns 1.
 
         """
-        self.subdevice.device.ask(":TIMebase:DELay:ENABle 1")
+        self.sdev.dev.ask(":TIMebase:DELay:ENABle 1")
 
     def disable(self) -> None:
         """
@@ -92,7 +92,7 @@ class TimebaseDelay(SubController):
         The query returns 1.
 
         """
-        self.subdevice.device.ask(":TIMebase:DELay:ENABle 0")
+        self.sdev.dev.ask(":TIMebase:DELay:ENABle 0")
 
     def status(self) -> bool:
         """
@@ -126,7 +126,7 @@ class TimebaseDelay(SubController):
         The query returns 1.
 
         """
-        return bool(int(self.subdevice.device.ask(":TIMebase:DELay:ENABle?")))
+        return bool(int(self.sdev.dev.ask(":TIMebase:DELay:ENABle?")))
 
     def get_offset(self) -> float:
         """
@@ -168,7 +168,7 @@ class TimebaseDelay(SubController):
         :TIMebase:DELay:OFFSet 0.000002
         The query returns 2.000000e-06.
         """
-        return float(self.subdevice.device.ask(":TIMebase:DELay:OFFSet?"))
+        return float(self.sdev.dev.ask(":TIMebase:DELay:OFFSet?"))
 
     def set_offset(self, offset: float = 0) -> None:
         """
@@ -210,8 +210,8 @@ class TimebaseDelay(SubController):
         :TIMebase:DELay:OFFSet 0.000002
         The query returns 2.000000e-06.
         """
-        main_scale: float = self.subdevice.get_scale()
-        main_offset: float = self.subdevice.get_offset()
+        main_scale: float = self.sdev.get_scale()
+        main_offset: float = self.sdev.get_offset()
         delay_scale: float = self.get_scale()
         left_time: float = 7.0 * main_scale - main_offset
         right_time: float = 7.0 * main_scale + main_offset
@@ -224,7 +224,7 @@ class TimebaseDelay(SubController):
                 f"between: {min_off}..{max_off}. It also needs"
                 f"to be of type float. You used: {type(offset)}."
             )
-        self.subdevice.device.ask(f":TIMebase:DELay:OFFSet {offset}")
+        self.sdev.dev.ask(f":TIMebase:DELay:OFFSet {offset}")
 
     def get_scale(self) -> float:
         """
@@ -260,7 +260,7 @@ class TimebaseDelay(SubController):
         :TIMebase:DELay:SCALe 0.00000005
         The query returns 5.000000e-08.
         """
-        return float(self.subdevice.device.ask(f":TIMebase:DELay:SCALe?"))
+        return float(self.sdev.dev.ask(f":TIMebase:DELay:SCALe?"))
 
     def set_scale(self, scale: float = 500.0e-9) -> None:
         """
@@ -298,9 +298,9 @@ class TimebaseDelay(SubController):
         """
         # ToDo: is this my unterstanding correct?
         sampl_rate: float = float(
-            self.subdevice.device.acquire.get_samplerate()
+            self.sdev.dev.acquire.get_samplerate()
         )
-        max_scale: float = self.subdevice.get_scale()
+        max_scale: float = self.sdev.get_scale()
         min_scale: float = 5 / (4 * sampl_rate)
         if (
             not isinstance(scale, float)
@@ -311,10 +311,10 @@ class TimebaseDelay(SubController):
                 f"scale and (1×50/real-time sample rate)×1/40:"
                 f"{min_scale}..{max_scale}."
             )
-        self.subdevice.device.ask(f":TIMebase:DELay:SCALe {scale}")
+        self.sdev.dev.ask(f":TIMebase:DELay:SCALe {scale}")
 
 
-class TimebaseHorizontalRefMode(SubSubController):
+class TimebaseHorizontalRefMode(SSFunc):
     def center(self) -> None:
         """
         **Rigol Programming Guide**
@@ -357,7 +357,7 @@ class TimebaseHorizontalRefMode(SubSubController):
         :TIMebase:HREF:MODE TPOSition
         The query returns TPOS.
         """
-        self.subsubdevice.subdevice.device.ask(":TIMebase:HREF:MODE CENTer")
+        self.ssdev.sdev.dev.ask(":TIMebase:HREF:MODE CENTer")
 
     def trigger_position(self) -> None:
         """
@@ -402,7 +402,7 @@ class TimebaseHorizontalRefMode(SubSubController):
         The query returns TPOS.
         """
 
-        self.subsubdevice.subdevice.device.ask(":TIMebase:HREF:MODE CENTer")
+        self.ssdev.sdev.dev.ask(":TIMebase:HREF:MODE CENTer")
 
     def status(self) -> str:
         """
@@ -447,10 +447,10 @@ class TimebaseHorizontalRefMode(SubSubController):
         The query returns TPOS.
         """
 
-        return self.subsubdevice.subdevice.device.ask(":TIMebase:HREF:MODE?")
+        return self.ssdev.sdev.dev.ask(":TIMebase:HREF:MODE?")
 
 
-class TimebaseHorizontalRef(SubController):
+class TimebaseHorizontalRef(SFunc):
     def __init__(self, device):
         super(TimebaseHorizontalRef, self).__init__(device)
         self.mode: TimebaseHorizontalRefMode = TimebaseHorizontalRefMode(self)
@@ -488,7 +488,7 @@ class TimebaseHorizontalRef(SubController):
         :TIMebase:HREF:POSition 150
         The query returns 150.
         """
-        return int(self.subdevice.device.ask(":TIMebase:HREF:POSition?"))
+        return int(self.sdev.dev.ask(":TIMebase:HREF:POSition?"))
 
     def set_position(self, pos: int = 0) -> None:
         """
@@ -529,11 +529,11 @@ class TimebaseHorizontalRef(SubController):
                 f"You entered {pos=} of type {type(pos)}."
             )
 
-        self.subdevice.device.ask(":TIMebase:HREF:MODE USER")
-        self.subdevice.device.ask(f":TIMebase:HREF:POSition {pos}")
+        self.sdev.dev.ask(":TIMebase:HREF:MODE USER")
+        self.sdev.dev.ask(f":TIMebase:HREF:POSition {pos}")
 
 
-class TimebaseMode(SubController):
+class TimebaseMode(SFunc):
     def main(self) -> None:
         """
         **Rigol Programming Guide**
@@ -565,7 +565,7 @@ class TimebaseMode(SubController):
         :TIMebase:MODE MAIN
         The query returns MAIN.
         """
-        self.subdevice.device.ask(f":TIMebase:MODE MAIN")
+        self.sdev.dev.ask(f":TIMebase:MODE MAIN")
 
     def xy(self) -> None:
         """
@@ -598,7 +598,7 @@ class TimebaseMode(SubController):
         :TIMebase:MODE MAIN
         The query returns MAIN.
         """
-        self.subdevice.device.ask(f":TIMebase:MODE XY")
+        self.sdev.dev.ask(f":TIMebase:MODE XY")
 
     def roll(self) -> None:
         """
@@ -631,7 +631,7 @@ class TimebaseMode(SubController):
         :TIMebase:MODE MAIN
         The query returns MAIN.
         """
-        self.subdevice.device.ask(f":TIMebase:MODE ROLL")
+        self.sdev.dev.ask(f":TIMebase:MODE ROLL")
 
     def status(self) -> str:
         """
@@ -664,12 +664,12 @@ class TimebaseMode(SubController):
         :TIMebase:MODE MAIN
         The query returns MAIN.
         """
-        return self.subdevice.device.ask(f":TIMebase:MODE?").lower()
+        return self.sdev.dev.ask(f":TIMebase:MODE?").lower()
 
 
-class Timebase(BaseController):
-    def __init__(self, device):
-        super(Timebase, self).__init__(device)
+class Timebase(Func):
+    def __init__(self, dev):
+        super(Timebase, self).__init__(dev)
         self.delay: TimebaseDelay = TimebaseDelay(self)
         self.horizontal_ref: TimebaseHorizontalRef = TimebaseHorizontalRef(
             self
@@ -719,7 +719,7 @@ class Timebase(BaseController):
         :TIMebase:MAIN:OFFSet 0.0002
         The query returns 2.000000e-04.
         """
-        return int(self.device.ask(":TIMebase[:MAIN]:OFFSet?"))
+        return int(self.dev.ask(":TIMebase[:MAIN]:OFFSet?"))
 
     def set_offset(self, seconds: int = 0) -> None:
         """
@@ -770,7 +770,7 @@ class Timebase(BaseController):
                 f"You entered type: {type(seconds)}."
             )
 
-        trigger: str = self.device.trigger.status()
+        trigger: str = self.dev.trigger.status()
         mode: str = self.mode.status()
 
         # Checks, if the entered value is legal.
@@ -779,8 +779,8 @@ class Timebase(BaseController):
                 raise RuntimeError(
                     "You need to be in STOP mode. to perform " "this action!"
                 )
-            mem_depth: float = float(self.device.acquire.get_memorydepth())
-            sampl_rate: float = float(self.device.acquire.get_samplerate())
+            mem_depth: float = float(self.dev.acquire.get_memorydepth())
+            sampl_rate: float = float(self.dev.acquire.get_samplerate())
             time_scale: float = self.get_scale()
             min_offset: float = -mem_depth / sampl_rate
             if time_scale < 20.0e-3 and not (min_offset <= seconds <= 1.0):
@@ -824,7 +824,7 @@ class Timebase(BaseController):
                     f"mode must be between -7000.0 .. 7000.0."
                 )
 
-        self.device.ask(f":TIMebase:MAIN:OFFSet {seconds}")
+        self.dev.ask(f":TIMebase:MAIN:OFFSet {seconds}")
 
     def get_scale(self) -> float:
         """
@@ -868,7 +868,7 @@ class Timebase(BaseController):
 
         The query returns 2.000000e-04.
         """
-        return float(self.device.ask(":TIMebase:MAIN:SCALe?"))
+        return float(self.dev.ask(":TIMebase:MAIN:SCALe?"))
 
     def set_scale(self, seconds: float = 1.0e-6) -> float:
         """
@@ -919,7 +919,7 @@ class Timebase(BaseController):
                 f"pos must be of type float between 2.0E-9..1000. "
                 f"You entered {seconds=} of type {type(seconds)}."
             )
-        return float(self.device.ask(f":TIMebase:MAIN:SCALe {seconds}"))
+        return float(self.dev.ask(f":TIMebase:MAIN:SCALe {seconds}"))
 
     def enable_fine_adjustment(self) -> None:
         """
@@ -952,7 +952,7 @@ class Timebase(BaseController):
         :TIMebase:VERNier ON
         The query returns 1.
         """
-        self.device.ask(":TIMebase:VERNier 1")
+        self.dev.ask(":TIMebase:VERNier 1")
 
     def disable_fine_adjustment(self) -> None:
         """
@@ -985,7 +985,7 @@ class Timebase(BaseController):
         :TIMebase:VERNier ON
         The query returns 1.
         """
-        self.device.ask(":TIMebase:VERNier 0")
+        self.dev.ask(":TIMebase:VERNier 0")
 
     def fine_adjustment_enabled(self) -> bool:
         """
@@ -1018,4 +1018,4 @@ class Timebase(BaseController):
         :TIMebase:VERNier ON
         The query returns 1.
         """
-        return bool(int(self.device.ask(":TIMebase:VERNier 1")))
+        return bool(int(self.dev.ask(":TIMebase:VERNier 1")))

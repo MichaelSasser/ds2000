@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # ds2000 - The Python Library for Rigol DS2000 Oscilloscopes
-# Copyright (C) 2020  Michael Sasser <Michael@MichaelSasser.org>
+# Copyright (C) 2020-2021  Michael Sasser <Michael@MichaelSasser.org>
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@ from __future__ import annotations
 from typing import List
 from typing import Tuple
 
-from ds2000.common import SubController
+from ds2000.common import SFunc
 from ds2000.common import check_level
 
 
@@ -27,7 +27,7 @@ __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
 
 
-class Pattern(SubController):
+class Pattern(SFunc):
     def set_pattern(self, pattern: List[str] = ["H", "L"]) -> None:
         """
         **Rigol Programming Guide**
@@ -76,7 +76,7 @@ class Pattern(SubController):
                 raise ValueError(
                     'The pattern must only contain "H", "L", "X", "R" or "F".'
                 )
-        self.subdevice.device.ask(
+        self.sdev.dev.ask(
             f":TRIGger:PATTern:PATTern {','.join(pattern)}"
         )
 
@@ -122,7 +122,7 @@ class Pattern(SubController):
         The query returns H,R.
         """
         return tuple(
-            self.subdevice.device.ask(":TRIGger:PATTern:PATTern?").split(",")
+            self.sdev.dev.ask(":TRIGger:PATTern:PATTern?").split(",")
         )
 
     def set_level(self, channel: int = 1, level: float = 0) -> None:
@@ -166,15 +166,15 @@ class Pattern(SubController):
         scale: float = -1.0
         offset: float = -1.0
         if channel == 1:
-            scale = self.subdevice.device.channel1.get_scale()
-            offset = self.subdevice.device.channel1.get_offset()
+            scale = self.sdev.dev.channel1.get_scale()
+            offset = self.sdev.dev.channel1.get_offset()
         elif channel == 2:
-            scale = self.subdevice.device.channel2.scale()
-            offset = self.subdevice.device.channel2.get_offset()
+            scale = self.sdev.dev.channel2.scale()
+            offset = self.sdev.dev.channel2.get_offset()
         else:
             raise RuntimeError("The oscilloscope returned an unknown channel")
         check_level(level, scale, offset)
-        self.subdevice.device.ask(
+        self.sdev.dev.ask(
             f":TRIGger:PATTern:LEVel CHANnel{channel},", f"{level}"
         )
 
@@ -217,7 +217,7 @@ class Pattern(SubController):
         The query returns 1.600000e-01.
         """
         return float(
-            self.subdevice.device.ask(
+            self.sdev.dev.ask(
                 f":TRIGger:PATTern:LEVel? CHANnel{channel}"
             )
         )

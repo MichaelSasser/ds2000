@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # ds2000 - The Python Library for Rigol DS2000 Oscilloscopes
-# Copyright (C) 2020  Michael Sasser <Michael@MichaelSasser.org>
+# Copyright (C) 2020-2021  Michael Sasser <Michael@MichaelSasser.org>
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,8 +15,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from ds2000.common import SubController
-from ds2000.common import SubSubController
+from ds2000.common import SFunc
+from ds2000.common import SSFunc
 from ds2000.common import check_input
 
 
@@ -25,7 +25,7 @@ __email__ = "Michael@MichaelSasser.org"
 
 
 # TODO: Shorter method names
-class DurationWhen(SubSubController):
+class DurationWhen(SSFunc):
     def duration_of_pattern_greater_than_lower_limit(self) -> None:
         """
         **Rigol Programming Guide**
@@ -73,7 +73,7 @@ class DurationWhen(SubSubController):
         :TRIGger:DURATion:WHEN LESS
         The query returns LESS.
         """
-        self.subsubdevice.subdevice.device.ask(
+        self.ssdev.sdev.dev.ask(
             ":TRIGger:DURATion:WHEN GREater"
         )
 
@@ -124,7 +124,7 @@ class DurationWhen(SubSubController):
         :TRIGger:DURATion:WHEN LESS
         The query returns LESS.
         """
-        self.subsubdevice.subdevice.device.ask(":TRIGger:DURATion:WHEN LESS")
+        self.ssdev.sdev.dev.ask(":TRIGger:DURATion:WHEN LESS")
 
     def duration_of_pattern_between_lower_and_upper_limit(self) -> None:
         """
@@ -173,7 +173,7 @@ class DurationWhen(SubSubController):
         :TRIGger:DURATion:WHEN LESS
         The query returns LESS.
         """
-        self.subsubdevice.subdevice.device.ask(":TRIGger:DURATion:WHEN GLESs")
+        self.ssdev.sdev.dev.ask(":TRIGger:DURATion:WHEN GLESs")
 
     def status(self) -> str:
         """
@@ -222,12 +222,12 @@ class DurationWhen(SubSubController):
         :TRIGger:DURATion:WHEN LESS
         The query returns LESS.
         """
-        return self.subsubdevice.subdevice.device.ask(
+        return self.ssdev.sdev.dev.ask(
             ":TRIGger:DURATion:WHEN?"
         )
 
 
-class Duration(SubController):
+class Duration(SFunc):
     def __init__(self, device):
         super(Duration, self).__init__(device)
         self.when: DurationWhen = DurationWhen(self)
@@ -263,7 +263,7 @@ class Duration(SubController):
         :TRIGger:DURATion:SOURce CHANnel2
         The query returns CHAN2.
         """
-        self.subdevice.device.ask(f":TRIGger:DURATion:SOURce CHANnel{channel}")
+        self.sdev.dev.ask(f":TRIGger:DURATion:SOURce CHANnel{channel}")
 
     def get_source(self) -> int:
         """
@@ -296,7 +296,7 @@ class Duration(SubController):
         :TRIGger:DURATion:SOURce CHANnel2
         The query returns CHAN2.
         """
-        return int(self.subdevice.device.ask(":TRIGger:DURATion:SOURce?"))
+        return int(self.sdev.dev.ask(":TRIGger:DURATion:SOURce?"))
 
     def set_type(self, pattern: str = "H,L") -> None:  # TODO
         """
@@ -334,7 +334,7 @@ class Duration(SubController):
         for b in pattern:
             if b not in ("H", "L", "X", ","):
                 raise ValueError("Pattern is not valid.")
-        self.subdevice.device.ask(f":TRIGger:DURATion:TYPe {pattern}")
+        self.sdev.dev.ask(f":TRIGger:DURATion:TYPe {pattern}")
 
     def get_type(self) -> str:
         """
@@ -369,7 +369,7 @@ class Duration(SubController):
         :TRIGger:DURATion:TYPe L,X
         The query returns L,X.
         """
-        return self.subdevice.device.ask(":TRIGger:DURATion:TYPe?")
+        return self.sdev.dev.ask(":TRIGger:DURATion:TYPe?")
 
     def set_upper_limit(self, time: float = 2.0e-6) -> None:
         """
@@ -413,7 +413,7 @@ class Duration(SubController):
         The query returns 3.000000e-06.
         """
         check_input(time, "time", float, 2.0e-9, 4.0, "s")
-        self.subdevice.device.ask(f":TRIGger:DURATion:TUPPer {time}")
+        self.sdev.dev.ask(f":TRIGger:DURATion:TUPPer {time}")
 
     def get_upper_limit(self) -> float:
         """
@@ -456,7 +456,7 @@ class Duration(SubController):
         :TRIGger:DURATion:TUPPer 0.000003
         The query returns 3.000000e-06.
         """
-        return float(self.subdevice.device.ask(":TRIGger:DURATion:TUPPer?"))
+        return float(self.sdev.dev.ask(":TRIGger:DURATion:TUPPer?"))
 
     def set_lower_limit(self, time: float = 1.0e-6) -> None:
         """
@@ -501,7 +501,7 @@ class Duration(SubController):
         The query returns 3.000000e-06.
         """
         check_input(time, "time", float, 2.0e-9, 4.0, "s")
-        self.subdevice.device.ask(f":TRIGger:DURATion:TLOWer {time}")
+        self.sdev.dev.ask(f":TRIGger:DURATion:TLOWer {time}")
 
     def get_lower_limit(self) -> float:
         """
@@ -545,4 +545,4 @@ class Duration(SubController):
         :TRIGger:DURATion:TLOWer 0.000003
         The query returns 3.000000e-06.
         """
-        return float(self.subdevice.device.ask(":TRIGger:DURATion:TLOWer?"))
+        return float(self.sdev.dev.ask(":TRIGger:DURATion:TLOWer?"))

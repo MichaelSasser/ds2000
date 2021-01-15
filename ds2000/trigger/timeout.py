@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # ds2000 - The Python Library for Rigol DS2000 Oscilloscopes
-# Copyright (C) 2020  Michael Sasser <Michael@MichaelSasser.org>
+# Copyright (C) 2020-2021  Michael Sasser <Michael@MichaelSasser.org>
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,8 +15,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from ds2000.common import SubController
-from ds2000.common import SubSubController
+from ds2000.common import SFunc
+from ds2000.common import SSFunc
 from ds2000.common import check_input
 from ds2000.errors import DS2000StateError
 
@@ -29,7 +29,7 @@ __all__ = [
 ]
 
 
-class TimeoutSlope(SubSubController):
+class TimeoutSlope(SSFunc):
     def rising_edge(self) -> None:
         """
         **Rigol Programming Guide**
@@ -61,7 +61,7 @@ class TimeoutSlope(SubSubController):
         :TRIGger:TIMeout:SLOPe NEGative
         The query returns NEG.
         """
-        self.subsubdevice.subdevice.device.ask(
+        self.ssdev.sdev.dev.ask(
             ":TRIGger:TIMeout:SLOPe POSitive"
         )
 
@@ -96,7 +96,7 @@ class TimeoutSlope(SubSubController):
         :TRIGger:TIMeout:SLOPe NEGative
         The query returns NEG.
         """
-        self.subsubdevice.subdevice.device.ask(
+        self.ssdev.sdev.dev.ask(
             ":TRIGger:TIMeout:SLOPe NEGative"
         )
 
@@ -131,7 +131,7 @@ class TimeoutSlope(SubSubController):
         :TRIGger:TIMeout:SLOPe NEGative
         The query returns NEG.
         """
-        self.subsubdevice.subdevice.device.ask(":TRIGger:TIMeout:SLOPe RFALl")
+        self.ssdev.sdev.dev.ask(":TRIGger:TIMeout:SLOPe RFALl")
 
     def status(self) -> str:
         """
@@ -164,7 +164,7 @@ class TimeoutSlope(SubSubController):
         :TRIGger:TIMeout:SLOPe NEGative
         The query returns NEG.
         """
-        status: str = self.subsubdevice.subdevice.device.ask(
+        status: str = self.ssdev.sdev.dev.ask(
             ":TRIGger:TIMeout:SLOPe?"
         )
         if status == "POS":
@@ -176,7 +176,7 @@ class TimeoutSlope(SubSubController):
         raise DS2000StateError()
 
 
-class TimeoutChannel(SubSubController):
+class TimeoutChannel(SSFunc):
     def channel1(self) -> None:
         """
         **Rigol Programming Guide**
@@ -209,7 +209,7 @@ class TimeoutChannel(SubSubController):
         The query returns CHAN2.
         """
 
-        self.subsubdevice.subdevice.device.ask(
+        self.ssdev.sdev.dev.ask(
             ":TRIGger:TIMeout:SOURce CHANnel1"
         )
 
@@ -245,7 +245,7 @@ class TimeoutChannel(SubSubController):
         The query returns CHAN2.
         """
 
-        self.subsubdevice.subdevice.device.ask(
+        self.ssdev.sdev.dev.ask(
             ":TRIGger:TIMeout:SOURce CHANnel2"
         )
 
@@ -281,7 +281,7 @@ class TimeoutChannel(SubSubController):
         The query returns CHAN2.
         """
 
-        status: str = self.subsubdevice.subdevice.device.ask(
+        status: str = self.ssdev.sdev.dev.ask(
             ":TRIGger:TIMeout:SOURce?"
         ).lower()
 
@@ -292,7 +292,7 @@ class TimeoutChannel(SubSubController):
         raise DS2000StateError()
 
 
-class Timeout(SubController):
+class Timeout(SFunc):
     def __init__(self, device):
         super(Timeout, self).__init__(device)
         self.slope: TimeoutSlope = TimeoutSlope(self)
@@ -329,7 +329,7 @@ class Timeout(SubController):
         :TRIGger:TIMeout:TIMe 0.002
         The query returns 2.000000e+06.
         """
-        return float(self.subdevice.device.ask(":TRIGger:TIMeout:TIMe?"))
+        return float(self.sdev.dev.ask(":TRIGger:TIMeout:TIMe?"))
 
     def set_time(self, time: float = 1.0e-6) -> None:
         """
@@ -363,4 +363,4 @@ class Timeout(SubController):
         The query returns 2.000000e+06.
         """
         check_input(time, "time", float, 16.0e-9, 4.0, "s")
-        self.subdevice.device.ask(f":TRIGger:TIMeout:TIMe {time}")
+        self.sdev.dev.ask(f":TRIGger:TIMeout:TIMe {time}")

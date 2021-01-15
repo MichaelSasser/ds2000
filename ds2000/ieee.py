@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # ds2000 - The Python Library for Rigol DS2000 Oscilloscopes
-# Copyright (C) 2018-2020  Michael Sasser <Michael@MichaelSasser.org>
+# Copyright (C) 2018-2021  Michael Sasser <Michael@MichaelSasser.org>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -16,20 +16,20 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 from __future__ import annotations
 
-from .common import BaseController
+from .common import Func
 
 
 __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
 
 
-class IEEE(BaseController):
-    def __init__(self, device):
+class IEEE(Func):
+    def __init__(self, dev):
         """The "low level" functions barely untouched.
 
-        :param device:
+        :param dev:
         """
-        super(IEEE, self).__init__(device)
+        super(IEEE, self).__init__(dev)
 
     def idn(self) -> str:
         """This method returns the ID character string of the device_address
@@ -43,7 +43,7 @@ class IEEE(BaseController):
 
         **Description**
 
-        Query the current device information.
+        Query the current dev information.
 
         **Return Format**
 
@@ -58,7 +58,7 @@ class IEEE(BaseController):
 
         The query returns RIGOL TECHNOLOGIES,DS2202,DS2A0000000001,00.00.01. Instrument
         """
-        return self.device.ask("*IDN?")
+        return self.dev.ask("*IDN?")
 
     def rst(self):
         """
@@ -72,4 +72,4 @@ class IEEE(BaseController):
 
         Restore the instrument to the default values.
         """
-        self.device.ask("*RST")
+        self.dev.ask("*RST")

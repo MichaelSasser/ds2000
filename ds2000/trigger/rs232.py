@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # ds2000 - The Python Library for Rigol DS2000 Oscilloscopes
-# Copyright (C) 2020  Michael Sasser <Michael@MichaelSasser.org>
+# Copyright (C) 2020-2021  Michael Sasser <Michael@MichaelSasser.org>
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -18,8 +18,8 @@ from __future__ import annotations
 
 from typing import Dict
 
-from ds2000.common import SubController
-from ds2000.common import SubSubController
+from ds2000.common import SFunc
+from ds2000.common import SSFunc
 from ds2000.common import check_input
 from ds2000.common import check_level
 
@@ -28,7 +28,7 @@ __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
 
 
-class RS232When(SubSubController):
+class RS232When(SSFunc):
     def set_start_frame_position(self) -> None:
         """
         **Rigol Programming Guide**
@@ -72,7 +72,7 @@ class RS232When(SubSubController):
         :TRIGger:RS232:WHEN ERRor
         The query returns ERR.
         """
-        self.subsubdevice.subdevice.device.ask(":TRIGger:RS232:WHEN STARt")
+        self.ssdev.sdev.dev.ask(":TRIGger:RS232:WHEN STARt")
 
     def set_error_detected(self) -> None:
         """
@@ -117,7 +117,7 @@ class RS232When(SubSubController):
         :TRIGger:RS232:WHEN ERRor
         The query returns ERR.
         """
-        self.subsubdevice.subdevice.device.ask(":TRIGger:RS232:WHEN ERRor")
+        self.ssdev.sdev.dev.ask(":TRIGger:RS232:WHEN ERRor")
 
     def set_parity_error_detected(self) -> None:
         """
@@ -162,7 +162,7 @@ class RS232When(SubSubController):
         :TRIGger:RS232:WHEN ERRor
         The query returns ERR.
         """
-        self.subsubdevice.subdevice.device.ask(":TRIGger:RS232:WHEN PARity")
+        self.ssdev.sdev.dev.ask(":TRIGger:RS232:WHEN PARity")
 
     def set_data(self) -> None:
         """
@@ -207,7 +207,7 @@ class RS232When(SubSubController):
         :TRIGger:RS232:WHEN ERRor
         The query returns ERR.
         """
-        self.subsubdevice.subdevice.device.ask(":TRIGger:RS232:WHEN DATA")
+        self.ssdev.sdev.dev.ask(":TRIGger:RS232:WHEN DATA")
 
     def status(self) -> str:
         """
@@ -252,10 +252,10 @@ class RS232When(SubSubController):
         :TRIGger:RS232:WHEN ERRor
         The query returns ERR.
         """
-        return self.subsubdevice.subdevice.device.ask(":TRIGger:RS232:WHEN?")
+        return self.ssdev.sdev.dev.ask(":TRIGger:RS232:WHEN?")
 
 
-class RS232Parity(SubSubController):
+class RS232Parity(SSFunc):
     def set_even(self) -> None:
         """
         **Rigol Programming Guide**
@@ -296,7 +296,7 @@ class RS232Parity(SubSubController):
         :TRIGger:RS232:PARity EVEN
         The query returns EVEN.
         """
-        self.subsubdevice.subdevice.device.ask(":TRIGger:RS232:PARity EVEN")
+        self.ssdev.sdev.dev.ask(":TRIGger:RS232:PARity EVEN")
 
     def set_odd(self) -> None:
         """
@@ -338,7 +338,7 @@ class RS232Parity(SubSubController):
         :TRIGger:RS232:PARity EVEN
         The query returns EVEN.
         """
-        self.subsubdevice.subdevice.device.ask(":TRIGger:RS232:PARity ODD")
+        self.ssdev.sdev.dev.ask(":TRIGger:RS232:PARity ODD")
 
     def set_none(self) -> None:
         """
@@ -380,7 +380,7 @@ class RS232Parity(SubSubController):
         :TRIGger:RS232:PARity EVEN
         The query returns EVEN.
         """
-        self.subsubdevice.subdevice.device.ask(":TRIGger:RS232:PARity NONE")
+        self.ssdev.sdev.dev.ask(":TRIGger:RS232:PARity NONE")
 
     def status(self) -> str:
         """
@@ -422,11 +422,11 @@ class RS232Parity(SubSubController):
         :TRIGger:RS232:PARity EVEN
         The query returns EVEN.
         """
-        return self.subsubdevice.subdevice.device.ask(":TRIGger:RS232:PARity?")
+        return self.ssdev.sdev.dev.ask(":TRIGger:RS232:PARity?")
 
 
 # TODO: Check selected trigger before settitng values
-class RS232(SubController):
+class RS232(SFunc):
     def __init__(self, device) -> None:
         super(RS232, self).__init__(device)
         self.when: RS232When = RS232When(self)
@@ -462,7 +462,7 @@ class RS232(SubController):
         :TRIGger:RS232:SOURce CHANnel2
         The query returns CHAN2.
         """
-        self.subdevice.device.ask(f":TRIGger:RS232:SOURce CHANnel{channel}")
+        self.sdev.dev.ask(f":TRIGger:RS232:SOURce CHANnel{channel}")
 
     def get_source(self) -> str:
         """
@@ -494,7 +494,7 @@ class RS232(SubController):
         :TRIGger:RS232:SOURce CHANnel2
         The query returns CHAN2.
         """
-        return self.subdevice.device.ask(":TRIGger:RS232:SOURce?")
+        return self.sdev.dev.ask(":TRIGger:RS232:SOURce?")
 
     def set_stop_bits(self, stop_bits: int = 1) -> None:
         """
@@ -533,7 +533,7 @@ class RS232(SubController):
         The query returns 2.
         """
         check_input(stop_bits, "stop_bits", int, 1, 2, "stop bits")
-        self.subdevice.device.ask(f":TRIGger:RS232:STOP {stop_bits}")
+        self.sdev.dev.ask(f":TRIGger:RS232:STOP {stop_bits}")
 
     def get_stop_bits(self) -> int:
         """
@@ -571,7 +571,7 @@ class RS232(SubController):
         :TRIGger:RS232:STOP 2
         The query returns 2.
         """
-        return int(self.subdevice.device.ask(":TRIGger:RS232:STOP?"))
+        return int(self.sdev.dev.ask(":TRIGger:RS232:STOP?"))
 
     def set_data(self, data_bits: int = 70) -> None:
         """
@@ -620,7 +620,7 @@ class RS232(SubController):
             2 * self.get_data_bit_width() - 1,
             "data bits",
         )
-        self.subdevice.device.ask(f":TRIGger:RS232:WIDTh {data_bits}")
+        self.sdev.dev.ask(f":TRIGger:RS232:WIDTh {data_bits}")
 
     def get_data(self) -> int:
         """
@@ -661,7 +661,7 @@ class RS232(SubController):
         :TRIGger:RS232:DATA 10
         The query returns 10.
         """
-        return int(self.subdevice.device.ask(":TRIGger:RS232:WIDTh?"))
+        return int(self.sdev.dev.ask(":TRIGger:RS232:WIDTh?"))
 
     def set_data_bit_width(self, data_bit_width: int = 70) -> None:
         """
@@ -702,7 +702,7 @@ class RS232(SubController):
         check_input(
             data_bit_width, "data_bit_width", int, 5, 8, "data bit width"
         )
-        self.subdevice.device.ask(f":TRIGger:RS232:WIDTh {data_bit_width}")
+        self.sdev.dev.ask(f":TRIGger:RS232:WIDTh {data_bit_width}")
 
     def get_data_bit_width(self) -> int:
         """
@@ -740,7 +740,7 @@ class RS232(SubController):
         :TRIGger:RS232:WIDTh 6
         The query returns 6.
         """
-        return int(self.subdevice.device.ask(":TRIGger:RS232:WIDTh?"))
+        return int(self.sdev.dev.ask(":TRIGger:RS232:WIDTh?"))
 
     def set_baud(self, baud: int = 9600) -> None:  # BAUD and BUSer
         """
@@ -804,10 +804,10 @@ class RS232(SubController):
         The query returns 50000.
         """
         if baud in (2400, 4800, 9600, 19200, 38400, 9600, 57600, 115200):
-            self.subdevice.device.ask(f":TRIGger:RS232:BAUD {baud}")
+            self.sdev.dev.ask(f":TRIGger:RS232:BAUD {baud}")
             return
         check_input(baud, "baud", int, 1, 900000, "Baud")
-        self.subdevice.device.ask(f":TRIGger:RS232:BUSer {baud}")
+        self.sdev.dev.ask(f":TRIGger:RS232:BUSer {baud}")
 
     def get_baud(self) -> Dict[str, int]:  # BAUD and BUSer
         """
@@ -871,8 +871,8 @@ class RS232(SubController):
         The query returns 50000.
         """
         return {
-            "built-in": int(self.subdevice.device.ask(":TRIGger:RS232:BAUD?")),
-            "user": int(self.subdevice.device.ask(":TRIGger:RS232:BUSer?")),
+            "built-in": int(self.sdev.dev.ask(":TRIGger:RS232:BAUD?")),
+            "user": int(self.sdev.dev.ask(":TRIGger:RS232:BUSer?")),
         }
 
     def set_level(self, level: float = 0) -> None:
@@ -916,15 +916,15 @@ class RS232(SubController):
         offset: float = -1.0
         channel: str = self.get_source()
         if channel == "CHANnel1":
-            scale = self.subdevice.device.channel1.get_scale()
-            offset = self.subdevice.device.channel1.get_offset()
+            scale = self.sdev.dev.channel1.get_scale()
+            offset = self.sdev.dev.channel1.get_offset()
         elif channel == "CHANnel2":
-            scale = self.subdevice.device.channel2.scale()
-            offset = self.subdevice.device.channel2.get_offset()
+            scale = self.sdev.dev.channel2.scale()
+            offset = self.sdev.dev.channel2.get_offset()
         else:
             raise RuntimeError("The oscilloscope returned an unknown channel")
         check_level(level, scale, offset)
-        self.subdevice.device.ask(f":TRIGger:RS232:LEVel {level}")
+        self.sdev.dev.ask(f":TRIGger:RS232:LEVel {level}")
 
     def get_level(self) -> float:
         """
@@ -963,4 +963,4 @@ class RS232(SubController):
         :TRIGger:RS232:LEVel 0.16
         The query returns 1.600000e-01.
         """
-        return float(self.subdevice.device.ask(":TRIGger:RS232:LEVel?"))
+        return float(self.sdev.dev.ask(":TRIGger:RS232:LEVel?"))

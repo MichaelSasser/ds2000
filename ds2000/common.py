@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # ds2000 - The Python Library for Rigol DS2000 Oscilloscopes
-# Copyright (C) 2018  Michael Sasser <Michael@MichaelSasser.org>
+# Copyright (C) 2018-2021  Michael Sasser <Michael@MichaelSasser.org>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -26,19 +26,19 @@ __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
 
 
-class BaseController:  # pylint: disable=R0903
-    def __init__(self, device):
-        self.device = device
+class Func:  # pylint: disable=R0903
+    def __init__(self, dev):
+        self.dev = dev
 
 
-class SubController:  # pylint: disable=R0903
-    def __init__(self, subdevice):
-        self.subdevice = subdevice
+class SFunc:  # pylint: disable=R0903
+    def __init__(self, dev):
+        self.sdev = dev
 
 
-class SubSubController:  # pylint: disable=R0903
-    def __init__(self, subsubdevice):
-        self.subsubdevice = subsubdevice
+class SSFunc:  # pylint: disable=R0903
+    def __init__(self, dev):
+        self.ssdev = dev
 
 
 def check_input(
