@@ -44,14 +44,18 @@ class DisplayType(SubController):
 
         **Parameter**
 
+        ======= ========= =============== =======
         Name    Type      Range           Default
+        ======= ========= =============== =======
         <type>  Discrete  {VECTors|DOTS}  VECTors
+        ======= ========= =============== =======
 
         **Explanation**
 
         VECTors: the sample points are connected by lines and displayed.
         Normally, this mode can provide the most vivid waveform to view the
         steep edge of the waveform (such as square waveform).
+
         DOTS: display the sample points directly. You can directly view each
         sample point and use the cursor to measure the X and Y values of the
         sample point.
@@ -83,8 +87,11 @@ class DisplayType(SubController):
 
         **Parameter**
 
+        ======= ========= =============== =======
         Name    Type      Range           Default
+        ======= ========= =============== =======
         <type>  Discrete  {VECTors|DOTS}  VECTors
+        ======= ========= =============== =======
 
         **Explanation**
 
@@ -122,8 +129,11 @@ class DisplayType(SubController):
 
         **Parameter**
 
+        ======= ========= =============== =======
         Name    Type      Range           Default
+        ======= ========= =============== =======
         <type>  Discrete  {VECTors|DOTS}  VECTors
+        ======= ========= =============== =======
 
         **Explanation**
 
@@ -708,7 +718,7 @@ class Display(BaseController):
                        contains 1152054 bytes of
                        effective data.
         ============== ================================ =======================
-
+        ============== ================================ =======================
 
         **Note[1]**: N is the width used to describe the data length in the TMC
         header. For example, #90000.

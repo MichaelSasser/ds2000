@@ -30,7 +30,7 @@ __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
 
 
-class WafeformStatus(NamedTuple):
+class WaveformStatus(NamedTuple):
     status: bool
     points: int
 

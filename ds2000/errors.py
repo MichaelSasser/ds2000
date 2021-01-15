@@ -20,7 +20,7 @@ from sys import version_info
 from typing import Any
 from typing import Optional
 
-from . import __version__
+from .__version__ import __version__
 
 
 __author__ = "Michael Sasser"

@@ -26,11 +26,11 @@ sys.path.insert(0, os.path.abspath("../.."))
 # -- Project information -----------------------------------------------------
 
 project = "ds2000"
-copyright = "2019, Michael Sasser"
+copyright = "2020, Michael Sasser"
 author = "Michael Sasser"
 
 # The full version, including alpha/beta/rc tags
-release = "0.0.1.dev0"
+release = "0.1.0"
 
 
 # -- General configuration ---------------------------------------------------

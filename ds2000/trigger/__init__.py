@@ -16,7 +16,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 from __future__ import annotations
 
-from ds2000.controller import BaseController
+from ds2000.common import BaseController
 
 from .coupling import Coupling
 from .delay import Delay

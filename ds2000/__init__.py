@@ -24,8 +24,6 @@ from typing import Optional
 
 import vxi11
 
-from pkg_resources import get_distribution
-
 from .acquire import Acquire
 from .channel import Channel
 from .display import Display
@@ -38,7 +36,6 @@ from .waveform import Waveform
 __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
 
-__version__ = get_distribution("ds2000").version
 
 DEBUGGING: bool = False
 
