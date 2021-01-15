@@ -1,0 +1,11 @@
+**Mathematics Modules** - ds2000.math
+=====================================
+
+**Format Math Module** - format.py
+----------------------------------
+
+
+.. automodule:: ds2000.math.format
+   :members:
+   :undoc-members:
+   :show-inheritance:

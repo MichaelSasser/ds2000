@@ -1,0 +1,286 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Coupling Trigger Subsystem Module - coupling.py &mdash; ds2000 0.0.1.dev0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Function Modules - ds2000.func" href="ds2000.func.html" />
+    <link rel="prev" title="Subsystems - ds2000.controller" href="ds2000.controller.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> ds2000
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="ds2000.html">ds2000 Documentation</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="ds2000.html#subsystem-tree">Subsystem Tree</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="ds2000.controller.html"><strong>Subsystems</strong> - ds2000.controller</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="ds2000.controller.html#acquire-subsystem-acquire-py"><strong>Acquire Subsystem</strong> - acquire.py</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ds2000.controller.html#channel-subsystem-channel-py"><strong>Channel Subsystem</strong> - channel.py</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ds2000.controller.html#common-subsystem-common-py"><strong>Common Subsystem</strong> - common.py</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ds2000.controller.html#display-subsystem-display-py"><strong>Display Subsystem</strong> - display.py</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ds2000.controller.html#error-handling-error-handling-py"><strong>Error Handling</strong> - error_handling.py</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ds2000.controller.html#ieee-488-2-common-commands-ieee-py"><strong>IEEE 488.2 Common Commands</strong> - ieee.py</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ds2000.controller.html#timebase-subsystem-timebase-py"><strong>Timebase Subsystem</strong> - timebase.py</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="ds2000.controller.html#trigger-subsystem-trigger-py"><strong>Trigger Subsystem</strong> - trigger.py</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ds2000.controller.html#waveform-subsystem-waveform-py"><strong>Waveform Subsystem</strong> - waveform.py</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ds2000.html#function-tree">Function Tree</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ds2000.html#mathemtatics-tree">Mathemtatics Tree</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">ds2000</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="ds2000.html">ds2000 Documentation</a> &raquo;</li>
+        
+          <li><a href="ds2000.controller.html"><strong>Subsystems</strong> - ds2000.controller</a> &raquo;</li>
+        
+      <li><strong>Coupling Trigger Subsystem Module</strong> - coupling.py</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/ds2000.controller.trigger_subcontrollers.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="coupling-trigger-subsystem-module-coupling-py">
+<h1><strong>Coupling Trigger Subsystem Module</strong> - coupling.py<a class="headerlink" href="#coupling-trigger-subsystem-module-coupling-py" title="Permalink to this headline">¶</a></h1>
+</div>
+<div class="section" id="delay-trigger-subsystem-module-delay-py">
+<h1><strong>Delay Trigger Subsystem Module</strong> - delay.py<a class="headerlink" href="#delay-trigger-subsystem-module-delay-py" title="Permalink to this headline">¶</a></h1>
+</div>
+<div class="section" id="duration-trigger-subsystem-module-duration-py">
+<h1><strong>Duration Trigger Subsystem Module</strong> - duration.py<a class="headerlink" href="#duration-trigger-subsystem-module-duration-py" title="Permalink to this headline">¶</a></h1>
+</div>
+<div class="section" id="edge-trigger-subsystem-module-edge-py">
+<h1><strong>Edge Trigger Subsystem Module</strong> - edge.py<a class="headerlink" href="#edge-trigger-subsystem-module-edge-py" title="Permalink to this headline">¶</a></h1>
+</div>
+<div class="section" id="i2c-trigger-subsystem-module-i2c-py">
+<h1><strong>I2C Trigger Subsystem Module</strong> - i2c.py<a class="headerlink" href="#i2c-trigger-subsystem-module-i2c-py" title="Permalink to this headline">¶</a></h1>
+</div>
+<div class="section" id="mode-selector-trigger-subsystem-module-mode-py">
+<h1><strong>Mode Selector Trigger Subsystem Module</strong> - mode.py<a class="headerlink" href="#mode-selector-trigger-subsystem-module-mode-py" title="Permalink to this headline">¶</a></h1>
+</div>
+<div class="section" id="nth-edge-trigger-subsystem-module-nth-edge-py">
+<h1><strong>Nth Edge Trigger Subsystem Module</strong> - nth_edge.py<a class="headerlink" href="#nth-edge-trigger-subsystem-module-nth-edge-py" title="Permalink to this headline">¶</a></h1>
+</div>
+<div class="section" id="pattern-trigger-subsystem-module-pattern-py">
+<h1><strong>Pattern Trigger Subsystem Module</strong> - pattern.py<a class="headerlink" href="#pattern-trigger-subsystem-module-pattern-py" title="Permalink to this headline">¶</a></h1>
+</div>
+<div class="section" id="pulse-trigger-subsystem-module-pulse-py">
+<h1><strong>Pulse Trigger Subsystem Module</strong> - pulse.py<a class="headerlink" href="#pulse-trigger-subsystem-module-pulse-py" title="Permalink to this headline">¶</a></h1>
+</div>
+<div class="section" id="rs232-trigger-subsystem-module-rs232-py">
+<h1><strong>RS232 Trigger Subsystem Module</strong> - rs232.py<a class="headerlink" href="#rs232-trigger-subsystem-module-rs232-py" title="Permalink to this headline">¶</a></h1>
+</div>
+<div class="section" id="runt-trigger-subsystem-module-runt-py">
+<h1><strong>Runt Trigger Subsystem Module</strong> - runt.py<a class="headerlink" href="#runt-trigger-subsystem-module-runt-py" title="Permalink to this headline">¶</a></h1>
+</div>
+<div class="section" id="setup-hold-trigger-subsystem-module-setup-hold-py">
+<h1><strong>Setup/Hold Trigger Subsystem Module</strong> - setup_hold.py<a class="headerlink" href="#setup-hold-trigger-subsystem-module-setup-hold-py" title="Permalink to this headline">¶</a></h1>
+</div>
+<div class="section" id="slope-trigger-subsystem-module-slope-py">
+<h1><strong>Slope Trigger Subsystem Module</strong> - slope.py<a class="headerlink" href="#slope-trigger-subsystem-module-slope-py" title="Permalink to this headline">¶</a></h1>
+</div>
+<div class="section" id="spi-trigger-subsystem-module-spi-py">
+<h1><strong>SPI Trigger Subsystem Module</strong> - spi.py<a class="headerlink" href="#spi-trigger-subsystem-module-spi-py" title="Permalink to this headline">¶</a></h1>
+</div>
+<div class="section" id="sweep-trigger-subsystem-module-sweep-py">
+<h1><strong>Sweep Trigger Subsystem Module</strong> - sweep.py<a class="headerlink" href="#sweep-trigger-subsystem-module-sweep-py" title="Permalink to this headline">¶</a></h1>
+</div>
+<div class="section" id="timeout-trigger-subsystem-module-timeout-py">
+<h1><strong>Timeout Trigger Subsystem Module</strong> - timeout.py<a class="headerlink" href="#timeout-trigger-subsystem-module-timeout-py" title="Permalink to this headline">¶</a></h1>
+</div>
+<div class="section" id="usb-trigger-subsystem-module-usb-py">
+<h1><strong>USB Trigger Subsystem Module</strong> - usb.py<a class="headerlink" href="#usb-trigger-subsystem-module-usb-py" title="Permalink to this headline">¶</a></h1>
+</div>
+<div class="section" id="video-trigger-subsystem-module-video-py">
+<h1><strong>Video Trigger Subsystem Module</strong> - video.py<a class="headerlink" href="#video-trigger-subsystem-module-video-py" title="Permalink to this headline">¶</a></h1>
+</div>
+<div class="section" id="windows-trigger-subsystem-module-windows-py">
+<h1><strong>Windows Trigger Subsystem Module</strong> - windows.py<a class="headerlink" href="#windows-trigger-subsystem-module-windows-py" title="Permalink to this headline">¶</a></h1>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="ds2000.func.html" class="btn btn-neutral float-right" title="Function Modules - ds2000.func" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="ds2000.controller.html" class="btn btn-neutral float-left" title="Subsystems - ds2000.controller" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2019, Michael Sasser.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
