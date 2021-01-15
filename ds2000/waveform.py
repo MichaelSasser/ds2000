@@ -21,7 +21,7 @@ from typing import NamedTuple
 
 import numpy as np
 
-from .common import Func
+from .common import Func, check_input
 from .common import SFunc
 from .errors import DS2000Error
 
@@ -439,8 +439,7 @@ class Waveform(Func):
 
         The query returns CHAN2.
         """
-        if channel > 2 and isinstance(channel, int):
-            raise ValueError("The channel must be 1 or 2 of the type int.")
+        check_input(channel, "channel", int, 1, 2)
         self.dev.write(f":WAVeform:SOURce CHANnel{channel}")
 
     def points(self, points: int):

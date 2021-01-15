@@ -19,10 +19,9 @@ from __future__ import annotations
 from typing import NamedTuple
 from typing import Tuple
 
-from .common import Func
+from .common import Func, check_input
 from .common import SFunc
-from .errors import DS2000Error
-
+from .errors import DS2000Error, DS2000StateError
 
 __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
@@ -321,15 +320,8 @@ class Acquire(Func):
 
         The query returns 128.
         """
-        assert isinstance(count, int)
-        if count == 0:
-            return
-        elif count in Acquire.AVERAGES:
-            self.dev.ask(f":ACQuire:AVERages {count}")
-        raise ValueError(
-            'The "count" must be 0, to leave the count'
-            f"untouched or set it to {Acquire.AVERAGES}."
-        )  # TODO HERE
+        check_input(count, "count", int, 2, 8192)
+        self.dev.ask(f":ACQuire:AVERages {count}")
 
     def get_memorydepth(self) -> int:
         """
@@ -376,7 +368,11 @@ class Acquire(Func):
         return self.dev.ask(":ACQuire:MDEPth?")
 
     def set_memorydepth(self, memdepth: int = 0):
-        """
+        """Set the memorydepth of the oscilloscope.
+
+        If you set the memorydepth to `0`, The oscilloscope sets it
+        .automaticly
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -419,7 +415,8 @@ class Acquire(Func):
 
         The query returns 1400000.
         """
-        assert isinstance(memdepth, int)
+        check_input(memdepth, "memdepth", int)
+
         if memdepth == 0:
             self.dev.ask(":ACQuire:MEMDepth AUTO")
         # ToDo: Check if osc uses one or two channels
@@ -427,6 +424,7 @@ class Acquire(Func):
             self.dev.ask(f":ACQuire:MDEPth {memdepth}")
         elif memdepth in Acquire.MEMDEPTH_DUAL:
             self.dev.ask(f":ACQuire:MDEPth {memdepth}")
+        raise DS2000StateError()
 
     def get_samplerate(self) -> int:
         """
@@ -488,7 +486,7 @@ class Acquire(Func):
         """
         return bool(self.dev.ask(":ACQuire:AALias?"))
 
-    def set_antialiasing(self, enabled: bool = False):
+    def set_enable_antialiasing(self):
         """
         **Rigol Programming Guide**
 
@@ -522,5 +520,40 @@ class Acquire(Func):
 
         The query returns 1.
         """
-        assert isinstance(enabled, bool)
-        self.dev.ask(f":ACQuire:AALias {1 if enabled else 0}")
+        self.dev.ask(":ACQuire:AALias 1")
+
+    def set_disable_antialiasing(self):
+        """
+        **Rigol Programming Guide**
+
+        **Syntax**
+
+        :ACQuire:AALias <bool>
+
+        :ACQuire:AALias?
+
+        **Description**
+
+        Enable or disable the antialiasing function of the oscilloscope.
+        The query returns the current state of the antialiasing function of the
+        oscilloscope.
+
+        **Parameter**
+
+        ======== ====== ================== =======
+        Name     Type   Range              Default
+        ======== ====== ================== =======
+        <bool>   Bool   {{0|OFF}|{1|ON}}   0|OFF
+        ======== ====== ================== =======
+
+        **Return Format**
+
+        The query returns 0 or 1.
+
+        **Example**
+
+        :ACQuire:AALias ON
+
+        The query returns 1.
+        """
+        self.dev.ask(":ACQuire:AALias 0")

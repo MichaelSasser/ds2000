@@ -21,7 +21,7 @@ from typing import NamedTuple
 from typing import Optional
 from typing import Tuple
 
-from .common import Func
+from .common import Func, check_input
 from .common import SFunc
 from .errors import DS2000Error
 from .math.format import Prefixed
@@ -619,7 +619,7 @@ class Channel(Func):
         """
         return bool(int(self.dev.ask(f":CHANnel{self._channel}:INVert?")))
 
-    def set_invert(self, enable: bool = False) -> None:
+    def set_enable_invert(self) -> None:
         """
         **Rigol Programming Guide**
 
@@ -651,12 +651,42 @@ class Channel(Func):
         :CHANnel1:INVert ON
         The query returns 1.
         """
-        if not isinstance(enable, bool):
-            raise ValueError(
-                '"enable" must be of type "bool". You entered'
-                f"{type(enable)}."
-            )
-        self.dev.ask(f":CHANnel{self._channel}:INVert {int(enable)}")
+        self.dev.ask(f":CHANnel{self._channel}:INVert 1")
+
+    def set_disable_invert(self) -> None:
+        """
+        **Rigol Programming Guide**
+
+        **Syntax**
+
+        :CHANnel<n>:INVert <bool>
+        :CHANnel<n>:INVert?
+
+        **Description**
+
+        Enable or disable the inverted display of CH1 or CH2.
+        Query the current status of the inverted display of CH1 or CH2.
+
+        **Parameter**
+
+        ======= ========= ================= =======
+        Name    Type      Range             Default
+        ======= ========= ================= =======
+        <n>     Discrete  {1|2}             --
+        <bool>  Bool      {{0|OFF}|{1|ON}}  0|OFF
+        ======= ========= ================= =======
+
+        **Return Format**
+
+        The query returns 0 or 1.
+
+        **Example**
+
+        :CHANnel1:INVert ON
+        The query returns 1.
+        """
+        self.dev.ask(f":CHANnel{self._channel}:INVert 0")
+
 
     @staticmethod
     def __offset_check_range(
@@ -692,20 +722,20 @@ class Channel(Func):
                 return True  # The range and requested offset is correct.
             else:
                 ValueError(
-                    f"If your scale is between "
+                    "If your scale is between "
                     f"{min_scl_p.formatted}V/div and "
                     f"{max_scl_p.formatted}V/div "
-                    f"the offset must be between "
+                    "the offset must be between "
                     f"-{off_p.formatted}V and "
                     f"{off_p.formatted}V.\n"
-                    f"Your scale is currently set to "
+                    "Your scale is currently set to "
                     f"{scl_p.formatted}V/div.\n"
-                    f"Your requestet offset is "
+                    "Your requestet offset is "
                     f"{offset_p.formatted}V.\n"
-                    f"Make sure your offset is between "
+                    "Make sure your offset is between "
                     f"-{off_p.formatted}V "
                     f"and {off_p.formatted}V or change your "
-                    f"scale.\n"
+                    "scale.\n"
                     "Keep in mind, the range of the vertical scale "
                     "is related to the probe attenuation ratio "
                     "currently set."
@@ -877,7 +907,7 @@ class Channel(Func):
         """
         return float(self.dev.ask(f":CHANnel{self._channel}:SCALe?"))
 
-    def set_scale(self, scale: float = 1) -> None:
+    def set_scale(self, scale: float = 1.) -> None:
         """
         **Rigol Programming Guide**
 
@@ -918,15 +948,11 @@ class Channel(Func):
         The query returns 1.000000e+00.
         """
         ratio: float = self.get_probe_attenuation_ratio()
-        if not isinstance(scale, float) or not (
-            500.0e-6 * ratio <= scale <= 10 * ratio
-        ):
-            ValueError(
-                f"The scale must be within {500*ratio}μV..{10*ratio}V "
-                f"and of type float. You entered the type: "
-                f"{type(scale)}. Remember, this values depend on the"
-                f"probe attenuation ratio."
-            )
+        check_input(scale, "scale", float, 500.e-6*ratio, 10.*ratio, "V",
+                    ext_range_err=("Remember, this values depend on the "
+                                   "probe attenuation ratio."
+                                   )
+                    )
         float(self.dev.ask(f":CHANnel{self._channel}:SCALe {scale}"))
 
     def get_probe_attenuation_ratio(self) -> float:

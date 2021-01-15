@@ -18,7 +18,7 @@ from __future__ import annotations
 
 import math
 
-from .common import Func
+from .common import Func, check_input
 from .common import SFunc
 from .errors import DS2000Error
 
@@ -342,8 +342,7 @@ class Display(Func):
         math.inf,
     )
 
-    # -1 means INFINITE
-    MENU_DISPLAY_TIME = (1, 2, 5, 10, 20, -1)
+    MENU_DISPLAY_TIME = (1, 2, 5, 10, 20, -1)  # -1 means INFINITE
 
     def __init__(self, dev) -> None:
         super(Display, self).__init__(dev)
@@ -551,12 +550,8 @@ class Display(Func):
         :DISPlay:WBRightness 60
         The query returns 60.
         """
-        if isinstance(brightness, int) and 0 <= brightness <= 100:
-            self.dev.ask(f":DISPlay:WBRightness {brightness}")
-        else:
-            ValueError(
-                "The brightness must be of type int and between 0..100."
-            )
+        check_input(brightness, "brightness", int, 0, 100, "%")
+        self.dev.ask(f":DISPlay:WBRightness {brightness}")
 
     def get_grid_brightness(self) -> int:
         """
@@ -622,12 +617,8 @@ class Display(Func):
         :DISPlay:GBRightness 60
         The query returns 60.
         """
-        if isinstance(brightness, int) and 0 <= brightness <= 100:
-            self.dev.ask(f":DISPlay:GBRightness {brightness}")
-        else:
-            ValueError(
-                "The brightness must be of type int and between 0..100."
-            )
+        check_input(brightness, "brightness", int, 0, 100, "%")
+        self.dev.ask(f":DISPlay:GBRightness {brightness}")
 
     def set_menu_display_time(self, time: int = -1) -> None:
         """
@@ -661,13 +652,7 @@ class Display(Func):
         The query returns 20.
         """
         # Assertion
-        if (not isinstance(time, int)) or (
-            time not in Display.MENU_DISPLAY_TIME
-        ):
-            ValueError(
-                '"time" must be of type "float" '
-                f"and in {str(Display.MENU_DISPLAY_TIME)}"
-            )
+        check_input(time, "time", int)
 
         if time in Display.MENU_DISPLAY_TIME[-1]:
             self.dev.ask(":DISPlay:MPERsistence INFinite")

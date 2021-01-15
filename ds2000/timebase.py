@@ -16,7 +16,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 from __future__ import annotations
 
-from .common import Func
+from .common import Func, check_input
 from .common import SFunc
 from .common import SSFunc
 
@@ -523,12 +523,7 @@ class TimebaseHorizontalRef(SFunc):
         :TIMebase:HREF:POSition 150
         The query returns 150.
         """
-        if not isinstance(pos, int) or not -350 <= pos <= 350:
-            raise ValueError(
-                f"pos must be of type int between -350..350. "
-                f"You entered {pos=} of type {type(pos)}."
-            )
-
+        check_input(pos, "pos", int, -350, 350)
         self.sdev.dev.ask(":TIMebase:HREF:MODE USER")
         self.sdev.dev.ask(f":TIMebase:HREF:POSition {pos}")
 
@@ -764,11 +759,7 @@ class Timebase(Func):
         :TIMebase:MAIN:OFFSet 0.0002
         The query returns 2.000000e-04.
         """
-        if not isinstance(seconds, int):
-            raise ValueError(
-                f"pos must be of type float. "
-                f"You entered type: {type(seconds)}."
-            )
+        check_input(seconds, "seconds", int)
 
         trigger: str = self.dev.trigger.status()
         mode: str = self.mode.status()
@@ -912,13 +903,9 @@ class Timebase(Func):
 
         The query returns 2.000000e-04.
         """
-        # ToDo: Really arb. input?
         # ToDo: MinMax dependend on model
-        if not isinstance(seconds, int) or not 2.0e-9 <= seconds <= 1000:
-            raise ValueError(
-                f"pos must be of type float between 2.0E-9..1000. "
-                f"You entered {seconds=} of type {type(seconds)}."
-            )
+        # TODO: Need to enable fine_adjustment before?
+        check_input(seconds, "seconds", int, 2.e-9, 1000., "s")
         return float(self.dev.ask(f":TIMebase:MAIN:SCALe {seconds}"))
 
     def enable_fine_adjustment(self) -> None:
@@ -987,7 +974,7 @@ class Timebase(Func):
         """
         self.dev.ask(":TIMebase:VERNier 0")
 
-    def fine_adjustment_enabled(self) -> bool:
+    def is_fine_adjustment_enabled(self) -> bool:
         """
         **Rigol Programming Guide**
 

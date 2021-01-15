@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from ds2000.common import SFunc
+from ds2000.common import SFunc, check_level
 from ds2000.common import SSFunc
 from ds2000.common import check_input
 from ds2000.errors import DS2000StateError
@@ -397,11 +397,7 @@ class NthEdge(SFunc):
                 "The level coul'd only be set, if the source is"
                 "Channel 1 or Channel 2."
             )  # ToDo: Right??
-
-        min_rng = -5 * scale - offset
-        max_rng = 5 * scale - offset
-
-        check_input(level, "level", int, min_rng, max_rng, "")
+        check_level(level, scale, offset)
 
         self.sdev.dev.ask(f":TRIGger:NEDGe:LEVel {level}")
 
