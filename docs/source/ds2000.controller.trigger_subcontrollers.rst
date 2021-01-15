@@ -1,0 +1,151 @@
+**Coupling Trigger Subsystem Module** - coupling.py
+---------------------------------------------------
+
+.. automodule:: ds2000.controller.trigger_subcontrollers.coupling
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+**Delay Trigger Subsystem Module** - delay.py
+---------------------------------------------
+
+.. automodule:: ds2000.controller.trigger_subcontrollers.delay
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+**Duration Trigger Subsystem Module** - duration.py
+---------------------------------------------------
+
+.. automodule:: ds2000.controller.trigger_subcontrollers.duration
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+**Edge Trigger Subsystem Module** - edge.py
+-------------------------------------------
+
+.. automodule:: ds2000.controller.trigger_subcontrollers.edge
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+**I2C Trigger Subsystem Module** - i2c.py
+-----------------------------------------
+
+.. automodule:: ds2000.controller.trigger_subcontrollers.i2c
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+**Mode Selector Trigger Subsystem Module** - mode.py
+----------------------------------------------------
+
+.. automodule:: ds2000.controller.trigger_subcontrollers.mode
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+**Nth Edge Trigger Subsystem Module** - nth_edge.py
+---------------------------------------------------
+
+.. automodule:: ds2000.controller.trigger_subcontrollers.nth_edge
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+**Pattern Trigger Subsystem Module** - pattern.py
+-------------------------------------------------
+
+.. automodule:: ds2000.controller.trigger_subcontrollers.pattern
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+**Pulse Trigger Subsystem Module** - pulse.py
+---------------------------------------------
+
+.. automodule:: ds2000.controller.trigger_subcontrollers.pulse
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+**RS232 Trigger Subsystem Module** - rs232.py
+---------------------------------------------
+
+.. automodule:: ds2000.controller.trigger_subcontrollers.rs232
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+**Runt Trigger Subsystem Module** - runt.py
+-------------------------------------------
+
+.. automodule:: ds2000.controller.trigger_subcontrollers.runt
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+**Setup/Hold Trigger Subsystem Module** - setup\_hold.py
+--------------------------------------------------------
+
+.. automodule:: ds2000.controller.trigger_subcontrollers.setup_hold
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+**Slope Trigger Subsystem Module** - slope.py
+---------------------------------------------
+
+.. automodule:: ds2000.controller.trigger_subcontrollers.slope
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+**SPI Trigger Subsystem Module** - spi.py
+-----------------------------------------
+
+.. automodule:: ds2000.controller.trigger_subcontrollers.spi
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+**Sweep Trigger Subsystem Module** - sweep.py
+---------------------------------------------
+
+.. automodule:: ds2000.controller.trigger_subcontrollers.sweep
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+**Timeout Trigger Subsystem Module** - timeout.py
+-------------------------------------------------
+
+.. automodule:: ds2000.controller.trigger_subcontrollers.timeout
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+**USB Trigger Subsystem Module** - usb.py
+-----------------------------------------
+
+.. automodule:: ds2000.controller.trigger_subcontrollers.usb
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+**Video Trigger Subsystem Module** - video.py
+---------------------------------------------
+
+.. automodule:: ds2000.controller.trigger_subcontrollers.video
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+**Windows Trigger Subsystem Module** - windows.py
+-------------------------------------------------
+
+.. automodule:: ds2000.controller.trigger_subcontrollers.windows
+   :members:
+   :undoc-members:
+   :show-inheritance:

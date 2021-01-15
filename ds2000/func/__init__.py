@@ -15,11 +15,6 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+
 __author__: str = "Michael Sasser"
 __email__: str = "Michael@MichaelSasser.org"
-
-# Don't change the import sequence
-from .plot import *
-
-
-__all__ = (*plot.__all__,)
