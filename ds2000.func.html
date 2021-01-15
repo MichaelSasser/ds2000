@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Function Modules - ds2000.func &mdash; ds2000 0.0.1.dev0 documentation</title>
+  <title>Function Modules - ds2000.func &mdash; ds2000 0.1.0 documentation</title>
   
 
   
@@ -39,7 +39,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Mathematics Modules - ds2000.math" href="ds2000.math.html" />
-    <link rel="prev" title="Coupling Trigger Subsystem Module - coupling.py" href="ds2000.controller.trigger_subcontrollers.html" /> 
+    <link rel="prev" title="Coupling Trigger Subsystem Module - coupling.py" href="ds2000.trigger.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -87,10 +87,10 @@
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="ds2000.html">ds2000 Documentation</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="ds2000.html#subsystem-tree">Subsystem Tree</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ds2000.html#main-tree">Main Tree</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="ds2000.html#function-tree">Function Tree</a><ul class="current">
 <li class="toctree-l3 current"><a class="current reference internal" href="#"><strong>Function Modules</strong> - ds2000.func</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#plot-function-module-plot-py"><strong>Plot Function Module</strong> - plot.py</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-ds2000.func.plot"><strong>Plot Function Module</strong> - plot.py</a></li>
 </ul>
 </li>
 </ul>
@@ -169,8 +169,25 @@
             
   <div class="section" id="function-modules-ds2000-func">
 <h1><strong>Function Modules</strong> - ds2000.func<a class="headerlink" href="#function-modules-ds2000-func" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="plot-function-module-plot-py">
-<h2><strong>Plot Function Module</strong> - plot.py<a class="headerlink" href="#plot-function-module-plot-py" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-ds2000.func.plot">
+<span id="plot-function-module-plot-py"></span><h2><strong>Plot Function Module</strong> - plot.py<a class="headerlink" href="#module-ds2000.func.plot" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="ds2000.func.plot.simple_plot">
+<code class="sig-prename descclassname">ds2000.func.plot.</code><code class="sig-name descname">simple_plot</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">inst</span></em>, <em class="sig-param"><span class="n">title</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">recorded</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ds2000.func.plot.simple_plot" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>inst</strong> – The instrument class.</p></li>
+<li><p><strong>recorded</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – If recorded is False, the plot will be only the current
+waveform on the screen. None</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
 </div>
 </div>
 
@@ -181,14 +198,14 @@
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
         <a href="ds2000.math.html" class="btn btn-neutral float-right" title="Mathematics Modules - ds2000.math" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="ds2000.controller.trigger_subcontrollers.html" class="btn btn-neutral float-left" title="Coupling Trigger Subsystem Module - coupling.py" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="ds2000.trigger.html" class="btn btn-neutral float-left" title="Coupling Trigger Subsystem Module - coupling.py" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &#169; Copyright 2019, Michael Sasser.
+        &#169; Copyright 2020, Michael Sasser.
 
     </p>
   </div>

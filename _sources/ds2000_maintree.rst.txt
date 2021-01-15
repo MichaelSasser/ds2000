@@ -1,10 +1,10 @@
-**Subsystems** - ds2000.controller
-==================================
+**Subsystems** - ds2000
+=======================
 
 **Acquire Subsystem** - acquire.py
 ----------------------------------
 
-.. automodule:: ds2000.controller.acquire
+.. automodule:: ds2000.acquire
    :members:
    :undoc-members:
    :show-inheritance:
@@ -12,7 +12,7 @@
 **Channel Subsystem** - channel.py
 ----------------------------------
 
-.. automodule:: ds2000.controller.channel
+.. automodule:: ds2000.channel
    :members:
    :undoc-members:
    :show-inheritance:
@@ -20,7 +20,7 @@
 **Common Subsystem** - common.py
 --------------------------------
 
-.. automodule:: ds2000.controller.common
+.. automodule:: ds2000.common
    :members:
    :undoc-members:
    :show-inheritance:
@@ -28,15 +28,15 @@
 **Display Subsystem** - display.py
 ----------------------------------
 
-.. automodule:: ds2000.controller.display
+.. automodule:: ds2000.display
    :members:
    :undoc-members:
    :show-inheritance:
 
-**Error Handling** - error\_handling.py
----------------------------------------
+**Error Handling** - errors.py
+------------------------------
 
-.. automodule:: ds2000.controller.error_handling
+.. automodule:: ds2000.errors
    :members:
    :undoc-members:
    :show-inheritance:
@@ -44,7 +44,7 @@
 **IEEE 488.2 Common Commands** - ieee.py
 ----------------------------------------
 
-.. automodule:: ds2000.controller.ieee
+.. automodule:: ds2000.ieee
    :members:
    :undoc-members:
    :show-inheritance:
@@ -52,31 +52,24 @@
 **Timebase Subsystem** - timebase.py
 ------------------------------------
 
-.. automodule:: ds2000.controller.timebase
+.. automodule:: ds2000.timebase
    :members:
    :undoc-members:
    :show-inheritance:
 
-**Trigger Subsystem** - trigger.py
-----------------------------------
 
-.. automodule:: ds2000.controller.trigger
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-**Trigger Subsystem Modules** - trigger\_subcontrollers
+**Trigger Subsystem Modules** - trigger\_sub
 _______________________________________________________
 
 .. toctree::
 
-   ds2000.controller.trigger_subcontrollers
+   ds2000.trigger
 
 
 **Waveform Subsystem** - waveform.py
 ------------------------------------
 
-.. automodule:: ds2000.controller.waveform
+.. automodule:: ds2000.waveform
    :members:
    :undoc-members:
    :show-inheritance:

@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Mathematics Modules - ds2000.math &mdash; ds2000 0.0.1.dev0 documentation</title>
+  <title>Mathematics Modules - ds2000.math &mdash; ds2000 0.1.0 documentation</title>
   
 
   
@@ -86,11 +86,11 @@
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="ds2000.html">ds2000 Documentation</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="ds2000.html#subsystem-tree">Subsystem Tree</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ds2000.html#main-tree">Main Tree</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ds2000.html#function-tree">Function Tree</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="ds2000.html#mathemtatics-tree">Mathemtatics Tree</a><ul class="current">
 <li class="toctree-l3 current"><a class="current reference internal" href="#"><strong>Mathematics Modules</strong> - ds2000.math</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#format-math-module-format-py"><strong>Format Math Module</strong> - format.py</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-ds2000.math.format"><strong>Format Math Module</strong> - format.py</a></li>
 </ul>
 </li>
 </ul>
@@ -168,8 +168,48 @@
             
   <div class="section" id="mathematics-modules-ds2000-math">
 <h1><strong>Mathematics Modules</strong> - ds2000.math<a class="headerlink" href="#mathematics-modules-ds2000-math" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="format-math-module-format-py">
-<h2><strong>Format Math Module</strong> - format.py<a class="headerlink" href="#format-math-module-format-py" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-ds2000.math.format">
+<span id="format-math-module-format-py"></span><h2><strong>Format Math Module</strong> - format.py<a class="headerlink" href="#module-ds2000.math.format" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="ds2000.math.format.Prefixed">
+<em class="property">class </em><code class="sig-prename descclassname">ds2000.math.format.</code><code class="sig-name descname">Prefixed</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">value</span></em>, <em class="sig-param"><span class="n">prefix</span></em>, <em class="sig-param"><span class="n">divisor</span></em>, <em class="sig-param"><span class="n">formatted</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ds2000.math.format.Prefixed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">NamedTuple</span></code></p>
+<dl class="py attribute">
+<dt id="ds2000.math.format.Prefixed.divisor">
+<code class="sig-name descname">divisor</code><em class="property">: float</em><a class="headerlink" href="#ds2000.math.format.Prefixed.divisor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 2</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ds2000.math.format.Prefixed.formatted">
+<code class="sig-name descname">formatted</code><em class="property">: str</em><a class="headerlink" href="#ds2000.math.format.Prefixed.formatted" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 3</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ds2000.math.format.Prefixed.prefix">
+<code class="sig-name descname">prefix</code><em class="property">: str</em><a class="headerlink" href="#ds2000.math.format.Prefixed.prefix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 1</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ds2000.math.format.Prefixed.value">
+<code class="sig-name descname">value</code><em class="property">: float</em><a class="headerlink" href="#ds2000.math.format.Prefixed.value" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 0</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt id="ds2000.math.format.get_prefix">
+<code class="sig-prename descclassname">ds2000.math.format.</code><code class="sig-name descname">get_prefix</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ds2000.math.format.get_prefix" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#ds2000.math.format.Prefixed" title="ds2000.math.format.Prefixed"><code class="xref py py-class docutils literal notranslate"><span class="pre">Prefixed</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
 </div>
 </div>
 
@@ -186,7 +226,7 @@
 
   <div role="contentinfo">
     <p>
-        &#169; Copyright 2019, Michael Sasser.
+        &#169; Copyright 2020, Michael Sasser.
 
     </p>
   </div>

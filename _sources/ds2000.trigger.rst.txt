@@ -1,7 +1,7 @@
 **Coupling Trigger Subsystem Module** - coupling.py
 ---------------------------------------------------
 
-.. automodule:: ds2000.controller.trigger_subcontrollers.coupling
+.. automodule:: ds2000.trigger.coupling
    :members:
    :undoc-members:
    :show-inheritance:
@@ -9,7 +9,7 @@
 **Delay Trigger Subsystem Module** - delay.py
 ---------------------------------------------
 
-.. automodule:: ds2000.controller.trigger_subcontrollers.delay
+.. automodule:: ds2000.trigger.delay
    :members:
    :undoc-members:
    :show-inheritance:
@@ -17,7 +17,7 @@
 **Duration Trigger Subsystem Module** - duration.py
 ---------------------------------------------------
 
-.. automodule:: ds2000.controller.trigger_subcontrollers.duration
+.. automodule:: ds2000.trigger.duration
    :members:
    :undoc-members:
    :show-inheritance:
@@ -25,7 +25,7 @@
 **Edge Trigger Subsystem Module** - edge.py
 -------------------------------------------
 
-.. automodule:: ds2000.controller.trigger_subcontrollers.edge
+.. automodule:: ds2000.trigger.edge
    :members:
    :undoc-members:
    :show-inheritance:
@@ -33,7 +33,7 @@
 **I2C Trigger Subsystem Module** - i2c.py
 -----------------------------------------
 
-.. automodule:: ds2000.controller.trigger_subcontrollers.i2c
+.. automodule:: ds2000.trigger.i2c
    :members:
    :undoc-members:
    :show-inheritance:
@@ -41,7 +41,7 @@
 **Mode Selector Trigger Subsystem Module** - mode.py
 ----------------------------------------------------
 
-.. automodule:: ds2000.controller.trigger_subcontrollers.mode
+.. automodule:: ds2000.trigger.mode
    :members:
    :undoc-members:
    :show-inheritance:
@@ -49,7 +49,7 @@
 **Nth Edge Trigger Subsystem Module** - nth_edge.py
 ---------------------------------------------------
 
-.. automodule:: ds2000.controller.trigger_subcontrollers.nth_edge
+.. automodule:: ds2000.trigger.nth_edge
    :members:
    :undoc-members:
    :show-inheritance:
@@ -57,7 +57,7 @@
 **Pattern Trigger Subsystem Module** - pattern.py
 -------------------------------------------------
 
-.. automodule:: ds2000.controller.trigger_subcontrollers.pattern
+.. automodule:: ds2000.trigger.pattern
    :members:
    :undoc-members:
    :show-inheritance:
@@ -65,7 +65,7 @@
 **Pulse Trigger Subsystem Module** - pulse.py
 ---------------------------------------------
 
-.. automodule:: ds2000.controller.trigger_subcontrollers.pulse
+.. automodule:: ds2000.trigger.pulse
    :members:
    :undoc-members:
    :show-inheritance:
@@ -73,7 +73,7 @@
 **RS232 Trigger Subsystem Module** - rs232.py
 ---------------------------------------------
 
-.. automodule:: ds2000.controller.trigger_subcontrollers.rs232
+.. automodule:: ds2000.trigger.rs232
    :members:
    :undoc-members:
    :show-inheritance:
@@ -81,7 +81,7 @@
 **Runt Trigger Subsystem Module** - runt.py
 -------------------------------------------
 
-.. automodule:: ds2000.controller.trigger_subcontrollers.runt
+.. automodule:: ds2000.trigger.runt
    :members:
    :undoc-members:
    :show-inheritance:
@@ -89,7 +89,7 @@
 **Setup/Hold Trigger Subsystem Module** - setup\_hold.py
 --------------------------------------------------------
 
-.. automodule:: ds2000.controller.trigger_subcontrollers.setup_hold
+.. automodule:: ds2000.trigger.setup_hold
    :members:
    :undoc-members:
    :show-inheritance:
@@ -97,7 +97,7 @@
 **Slope Trigger Subsystem Module** - slope.py
 ---------------------------------------------
 
-.. automodule:: ds2000.controller.trigger_subcontrollers.slope
+.. automodule:: ds2000.trigger.slope
    :members:
    :undoc-members:
    :show-inheritance:
@@ -105,7 +105,7 @@
 **SPI Trigger Subsystem Module** - spi.py
 -----------------------------------------
 
-.. automodule:: ds2000.controller.trigger_subcontrollers.spi
+.. automodule:: ds2000.trigger.spi
    :members:
    :undoc-members:
    :show-inheritance:
@@ -113,7 +113,7 @@
 **Sweep Trigger Subsystem Module** - sweep.py
 ---------------------------------------------
 
-.. automodule:: ds2000.controller.trigger_subcontrollers.sweep
+.. automodule:: ds2000.trigger.sweep
    :members:
    :undoc-members:
    :show-inheritance:
@@ -121,7 +121,7 @@
 **Timeout Trigger Subsystem Module** - timeout.py
 -------------------------------------------------
 
-.. automodule:: ds2000.controller.trigger_subcontrollers.timeout
+.. automodule:: ds2000.trigger.timeout
    :members:
    :undoc-members:
    :show-inheritance:
@@ -129,7 +129,7 @@
 **USB Trigger Subsystem Module** - usb.py
 -----------------------------------------
 
-.. automodule:: ds2000.controller.trigger_subcontrollers.usb
+.. automodule:: ds2000.trigger.usb
    :members:
    :undoc-members:
    :show-inheritance:
@@ -137,7 +137,7 @@
 **Video Trigger Subsystem Module** - video.py
 ---------------------------------------------
 
-.. automodule:: ds2000.controller.trigger_subcontrollers.video
+.. automodule:: ds2000.trigger.video
    :members:
    :undoc-members:
    :show-inheritance:
@@ -145,7 +145,7 @@
 **Windows Trigger Subsystem Module** - windows.py
 -------------------------------------------------
 
-.. automodule:: ds2000.controller.trigger_subcontrollers.windows
+.. automodule:: ds2000.trigger.windows
    :members:
    :undoc-members:
    :show-inheritance:

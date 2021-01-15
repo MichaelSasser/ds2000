@@ -1,13 +1,12 @@
 ds2000 Documentation
 ====================
 
-Subsystem Tree
+Main Tree
 --------------
 
 .. toctree::
 
-   ds2000.controller
-
+   ds2000_maintree
 
 
 Function Tree
