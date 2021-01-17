@@ -18,8 +18,9 @@
 name = "ds2000"
 version = "0.1.0"
 description = "The Python Library for Rigol DS2000 Oscilloscopes"
-license = "GPL-3.0+"
+license = "GPL-3.0-or-later"
 authors = ["Michael Sasser <Michael@MichaelSasser.org>"]
+maintainers = ["Michael Sasser <Michael@MichaelSasser.org>"]
 readme = "README.md"
 repository = "https://github.com/MichaelSasser/ds2000"
 homepage = "https://github.com/MichaelSasser/ds2000"
@@ -53,16 +54,37 @@ classifiers = [
 
 [tool.poetry.dependencies]
 python = "^3.9"
-python-vxi11 = "^0.9.0"
-zeroconf = "^0.28.8"
-numpy = "^1.19.5"
-matplotlib = "^3.3.3"
+# zeroconf = "^0.28.8"  # Not used? used by vxi11?
+
+# Extras (func)
+numpy = { version = "^1.19.5", optional = true }
+matplotlib = { version = "^3.3.3", optional = true }
+
+# Drivers
+python-vxi11 = { version = "^0.9.0", optional = true }
+pyvisa = { version = "^1.11.3", optional = true }
+pyvisa-py = { version = "^0.5.1", optional = true }
+
+# Docs
 sphinx-autodoc-typehints = { version = "^1.11.1", optional = true }
 Sphinx = { version = "^3.4.3", optional = true }
 sphinx_rtd_theme = { version = "^0.5.1", optional = true  }
 
 [tool.poetry.extras]
+# driver  - You only need one
+driver-vxi11 = ["python-vxi11"]
+driver-pyvisa = ["pyvisa"]
+driver-pyvisa-py = ["pyvisa-py"]
+driver-all = ["python-vxi11", "pyvisa", "pyvisa-py"]  # For developers
+
+# Extras
+func = ["numpy", "matplotlib"]
+
+# Docs
 docs = ["sphinx", "sphinx_rtd_theme", "sphinx-autodoc-typehints"]
+
+# All
+all = ["python-vxi11", "pyvisa", "pyvisa-py", "sphinx", "sphinx_rtd_theme", "sphinx-autodoc-typehints", "numpy", "matplotlib"]
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2.1"
@@ -72,7 +94,7 @@ pydocstyle = "^5.1.1"
 pylint = "^2.6"
 pycodestyle = "^2.6"
 yapf = "^0.30.0"
-vulture = "^2.1"
+vulture = "^2.3"
 mypy = "^0.790.0"
 python-language-server = {version = "^0.36.2", extras = ["all"]}
 black = { version = "*", allow-prereleases = true }

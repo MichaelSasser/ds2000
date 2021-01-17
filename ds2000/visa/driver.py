@@ -32,9 +32,10 @@ __email__: str = "Michael@MichaelSasser.org"
 
 
 class VISADriver(Enum):
-    VXI11 = auto(),
-    NI_VISA = auto(),
-    DEBUG_DUMMY = auto(),
+    VXI11 = auto(),  # python-vxi11 - pure python
+    PYVISA = auto(),  # pyvisa - uses NI VISA
+    PYVISA_PY = auto(),  # pyvisa-py - limited subset of pyvisa, pure python
+    DEBUG_DUMMY = auto(),  # a dummy to debug, mimics a instrument
 
 
 class InstrumentInfo(NamedTuple):

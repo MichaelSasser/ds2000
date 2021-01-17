@@ -20,6 +20,7 @@ from typing import Optional
 from typing import Type
 from typing import List
 from types import TracebackType
+from logging import debug
 
 from .errors import DS2000DriverNotFoundError
 from .visa.driver import VISABase
@@ -40,9 +41,23 @@ Available_Drivers: List[VISADriver] = [VISADriver.DEBUG_DUMMY]
 try:
     from .visa.vxi11 import VXI11
     Available_Drivers.append(VISADriver.VXI11)
+    debug("Driver: VXI11 is now available.")
 except ImportError:
-    pass
+    debug("Driver: VXI11 is not installed.")
 
+try:
+    from .visa.pyvisa import PYVISA
+    Available_Drivers.append(VISADriver.PYVISA)
+    debug("Driver: PYVISA is now available.")
+except ImportError:
+    debug("Driver: PYVISA is not installed.")
+
+try:
+    from .visa.pyvisapy import PYVISAPY
+    Available_Drivers.append(VISADriver.PYVISAPY)
+    debug("Driver: PYVISAPY is now available.")
+except ImportError:
+    debug("Driver: PYVISAPY is not installed.")
 
 __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
@@ -61,8 +76,8 @@ class DS2000(object):
         if (driver == VISADriver.VXI11
                 and VISADriver.VXI11 in Available_Drivers):
             self.instrument: VISABase = VXI11(address)
-        elif (driver == VISADriver.NI_VISA
-              and VISADriver.NI_VISA in Available_Drivers):
+        elif (driver == VISADriver.PYVISA
+              and VISADriver.PYVISA in Available_Drivers):
             raise NotImplementedError()
         elif (driver == VISADriver.DEBUG_DUMMY
               and VISADriver.DEBUG_DUMMY in Available_Drivers):
@@ -90,50 +105,6 @@ class DS2000(object):
                  exc_tb: Optional[TracebackType],
     ) -> None:
         self.instrument.disconnect()
-
-    # def ask(self, msg: str) -> Optional[str]:
-    #     """This is a Wrapper for the ask method of vxi11.
-    #     With a wrapper it makes it possible to change the underlying
-    #     package behaviour, vxi11 itself.
-    #     """
-    #     answer: Optional[str] = None
-    #     try:  # Probably just for development
-    #         answer = self.__inst.ask(msg)
-    #     except vxi11.vxi11.Vxi11Exception as e:
-    #         error(f"Error while asking: {e}")
-    #     finally:
-    #         if DEBUGGING:
-    #             debug(f'asked: "{msg}", answered: "{answer}"')
-    #     return answer
-    #
-    # def write(self, msg: str):
-    #     """This is a Wrapper for the write method of vxi11.
-    #     With a wrapper it makes it possible to change the underlying
-    #     package behaviour, vxi11 itself.
-    #     """
-    #     try:  # Probably just for development
-    #         self.__inst.write(msg)
-    #     except vxi11.vxi11.Vxi11Exception as e:
-    #         error(f"Error while writing: {e}")
-    #     finally:
-    #         if DEBUGGING:
-    #             debug(f'written (raw): "{msg}"')
-    #
-    # def read_raw(self, num: int = -1):
-    #     """This is a Wrapper for the read_raw method of vxi11.
-    #     With a wrapper it makes it possible to change the underlying
-    #     package behaviour, vxi11 itself.
-    #     """
-    #     msg: Optional[bytes] = None
-    #     try:  # Probably just for development
-    #         msg = self.__inst.read_raw(num)
-    #     except vxi11.vxi11.Vxi11Exception as e:
-    #         error(f"Error while writing: {e}")
-    #     return msg
-    #
-    # def connect(self):
-    #     self.__inst = vxi11.Instrument(self.device_address)
-    #     self.id = Instrument(*self.ieee.idn().split(","))
 
     # SYSTem Commands
     def info(self) -> InstrumentInfo:
@@ -278,9 +249,6 @@ class DS2000(object):
 
     def reset(self):
         self.ieee.rst()
-
-    # def disconnect(self):
-    #     self.__inst.close()
 
     def __str__(self) -> str:
         return self.__repr__()
