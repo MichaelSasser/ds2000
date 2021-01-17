@@ -208,7 +208,7 @@ class Mode(SFunc):
         self.sdev.dev.write(":WAVeform:MODE RAW")
 
     def get(self):
-        answer: str = self.sdev.dev.ask(":WAVeform:MODE?")
+        answer: str = self.instrument.ask(":WAVeform:MODE?")
         if answer == "NORM":
             return "Normal"
         elif answer == "MAX":
@@ -381,7 +381,7 @@ class Format(SFunc):
         self.sdev.dev.write(":WAVeform:FORMat ASCii")
 
     def get(self):
-        answer: str = self.sdev.dev.ask(":WAVeform:FORMAT?")
+        answer: str = self.instrument.ask(":WAVeform:FORMAT?")
         if answer == "WORD":
             return "word"
         elif answer == "BYTE":
@@ -506,7 +506,7 @@ class Waveform(Func):
                 "The parameter points in maximal mode must be"
                 "between 1 and the current maximum memory depth."
             )
-        points = self.dev.ask(f"WAVeform:POINts {points}")
+        points = self.instrument.ask(f"WAVeform:POINts {points}")
         return points
 
     def data(self, recorded: bool = False):
@@ -881,7 +881,7 @@ class Waveform(Func):
 
         The query returns 1.000000e-08.
         """
-        return float(self.dev.ask(":WAVeform:XINCrement?"))
+        return float(self.instrument.ask(":WAVeform:XINCrement?"))
 
     @property
     def x_origin(self) -> float:
@@ -908,7 +908,7 @@ class Waveform(Func):
 
         The query returns -7.000000e-06.
         """
-        return float(self.dev.ask(":WAVeform:XORigin?"))
+        return float(self.instrument.ask(":WAVeform:XORigin?"))
 
     @property
     def x_reference(self) -> float:
@@ -935,7 +935,7 @@ class Waveform(Func):
 
         The query returns 0.
         """
-        return float(self.dev.ask(":WAVeform:XREFerence?"))
+        return float(self.instrument.ask(":WAVeform:XREFerence?"))
 
     @property
     def y_increment(self) -> float:
@@ -962,7 +962,7 @@ class Waveform(Func):
 
         The query returns 4.000000e-02.
         """
-        return float(self.dev.ask(":WAVeform:YINCrement?"))
+        return float(self.instrument.ask(":WAVeform:YINCrement?"))
 
     @property
     def y_origin(self) -> float:
@@ -990,7 +990,7 @@ class Waveform(Func):
 
         The query returns 2.000000e+00.
         """
-        return float(self.dev.ask(":WAVeform:YORigin?"))
+        return float(self.instrument.ask(":WAVeform:YORigin?"))
 
     @property
     def y_reference(self) -> float:
@@ -1017,7 +1017,7 @@ class Waveform(Func):
 
         The query returns 127.
         """
-        return float(self.dev.ask(":WAVeform:YREFerence?"))
+        return float(self.instrument.ask(":WAVeform:YREFerence?"))
 
     def start(self, start: int = 1):
         """
@@ -1251,7 +1251,7 @@ class Waveform(Func):
 
         The query returns 0,0,1400,1,0.000000,-0.000007,0,0.040000,2.000000,127.
         """
-        pre = self.dev.ask(":WAVeform:PREamble?").split(",")
+        pre = self.instrument.ask(":WAVeform:PREamble?").split(",")
         if len(pre) != 10:
             raise DS2000Error("Unexpected waveform preamble length.")
         return Preamble(
@@ -1293,7 +1293,7 @@ class Waveform(Func):
 
         The query returns IDLE,n or READ,n.
         """
-        status = self.dev.ask(":WAVeform:STATus?").split(",")
+        status = self.instrument.ask(":WAVeform:STATus?").split(",")
         print(status)
         if len(status) != 2:
             raise DS2000Error("Unexpected waveform status length.")

@@ -57,7 +57,7 @@ class NthEdgeSource(SSFunc):
         :TRIGger:NEDGe:SOURce CHANnel2
         The query returns CHAN2.
         """
-        self.ssdev.sdev.dev.ask(
+        self.instrument.ask(
             ":TRIGger:NEDGe:SOURce CHANnel1"
         )
 
@@ -92,7 +92,7 @@ class NthEdgeSource(SSFunc):
         :TRIGger:NEDGe:SOURce CHANnel2
         The query returns CHAN2.
         """
-        self.ssdev.sdev.dev.ask(
+        self.instrument.ask(
             ":TRIGger:NEDGe:SOURce CHANnel2"
         )
 
@@ -128,7 +128,7 @@ class NthEdgeSource(SSFunc):
         The query returns CHAN2.
         """
         return int(
-            self.ssdev.sdev.dev.ask(":TRIGger:NEDGe:SOURce?")[
+            self.instrument.ask(":TRIGger:NEDGe:SOURce?")[
                 -1
             ]
         )
@@ -170,7 +170,7 @@ class NthEdge(SFunc):
         :TRIGger:NEDGe:SLOPe NEGative
         The query returns NEG.
         """
-        self.sdev.dev.ask(
+        self.instrument.ask(
             f":TRIGger:NEDGe:SLOPe {'POSitive' if positive else 'NEGative'}"
         )
 
@@ -207,7 +207,7 @@ class NthEdge(SFunc):
         """
         return (
             True
-            if self.sdev.dev.ask(":TRIGger:NEDGe:SLOPe?") == "POS"
+            if self.instrument.ask(":TRIGger:NEDGe:SLOPe?") == "POS"
             else False
         )
 
@@ -246,7 +246,7 @@ class NthEdge(SFunc):
         The query returns 2.000000e-03.
         """
         check_input(time, "time", float, 16.0e-9, 4.0, "s")
-        self.sdev.dev.ask(f":TRIGger:NEDGe:IDLE {time}")
+        self.instrument.ask(f":TRIGger:NEDGe:IDLE {time}")
 
     def get_idle(self) -> float:
         """
@@ -279,7 +279,7 @@ class NthEdge(SFunc):
         :TRIGger:NEDGe:IDLE 0.002
         The query returns 2.000000e-03.
         """
-        return float(self.sdev.dev.ask(":TRIGger:NEDGe:IDLE?"))
+        return float(self.instrument.ask(":TRIGger:NEDGe:IDLE?"))
 
     def set_edge(self, number: int = 2) -> None:
         """
@@ -312,7 +312,7 @@ class NthEdge(SFunc):
         :TRIGger:NEDGe:EDGE
         """
         check_input(number, "number", int, 1, 65535, "")
-        self.sdev.dev.ask(f":TRIGger:NEDGe:EDGE {number}")
+        self.instrument.ask(f":TRIGger:NEDGe:EDGE {number}")
 
     def get_edge(self) -> int:
         """
@@ -344,7 +344,7 @@ class NthEdge(SFunc):
 
         :TRIGger:NEDGe:EDGE
         """
-        return int(self.sdev.dev.ask(":TRIGger:NEDGe:EDGE?"))
+        return int(self.instrument.ask(":TRIGger:NEDGe:EDGE?"))
 
     def set_level(self, level: int = 0) -> None:
         """
@@ -399,7 +399,7 @@ class NthEdge(SFunc):
             )  # ToDo: Right??
         check_level(level, scale, offset)
 
-        self.sdev.dev.ask(f":TRIGger:NEDGe:LEVel {level}")
+        self.instrument.ask(f":TRIGger:NEDGe:LEVel {level}")
 
     def get_level(self) -> int:
         """
@@ -438,4 +438,4 @@ class NthEdge(SFunc):
         :TRIGger:NEDGe:LEVel 0.16
         The query returns 1.600000e-01.
         """
-        return int(self.sdev.dev.ask(":TRIGger:NEDGe:LEVel?"))
+        return int(self.instrument.ask(":TRIGger:NEDGe:LEVel?"))

@@ -62,7 +62,7 @@ class Coupling(SFunc):
         :TRIGger:COUPling LFReject
         The query returns LFR.
         """
-        self.sdev.dev.ask(":TRIGger:COUPling AC")
+        self.instrument.ask(":TRIGger:COUPling AC")
 
     def dc(self) -> None:
         """
@@ -99,7 +99,7 @@ class Coupling(SFunc):
         :TRIGger:COUPling LFReject
         The query returns LFR.
         """
-        self.sdev.dev.ask(":TRIGger:COUPling DC")
+        self.instrument.ask(":TRIGger:COUPling DC")
 
     def low_frequency_reject(self) -> None:
         """
@@ -136,7 +136,7 @@ class Coupling(SFunc):
         :TRIGger:COUPling LFReject
         The query returns LFR.
         """
-        self.sdev.dev.ask(":TRIGger:COUPling LFReject")
+        self.instrument.ask(":TRIGger:COUPling LFReject")
 
     def high_frequency_reject(self) -> None:
         """
@@ -173,7 +173,7 @@ class Coupling(SFunc):
         :TRIGger:COUPling LFReject
         The query returns LFR.
         """
-        self.sdev.dev.ask(":TRIGger:COUPling HFReject")
+        self.instrument.ask(":TRIGger:COUPling HFReject")
 
     def status(self) -> str:
         """
@@ -210,4 +210,4 @@ class Coupling(SFunc):
         :TRIGger:COUPling LFReject
         The query returns LFR.
         """
-        return self.sdev.dev.ask(":TRIGger:COUPling?")
+        return self.instrument.ask(":TRIGger:COUPling?")

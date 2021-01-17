@@ -56,7 +56,7 @@ class WindowsSlope(SSFunc):
         :TRIGger:WINDows:SLOPe NEGative
         The query returns NEG.
         """
-        self.ssdev.sdev.dev.ask(
+        self.instrument.ask(
             ":TRIGger:WINDows:SLOPe POSitive"
         )
 
@@ -90,7 +90,7 @@ class WindowsSlope(SSFunc):
         :TRIGger:WINDows:SLOPe NEGative
         The query returns NEG.
         """
-        self.ssdev.sdev.dev.ask(
+        self.instrument.ask(
             ":TRIGger:WINDows:SLOPe NEGative"
         )
 
@@ -124,7 +124,7 @@ class WindowsSlope(SSFunc):
         :TRIGger:WINDows:SLOPe NEGative
         The query returns NEG.
         """
-        self.ssdev.sdev.dev.ask(":TRIGger:WINDows:SLOPe RFALl")
+        self.instrument.ask(":TRIGger:WINDows:SLOPe RFALl")
 
     def status(self) -> str:
         """
@@ -156,7 +156,7 @@ class WindowsSlope(SSFunc):
         :TRIGger:WINDows:SLOPe NEGative
         The query returns NEG.
         """
-        return self.ssdev.sdev.dev.ask(
+        return self.instrument.ask(
             ":TRIGger:WINDows:SLOPe?"
         )
 
@@ -193,7 +193,7 @@ class WindowsPosition(SSFunc):
         :TRIGger:WINDows:POSition ENTER
         The query returns ENTER.
         """
-        self.ssdev.sdev.dev.ask(
+        self.instrument.ask(
             ":TRIGger:WINDows:POSition EXIT"
         )
 
@@ -228,7 +228,7 @@ class WindowsPosition(SSFunc):
         :TRIGger:WINDows:POSition ENTER
         The query returns ENTER.
         """
-        self.ssdev.sdev.dev.ask(
+        self.instrument.ask(
             ":TRIGger:WINDows:POSition ENTER"
         )
 
@@ -263,7 +263,7 @@ class WindowsPosition(SSFunc):
         :TRIGger:WINDows:POSition ENTER
         The query returns ENTER.
         """
-        self.ssdev.sdev.dev.ask(
+        self.instrument.ask(
             ":TRIGger:WINDows:POSition TIMe"
         )
 
@@ -298,7 +298,7 @@ class WindowsPosition(SSFunc):
         :TRIGger:WINDows:POSition ENTER
         The query returns ENTER.
         """
-        return self.ssdev.sdev.dev.ask(
+        return self.instrument.ask(
             ":TRIGger:WINDows:POSition?"
         )
 
@@ -341,7 +341,7 @@ class Windows(SFunc):
         The query returns CHAN2.
         """
         check_input(channel, "channel", 1, 2)
-        self.sdev.dev.ask(f":TRIGger:WINDows:SOURce CHANnel{channel}")
+        self.instrument.ask(f":TRIGger:WINDows:SOURce CHANnel{channel}")
 
     def get_source(self) -> str:
         """
@@ -374,7 +374,7 @@ class Windows(SFunc):
         :TRIGger:WINDows:SOURce CHANnel2
         The query returns CHAN2.
         """
-        return self.sdev.dev.ask(":TRIGger:WINDows:SOURce?")
+        return self.instrument.ask(":TRIGger:WINDows:SOURce?")
 
     def set_time(self, time: float = 1.0e-6) -> None:
         """
@@ -414,7 +414,7 @@ class Windows(SFunc):
         The query returns 2.000000e-03.
         """
         check_input(time, "time", float, 16.0e-9, 4.0, "s")
-        self.sdev.dev.ask(f":TRIGger:WINDows:TIMe {time}")
+        self.instrument.ask(f":TRIGger:WINDows:TIMe {time}")
 
     def get_time(self) -> float:
         """
@@ -453,4 +453,4 @@ class Windows(SFunc):
         :TRIGger:WINDows:TIMe 0.002
         The query returns 2.000000e-03.
         """
-        return float(self.sdev.dev.ask(":TRIGger:WINDows:TIMe?"))
+        return float(self.instrument.ask(":TRIGger:WINDows:TIMe?"))

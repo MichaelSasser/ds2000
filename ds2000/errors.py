@@ -18,10 +18,11 @@ from __future__ import annotations
 
 from sys import version_info
 from typing import Any
+from typing import List
 from typing import Optional
 
 from .__version__ import __version__
-
+from .visa.driver import VISADriver
 
 __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
@@ -69,3 +70,25 @@ class DS2000StateError(Error):
 
 class DS2000InternalSyntaxError(DS2000InternalError):
     pass
+
+
+class DS2000DriverNotFoundError(Error):
+    def __init__(
+            self,
+            driver: VISADriver,
+            drivers_available: List[VISADriver],
+    ) -> None:
+        """Raise, when no Instrument driver was found."""
+        # TODO: Better description
+        self.drivers_available = drivers_available[:]  # deepcopy
+        # Remove the alway available Debug driver.
+        self.drivers_available.remove(VISADriver.DEBUG_DUMMY)
+        if len(self.drivers_available) > 0:
+            super().__init__('The requested driver is not available. You need '
+                             f'to install the requested driver "{driver}" '
+                             'or choose another driver: '
+                             f'{self.drivers_available}.')
+        else:
+            super().__init__("No compatible VISA driver is available on your"
+                             "system. Please read the documentation:"
+                             "https://bit.ly/3bMsjP9.")

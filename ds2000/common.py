@@ -19,6 +19,7 @@ from typing import Optional
 from typing import Union
 
 from .errors import DS2000InternalSyntaxError
+from .visa.driver import VISABase
 from .math.format import get_prefix
 
 
@@ -27,18 +28,21 @@ __email__ = "Michael@MichaelSasser.org"
 
 
 class Func:  # pylint: disable=R0903
-    def __init__(self, dev):
+    def __init__(self, dev) -> None:
         self.dev = dev
+        self.instrument: VISABase = dev.instrument
 
 
 class SFunc:  # pylint: disable=R0903
-    def __init__(self, dev):
+    def __init__(self, dev) -> None:
         self.sdev = dev
+        self.instrument: VISABase = dev.instrument
 
 
 class SSFunc:  # pylint: disable=R0903
-    def __init__(self, dev):
+    def __init__(self, dev) -> None:
         self.ssdev = dev
+        self.instrument: VISABase = dev.instrument
 
 
 def check_input(

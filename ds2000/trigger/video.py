@@ -89,7 +89,7 @@ class VideoMode(SSFunc):
         :TRIGger:VIDeo:MODE ODDField
         The query returns ODDF.
         """
-        self.ssdev.sdev.dev.ask(":TRIGger:VIDeo:MODE ODDField")
+        self.instrument.ask(":TRIGger:VIDeo:MODE ODDField")
 
     def set_even_field(self) -> None:
         """
@@ -151,7 +151,7 @@ class VideoMode(SSFunc):
         :TRIGger:VIDeo:MODE ODDField
         The query returns ODDF.
         """
-        self.ssdev.sdev.dev.ask(":TRIGger:VIDeo:MODE EVENfield")
+        self.instrument.ask(":TRIGger:VIDeo:MODE EVENfield")
 
     def set_specific_line(self) -> None:
         """
@@ -213,7 +213,7 @@ class VideoMode(SSFunc):
         :TRIGger:VIDeo:MODE ODDField
         The query returns ODDF.
         """
-        self.ssdev.sdev.dev.ask(":TRIGger:VIDeo:MODE LINE")
+        self.instrument.ask(":TRIGger:VIDeo:MODE LINE")
 
     def set_all_lines(self) -> None:
         """
@@ -275,7 +275,7 @@ class VideoMode(SSFunc):
         :TRIGger:VIDeo:MODE ODDField
         The query returns ODDF.
         """
-        self.ssdev.sdev.dev.ask(":TRIGger:VIDeo:MODE ALINes")
+        self.instrument.ask(":TRIGger:VIDeo:MODE ALINes")
 
     def status(self) -> str:
         """
@@ -337,7 +337,7 @@ class VideoMode(SSFunc):
         :TRIGger:VIDeo:MODE ODDField
         The query returns ODDF.
         """
-        return self.ssdev.sdev.dev.ask(":TRIGger:VIDeo:MODE?")
+        return self.instrument.ask(":TRIGger:VIDeo:MODE?")
 
 
 class VideoStandard(SSFunc):
@@ -376,7 +376,7 @@ class VideoStandard(SSFunc):
         :TRIGger:VIDeo:STANdard NTSC
         The query returns NTSC.
         """
-        self.ssdev.sdev.dev.ask(
+        self.instrument.ask(
             ":TRIGger:VIDeo:STANdard PALSecam"
         )
 
@@ -415,7 +415,7 @@ class VideoStandard(SSFunc):
         :TRIGger:VIDeo:STANdard NTSC
         The query returns NTSC.
         """
-        self.ssdev.sdev.dev.ask(":TRIGger:VIDeo:STANdard NTSC")
+        self.instrument.ask(":TRIGger:VIDeo:STANdard NTSC")
 
     def set_on_480p(self) -> None:
         """
@@ -452,7 +452,7 @@ class VideoStandard(SSFunc):
         :TRIGger:VIDeo:STANdard NTSC
         The query returns NTSC.
         """
-        self.ssdev.sdev.dev.ask(":TRIGger:VIDeo:STANdard 480P")
+        self.instrument.ask(":TRIGger:VIDeo:STANdard 480P")
 
     def set_on_576p(self) -> None:
         """
@@ -489,7 +489,7 @@ class VideoStandard(SSFunc):
         :TRIGger:VIDeo:STANdard NTSC
         The query returns NTSC.
         """
-        self.ssdev.sdev.dev.ask(":TRIGger:VIDeo:STANdard 576P")
+        self.instrument.ask(":TRIGger:VIDeo:STANdard 576P")
 
     def set_on_720p60hz(self) -> None:
         """
@@ -526,7 +526,7 @@ class VideoStandard(SSFunc):
         :TRIGger:VIDeo:STANdard NTSC
         The query returns NTSC.
         """
-        self.ssdev.sdev.dev.ask(
+        self.instrument.ask(
             ":TRIGger:VIDeo:STANdard 720P60HZ"
         )
 
@@ -565,7 +565,7 @@ class VideoStandard(SSFunc):
         :TRIGger:VIDeo:STANdard NTSC
         The query returns NTSC.
         """
-        self.ssdev.sdev.dev.ask(
+        self.instrument.ask(
             ":TRIGger:VIDeo:STANdard 720P50HZ"
         )
 
@@ -604,7 +604,7 @@ class VideoStandard(SSFunc):
         :TRIGger:VIDeo:STANdard NTSC
         The query returns NTSC.
         """
-        self.ssdev.sdev.dev.ask(
+        self.instrument.ask(
             ":TRIGger:VIDeo:STANdard 720P30HZ"
         )
 
@@ -643,7 +643,7 @@ class VideoStandard(SSFunc):
         :TRIGger:VIDeo:STANdard NTSC
         The query returns NTSC.
         """
-        self.ssdev.sdev.dev.ask(
+        self.instrument.ask(
             ":TRIGger:VIDeo:STANdard 720P25HZ"
         )
 
@@ -682,7 +682,7 @@ class VideoStandard(SSFunc):
         :TRIGger:VIDeo:STANdard NTSC
         The query returns NTSC.
         """
-        self.ssdev.sdev.dev.ask(
+        self.instrument.ask(
             ":TRIGger:VIDeo:STANdard 720P24HZ"
         )
 
@@ -721,7 +721,7 @@ class VideoStandard(SSFunc):
         :TRIGger:VIDeo:STANdard NTSC
         The query returns NTSC.
         """
-        self.ssdev.sdev.dev.ask(
+        self.instrument.ask(
             ":TRIGger:VIDeo:STANdard 1080P60HZ"
         )
 
@@ -760,7 +760,7 @@ class VideoStandard(SSFunc):
         :TRIGger:VIDeo:STANdard NTSC
         The query returns NTSC.
         """
-        self.ssdev.sdev.dev.ask(
+        self.instrument.ask(
             ":TRIGger:VIDeo:STANdard 1080P50HZ"
         )
 
@@ -799,7 +799,7 @@ class VideoStandard(SSFunc):
         :TRIGger:VIDeo:STANdard NTSC
         The query returns NTSC.
         """
-        self.ssdev.sdev.dev.ask(
+        self.instrument.ask(
             ":TRIGger:VIDeo:STANdard 1080P30HZ"
         )
 
@@ -838,7 +838,7 @@ class VideoStandard(SSFunc):
         :TRIGger:VIDeo:STANdard NTSC
         The query returns NTSC.
         """
-        self.ssdev.sdev.dev.ask(
+        self.instrument.ask(
             ":TRIGger:VIDeo:STANdard 1080P25HZ"
         )
 
@@ -877,7 +877,7 @@ class VideoStandard(SSFunc):
         :TRIGger:VIDeo:STANdard NTSC
         The query returns NTSC.
         """
-        self.ssdev.sdev.dev.ask(
+        self.instrument.ask(
             ":TRIGger:VIDeo:STANdard 1080P24HZ"
         )
 
@@ -916,7 +916,7 @@ class VideoStandard(SSFunc):
         :TRIGger:VIDeo:STANdard NTSC
         The query returns NTSC.
         """
-        self.ssdev.sdev.dev.ask(
+        self.instrument.ask(
             ":TRIGger:VIDeo:STANdard 1080I30HZ"
         )
 
@@ -955,7 +955,7 @@ class VideoStandard(SSFunc):
         :TRIGger:VIDeo:STANdard NTSC
         The query returns NTSC.
         """
-        self.ssdev.sdev.dev.ask(
+        self.instrument.ask(
             ":TRIGger:VIDeo:STANdard 1080I25HZ"
         )
 
@@ -994,7 +994,7 @@ class VideoStandard(SSFunc):
         :TRIGger:VIDeo:STANdard NTSC
         The query returns NTSC.
         """
-        self.ssdev.sdev.dev.ask(
+        self.instrument.ask(
             ":TRIGger:VIDeo:STANdard 1080I24HZ"
         )
 
@@ -1033,7 +1033,7 @@ class VideoStandard(SSFunc):
         :TRIGger:VIDeo:STANdard NTSC
         The query returns NTSC.
         """
-        return self.ssdev.sdev.dev.ask(
+        return self.instrument.ask(
             ":TRIGger:VIDeo:STANdard?"
         )
 
@@ -1097,7 +1097,7 @@ class Video(SFunc):
         The query returns CHAN2.
         """
         check_input(channel, "channel", 1, 2)
-        self.sdev.dev.ask(f":TRIGger:VIDeo:SOURce CHANnel{channel}")
+        self.instrument.ask(f":TRIGger:VIDeo:SOURce CHANnel{channel}")
 
     def get_source(self) -> str:
         """
@@ -1130,7 +1130,7 @@ class Video(SFunc):
         :TRIGger:VIDeo:SOURce CHANnel2
         The query returns CHAN2.
         """
-        return self.sdev.dev.ask(":TRIGger:VIDeo:SOURce?")
+        return self.instrument.ask(":TRIGger:VIDeo:SOURce?")
 
     def set_polarity_positive(self) -> None:
         """
@@ -1163,7 +1163,7 @@ class Video(SFunc):
         :TRIGger:VIDeo:POLarity POSitive
         The query returns POS.
         """
-        self.sdev.dev.ask(":TRIGger:VIDeo:POLarity POSitive")
+        self.instrument.ask(":TRIGger:VIDeo:POLarity POSitive")
 
     def set_polarity_negative(self) -> None:
         """
@@ -1196,7 +1196,7 @@ class Video(SFunc):
         :TRIGger:VIDeo:POLarity POSitive
         The query returns POS.
         """
-        self.sdev.dev.ask(":TRIGger:VIDeo:POLarity NEGative")
+        self.instrument.ask(":TRIGger:VIDeo:POLarity NEGative")
 
     def get_polarity(self) -> str:
         """
@@ -1229,7 +1229,7 @@ class Video(SFunc):
         :TRIGger:VIDeo:POLarity POSitive
         The query returns POS.
         """
-        return self.sdev.dev.ask(":TRIGger:VIDeo:POLarity?")
+        return self.instrument.ask(":TRIGger:VIDeo:POLarity?")
 
     def set_line(self, line: int = 1) -> None:
         """
@@ -1286,7 +1286,7 @@ class Video(SFunc):
             1,
             self.__class__.MAX_LINES_OF_VIDEO_STANDATD[self.standard.status()],
         )
-        self.sdev.dev.ask(f":TRIGger:VIDeo:LINE {line}")
+        self.instrument.ask(f":TRIGger:VIDeo:LINE {line}")
 
     def get_line(self) -> int:
         """
@@ -1336,7 +1336,7 @@ class Video(SFunc):
         :TRIGger:VIDeo:LINE 100
         The query returns 100.
         """
-        return int(self.sdev.dev.ask(":TRIGger:VIDeo:LINE?"))
+        return int(self.instrument.ask(":TRIGger:VIDeo:LINE?"))
 
     def set_level(self, level: float = 0.0) -> None:
         """
@@ -1387,7 +1387,7 @@ class Video(SFunc):
         else:
             raise RuntimeError("The oscilloscope returned an unknown channel")
         check_level(level, scale, offset)
-        self.sdev.dev.ask(f":TRIGger:VIDeo:LEVel {level}")
+        self.instrument.ask(f":TRIGger:VIDeo:LEVel {level}")
 
     def get_level(self) -> float:
         """
@@ -1426,4 +1426,4 @@ class Video(SFunc):
         :TRIGger:VIDeo:LEVel 0.16
         The query returns 1.600000e-01.
         """
-        return float(self.sdev.dev.ask(":TRIGger:VIDeo:LEVel?"))
+        return float(self.instrument.ask(":TRIGger:VIDeo:LEVel?"))

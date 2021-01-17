@@ -96,7 +96,7 @@ class SlopeWhen(SSFunc):
         :TRIGger:SLOPe:WHEN PGReater
         The query returns PGR.
         """
-        self.ssdev.sdev.dev.ask(":TRIGger:SLOPe:WHEN PGReater")
+        self.instrument.ask(":TRIGger:SLOPe:WHEN PGReater")
 
     def set_positive_slope_time_lower_than_specified_upper_limit(self) -> None:
         """
@@ -164,7 +164,7 @@ class SlopeWhen(SSFunc):
         :TRIGger:SLOPe:WHEN PGReater
         The query returns PGR.
         """
-        self.ssdev.sdev.dev.ask(":TRIGger:SLOPe:WHEN PLESs")
+        self.instrument.ask(":TRIGger:SLOPe:WHEN PLESs")
 
     def set_negative_slope_time_greater_than_specified_lower_limit(
         self,
@@ -234,7 +234,7 @@ class SlopeWhen(SSFunc):
         :TRIGger:SLOPe:WHEN PGReater
         The query returns PGR.
         """
-        self.ssdev.sdev.dev.ask(":TRIGger:SLOPe:WHEN NGReater")
+        self.instrument.ask(":TRIGger:SLOPe:WHEN NGReater")
 
     def set_negative_slope_time_lower_than_specified_upper_limit(self) -> None:
         """
@@ -302,7 +302,7 @@ class SlopeWhen(SSFunc):
         :TRIGger:SLOPe:WHEN PGReater
         The query returns PGR.
         """
-        self.ssdev.sdev.dev.ask(":TRIGger:SLOPe:WHEN NLESs")
+        self.instrument.ask(":TRIGger:SLOPe:WHEN NLESs")
 
     def set_positive_slope_time_between_specified_lower_and_upper_limit(
         self,
@@ -372,7 +372,7 @@ class SlopeWhen(SSFunc):
         :TRIGger:SLOPe:WHEN PGReater
         The query returns PGR.
         """
-        self.ssdev.sdev.dev.ask(":TRIGger:SLOPe:WHEN PGLess")
+        self.instrument.ask(":TRIGger:SLOPe:WHEN PGLess")
 
     def set_negative_slope_time_between_specified_lower_and_upper_limit(
         self,
@@ -442,7 +442,7 @@ class SlopeWhen(SSFunc):
         :TRIGger:SLOPe:WHEN PGReater
         The query returns PGR.
         """
-        self.ssdev.sdev.dev.ask(":TRIGger:SLOPe:WHEN NGLess")
+        self.instrument.ask(":TRIGger:SLOPe:WHEN NGLess")
 
     def status(self) -> str:
         """
@@ -510,7 +510,7 @@ class SlopeWhen(SSFunc):
         :TRIGger:SLOPe:WHEN PGReater
         The query returns PGR.
         """
-        return self.ssdev.sdev.dev.ask(":TRIGger:SLOPe:WHEN?")
+        return self.instrument.ask(":TRIGger:SLOPe:WHEN?")
 
 
 # ToDo: shorter method names.
@@ -561,7 +561,7 @@ class SlopeWindow(SSFunc):
         :TRIGger:SLOPe:WINDow TB
         The query returns TB.
         """
-        self.ssdev.sdev.dev.ask(":TRIGger:SLOPe:WINDow TA")
+        self.instrument.ask(":TRIGger:SLOPe:WINDow TA")
 
     def set_adjust_lower_limit_of_trigger_level(self) -> None:
         """
@@ -609,7 +609,7 @@ class SlopeWindow(SSFunc):
         :TRIGger:SLOPe:WINDow TB
         The query returns TB.
         """
-        self.ssdev.sdev.dev.ask(":TRIGger:SLOPe:WINDow TB")
+        self.instrument.ask(":TRIGger:SLOPe:WINDow TB")
 
     def set_adjust_upper_and_lower_limit_of_trigger_level(self) -> None:
         """
@@ -657,7 +657,7 @@ class SlopeWindow(SSFunc):
         :TRIGger:SLOPe:WINDow TB
         The query returns TB.
         """
-        self.ssdev.sdev.dev.ask(":TRIGger:SLOPe:WINDow TAB")
+        self.instrument.ask(":TRIGger:SLOPe:WINDow TAB")
 
     def status(self) -> str:
         """
@@ -705,7 +705,7 @@ class SlopeWindow(SSFunc):
         :TRIGger:SLOPe:WINDow TB
         The query returns TB.
         """
-        return self.ssdev.sdev.dev.ask(":TRIGger:SLOPe:WINDow?")
+        return self.instrument.ask(":TRIGger:SLOPe:WINDow?")
 
 
 class Slope(SFunc):
@@ -746,7 +746,7 @@ class Slope(SFunc):
         The query returns CHAN2.
         """
         check_input(channel, "channel", int, 1, 2)
-        self.sdev.dev.ask(":TRIGger:SLOPe:SOURce CHANnel{channel}")
+        self.instrument.ask(":TRIGger:SLOPe:SOURce CHANnel{channel}")
 
     def get_source(self) -> str:
         """
@@ -779,7 +779,7 @@ class Slope(SFunc):
         :TRIGger:SLOPe:SOURce CHANnel2
         The query returns CHAN2.
         """
-        return self.sdev.dev.ask(":TRIGger:SLOPe:SOURce?")
+        return self.instrument.ask(":TRIGger:SLOPe:SOURce?")
 
     def set_upper_limit(self, time: float = 2.0e-6) -> None:
         """
@@ -821,7 +821,7 @@ class Slope(SFunc):
         The query returns 3.000000e-06.
         """
         check_input(time, "time", float, 10.0e-9, 2.0, "s")
-        self.sdev.dev.ask(f":TRIGger:SLOPe:TUPPer {time}")
+        self.instrument.ask(f":TRIGger:SLOPe:TUPPer {time}")
 
     def get_upper_limit(self) -> float:
         """
@@ -862,7 +862,7 @@ class Slope(SFunc):
         :TRIGger:SLOPe:TUPPer 0.000003
         The query returns 3.000000e-06.
         """
-        return float(self.sdev.dev.ask(":TRIGger:SLOPe:TUPPer?"))
+        return float(self.instrument.ask(":TRIGger:SLOPe:TUPPer?"))
 
     def set_lower_limit(self, time: float = 1.0e-6) -> None:
         """
@@ -904,7 +904,7 @@ class Slope(SFunc):
         The query returns 3.000000e-06.
         """
         check_input(time, "time", float, 10.0e-9, 1.0, "s")
-        self.sdev.dev.ask(f":TRIGger:SLOPe:TLOWer {time}")
+        self.instrument.ask(f":TRIGger:SLOPe:TLOWer {time}")
 
     def get_lower_limit(self) -> float:
         """
@@ -945,7 +945,7 @@ class Slope(SFunc):
         :TRIGger:SLOPe:TLOWer 0.000003
         The query returns 3.000000e-06.
         """
-        return float(self.sdev.dev.ask(":TRIGger:SLOPe:TLOWer?"))
+        return float(self.instrument.ask(":TRIGger:SLOPe:TLOWer?"))
 
     def set_upper_limit_trigger_level(self, level: float = 0.0) -> None:
         """
@@ -997,7 +997,7 @@ class Slope(SFunc):
         else:
             raise RuntimeError("The oscilloscope returned an unknown channel")
         check_level(level, scale, offset)
-        self.sdev.dev.ask(":TRIGger:SLOPe:ALEVel {level}")
+        self.instrument.ask(":TRIGger:SLOPe:ALEVel {level}")
 
     def get_upper_limit_trigger_level(self) -> float:
         """
@@ -1037,7 +1037,7 @@ class Slope(SFunc):
         :TRIGger:SLOPe:ALEVel 0.16
         The query returns 1.600000e-01.
         """
-        return float(self.sdev.dev.ask(":TRIGger:SLOPe:ALEVel?"))
+        return float(self.instrument.ask(":TRIGger:SLOPe:ALEVel?"))
 
     def set_lower_limit_trigger_level(self, level: float = 0.0) -> None:
         """
@@ -1089,7 +1089,7 @@ class Slope(SFunc):
         else:
             raise RuntimeError("The oscilloscope returned an unknown channel")
         check_level(level, scale, offset)
-        self.sdev.dev.ask(f":TRIGger:SLOPe:BLEVel {level}")
+        self.instrument.ask(f":TRIGger:SLOPe:BLEVel {level}")
 
     def get_lower_limit_trigger_level(self) -> float:
         """
@@ -1129,4 +1129,4 @@ class Slope(SFunc):
         :TRIGger:SLOPe:BLEVel 0.16
         The query returns 1.600000e-01.
         """
-        return float(self.sdev.dev.ask(":TRIGger:SLOPe:BLEVel?"))
+        return float(self.instrument.ask(":TRIGger:SLOPe:BLEVel?"))

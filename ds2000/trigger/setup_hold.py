@@ -69,7 +69,7 @@ class SetupHoldType(SSFunc):
         :TRIGger:SHOLd:TYPe SETHOLd
         The query returns SETHOL.
         """
-        self.ssdev.sdev.dev.ask(":TRIGger:SHOLd:TYPe SETup")
+        self.instrument.ask(":TRIGger:SHOLd:TYPe SETup")
 
     def hold(self) -> None:
         """
@@ -114,7 +114,7 @@ class SetupHoldType(SSFunc):
         :TRIGger:SHOLd:TYPe SETHOLd
         The query returns SETHOL.
         """
-        self.ssdev.sdev.dev.ask(":TRIGger:SHOLd:TYPe HOLd")
+        self.instrument.ask(":TRIGger:SHOLd:TYPe HOLd")
 
     def setup_hold(self) -> None:
         """
@@ -159,7 +159,7 @@ class SetupHoldType(SSFunc):
         :TRIGger:SHOLd:TYPe SETHOLd
         The query returns SETHOL.
         """
-        self.ssdev.sdev.dev.ask(":TRIGger:SHOLd:TYPe SETHOLd")
+        self.instrument.ask(":TRIGger:SHOLd:TYPe SETHOLd")
 
     def status(self) -> str:
         """
@@ -204,7 +204,7 @@ class SetupHoldType(SSFunc):
         :TRIGger:SHOLd:TYPe SETHOLd
         The query returns SETHOL.
         """
-        status = self.ssdev.sdev.dev.ask(
+        status = self.instrument.ask(
             ":TRIGger:SHOLd:TYPe?"
         ).lower()
 
@@ -249,7 +249,7 @@ class SetupHoldDataSource(SSFunc):
         :TRIGger:SHOLd:DSrc CHANnel1
         The query returns CHAN2.
         """
-        self.ssdev.sdev.dev.ask(":TRIGger:SHOLd:DSrc CHANel1")
+        self.instrument.ask(":TRIGger:SHOLd:DSrc CHANel1")
 
     def channel2(self) -> None:
         """
@@ -282,7 +282,7 @@ class SetupHoldDataSource(SSFunc):
         :TRIGger:SHOLd:DSrc CHANnel1
         The query returns CHAN2.
         """
-        self.ssdev.sdev.dev.ask(":TRIGger:SHOLd:DSrc CHANel2")
+        self.instrument.ask(":TRIGger:SHOLd:DSrc CHANel2")
 
     def status(self) -> str:
         """
@@ -315,7 +315,7 @@ class SetupHoldDataSource(SSFunc):
         :TRIGger:SHOLd:DSrc CHANnel1
         The query returns CHAN2.
         """
-        status = self.ssdev.sdev.dev.ask(
+        status = self.instrument.ask(
             ":TRIGger:SHOLd:DSrc?"
         ).lower()
 
@@ -358,7 +358,7 @@ class SetupHoldClockSource(SSFunc):
         :TRIGger:SHOLd:CSrc CHANnel2
         The query returns CHAN2.
         """
-        self.ssdev.sdev.dev.ask(":TRIGger:SHOLd:CSrc CHANel1")
+        self.instrument.ask(":TRIGger:SHOLd:CSrc CHANel1")
 
     def channel2(self) -> None:
         """
@@ -391,7 +391,7 @@ class SetupHoldClockSource(SSFunc):
         :TRIGger:SHOLd:CSrc CHANnel2
         The query returns CHAN2.
         """
-        self.ssdev.sdev.dev.ask(":TRIGger:SHOLd:CSrc CHANel2")
+        self.instrument.ask(":TRIGger:SHOLd:CSrc CHANel2")
 
     def status(self) -> str:
         """
@@ -424,7 +424,7 @@ class SetupHoldClockSource(SSFunc):
         :TRIGger:SHOLd:CSrc CHANnel2
         The query returns CHAN2.
         """
-        status = self.ssdev.sdev.dev.ask(
+        status = self.instrument.ask(
             ":TRIGger:SHOLd:CSrc?"
         ).lower()
 
@@ -468,7 +468,7 @@ class SetupHoldSlope(SSFunc):
         :TRIGger:SHOLd:SLOPe NEGative
         The query returns NEG.
         """
-        self.ssdev.sdev.dev.ask(":TRIGger:SHOLd:SLOPe POSitive")
+        self.instrument.ask(":TRIGger:SHOLd:SLOPe POSitive")
 
     def falling_edge(self) -> None:
         """
@@ -502,7 +502,7 @@ class SetupHoldSlope(SSFunc):
         :TRIGger:SHOLd:SLOPe NEGative
         The query returns NEG.
         """
-        self.ssdev.sdev.dev.ask(":TRIGger:SHOLd:SLOPe NEGative")
+        self.instrument.ask(":TRIGger:SHOLd:SLOPe NEGative")
 
     def status(self) -> str:
         """
@@ -536,7 +536,7 @@ class SetupHoldSlope(SSFunc):
         :TRIGger:SHOLd:SLOPe NEGative
         The query returns NEG.
         """
-        status: str = self.ssdev.sdev.dev.ask(
+        status: str = self.instrument.ask(
             ":TRIGger:SHOLd:SLOPe?"
         ).lower()
         if status == "POSitive":
@@ -578,7 +578,7 @@ class SetupHoldPattern(SSFunc):
         :TRIGger:SHOLd:PATTern L
         The query returns L.
         """
-        self.ssdev.sdev.dev.ask(":TRIGger:SHOLd:PATTern H")
+        self.instrument.ask(":TRIGger:SHOLd:PATTern H")
 
     def low(self) -> None:
         """
@@ -611,7 +611,7 @@ class SetupHoldPattern(SSFunc):
         :TRIGger:SHOLd:PATTern L
         The query returns L.
         """
-        self.ssdev.sdev.dev.ask(":TRIGger:SHOLd:PATTern L")
+        self.instrument.ask(":TRIGger:SHOLd:PATTern L")
 
     def status(self) -> str:
         """
@@ -644,7 +644,7 @@ class SetupHoldPattern(SSFunc):
         :TRIGger:SHOLd:PATTern L
         The query returns L.
         """
-        return self.ssdev.sdev.dev.ask(
+        return self.instrument.ask(
             ":TRIGger:SHOLd:PATTern?"
         ).lower()
 
@@ -692,7 +692,7 @@ class SetupHold(SFunc):
         :TRIGger:SHOLd:STIMe 0.002
         The query returns 2.000000e-03.
         """
-        return float(self.sdev.dev.ask(":TRIGger:SHOLd:STIMe?"))
+        return float(self.instrument.ask(":TRIGger:SHOLd:STIMe?"))
 
     def set_setup_time(self, time: float = 50.0e-9) -> None:
         """
@@ -729,7 +729,7 @@ class SetupHold(SFunc):
         The query returns 2.000000e-03.
         """
         check_input(time, "time", float, 2.0e-9, 1.0, "s")
-        self.sdev.dev.ask(f":TRIGger:SHOLd:STIMe {time}")
+        self.instrument.ask(f":TRIGger:SHOLd:STIMe {time}")
 
     def get_hold_time(self) -> float:
         """
@@ -765,7 +765,7 @@ class SetupHold(SFunc):
         :TRIGger:SHOLd:HTIMe 0.002
         The query returns 2.000000e-03.
         """
-        return float(self.sdev.dev.ask(":TRIGger:SHOLd:HTIMe?"))
+        return float(self.instrument.ask(":TRIGger:SHOLd:HTIMe?"))
 
     def set_hold_time(self, time: float = 50.0e-9) -> None:
         """
@@ -802,4 +802,4 @@ class SetupHold(SFunc):
         The query returns 2.000000e-03.
         """
         check_input(time, "time", float, 2.0e-9, 1.0, "s")
-        self.sdev.dev.ask(f":TRIGger:SHOLd:HTIMe {time}")
+        self.instrument.ask(f":TRIGger:SHOLd:HTIMe {time}")

@@ -95,7 +95,7 @@ class PulseWhen(SSFunc):
         :TRIGger:PULSe:WHEN PGReater
         The query returns PGR.
         """
-        self.ssdev.sdev.dev.ask(":TRIGger:PULSe:WHEN GReater")
+        self.instrument.ask(":TRIGger:PULSe:WHEN GReater")
 
     def set_pos_pulse_width_lower_than_specified_upper_pulse_width(
         self,
@@ -166,7 +166,7 @@ class PulseWhen(SSFunc):
         The query returns PGR.
         """
 
-        self.ssdev.sdev.dev.ask(":TRIGger:PULSe:WHEN PLESs")
+        self.instrument.ask(":TRIGger:PULSe:WHEN PLESs")
 
     def set_neg_pulse_width_greater_than_specified_lower_pulse_width(
         self,
@@ -236,7 +236,7 @@ class PulseWhen(SSFunc):
         :TRIGger:PULSe:WHEN PGReater
         The query returns PGR.
         """
-        self.ssdev.sdev.dev.ask(":TRIGger:PULSe:WHEN NGReater")
+        self.instrument.ask(":TRIGger:PULSe:WHEN NGReater")
 
     def set_neg_pulse_width_lower_than_specified_upper_pulse_width(
         self,
@@ -306,7 +306,7 @@ class PulseWhen(SSFunc):
         :TRIGger:PULSe:WHEN PGReater
         The query returns PGR.
         """
-        self.ssdev.sdev.dev.ask(":TRIGger:PULSe:WHEN NLESs")
+        self.instrument.ask(":TRIGger:PULSe:WHEN NLESs")
 
     def set_pos_pulse_width_between_specified_upper_and_lower_pulse_width(
         self,
@@ -376,7 +376,7 @@ class PulseWhen(SSFunc):
         :TRIGger:PULSe:WHEN PGReater
         The query returns PGR.
         """
-        self.ssdev.sdev.dev.ask(":TRIGger:PULSe:WHEN PGLess")
+        self.instrument.ask(":TRIGger:PULSe:WHEN PGLess")
 
     def set_neg_pulse_width_between_specified_upper_and_lower_pulse_width(
         self,
@@ -446,7 +446,7 @@ class PulseWhen(SSFunc):
         :TRIGger:PULSe:WHEN PGReater
         The query returns PGR.
         """
-        self.ssdev.sdev.dev.ask(":TRIGger:PULSe:WHEN NGLess")
+        self.instrument.ask(":TRIGger:PULSe:WHEN NGLess")
 
     def status(self) -> str:
         """
@@ -514,7 +514,7 @@ class PulseWhen(SSFunc):
         :TRIGger:PULSe:WHEN PGReater
         The query returns PGR.
         """
-        return self.ssdev.sdev.dev.ask(":TRIGger:PULSe:WHEN?")
+        return self.instrument.ask(":TRIGger:PULSe:WHEN?")
 
 
 class Pulse(SFunc):
@@ -552,7 +552,7 @@ class Pulse(SFunc):
         :TRIGger:PULSe:SOURce CHANnel2
         The query returns CHAN2.
         """
-        self.sdev.dev.ask(f":TRIGger:PULSe:SOURce CHANnel{channel}")
+        self.instrument.ask(f":TRIGger:PULSe:SOURce CHANnel{channel}")
 
     def get_source(self) -> str:
         """
@@ -584,7 +584,7 @@ class Pulse(SFunc):
         :TRIGger:PULSe:SOURce CHANnel2
         The query returns CHAN2.
         """
-        return self.sdev.dev.ask(":TRIGger:PULSe:SOURce?")
+        return self.instrument.ask(":TRIGger:PULSe:SOURce?")
 
     def set_upper_pulse_width(self, time: float = 2.0e-6) -> None:
         """
@@ -628,7 +628,7 @@ class Pulse(SFunc):
         The query returns 3.000000e-06.
         """
         check_input(time, "time", float, 2.0e-9, 4.0, "s")
-        self.sdev.dev.ask(f":TRIGger:PULSe:UWIDth {time}")
+        self.instrument.ask(f":TRIGger:PULSe:UWIDth {time}")
 
     def get_upper_pulse_width(self) -> float:
         """
@@ -671,7 +671,7 @@ class Pulse(SFunc):
         :TRIGger:PULSe:UWIDth 0.000003
         The query returns 3.000000e-06.
         """
-        return float(self.sdev.dev.ask(":TRIGger:PULSe:UWIDth?"))
+        return float(self.instrument.ask(":TRIGger:PULSe:UWIDth?"))
 
     def set_lower_pulse_width(self, time: float = 1.0e-6) -> None:
         """
@@ -715,7 +715,7 @@ class Pulse(SFunc):
         The query returns 3.000000e-06.
         """
         check_input(time, "time", float, 2.0e-9, 4.0, "s")
-        self.sdev.dev.ask(f":TRIGger:PULSe:LWIDth {time}")
+        self.instrument.ask(f":TRIGger:PULSe:LWIDth {time}")
 
     def get_lower_pulse_width(self) -> float:
         """
@@ -758,7 +758,7 @@ class Pulse(SFunc):
         :TRIGger:PULSe:LWIDth 0.000003
         The query returns 3.000000e-06.
         """
-        return float(self.sdev.dev.ask(":TRIGger:PULSe:LWIDth?"))
+        return float(self.instrument.ask(":TRIGger:PULSe:LWIDth?"))
 
     def set_level(self, level: float = 0.0) -> None:
         """
@@ -809,7 +809,7 @@ class Pulse(SFunc):
         else:
             raise RuntimeError("The oscilloscope returned an unknown channel")
         check_level(level, scale, offset)
-        self.sdev.dev.ask(f":TRIGger:PULSe:LEVel {level}")
+        self.instrument.ask(f":TRIGger:PULSe:LEVel {level}")
 
     def get_level(self) -> float:
         """
@@ -848,4 +848,4 @@ class Pulse(SFunc):
         :TRIGger:PULSe:LEVel 0.16
         The query returns 1.600000e-01.
         """
-        return float(self.sdev.dev.ask(":TRIGger:PULSe:LEVel?"))
+        return float(self.instrument.ask(":TRIGger:PULSe:LEVel?"))

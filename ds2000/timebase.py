@@ -58,7 +58,7 @@ class TimebaseDelay(SFunc):
         The query returns 1.
 
         """
-        self.sdev.dev.ask(":TIMebase:DELay:ENABle 1")
+        self.instrument.ask(":TIMebase:DELay:ENABle 1")
 
     def disable(self) -> None:
         """
@@ -92,7 +92,7 @@ class TimebaseDelay(SFunc):
         The query returns 1.
 
         """
-        self.sdev.dev.ask(":TIMebase:DELay:ENABle 0")
+        self.instrument.ask(":TIMebase:DELay:ENABle 0")
 
     def status(self) -> bool:
         """
@@ -126,7 +126,7 @@ class TimebaseDelay(SFunc):
         The query returns 1.
 
         """
-        return bool(int(self.sdev.dev.ask(":TIMebase:DELay:ENABle?")))
+        return bool(int(self.instrument.ask(":TIMebase:DELay:ENABle?")))
 
     def get_offset(self) -> float:
         """
@@ -168,7 +168,7 @@ class TimebaseDelay(SFunc):
         :TIMebase:DELay:OFFSet 0.000002
         The query returns 2.000000e-06.
         """
-        return float(self.sdev.dev.ask(":TIMebase:DELay:OFFSet?"))
+        return float(self.instrument.ask(":TIMebase:DELay:OFFSet?"))
 
     def set_offset(self, offset: float = 0) -> None:
         """
@@ -224,7 +224,7 @@ class TimebaseDelay(SFunc):
                 f"between: {min_off}..{max_off}. It also needs"
                 f"to be of type float. You used: {type(offset)}."
             )
-        self.sdev.dev.ask(f":TIMebase:DELay:OFFSet {offset}")
+        self.instrument.ask(f":TIMebase:DELay:OFFSet {offset}")
 
     def get_scale(self) -> float:
         """
@@ -260,7 +260,7 @@ class TimebaseDelay(SFunc):
         :TIMebase:DELay:SCALe 0.00000005
         The query returns 5.000000e-08.
         """
-        return float(self.sdev.dev.ask(f":TIMebase:DELay:SCALe?"))
+        return float(self.instrument.ask(f":TIMebase:DELay:SCALe?"))
 
     def set_scale(self, scale: float = 500.0e-9) -> None:
         """
@@ -311,7 +311,7 @@ class TimebaseDelay(SFunc):
                 f"scale and (1×50/real-time sample rate)×1/40:"
                 f"{min_scale}..{max_scale}."
             )
-        self.sdev.dev.ask(f":TIMebase:DELay:SCALe {scale}")
+        self.instrument.ask(f":TIMebase:DELay:SCALe {scale}")
 
 
 class TimebaseHorizontalRefMode(SSFunc):
@@ -357,7 +357,7 @@ class TimebaseHorizontalRefMode(SSFunc):
         :TIMebase:HREF:MODE TPOSition
         The query returns TPOS.
         """
-        self.ssdev.sdev.dev.ask(":TIMebase:HREF:MODE CENTer")
+        self.instrument.ask(":TIMebase:HREF:MODE CENTer")
 
     def trigger_position(self) -> None:
         """
@@ -402,7 +402,7 @@ class TimebaseHorizontalRefMode(SSFunc):
         The query returns TPOS.
         """
 
-        self.ssdev.sdev.dev.ask(":TIMebase:HREF:MODE CENTer")
+        self.instrument.ask(":TIMebase:HREF:MODE CENTer")
 
     def status(self) -> str:
         """
@@ -447,7 +447,7 @@ class TimebaseHorizontalRefMode(SSFunc):
         The query returns TPOS.
         """
 
-        return self.ssdev.sdev.dev.ask(":TIMebase:HREF:MODE?")
+        return self.instrument.ask(":TIMebase:HREF:MODE?")
 
 
 class TimebaseHorizontalRef(SFunc):
@@ -488,7 +488,7 @@ class TimebaseHorizontalRef(SFunc):
         :TIMebase:HREF:POSition 150
         The query returns 150.
         """
-        return int(self.sdev.dev.ask(":TIMebase:HREF:POSition?"))
+        return int(self.instrument.ask(":TIMebase:HREF:POSition?"))
 
     def set_position(self, pos: int = 0) -> None:
         """
@@ -524,8 +524,8 @@ class TimebaseHorizontalRef(SFunc):
         The query returns 150.
         """
         check_input(pos, "pos", int, -350, 350)
-        self.sdev.dev.ask(":TIMebase:HREF:MODE USER")
-        self.sdev.dev.ask(f":TIMebase:HREF:POSition {pos}")
+        self.instrument.ask(":TIMebase:HREF:MODE USER")
+        self.instrument.ask(f":TIMebase:HREF:POSition {pos}")
 
 
 class TimebaseMode(SFunc):
@@ -560,7 +560,7 @@ class TimebaseMode(SFunc):
         :TIMebase:MODE MAIN
         The query returns MAIN.
         """
-        self.sdev.dev.ask(f":TIMebase:MODE MAIN")
+        self.instrument.ask(f":TIMebase:MODE MAIN")
 
     def xy(self) -> None:
         """
@@ -593,7 +593,7 @@ class TimebaseMode(SFunc):
         :TIMebase:MODE MAIN
         The query returns MAIN.
         """
-        self.sdev.dev.ask(f":TIMebase:MODE XY")
+        self.instrument.ask(f":TIMebase:MODE XY")
 
     def roll(self) -> None:
         """
@@ -626,7 +626,7 @@ class TimebaseMode(SFunc):
         :TIMebase:MODE MAIN
         The query returns MAIN.
         """
-        self.sdev.dev.ask(f":TIMebase:MODE ROLL")
+        self.instrument.ask(f":TIMebase:MODE ROLL")
 
     def status(self) -> str:
         """
@@ -659,7 +659,7 @@ class TimebaseMode(SFunc):
         :TIMebase:MODE MAIN
         The query returns MAIN.
         """
-        return self.sdev.dev.ask(f":TIMebase:MODE?").lower()
+        return self.instrument.ask(f":TIMebase:MODE?").lower()
 
 
 class Timebase(Func):
@@ -714,7 +714,7 @@ class Timebase(Func):
         :TIMebase:MAIN:OFFSet 0.0002
         The query returns 2.000000e-04.
         """
-        return int(self.dev.ask(":TIMebase[:MAIN]:OFFSet?"))
+        return int(self.instrument.ask(":TIMebase[:MAIN]:OFFSet?"))
 
     def set_offset(self, seconds: int = 0) -> None:
         """
@@ -815,7 +815,7 @@ class Timebase(Func):
                     f"mode must be between -7000.0 .. 7000.0."
                 )
 
-        self.dev.ask(f":TIMebase:MAIN:OFFSet {seconds}")
+        self.instrument.ask(f":TIMebase:MAIN:OFFSet {seconds}")
 
     def get_scale(self) -> float:
         """
@@ -859,7 +859,7 @@ class Timebase(Func):
 
         The query returns 2.000000e-04.
         """
-        return float(self.dev.ask(":TIMebase:MAIN:SCALe?"))
+        return float(self.instrument.ask(":TIMebase:MAIN:SCALe?"))
 
     def set_scale(self, seconds: float = 1.0e-6) -> float:
         """
@@ -906,7 +906,7 @@ class Timebase(Func):
         # ToDo: MinMax dependend on model
         # TODO: Need to enable fine_adjustment before?
         check_input(seconds, "seconds", int, 2.e-9, 1000., "s")
-        return float(self.dev.ask(f":TIMebase:MAIN:SCALe {seconds}"))
+        return float(self.instrument.ask(f":TIMebase:MAIN:SCALe {seconds}"))
 
     def enable_fine_adjustment(self) -> None:
         """
@@ -939,7 +939,7 @@ class Timebase(Func):
         :TIMebase:VERNier ON
         The query returns 1.
         """
-        self.dev.ask(":TIMebase:VERNier 1")
+        self.instrument.ask(":TIMebase:VERNier 1")
 
     def disable_fine_adjustment(self) -> None:
         """
@@ -972,7 +972,7 @@ class Timebase(Func):
         :TIMebase:VERNier ON
         The query returns 1.
         """
-        self.dev.ask(":TIMebase:VERNier 0")
+        self.instrument.ask(":TIMebase:VERNier 0")
 
     def is_fine_adjustment_enabled(self) -> bool:
         """
@@ -1005,4 +1005,4 @@ class Timebase(Func):
         :TIMebase:VERNier ON
         The query returns 1.
         """
-        return bool(int(self.dev.ask(":TIMebase:VERNier 1")))
+        return bool(int(self.instrument.ask(":TIMebase:VERNier 1")))

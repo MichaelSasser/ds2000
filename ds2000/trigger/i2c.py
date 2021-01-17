@@ -83,7 +83,7 @@ class I2CWhen(SSFunc):
         :TRIGger:IIC:WHEN RESTart
         The query returns REST.
         """
-        self.ssdev.sdev.dev.ask(":TRIGger:IIC:WHEN STARt")
+        self.instrument.ask(":TRIGger:IIC:WHEN STARt")
 
     def restart(self) -> None:
         """
@@ -141,7 +141,7 @@ class I2CWhen(SSFunc):
         :TRIGger:IIC:WHEN RESTart
         The query returns REST.
         """
-        self.ssdev.sdev.dev.ask(":TRIGger:IIC:WHEN RESTart")
+        self.instrument.ask(":TRIGger:IIC:WHEN RESTart")
 
     def stop(self) -> None:
         """
@@ -199,7 +199,7 @@ class I2CWhen(SSFunc):
         :TRIGger:IIC:WHEN RESTart
         The query returns REST.
         """
-        self.ssdev.sdev.dev.ask(":TRIGger:IIC:WHEN STOP")
+        self.instrument.ask(":TRIGger:IIC:WHEN STOP")
 
     def nack(self) -> None:
         """
@@ -257,7 +257,7 @@ class I2CWhen(SSFunc):
         :TRIGger:IIC:WHEN RESTart
         The query returns REST.
         """
-        self.ssdev.sdev.dev.ask(
+        self.instrument.ask(
             ":TRIGger:IIC:WHEN NACKnowledge"
         )
 
@@ -317,7 +317,7 @@ class I2CWhen(SSFunc):
         :TRIGger:IIC:WHEN RESTart
         The query returns REST.
         """
-        self.ssdev.sdev.dev.ask(":TRIGger:IIC:WHEN ADDRess")
+        self.instrument.ask(":TRIGger:IIC:WHEN ADDRess")
 
     def data(self) -> None:
         """
@@ -375,7 +375,7 @@ class I2CWhen(SSFunc):
         :TRIGger:IIC:WHEN RESTart
         The query returns REST.
         """
-        self.ssdev.sdev.dev.ask(":TRIGger:IIC:WHEN DATA")
+        self.instrument.ask(":TRIGger:IIC:WHEN DATA")
 
     def address_and_data(self) -> None:
         """
@@ -433,7 +433,7 @@ class I2CWhen(SSFunc):
         :TRIGger:IIC:WHEN RESTart
         The query returns REST.
         """
-        self.ssdev.sdev.dev.ask(":TRIGger:IIC:WHEN ADATa")
+        self.instrument.ask(":TRIGger:IIC:WHEN ADATa")
 
     def status(self) -> str:
         """
@@ -491,7 +491,7 @@ class I2CWhen(SSFunc):
         :TRIGger:IIC:WHEN RESTart
         The query returns REST.
         """
-        return self.ssdev.sdev.dev.ask(":TRIGger:IIC:WHEN?")
+        return self.instrument.ask(":TRIGger:IIC:WHEN?")
 
 
 class I2CDirection(SSFunc):
@@ -533,7 +533,7 @@ class I2CDirection(SSFunc):
         :TRIGger:IIC:DIRection RWRite
         The query returns RWR.
         """
-        self.ssdev.sdev.dev.ask(":TRIGger:IIC:DIRection READ")
+        self.instrument.ask(":TRIGger:IIC:DIRection READ")
 
     def write(self) -> None:
         """
@@ -573,7 +573,7 @@ class I2CDirection(SSFunc):
         :TRIGger:IIC:DIRection RWRite
         The query returns RWR.
         """
-        self.ssdev.sdev.dev.ask(":TRIGger:IIC:DIRection WRITe")
+        self.instrument.ask(":TRIGger:IIC:DIRection WRITe")
 
     def read_write(self) -> None:
         """
@@ -613,7 +613,7 @@ class I2CDirection(SSFunc):
         :TRIGger:IIC:DIRection RWRite
         The query returns RWR.
         """
-        self.ssdev.sdev.dev.ask(":TRIGger:IIC:DIRection RWRite")
+        self.instrument.ask(":TRIGger:IIC:DIRection RWRite")
 
     def status(self) -> str:
         """
@@ -653,7 +653,7 @@ class I2CDirection(SSFunc):
         :TRIGger:IIC:DIRection RWRite
         The query returns RWR.
         """
-        return self.ssdev.sdev.dev.ask(
+        return self.instrument.ask(
             ":TRIGger:IIC:DIRection?"
         )
 
@@ -695,7 +695,7 @@ class I2C(SFunc):
         :TRIGger:IIC:SCL CHANnel2
         The query returns CHAN2.
         """
-        self.sdev.dev.ask(f":TRIGger:IIC:SCL CHANnel{channel}")
+        self.instrument.ask(f":TRIGger:IIC:SCL CHANnel{channel}")
 
     def get_scl_source(self) -> str:
         """
@@ -728,7 +728,7 @@ class I2C(SFunc):
         :TRIGger:IIC:SCL CHANnel2
         The query returns CHAN2.
         """
-        scl: str = self.sdev.dev.ask(":TRIGger:IIC:SCL?").lower()
+        scl: str = self.instrument.ask(":TRIGger:IIC:SCL?").lower()
         if scl == "chan1":
             return "channel 1"
         if scl == "chan2":
@@ -766,7 +766,7 @@ class I2C(SFunc):
         :TRIGger:IIC:SDA CHANnel2
         The query returns CHAN2.
         """
-        self.sdev.dev.ask(f":TRIGger:IIC:SDA CHANnel{channel}")
+        self.instrument.ask(f":TRIGger:IIC:SDA CHANnel{channel}")
 
     def get_sda_source(self) -> str:
         """
@@ -799,7 +799,7 @@ class I2C(SFunc):
         :TRIGger:IIC:SDA CHANnel2
         The query returns CHAN2.
         """
-        sda: str = self.sdev.dev.ask("TRIGger:IIC:SDA?").lower()
+        sda: str = self.instrument.ask("TRIGger:IIC:SDA?").lower()
         if sda == "chan1":
             return "channel 1"
         if sda == "chan2":
@@ -846,7 +846,7 @@ class I2C(SFunc):
         """
         if address_width not in (7, 8, 10):
             raise ValueError("You can only have 7, 8 or 10 address bits.")
-        self.sdev.dev.ask(f":TRIGger:IIC:AWIDth {address_width}")
+        self.instrument.ask(f":TRIGger:IIC:AWIDth {address_width}")
 
     def get_address_bits_width(self) -> int:
         """
@@ -886,7 +886,7 @@ class I2C(SFunc):
         :TRIGger:IIC:AWIDth 10
         The query returns 10.
         """
-        return int(self.sdev.dev.ask(":TRIGger:IIC:AWIDth?"))
+        return int(self.instrument.ask(":TRIGger:IIC:AWIDth?"))
 
     def set_address(self, address: int = 0x01) -> None:
         """
@@ -938,7 +938,7 @@ class I2C(SFunc):
             2 ** self.get_address_bits_width() - 1,
             "",
         )
-        self.sdev.dev.ask(f":TRIGger:IIC:ADDRess {address}")
+        self.instrument.ask(f":TRIGger:IIC:ADDRess {address}")
 
     def get_address(self) -> int:
         """
@@ -982,7 +982,7 @@ class I2C(SFunc):
         :TRIGger:IIC:ADDRess 100
         The query returns 100.
         """
-        return int(self.sdev.dev.ask(":TRIGger:IIC:ADDRess?"))
+        return int(self.instrument.ask(":TRIGger:IIC:ADDRess?"))
 
     def set_data(self, data_value: int = 0x00) -> None:
         """
@@ -1024,7 +1024,7 @@ class I2C(SFunc):
         """
         # TODO ... -1 check prog manual
         check_input(data_value, "data_value", int, 0, 239, "")
-        self.sdev.dev.ask(f":TRIGger:IIC:DATA {data_value}")
+        self.instrument.ask(f":TRIGger:IIC:DATA {data_value}")
 
     def get_data(self) -> int:
         """
@@ -1064,7 +1064,7 @@ class I2C(SFunc):
         :TRIGger:IIC:DATA 64
         The query returns 64.
         """
-        return int(self.sdev.dev.ask(":TRIGger:IIC:DATA?"))
+        return int(self.instrument.ask(":TRIGger:IIC:DATA?"))
 
     def set_scl_trigger_level(self, level: float = 0) -> None:
         """
@@ -1128,7 +1128,7 @@ class I2C(SFunc):
                 f"{min_rng}..{max_rng}. You entered type {type(level)}."
             )
 
-        self.sdev.dev.ask(f":TRIGger:IIC:CLEVel {level}")
+        self.instrument.ask(f":TRIGger:IIC:CLEVel {level}")
 
     def get_scl_trigger_level(self) -> float:
         """
@@ -1168,7 +1168,7 @@ class I2C(SFunc):
         :TRIGger:IIC:CLEVel 0.16
         The query returns 1.600000e-01.
         """
-        return float(self.sdev.dev.ask(":TRIGger:IIC:CLEVel?"))
+        return float(self.instrument.ask(":TRIGger:IIC:CLEVel?"))
 
     def set_sda_trigger_level(self, level: float = 0) -> None:
         """
@@ -1232,7 +1232,7 @@ class I2C(SFunc):
                 f"{min_rng}..{max_rng}. You entered type {type(level)}."
             )
 
-        self.sdev.dev.ask(f":TRIGger:IIC:DLEVel {level}")
+        self.instrument.ask(f":TRIGger:IIC:DLEVel {level}")
 
     def get_sda_trigger_level(self) -> float:
         """
@@ -1272,4 +1272,4 @@ class I2C(SFunc):
         :TRIGger:IIC:DLEVel 0.16
         The query returns 1.600000e-01.
         """
-        return float(self.sdev.dev.ask(":TRIGger:IIC:DLEVel?"))
+        return float(self.instrument.ask(":TRIGger:IIC:DLEVel?"))

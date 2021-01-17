@@ -89,7 +89,7 @@ class DelayType(SSFunc):
         :TRIGger:DELay:TYPe GOUT
         The query returns GOUT.
         """
-        self.ssdev.sdev.dev.ask(":TRIGger:DELay:TYPe GREater")
+        self.instrument.ask(":TRIGger:DELay:TYPe GREater")
 
     def less(self) -> None:
         """
@@ -146,7 +146,7 @@ class DelayType(SSFunc):
         :TRIGger:DELay:TYPe GOUT
         The query returns GOUT.
         """
-        self.ssdev.sdev.dev.ask(":TRIGger:DELay:TYPe LESS")
+        self.instrument.ask(":TRIGger:DELay:TYPe LESS")
 
     def between(self) -> None:
         """
@@ -203,7 +203,7 @@ class DelayType(SSFunc):
         :TRIGger:DELay:TYPe GOUT
         The query returns GOUT.
         """
-        self.ssdev.sdev.dev.ask(":TRIGger:DELay:TYPe GLESs")
+        self.instrument.ask(":TRIGger:DELay:TYPe GLESs")
 
     def outside(self) -> None:
         """
@@ -260,7 +260,7 @@ class DelayType(SSFunc):
         :TRIGger:DELay:TYPe GOUT
         The query returns GOUT.
         """
-        self.ssdev.sdev.dev.ask(":TRIGger:DELay:TYPe GOUT")
+        self.instrument.ask(":TRIGger:DELay:TYPe GOUT")
 
     def status(self) -> DelayTypeEnum:
         """
@@ -317,7 +317,7 @@ class DelayType(SSFunc):
         :TRIGger:DELay:TYPe GOUT
         The query returns GOUT.
         """
-        ret: str = self.ssdev.sdev.dev.ask(
+        ret: str = self.instrument.ask(
             ":TRIGger:DELay:TYPe?"
         )
 
@@ -388,7 +388,7 @@ class Delay(SFunc):
             elif source == 2:
                 source = "B"
 
-        self.sdev.dev.ask(f":TRIGger:DELay:S{source} CHANnel{channel}")
+        self.instrument.ask(f":TRIGger:DELay:S{source} CHANnel{channel}")
 
     def get_signal(self, source: Union[str, int]) -> int:  # SA/SB
         """
@@ -434,7 +434,7 @@ class Delay(SFunc):
         :TRIGger:DELay:SB CHANnel2
         The query returns CHAN2.
         """
-        return int(self.sdev.dev.ask(f":TRIGger:DELay:S{source}?")[-1])
+        return int(self.instrument.ask(f":TRIGger:DELay:S{source}?")[-1])
 
     def set_slope(self, source, positive: bool = True) -> None:  # SLOPA/SLOPB
         """
@@ -480,7 +480,7 @@ class Delay(SFunc):
         elif source == 2:
             source = "B"
 
-        self.sdev.dev.ask(
+        self.instrument.ask(
             f":TRIGger:DELay:SLOP{source} "
             f"{'POSitive' if positive else 'NEGative'}"
         )
@@ -532,7 +532,7 @@ class Delay(SFunc):
 
         return (
             True
-            if self.sdev.dev.ask(f":TRIGger:DELay:SLOP{source}?")
+            if self.instrument.ask(f":TRIGger:DELay:SLOP{source}?")
             == "POS"
             else False
         )
@@ -596,7 +596,7 @@ class Delay(SFunc):
         else:
             check_input(time, "time", float, 2.0e-9, 4.0, "s")
 
-        self.sdev.dev.ask(f":TRIGger:DELay:TUPPer {time}")
+        self.instrument.ask(f":TRIGger:DELay:TUPPer {time}")
 
     def get_upper_limit(self) -> float:
         """
@@ -652,7 +652,7 @@ class Delay(SFunc):
                 f"{DelayTypeEnum.GLES.value}"
             )
 
-        return float(self.sdev.dev.ask(f":TRIGger:DELay:TUPPer?"))
+        return float(self.instrument.ask(f":TRIGger:DELay:TUPPer?"))
 
     def set_lower_limit(self, time: float = 1.0e-6) -> None:
         """
@@ -711,7 +711,7 @@ class Delay(SFunc):
 
         check_input(time, "time", float, 2.0e-9, 3.99, "s")
 
-        self.sdev.dev.ask(f":TRIGger:DELay:TLOWer {time}")
+        self.instrument.ask(f":TRIGger:DELay:TLOWer {time}")
 
     def get_lower_limit(self) -> float:
         """
@@ -768,4 +768,4 @@ class Delay(SFunc):
                 f"{DelayTypeEnum.GLES.value} "
             )
 
-        return float(self.sdev.dev.ask(f":TRIGger:DELay:TLOWer?"))
+        return float(self.instrument.ask(f":TRIGger:DELay:TLOWer?"))

@@ -61,7 +61,7 @@ class TimeoutSlope(SSFunc):
         :TRIGger:TIMeout:SLOPe NEGative
         The query returns NEG.
         """
-        self.ssdev.sdev.dev.ask(
+        self.instrument.ask(
             ":TRIGger:TIMeout:SLOPe POSitive"
         )
 
@@ -96,7 +96,7 @@ class TimeoutSlope(SSFunc):
         :TRIGger:TIMeout:SLOPe NEGative
         The query returns NEG.
         """
-        self.ssdev.sdev.dev.ask(
+        self.instrument.ask(
             ":TRIGger:TIMeout:SLOPe NEGative"
         )
 
@@ -131,7 +131,7 @@ class TimeoutSlope(SSFunc):
         :TRIGger:TIMeout:SLOPe NEGative
         The query returns NEG.
         """
-        self.ssdev.sdev.dev.ask(":TRIGger:TIMeout:SLOPe RFALl")
+        self.instrument.ask(":TRIGger:TIMeout:SLOPe RFALl")
 
     def status(self) -> str:
         """
@@ -164,7 +164,7 @@ class TimeoutSlope(SSFunc):
         :TRIGger:TIMeout:SLOPe NEGative
         The query returns NEG.
         """
-        status: str = self.ssdev.sdev.dev.ask(
+        status: str = self.instrument.ask(
             ":TRIGger:TIMeout:SLOPe?"
         )
         if status == "POS":
@@ -209,7 +209,7 @@ class TimeoutChannel(SSFunc):
         The query returns CHAN2.
         """
 
-        self.ssdev.sdev.dev.ask(
+        self.instrument.ask(
             ":TRIGger:TIMeout:SOURce CHANnel1"
         )
 
@@ -245,7 +245,7 @@ class TimeoutChannel(SSFunc):
         The query returns CHAN2.
         """
 
-        self.ssdev.sdev.dev.ask(
+        self.instrument.ask(
             ":TRIGger:TIMeout:SOURce CHANnel2"
         )
 
@@ -281,7 +281,7 @@ class TimeoutChannel(SSFunc):
         The query returns CHAN2.
         """
 
-        status: str = self.ssdev.sdev.dev.ask(
+        status: str = self.instrument.ask(
             ":TRIGger:TIMeout:SOURce?"
         ).lower()
 
@@ -329,7 +329,7 @@ class Timeout(SFunc):
         :TRIGger:TIMeout:TIMe 0.002
         The query returns 2.000000e+06.
         """
-        return float(self.sdev.dev.ask(":TRIGger:TIMeout:TIMe?"))
+        return float(self.instrument.ask(":TRIGger:TIMeout:TIMe?"))
 
     def set_time(self, time: float = 1.0e-6) -> None:
         """
@@ -363,4 +363,4 @@ class Timeout(SFunc):
         The query returns 2.000000e+06.
         """
         check_input(time, "time", float, 16.0e-9, 4.0, "s")
-        self.sdev.dev.ask(f":TRIGger:TIMeout:TIMe {time}")
+        self.instrument.ask(f":TRIGger:TIMeout:TIMe {time}")

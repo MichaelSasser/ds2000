@@ -57,7 +57,7 @@ class EdgeSource(SSFunc):
         :TRIGger:EDGe:SOURce CHANnel2
         The query returns CHAN2.
         """
-        self.ssdev.sdev.dev.ask(":TRIGger:EDGe:SOURce CHANnel1")
+        self.instrument.ask(":TRIGger:EDGe:SOURce CHANnel1")
 
     def channel2(self) -> None:
         """
@@ -90,7 +90,7 @@ class EdgeSource(SSFunc):
         :TRIGger:EDGe:SOURce CHANnel2
         The query returns CHAN2.
         """
-        self.ssdev.sdev.dev.ask(":TRIGger:EDGe:SOURce CHANnel2")
+        self.instrument.ask(":TRIGger:EDGe:SOURce CHANnel2")
 
     def ext(self) -> None:
         """
@@ -123,7 +123,7 @@ class EdgeSource(SSFunc):
         :TRIGger:EDGe:SOURce CHANnel2
         The query returns CHAN2.
         """
-        self.ssdev.sdev.dev.ask(":TRIGger:EDGe:SOURce EXT")
+        self.instrument.ask(":TRIGger:EDGe:SOURce EXT")
 
     def ac_line(self) -> None:
         """
@@ -156,7 +156,7 @@ class EdgeSource(SSFunc):
         :TRIGger:EDGe:SOURce CHANnel2
         The query returns CHAN2.
         """
-        self.ssdev.sdev.dev.ask(":TRIGger:EDGe:SOURce ACLine")
+        self.instrument.ask(":TRIGger:EDGe:SOURce ACLine")
 
     def status(self) -> str:
         """
@@ -189,7 +189,7 @@ class EdgeSource(SSFunc):
         :TRIGger:EDGe:SOURce CHANnel2
         The query returns CHAN2.
         """
-        status: str = self.ssdev.sdev.dev.ask(
+        status: str = self.instrument.ask(
             ":TRIGger:EDGe:SOURce?"
         ).lower()
         if status == "chan1":
@@ -233,7 +233,7 @@ class EdgeSlope(SSFunc):
         :TRIGger:EDGe:SLOPe NEGative
         The query returns NEG.
         """
-        self.ssdev.sdev.dev.ask(":TRIGger:EDGe:SLOPe POSitive")
+        self.instrument.ask(":TRIGger:EDGe:SLOPe POSitive")
 
     def falling_edge(self) -> None:
         """
@@ -266,7 +266,7 @@ class EdgeSlope(SSFunc):
         :TRIGger:EDGe:SLOPe NEGative
         The query returns NEG.
         """
-        self.ssdev.sdev.dev.ask(":TRIGger:EDGe:SLOPe NEGative")
+        self.instrument.ask(":TRIGger:EDGe:SLOPe NEGative")
 
     def both_edges(self) -> None:
         """
@@ -299,7 +299,7 @@ class EdgeSlope(SSFunc):
         :TRIGger:EDGe:SLOPe NEGative
         The query returns NEG.
         """
-        self.ssdev.sdev.dev.ask(":TRIGger:EDGe:SLOPe RFALl")
+        self.instrument.ask(":TRIGger:EDGe:SLOPe RFALl")
 
     def status(self) -> str:
         """
@@ -332,7 +332,7 @@ class EdgeSlope(SSFunc):
         :TRIGger:EDGe:SLOPe NEGative
         The query returns NEG.
         """
-        status = self.ssdev.sdev.dev.ask(":TRIGger:EDGe:SLOPe?")
+        status = self.instrument.ask(":TRIGger:EDGe:SLOPe?")
         if status == "POS":
             return "rising edge"
         if status == "NEG":
@@ -383,7 +383,7 @@ class Edge(SFunc):
         :TRIGger:EDGe:LEVel 0.16
         The query returns 1.600000e-01.
         """
-        return float(self.sdev.dev.ask(":TRIGger:EDGe:LEVel?"))
+        return float(self.instrument.ask(":TRIGger:EDGe:LEVel?"))
 
     def set_level(self, level: float = 0.0) -> None:
         """
@@ -439,4 +439,4 @@ class Edge(SFunc):
             )  # ToDo: Right??
 
         check_level(level, scale, offset)
-        self.sdev.dev.ask(f":TRIGger:EDGe:LEVel {level}")
+        self.instrument.ask(f":TRIGger:EDGe:LEVel {level}")

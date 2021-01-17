@@ -71,7 +71,7 @@ class USBWhen(SSFunc):
         :TRIGger:USB:WHEN RC
         The query returns RC.
         """
-        self.ssdev.sdev.dev.ask(":TRIGger:USB:WHEN SOP")
+        self.instrument.ask(":TRIGger:USB:WHEN SOP")
 
     def set_eop(self) -> None:
         """
@@ -118,7 +118,7 @@ class USBWhen(SSFunc):
         :TRIGger:USB:WHEN RC
         The query returns RC.
         """
-        self.ssdev.sdev.dev.ask(":TRIGger:USB:WHEN EOP")
+        self.instrument.ask(":TRIGger:USB:WHEN EOP")
 
     def set_rc(self) -> None:
         """
@@ -165,7 +165,7 @@ class USBWhen(SSFunc):
         :TRIGger:USB:WHEN RC
         The query returns RC.
         """
-        self.ssdev.sdev.dev.ask(":TRIGger:USB:WHEN RC")
+        self.instrument.ask(":TRIGger:USB:WHEN RC")
 
     def set_suspend(self) -> None:
         """
@@ -212,7 +212,7 @@ class USBWhen(SSFunc):
         :TRIGger:USB:WHEN RC
         The query returns RC.
         """
-        self.ssdev.sdev.dev.ask(":TRIGger:USB:WHEN SUSPend")
+        self.instrument.ask(":TRIGger:USB:WHEN SUSPend")
 
     def set_exit_suspend(self) -> None:
         """
@@ -259,7 +259,7 @@ class USBWhen(SSFunc):
         :TRIGger:USB:WHEN RC
         The query returns RC.
         """
-        self.ssdev.sdev.dev.ask(":TRIGger:USB:WHEN EXITsuspend")
+        self.instrument.ask(":TRIGger:USB:WHEN EXITsuspend")
 
     def status(self) -> str:
         """
@@ -306,7 +306,7 @@ class USBWhen(SSFunc):
         :TRIGger:USB:WHEN RC
         The query returns RC.
         """
-        return self.ssdev.sdev.dev.ask(":TRIGger:USB:WHEN?")
+        return self.instrument.ask(":TRIGger:USB:WHEN?")
 
 
 class USB(SFunc):
@@ -346,7 +346,7 @@ class USB(SFunc):
         The query returns CHAN2.
         """
         check_input(channel, "channel", int, 1, 2)
-        self.sdev.dev.ask(f":TRIGger:USB:DPLus CHANnel{channel}")
+        self.instrument.ask(f":TRIGger:USB:DPLus CHANnel{channel}")
 
     def get_data_plus_source(self) -> str:
         """
@@ -379,7 +379,7 @@ class USB(SFunc):
         :TRIGger:USB:DPLus CHANnel2
         The query returns CHAN2.
         """
-        return self.sdev.dev.ask(":TRIGger:USB:DPLus?")
+        return self.instrument.ask(":TRIGger:USB:DPLus?")
 
     def set_data_minus_source(self, channel: int = 2) -> None:
         """
@@ -413,7 +413,7 @@ class USB(SFunc):
         The query returns CHAN2.
         """
         check_input(channel, "channel", int, 1, 2)
-        self.sdev.dev.ask(f":TRIGger:USB:DMINus CHANnel{channel}")
+        self.instrument.ask(f":TRIGger:USB:DMINus CHANnel{channel}")
 
     def get_data_minus_source(self) -> str:
         """
@@ -446,7 +446,7 @@ class USB(SFunc):
         :TRIGger:USB:DMINus CHANnel2
         The query returns CHAN2.
         """
-        return self.sdev.dev.ask(":TRIGger:USB:DMINus?")
+        return self.instrument.ask(":TRIGger:USB:DMINus?")
 
     def set_speed_full(self) -> None:
         """
@@ -479,7 +479,7 @@ class USB(SFunc):
         :TRIGger:USB:SPEed FULL
         The query returns FULL.
         """
-        self.sdev.dev.ask(":TRIGger:USB:SPEed FULL")
+        self.instrument.ask(":TRIGger:USB:SPEed FULL")
 
     def set_speed_low(self) -> None:
         """
@@ -512,7 +512,7 @@ class USB(SFunc):
         :TRIGger:USB:SPEed FULL
         The query returns FULL.
         """
-        self.sdev.dev.ask(":TRIGger:USB:SPEed LOW")
+        self.instrument.ask(":TRIGger:USB:SPEed LOW")
 
     def get_speed(self) -> str:
         """
@@ -545,7 +545,7 @@ class USB(SFunc):
         :TRIGger:USB:SPEed FULL
         The query returns FULL.
         """
-        return self.sdev.dev.ask(":TRIGger:USB:SPEed?")
+        return self.instrument.ask(":TRIGger:USB:SPEed?")
 
     def set_data_plus_trigger_level(self, level: float = 0.0) -> None:
         """
@@ -596,7 +596,7 @@ class USB(SFunc):
         else:
             raise RuntimeError("The oscilloscope returned an unknown channel")
         check_level(level, scale, offset)
-        self.sdev.dev.ask(f":TRIGger:USB:PLEVel {level}")
+        self.instrument.ask(f":TRIGger:USB:PLEVel {level}")
 
     def get_data_plus_trigger_level(self) -> float:
         """
@@ -635,7 +635,7 @@ class USB(SFunc):
         :TRIGger:USB:PLEVel 0.16
         The query returns 1.600000e-01.
         """
-        return float(self.sdev.dev.ask(":TRIGger:USB:PLEVel?"))
+        return float(self.instrument.ask(":TRIGger:USB:PLEVel?"))
 
     def set_data_minus_trigger_level(self, level: float = 0.0) -> None:
         """
@@ -686,7 +686,7 @@ class USB(SFunc):
         else:
             raise RuntimeError("The oscilloscope returned an unknown channel")
         check_level(level, scale, offset)
-        self.sdev.dev.ask(f":TRIGger:USB:MLEVel {level}")
+        self.instrument.ask(f":TRIGger:USB:MLEVel {level}")
 
     def get_data_minus_trigger_level(self) -> float:
         """
@@ -725,4 +725,4 @@ class USB(SFunc):
         :TRIGger:USB:MLEVel 0.16
         The query returns 1.600000e-01.
         """
-        return float(self.sdev.dev.ask(":TRIGger:USB:MLEVel?"))
+        return float(self.instrument.ask(":TRIGger:USB:MLEVel?"))

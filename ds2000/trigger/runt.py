@@ -74,7 +74,7 @@ class RuntWhen(SSFunc):
         :TRIGger:RUNT:WHEN LESS
         The query returns LESS.
         """
-        self.ssdev.sdev.dev.ask(":TRIGger:RUNT:WHEN NONE")
+        self.instrument.ask(":TRIGger:RUNT:WHEN NONE")
 
     def set_pulse_width_greater_than_lower_limit(self) -> None:
         """
@@ -123,7 +123,7 @@ class RuntWhen(SSFunc):
         :TRIGger:RUNT:WHEN LESS
         The query returns LESS.
         """
-        self.ssdev.sdev.dev.ask(":TRIGger:RUNT:WHEN GREater")
+        self.instrument.ask(":TRIGger:RUNT:WHEN GREater")
 
     def set_pulse_width_lower_than_upper_limit(self) -> None:
         """
@@ -172,7 +172,7 @@ class RuntWhen(SSFunc):
         :TRIGger:RUNT:WHEN LESS
         The query returns LESS.
         """
-        self.ssdev.sdev.dev.ask(":TRIGger:RUNT:WHEN LESS")
+        self.instrument.ask(":TRIGger:RUNT:WHEN LESS")
 
     def set_pulse_width_between_lower_and_upper_limit(self) -> None:
         """
@@ -221,7 +221,7 @@ class RuntWhen(SSFunc):
         :TRIGger:RUNT:WHEN LESS
         The query returns LESS.
         """
-        self.ssdev.sdev.dev.ask(":TRIGger:RUNT:WHEN GLESs")
+        self.instrument.ask(":TRIGger:RUNT:WHEN GLESs")
 
     def status(self) -> str:
         """
@@ -270,7 +270,7 @@ class RuntWhen(SSFunc):
         :TRIGger:RUNT:WHEN LESS
         The query returns LESS.
         """
-        return self.ssdev.sdev.dev.ask(":TRIGger:RUNT:WHEN?")
+        return self.instrument.ask(":TRIGger:RUNT:WHEN?")
 
 
 class Runt(SFunc):
@@ -310,7 +310,7 @@ class Runt(SFunc):
         The query returns CHAN2.
         """
         check_input(channel, "channel", int, 1, 2)
-        self.sdev.dev.ask(f":TRIGger:RUNT:SOURce CHANnel{channel}")
+        self.instrument.ask(f":TRIGger:RUNT:SOURce CHANnel{channel}")
 
     def get_source(self) -> str:
         """
@@ -343,7 +343,7 @@ class Runt(SFunc):
         :TRIGger:RUNT:SOURce CHANnel2
         The query returns CHAN2.
         """
-        return self.sdev.dev.ask(":TRIGger:RUNT:SOURce?")
+        return self.instrument.ask(":TRIGger:RUNT:SOURce?")
 
     def set_polarity_positive(self) -> None:
         """
@@ -376,7 +376,7 @@ class Runt(SFunc):
         :TRIGger:RUNT:POLarity NEGative
         The query returns NEG.
         """
-        self.sdev.dev.ask(":TRIGger:RUNT:POLarity POSitive")
+        self.instrument.ask(":TRIGger:RUNT:POLarity POSitive")
 
     def set_polarity_negative(self) -> None:
         """
@@ -409,7 +409,7 @@ class Runt(SFunc):
         :TRIGger:RUNT:POLarity NEGative
         The query returns NEG.
         """
-        self.sdev.dev.ask(":TRIGger:RUNT:POLarity NEGative")
+        self.instrument.ask(":TRIGger:RUNT:POLarity NEGative")
 
     def get_polarity(self) -> str:
         """
@@ -442,7 +442,7 @@ class Runt(SFunc):
         :TRIGger:RUNT:POLarity NEGative
         The query returns NEG.
         """
-        return self.sdev.dev.ask(":TRIGger:RUNT:POLarity?")
+        return self.instrument.ask(":TRIGger:RUNT:POLarity?")
 
     def set_lower_limit(self, time: float = 1.0e-6) -> None:
         """
@@ -485,7 +485,7 @@ class Runt(SFunc):
         The query returns 2.000000e-02.
         """
         check_input(time, "time", float, 2.0e-9, 4.0, "s")
-        self.sdev.dev.ask(f":TRIGger:RUNT:WLOWer {time}")
+        self.instrument.ask(f":TRIGger:RUNT:WLOWer {time}")
 
     def get_lower_limit(self) -> float:
         """
@@ -527,7 +527,7 @@ class Runt(SFunc):
         :TRIGger:RUNT:WLOWer 0.02
         The query returns 2.000000e-02.
         """
-        return float(self.sdev.dev.ask(":TRIGger:RUNT:WLOWer?"))
+        return float(self.instrument.ask(":TRIGger:RUNT:WLOWer?"))
 
     def set_upper_limit(self, time: float = 2.0e-6) -> None:
         """
@@ -570,7 +570,7 @@ class Runt(SFunc):
         The query returns 2.000000e-02.
         """
         check_input(time, "time", float, 2.0e-9, 4.0, "s")
-        self.sdev.dev.ask(f":TRIGger:RUNT:WUPPer {time}")
+        self.instrument.ask(f":TRIGger:RUNT:WUPPer {time}")
 
     def get_upper_limit(self) -> float:
         """
@@ -612,7 +612,7 @@ class Runt(SFunc):
         :TRIGger:RUNT:WUPPer 0.02
         The query returns 2.000000e-02.
         """
-        return float(self.sdev.dev.ask(":TRIGger:RUNT:WUPPer?"))
+        return float(self.instrument.ask(":TRIGger:RUNT:WUPPer?"))
 
     def set_upper_limit_trigger_level(self, level: float = 0.0) -> None:
         """
@@ -664,7 +664,7 @@ class Runt(SFunc):
             offset = self.sdev.dev.channel2.get_offset()
         else:
             raise RuntimeError("The oscilloscope returned an unknown channel")
-        self.sdev.dev.ask(f":TRIGger:RUNT:ALEVel {level}")
+        self.instrument.ask(f":TRIGger:RUNT:ALEVel {level}")
         check_level(level, scale, offset)
 
     def get_upper_limit_trigger_level(self) -> float:
@@ -706,7 +706,7 @@ class Runt(SFunc):
         :TRIGger:RUNT:ALEVel 0.16
         The query returns 1.600000e-01.
         """
-        return float(self.sdev.dev.ask(":TRIGger:RUNT:ALEVel?"))
+        return float(self.instrument.ask(":TRIGger:RUNT:ALEVel?"))
 
     def set_lower_limit_trigger_level(self, level: float = 0.0) -> None:
         """
@@ -759,7 +759,7 @@ class Runt(SFunc):
         else:
             raise RuntimeError("The oscilloscope returned an unknown channel")
         check_level(level, scale, offset)
-        self.sdev.dev.ask(f":TRIGger:RUNT:BLEVel {level}")
+        self.instrument.ask(f":TRIGger:RUNT:BLEVel {level}")
 
     def get_lower_limit_trigger_level(self) -> float:
         """
@@ -800,4 +800,4 @@ class Runt(SFunc):
         :TRIGger:RUNT:BLEVel 0.16
         The query returns 1.600000e-01.
         """
-        return float(self.sdev.dev.ask(":TRIGger:RUNT:BLEVel?"))
+        return float(self.instrument.ask(":TRIGger:RUNT:BLEVel?"))

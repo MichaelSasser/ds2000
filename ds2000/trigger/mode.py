@@ -58,7 +58,7 @@ class Mode(SFunc):
         :TRIGger:MODE SLOPe
         The query returns SLOP.
         """
-        self.sdev.dev.ask(":TRIGger:MODE EDGE")
+        self.instrument.ask(":TRIGger:MODE EDGE")
 
     def pulse(self) -> None:
         """
@@ -94,7 +94,7 @@ class Mode(SFunc):
         :TRIGger:MODE SLOPe
         The query returns SLOP.
         """
-        self.sdev.dev.ask(":TRIGger:MODE PULSe")
+        self.instrument.ask(":TRIGger:MODE PULSe")
 
     def runt(self) -> None:
         """
@@ -130,7 +130,7 @@ class Mode(SFunc):
         :TRIGger:MODE SLOPe
         The query returns SLOP.
         """
-        self.sdev.dev.ask(":TRIGger:MODE RUNT")
+        self.instrument.ask(":TRIGger:MODE RUNT")
 
     def windows(self) -> None:
         """
@@ -166,7 +166,7 @@ class Mode(SFunc):
         :TRIGger:MODE SLOPe
         The query returns SLOP.
         """
-        self.sdev.dev.ask(":TRIGger:MODE WIND")
+        self.instrument.ask(":TRIGger:MODE WIND")
 
     def nth_edge(self) -> None:
         """
@@ -202,7 +202,7 @@ class Mode(SFunc):
         :TRIGger:MODE SLOPe
         The query returns SLOP.
         """
-        self.sdev.dev.ask(":TRIGger:MODE NEDG")
+        self.instrument.ask(":TRIGger:MODE NEDG")
 
     def slope(self) -> None:
         """
@@ -238,7 +238,7 @@ class Mode(SFunc):
         :TRIGger:MODE SLOPe
         The query returns SLOP.
         """
-        self.sdev.dev.ask(":TRIGger:MODE SLOPe")
+        self.instrument.ask(":TRIGger:MODE SLOPe")
 
     def video(self) -> None:
         """
@@ -274,7 +274,7 @@ class Mode(SFunc):
         :TRIGger:MODE SLOPe
         The query returns SLOP.
         """
-        self.sdev.dev.ask(":TRIGger:MODE VIDeo")
+        self.instrument.ask(":TRIGger:MODE VIDeo")
 
     def pattern(self) -> None:
         """
@@ -310,7 +310,7 @@ class Mode(SFunc):
         :TRIGger:MODE SLOPe
         The query returns SLOP.
         """
-        self.sdev.dev.ask(":TRIGger:MODE PATTern")
+        self.instrument.ask(":TRIGger:MODE PATTern")
 
     def delay(self) -> None:
         """
@@ -346,7 +346,7 @@ class Mode(SFunc):
         :TRIGger:MODE SLOPe
         The query returns SLOP.
         """
-        self.sdev.dev.ask(":TRIGger:MODE DELay")
+        self.instrument.ask(":TRIGger:MODE DELay")
 
     def timeout(self) -> None:
         """
@@ -382,7 +382,7 @@ class Mode(SFunc):
         :TRIGger:MODE SLOPe
         The query returns SLOP.
         """
-        self.sdev.dev.ask(":TRIGger:MODE TIMeout")
+        self.instrument.ask(":TRIGger:MODE TIMeout")
 
     def duration(self) -> None:
         """
@@ -418,7 +418,7 @@ class Mode(SFunc):
         :TRIGger:MODE SLOPe
         The query returns SLOP.
         """
-        self.sdev.dev.ask(":TRIGger:MODE DURATion")
+        self.instrument.ask(":TRIGger:MODE DURATion")
 
     def setup_hold(self) -> None:
         """
@@ -454,7 +454,7 @@ class Mode(SFunc):
         :TRIGger:MODE SLOPe
         The query returns SLOP.
         """
-        self.sdev.dev.ask(":TRIGger:MODE SHOLd")
+        self.instrument.ask(":TRIGger:MODE SHOLd")
 
     def rs232(self) -> None:
         """
@@ -490,7 +490,7 @@ class Mode(SFunc):
         :TRIGger:MODE SLOPe
         The query returns SLOP.
         """
-        self.sdev.dev.ask(":TRIGger:MODE RS232")
+        self.instrument.ask(":TRIGger:MODE RS232")
 
     def i2c(self) -> None:
         """
@@ -526,7 +526,7 @@ class Mode(SFunc):
         :TRIGger:MODE SLOPe
         The query returns SLOP.
         """
-        self.sdev.dev.ask(":TRIGger:MODE IIC")
+        self.instrument.ask(":TRIGger:MODE IIC")
 
     def spi(self) -> None:
         """
@@ -562,7 +562,7 @@ class Mode(SFunc):
         :TRIGger:MODE SLOPe
         The query returns SLOP.
         """
-        self.sdev.dev.ask(":TRIGger:MODE SPI")
+        self.instrument.ask(":TRIGger:MODE SPI")
 
     def usb(self) -> None:
         """
@@ -598,7 +598,7 @@ class Mode(SFunc):
         :TRIGger:MODE SLOPe
         The query returns SLOP.
         """
-        self.sdev.dev.ask(":TRIGger:MODE USB")
+        self.instrument.ask(":TRIGger:MODE USB")
 
     def status(self) -> str:
         """
@@ -634,7 +634,7 @@ class Mode(SFunc):
         :TRIGger:MODE SLOPe
         The query returns SLOP.
         """
-        status = self.sdev.dev.ask(":TRIGger:MODE?").lower()
+        status = self.instrument.ask(":TRIGger:MODE?").lower()
         if status in (
             "edge",
             "pulse",

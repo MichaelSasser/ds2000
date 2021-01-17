@@ -60,7 +60,7 @@ class SPI(SFunc):
         The query returns CHAN2.
         """
         check_input(channel, "channel", int, 1, 2)
-        self.sdev.dev.ask(f":TRIGger:SPI:SCL CHANnel{channel}")
+        self.instrument.ask(f":TRIGger:SPI:SCL CHANnel{channel}")
 
     def get_scl_source(self) -> str:
         """
@@ -93,7 +93,7 @@ class SPI(SFunc):
         :TRIGger:SPI:SCL CHANnel2
         The query returns CHAN2.
         """
-        return self.sdev.dev.ask(":TRIGger:SPI:SCL?")
+        return self.instrument.ask(":TRIGger:SPI:SCL?")
 
     def set_sda_source(self, channel: int = 2) -> None:
         """
@@ -127,7 +127,7 @@ class SPI(SFunc):
         The query returns CHAN2.
         """
         check_input(channel, "channel", int, 1, 2)
-        self.sdev.dev.ask(f":TRIGger:SPI:SDA CHANnel{channel}")
+        self.instrument.ask(f":TRIGger:SPI:SDA CHANnel{channel}")
 
     def get_sda_source(self) -> str:
         """
@@ -160,7 +160,7 @@ class SPI(SFunc):
         :TRIGger:SPI:SDA CHANnel2
         The query returns CHAN2.
         """
-        return self.sdev.dev.ask(":TRIGger:SPI:SDA?")
+        return self.instrument.ask(":TRIGger:SPI:SDA?")
 
     def set_width(self, width: int = 8) -> None:
         """
@@ -194,7 +194,7 @@ class SPI(SFunc):
         The query returns 10.
         """
         check_input(width, "width", int, 4, 32)
-        self.sdev.dev.ask(f":TRIGger:SPI:WIDTh {width}")
+        self.instrument.ask(f":TRIGger:SPI:WIDTh {width}")
 
     def get_width(self) -> int:
         """
@@ -227,7 +227,7 @@ class SPI(SFunc):
         :TRIGger:SPI:WIDTh 10
         The query returns 10.
         """
-        return int(self.sdev.dev.ask(":TRIGger:SPI:WIDTh?"))
+        return int(self.instrument.ask(":TRIGger:SPI:WIDTh?"))
 
     def set_data(self, data: int = 0) -> None:
         """
@@ -264,7 +264,7 @@ class SPI(SFunc):
         The query returns 5.
         """
         check_input(data, "data", int, 0, 2 ** self.get_width() - 1)
-        self.sdev.dev.ask(f":TRIGger:SPI:DATA {data}")
+        self.instrument.ask(f":TRIGger:SPI:DATA {data}")
 
     def get_data(self) -> int:
         """
@@ -300,7 +300,7 @@ class SPI(SFunc):
         :TRIGger:SPI:DATA 5
         The query returns 5.
         """
-        return int(self.sdev.dev.ask(":TRIGger:SPI:DATA?"))
+        return int(self.instrument.ask(":TRIGger:SPI:DATA?"))
 
     def set_timeout(self, time: float = 1.0e-6) -> None:
         """
@@ -336,7 +336,7 @@ class SPI(SFunc):
         The query returns 2.000000e-06.
         """
         check_input(time, "time", float, 100.0e-9, 1.0, "s")
-        self.sdev.dev.ask(f":TRIGger:SPI:TIMeout {time}")
+        self.instrument.ask(f":TRIGger:SPI:TIMeout {time}")
 
     def get_timeout(self) -> float:
         """
@@ -371,7 +371,7 @@ class SPI(SFunc):
         :TRIGger:SPI:TIMeout 0.000002
         The query returns 2.000000e-06.
         """
-        return float(self.sdev.dev.ask(":TRIGger:SPI:TIMeout?"))
+        return float(self.instrument.ask(":TRIGger:SPI:TIMeout?"))
 
     def set_slope_positive(self) -> None:
         """
@@ -404,7 +404,7 @@ class SPI(SFunc):
         :TRIGger:SPI:SLOPe POSitive
         The query returns POS.
         """
-        self.sdev.dev.ask(":TRIGger:SPI:SLOPe POSitive")
+        self.instrument.ask(":TRIGger:SPI:SLOPe POSitive")
 
     def set_slope_negative(self) -> None:
         """
@@ -437,7 +437,7 @@ class SPI(SFunc):
         :TRIGger:SPI:SLOPe POSitive
         The query returns POS.
         """
-        self.sdev.dev.ask(":TRIGger:SPI:SLOPe NEGative")
+        self.instrument.ask(":TRIGger:SPI:SLOPe NEGative")
 
     def get_slope(self) -> str:
         """
@@ -470,7 +470,7 @@ class SPI(SFunc):
         :TRIGger:SPI:SLOPe POSitive
         The query returns POS.
         """
-        return self.sdev.dev.ask(":TRIGger:SPI:SLOPe?")
+        return self.instrument.ask(":TRIGger:SPI:SLOPe?")
 
     def set_scl_trigger_level(self, level: float = 0.0) -> None:
         """
@@ -522,7 +522,7 @@ class SPI(SFunc):
         else:
             raise RuntimeError("The oscilloscope returned an unknown channel")
         check_level(level, scale, offset)
-        self.sdev.dev.ask(f":TRIGger:SPI:CLEVel {level}")
+        self.instrument.ask(f":TRIGger:SPI:CLEVel {level}")
 
     def get_scl_trigger_level(self) -> float:
         """
@@ -562,7 +562,7 @@ class SPI(SFunc):
         :TRIGger:SPI:CLEVel 0.16
         The query returns 1.600000e-01.
         """
-        return float(self.sdev.dev.ask(":TRIGger:SPI:CLEVel?"))
+        return float(self.instrument.ask(":TRIGger:SPI:CLEVel?"))
 
     def set_sda_trigger_level(self, level: float = 0.0) -> None:
         """
@@ -614,7 +614,7 @@ class SPI(SFunc):
         else:
             raise RuntimeError("The oscilloscope returned an unknown channel")
         check_level(level, scale, offset)
-        self.sdev.dev.ask(f":TRIGger:SPI:DLEVel {level}")
+        self.instrument.ask(f":TRIGger:SPI:DLEVel {level}")
 
     def get_sda_trigger_level(self) -> float:
         """
@@ -654,4 +654,4 @@ class SPI(SFunc):
         :TRIGger:SPI:DLEVel 0.16
         The query returns 1.600000e-01.
         """
-        return float(self.sdev.dev.ask(":TRIGger:SPI:DLEVel?"))
+        return float(self.instrument.ask(":TRIGger:SPI:DLEVel?"))

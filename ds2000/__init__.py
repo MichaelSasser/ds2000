@@ -16,13 +16,16 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 from __future__ import annotations
 
-from logging import debug
-from logging import error
-from pathlib import Path
-from typing import NamedTuple
 from typing import Optional
+from typing import Type
+from typing import List
+from types import TracebackType
 
-import vxi11
+from .errors import DS2000DriverNotFoundError
+from .visa.driver import VISABase
+from .visa.driver import InstrumentInfo
+from .visa.driver import VISADriver
+from .visa.debug_dummy import DebugDummy
 
 from .acquire import Acquire
 from .channel import Channel
@@ -32,6 +35,14 @@ from .timebase import Timebase
 from .trigger import Trigger
 from .waveform import Waveform
 
+Available_Drivers: List[VISADriver] = [VISADriver.DEBUG_DUMMY]
+
+try:
+    from .visa.vxi11 import VXI11
+    Available_Drivers.append(VISADriver.VXI11)
+except ImportError:
+    pass
+
 
 __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
@@ -40,18 +51,24 @@ __email__ = "Michael@MichaelSasser.org"
 DEBUGGING: bool = False
 
 
-class Instrument(NamedTuple):
-    company: Optional[str]
-    model: Optional[str]
-    serial: Optional[str]
-    software_version: Optional[str]
-
-
 class DS2000(object):
-    def __init__(self, device_address: str):
-        self.device_address: str = device_address
-        self.__inst: vxi11 = None
-        self.id: Instrument = Instrument(None, None, None, None)
+    def __init__(
+            self,
+            address: str,
+            driver: VISADriver = VISADriver.VXI11,
+    ):
+        global Available_Drivers
+        if (driver == VISADriver.VXI11
+                and VISADriver.VXI11 in Available_Drivers):
+            self.instrument: VISABase = VXI11(address)
+        elif (driver == VISADriver.NI_VISA
+              and VISADriver.NI_VISA in Available_Drivers):
+            raise NotImplementedError()
+        elif (driver == VISADriver.DEBUG_DUMMY
+              and VISADriver.DEBUG_DUMMY in Available_Drivers):
+            self.instrument: VISABase = DebugDummy(address)
+        else:
+            raise DS2000DriverNotFoundError(driver, Available_Drivers)
 
         # Subclasses
         self.acquire: Acquire = Acquire(self)
@@ -63,60 +80,64 @@ class DS2000(object):
         self.channel1: Channel = Channel(self, 1)
         self.channel2: Channel = Channel(self, 2)
 
-    def __enter__(self):
-        self.connect()
+    def __enter__(self) -> DS2000:
+        self.instrument.connect()
         return self
 
-    def __exit__(self, exc_type, exc_val, exc_tb):
-        self.disconnect()
+    def __exit__(self,
+                 exc_type: Optional[Type[BaseException]],
+                 exc_val: Optional[BaseException],
+                 exc_tb: Optional[TracebackType],
+    ) -> None:
+        self.instrument.disconnect()
 
-    def ask(self, msg: str) -> Optional[str]:
-        """This is a Wrapper for the ask method of vxi11.
-        With a wrapper it makes it possible to change the underlying
-        package behaviour, vxi11 itself.
-        """
-        answer: Optional[str] = None
-        try:  # Probably just for development
-            answer = self.__inst.ask(msg)
-        except vxi11.vxi11.Vxi11Exception as e:
-            error(f"Error while asking: {e}")
-        finally:
-            if DEBUGGING:
-                debug(f'asked: "{msg}", answered: "{answer}"')
-        return answer
-
-    def write(self, msg: str):
-        """This is a Wrapper for the write method of vxi11.
-        With a wrapper it makes it possible to change the underlying
-        package behaviour, vxi11 itself.
-        """
-        try:  # Probably just for development
-            self.__inst.write(msg)
-        except vxi11.vxi11.Vxi11Exception as e:
-            error(f"Error while writing: {e}")
-        finally:
-            if DEBUGGING:
-                debug(f'written (raw): "{msg}"')
-
-    def read_raw(self, num: int = -1):
-        """This is a Wrapper for the read_raw method of vxi11.
-        With a wrapper it makes it possible to change the underlying
-        package behaviour, vxi11 itself.
-        """
-        msg: Optional[bytes] = None
-        try:  # Probably just for development
-            msg = self.__inst.read_raw(num)
-        except vxi11.vxi11.Vxi11Exception as e:
-            error(f"Error while writing: {e}")
-        return msg
-
-    def connect(self):
-        self.__inst = vxi11.Instrument(self.device_address)
-        self.id = Instrument(*self.ieee.idn().split(","))
+    # def ask(self, msg: str) -> Optional[str]:
+    #     """This is a Wrapper for the ask method of vxi11.
+    #     With a wrapper it makes it possible to change the underlying
+    #     package behaviour, vxi11 itself.
+    #     """
+    #     answer: Optional[str] = None
+    #     try:  # Probably just for development
+    #         answer = self.__inst.ask(msg)
+    #     except vxi11.vxi11.Vxi11Exception as e:
+    #         error(f"Error while asking: {e}")
+    #     finally:
+    #         if DEBUGGING:
+    #             debug(f'asked: "{msg}", answered: "{answer}"')
+    #     return answer
+    #
+    # def write(self, msg: str):
+    #     """This is a Wrapper for the write method of vxi11.
+    #     With a wrapper it makes it possible to change the underlying
+    #     package behaviour, vxi11 itself.
+    #     """
+    #     try:  # Probably just for development
+    #         self.__inst.write(msg)
+    #     except vxi11.vxi11.Vxi11Exception as e:
+    #         error(f"Error while writing: {e}")
+    #     finally:
+    #         if DEBUGGING:
+    #             debug(f'written (raw): "{msg}"')
+    #
+    # def read_raw(self, num: int = -1):
+    #     """This is a Wrapper for the read_raw method of vxi11.
+    #     With a wrapper it makes it possible to change the underlying
+    #     package behaviour, vxi11 itself.
+    #     """
+    #     msg: Optional[bytes] = None
+    #     try:  # Probably just for development
+    #         msg = self.__inst.read_raw(num)
+    #     except vxi11.vxi11.Vxi11Exception as e:
+    #         error(f"Error while writing: {e}")
+    #     return msg
+    #
+    # def connect(self):
+    #     self.__inst = vxi11.Instrument(self.device_address)
+    #     self.id = Instrument(*self.ieee.idn().split(","))
 
     # SYSTem Commands
-    def info(self):
-        return Instrument(*self.ieee.idn().split(","))
+    def info(self) -> InstrumentInfo:
+        return self.instrument.info
 
     def autoscale(self):
         """
@@ -142,7 +163,7 @@ class DS2000(object):
         lower than 50 Hz, the duty cycle be greater than 1% and the amplitude
         be at least 20 mVpp.
         """
-        self.ask(":AUToscale")
+        self.instrument.ask(":AUToscale")
 
     def clear(self):
         """
@@ -160,7 +181,7 @@ class DS2000(object):
 
         Waveform will still be displayed if the oscilloscope is in RUN state.
         """
-        self.ask(":AUToscale")
+        self.instrument.ask(":AUToscale")
 
     def run(self):
         """
@@ -178,7 +199,7 @@ class DS2000(object):
 
         You can use the :STOP command to set the oscilloscope to STOP.
         """
-        self.ask(":RUN")
+        self.instrument.ask(":RUN")
 
     def single(self):
         """
@@ -202,7 +223,7 @@ class DS2000(object):
         You can use the :RUN and :STOP command to set the oscilloscope to
         Auto trigger mode or STOP state respectively.
         """
-        self.ask(":SINGle")
+        self.instrument.ask(":SINGle")
 
     def stop(self):
         """
@@ -220,7 +241,7 @@ class DS2000(object):
 
         You can use the :RUN command to set the oscilloscope to Run.
         """
-        self.write(":STOP")
+        self.instrument.write(":STOP")
 
     def force(self):
         """
@@ -238,7 +259,7 @@ class DS2000(object):
 
         Force trigger is applicable to normal and single trigger modes.
         """
-        self.ask(":TFORce")
+        self.instrument.ask(":TFORce")
 
     def level50(self):
         """
@@ -253,22 +274,21 @@ class DS2000(object):
         Set the trigger level to the vertical midpoint of the trigger signal
         amplitude.
         """
-        self.ask(":TLHAlf")
+        self.instrument.ask(":TLHAlf")
 
     def reset(self):
         self.ieee.rst()
 
-    def disconnect(self):
-        self.__inst.close()
+    # def disconnect(self):
+    #     self.__inst.close()
 
     def __str__(self) -> str:
         return self.__repr__()
 
     def __repr__(self) -> str:
-        return f"{self.__class__.__qualname__}({self.id.serial})"
+        return f"{self.__class__.__qualname__}({self.instrument.info.serial})"
 
     def __del__(self):
-        self.disconnect()
-
+        self.instrument.disconnect()
 
 # vim: set ft=python :

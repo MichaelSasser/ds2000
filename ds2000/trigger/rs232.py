@@ -72,7 +72,7 @@ class RS232When(SSFunc):
         :TRIGger:RS232:WHEN ERRor
         The query returns ERR.
         """
-        self.ssdev.sdev.dev.ask(":TRIGger:RS232:WHEN STARt")
+        self.instrument.ask(":TRIGger:RS232:WHEN STARt")
 
     def set_error_detected(self) -> None:
         """
@@ -117,7 +117,7 @@ class RS232When(SSFunc):
         :TRIGger:RS232:WHEN ERRor
         The query returns ERR.
         """
-        self.ssdev.sdev.dev.ask(":TRIGger:RS232:WHEN ERRor")
+        self.instrument.ask(":TRIGger:RS232:WHEN ERRor")
 
     def set_parity_error_detected(self) -> None:
         """
@@ -162,7 +162,7 @@ class RS232When(SSFunc):
         :TRIGger:RS232:WHEN ERRor
         The query returns ERR.
         """
-        self.ssdev.sdev.dev.ask(":TRIGger:RS232:WHEN PARity")
+        self.instrument.ask(":TRIGger:RS232:WHEN PARity")
 
     def set_data(self) -> None:
         """
@@ -207,7 +207,7 @@ class RS232When(SSFunc):
         :TRIGger:RS232:WHEN ERRor
         The query returns ERR.
         """
-        self.ssdev.sdev.dev.ask(":TRIGger:RS232:WHEN DATA")
+        self.instrument.ask(":TRIGger:RS232:WHEN DATA")
 
     def status(self) -> str:
         """
@@ -252,7 +252,7 @@ class RS232When(SSFunc):
         :TRIGger:RS232:WHEN ERRor
         The query returns ERR.
         """
-        return self.ssdev.sdev.dev.ask(":TRIGger:RS232:WHEN?")
+        return self.instrument.ask(":TRIGger:RS232:WHEN?")
 
 
 class RS232Parity(SSFunc):
@@ -296,7 +296,7 @@ class RS232Parity(SSFunc):
         :TRIGger:RS232:PARity EVEN
         The query returns EVEN.
         """
-        self.ssdev.sdev.dev.ask(":TRIGger:RS232:PARity EVEN")
+        self.instrument.ask(":TRIGger:RS232:PARity EVEN")
 
     def set_odd(self) -> None:
         """
@@ -338,7 +338,7 @@ class RS232Parity(SSFunc):
         :TRIGger:RS232:PARity EVEN
         The query returns EVEN.
         """
-        self.ssdev.sdev.dev.ask(":TRIGger:RS232:PARity ODD")
+        self.instrument.ask(":TRIGger:RS232:PARity ODD")
 
     def set_none(self) -> None:
         """
@@ -380,7 +380,7 @@ class RS232Parity(SSFunc):
         :TRIGger:RS232:PARity EVEN
         The query returns EVEN.
         """
-        self.ssdev.sdev.dev.ask(":TRIGger:RS232:PARity NONE")
+        self.instrument.ask(":TRIGger:RS232:PARity NONE")
 
     def status(self) -> str:
         """
@@ -422,7 +422,7 @@ class RS232Parity(SSFunc):
         :TRIGger:RS232:PARity EVEN
         The query returns EVEN.
         """
-        return self.ssdev.sdev.dev.ask(":TRIGger:RS232:PARity?")
+        return self.instrument.ask(":TRIGger:RS232:PARity?")
 
 
 # TODO: Check selected trigger before settitng values
@@ -462,7 +462,7 @@ class RS232(SFunc):
         :TRIGger:RS232:SOURce CHANnel2
         The query returns CHAN2.
         """
-        self.sdev.dev.ask(f":TRIGger:RS232:SOURce CHANnel{channel}")
+        self.instrument.ask(f":TRIGger:RS232:SOURce CHANnel{channel}")
 
     def get_source(self) -> str:
         """
@@ -494,7 +494,7 @@ class RS232(SFunc):
         :TRIGger:RS232:SOURce CHANnel2
         The query returns CHAN2.
         """
-        return self.sdev.dev.ask(":TRIGger:RS232:SOURce?")
+        return self.instrument.ask(":TRIGger:RS232:SOURce?")
 
     def set_stop_bits(self, stop_bits: int = 1) -> None:
         """
@@ -533,7 +533,7 @@ class RS232(SFunc):
         The query returns 2.
         """
         check_input(stop_bits, "stop_bits", int, 1, 2, "stop bits")
-        self.sdev.dev.ask(f":TRIGger:RS232:STOP {stop_bits}")
+        self.instrument.ask(f":TRIGger:RS232:STOP {stop_bits}")
 
     def get_stop_bits(self) -> int:
         """
@@ -571,7 +571,7 @@ class RS232(SFunc):
         :TRIGger:RS232:STOP 2
         The query returns 2.
         """
-        return int(self.sdev.dev.ask(":TRIGger:RS232:STOP?"))
+        return int(self.instrument.ask(":TRIGger:RS232:STOP?"))
 
     def set_data(self, data_bits: int = 70) -> None:
         """
@@ -620,7 +620,7 @@ class RS232(SFunc):
             2 * self.get_data_bit_width() - 1,
             "data bits",
         )
-        self.sdev.dev.ask(f":TRIGger:RS232:WIDTh {data_bits}")
+        self.instrument.ask(f":TRIGger:RS232:WIDTh {data_bits}")
 
     def get_data(self) -> int:
         """
@@ -661,7 +661,7 @@ class RS232(SFunc):
         :TRIGger:RS232:DATA 10
         The query returns 10.
         """
-        return int(self.sdev.dev.ask(":TRIGger:RS232:WIDTh?"))
+        return int(self.instrument.ask(":TRIGger:RS232:WIDTh?"))
 
     def set_data_bit_width(self, data_bit_width: int = 70) -> None:
         """
@@ -702,7 +702,7 @@ class RS232(SFunc):
         check_input(
             data_bit_width, "data_bit_width", int, 5, 8, "data bit width"
         )
-        self.sdev.dev.ask(f":TRIGger:RS232:WIDTh {data_bit_width}")
+        self.instrument.ask(f":TRIGger:RS232:WIDTh {data_bit_width}")
 
     def get_data_bit_width(self) -> int:
         """
@@ -740,7 +740,7 @@ class RS232(SFunc):
         :TRIGger:RS232:WIDTh 6
         The query returns 6.
         """
-        return int(self.sdev.dev.ask(":TRIGger:RS232:WIDTh?"))
+        return int(self.instrument.ask(":TRIGger:RS232:WIDTh?"))
 
     def set_baud(self, baud: int = 9600) -> None:  # BAUD and BUSer
         """
@@ -804,10 +804,10 @@ class RS232(SFunc):
         The query returns 50000.
         """
         if baud in (2400, 4800, 9600, 19200, 38400, 9600, 57600, 115200):
-            self.sdev.dev.ask(f":TRIGger:RS232:BAUD {baud}")
+            self.instrument.ask(f":TRIGger:RS232:BAUD {baud}")
             return
         check_input(baud, "baud", int, 1, 900000, "Baud")
-        self.sdev.dev.ask(f":TRIGger:RS232:BUSer {baud}")
+        self.instrument.ask(f":TRIGger:RS232:BUSer {baud}")
 
     def get_baud(self) -> Dict[str, int]:  # BAUD and BUSer
         """
@@ -871,8 +871,8 @@ class RS232(SFunc):
         The query returns 50000.
         """
         return {
-            "built-in": int(self.sdev.dev.ask(":TRIGger:RS232:BAUD?")),
-            "user": int(self.sdev.dev.ask(":TRIGger:RS232:BUSer?")),
+            "built-in": int(self.instrument.ask(":TRIGger:RS232:BAUD?")),
+            "user": int(self.instrument.ask(":TRIGger:RS232:BUSer?")),
         }
 
     def set_level(self, level: float = 0) -> None:
@@ -924,7 +924,7 @@ class RS232(SFunc):
         else:
             raise RuntimeError("The oscilloscope returned an unknown channel")
         check_level(level, scale, offset)
-        self.sdev.dev.ask(f":TRIGger:RS232:LEVel {level}")
+        self.instrument.ask(f":TRIGger:RS232:LEVel {level}")
 
     def get_level(self) -> float:
         """
@@ -963,4 +963,4 @@ class RS232(SFunc):
         :TRIGger:RS232:LEVel 0.16
         The query returns 1.600000e-01.
         """
-        return float(self.sdev.dev.ask(":TRIGger:RS232:LEVel?"))
+        return float(self.instrument.ask(":TRIGger:RS232:LEVel?"))

@@ -70,7 +70,7 @@ class Type(SFunc):
 
         The query returns AVER.
         """
-        self.sdev.dev.ask(":ACQuire:TYPE NORMal")
+        self.instrument.ask(":ACQuire:TYPE NORMal")
 
     def average(self) -> None:
         """
@@ -109,7 +109,7 @@ class Type(SFunc):
 
         The query returns AVER.
         """
-        self.sdev.dev.ask(":ACQuire:TYPE AVERages")
+        self.instrument.ask(":ACQuire:TYPE AVERages")
 
     def peakdetect(self) -> None:
         """
@@ -149,7 +149,7 @@ class Type(SFunc):
 
         The query returns AVER.
         """
-        self.sdev.dev.ask(":ACQuire:TYPE PEAK")
+        self.instrument.ask(":ACQuire:TYPE PEAK")
 
     def highres(self) -> None:
         """
@@ -189,10 +189,10 @@ class Type(SFunc):
 
         The query returns AVER.
         """
-        self.sdev.dev.ask(":ACQuire:TYPE HRESolution")
+        self.instrument.ask(":ACQuire:TYPE HRESolution")
 
     def status(self):
-        answer: str = self.sdev.dev.ask(":ACQuire:TYPE?")
+        answer: str = self.instrument.ask(":ACQuire:TYPE?")
         if answer == "NORM":
             return "Normal"
         elif answer == "AVER":
@@ -276,7 +276,7 @@ class Acquire(Func):
 
         The query returns 128.
         """
-        return self.dev.ask(":ACQuire:AVERages?")
+        return int(self.instrument.ask(":ACQuire:AVERages?"))
 
     def set_averages(self, count: int = 2):
         """
@@ -321,7 +321,7 @@ class Acquire(Func):
         The query returns 128.
         """
         check_input(count, "count", int, 2, 8192)
-        self.dev.ask(f":ACQuire:AVERages {count}")
+        self.instrument.ask(f":ACQuire:AVERages {count}")
 
     def get_memorydepth(self) -> int:
         """
@@ -365,7 +365,7 @@ class Acquire(Func):
 
         The query returns 1400000.
         """
-        return self.dev.ask(":ACQuire:MDEPth?")
+        return int(self.instrument.ask(":ACQuire:MDEPth?"))
 
     def set_memorydepth(self, memdepth: int = 0):
         """Set the memorydepth of the oscilloscope.
@@ -418,12 +418,12 @@ class Acquire(Func):
         check_input(memdepth, "memdepth", int)
 
         if memdepth == 0:
-            self.dev.ask(":ACQuire:MEMDepth AUTO")
+            self.instrument.ask(":ACQuire:MEMDepth AUTO")
         # ToDo: Check if osc uses one or two channels
         elif memdepth in Acquire.MEMDEPTH_SINGLE:
-            self.dev.ask(f":ACQuire:MDEPth {memdepth}")
+            self.instrument.ask(f":ACQuire:MDEPth {memdepth}")
         elif memdepth in Acquire.MEMDEPTH_DUAL:
-            self.dev.ask(f":ACQuire:MDEPth {memdepth}")
+            self.instrument.ask(f":ACQuire:MDEPth {memdepth}")
         raise DS2000StateError()
 
     def get_samplerate(self) -> int:
@@ -448,7 +448,7 @@ class Acquire(Func):
 
         The query returns 2.000000e+09.
         """
-        return int(self.dev.ask(":ACQuire:SRATe?"))
+        return int(self.instrument.ask(":ACQuire:SRATe?"))
 
     def get_antialiasing(self) -> bool:
         """
@@ -484,7 +484,7 @@ class Acquire(Func):
 
         The query returns 1.
         """
-        return bool(self.dev.ask(":ACQuire:AALias?"))
+        return bool(self.instrument.ask(":ACQuire:AALias?"))
 
     def set_enable_antialiasing(self):
         """
@@ -520,7 +520,7 @@ class Acquire(Func):
 
         The query returns 1.
         """
-        self.dev.ask(":ACQuire:AALias 1")
+        self.instrument.ask(":ACQuire:AALias 1")
 
     def set_disable_antialiasing(self):
         """
@@ -556,4 +556,4 @@ class Acquire(Func):
 
         The query returns 1.
         """
-        self.dev.ask(":ACQuire:AALias 0")
+        self.instrument.ask(":ACQuire:AALias 0")

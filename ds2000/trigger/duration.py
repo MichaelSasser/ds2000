@@ -73,7 +73,7 @@ class DurationWhen(SSFunc):
         :TRIGger:DURATion:WHEN LESS
         The query returns LESS.
         """
-        self.ssdev.sdev.dev.ask(
+        self.instrument.ask(
             ":TRIGger:DURATion:WHEN GREater"
         )
 
@@ -124,7 +124,7 @@ class DurationWhen(SSFunc):
         :TRIGger:DURATion:WHEN LESS
         The query returns LESS.
         """
-        self.ssdev.sdev.dev.ask(":TRIGger:DURATion:WHEN LESS")
+        self.instrument.ask(":TRIGger:DURATion:WHEN LESS")
 
     def duration_of_pattern_between_lower_and_upper_limit(self) -> None:
         """
@@ -173,7 +173,7 @@ class DurationWhen(SSFunc):
         :TRIGger:DURATion:WHEN LESS
         The query returns LESS.
         """
-        self.ssdev.sdev.dev.ask(":TRIGger:DURATion:WHEN GLESs")
+        self.instrument.ask(":TRIGger:DURATion:WHEN GLESs")
 
     def status(self) -> str:
         """
@@ -222,7 +222,7 @@ class DurationWhen(SSFunc):
         :TRIGger:DURATion:WHEN LESS
         The query returns LESS.
         """
-        return self.ssdev.sdev.dev.ask(
+        return self.instrument.ask(
             ":TRIGger:DURATion:WHEN?"
         )
 
@@ -263,7 +263,7 @@ class Duration(SFunc):
         :TRIGger:DURATion:SOURce CHANnel2
         The query returns CHAN2.
         """
-        self.sdev.dev.ask(f":TRIGger:DURATion:SOURce CHANnel{channel}")
+        self.instrument.ask(f":TRIGger:DURATion:SOURce CHANnel{channel}")
 
     def get_source(self) -> int:
         """
@@ -296,7 +296,7 @@ class Duration(SFunc):
         :TRIGger:DURATion:SOURce CHANnel2
         The query returns CHAN2.
         """
-        return int(self.sdev.dev.ask(":TRIGger:DURATion:SOURce?"))
+        return int(self.instrument.ask(":TRIGger:DURATion:SOURce?"))
 
     def set_type(self, pattern: str = "H,L") -> None:  # TODO
         """
@@ -334,7 +334,7 @@ class Duration(SFunc):
         for b in pattern:
             if b not in ("H", "L", "X", ","):
                 raise ValueError("Pattern is not valid.")
-        self.sdev.dev.ask(f":TRIGger:DURATion:TYPe {pattern}")
+        self.instrument.ask(f":TRIGger:DURATion:TYPe {pattern}")
 
     def get_type(self) -> str:
         """
@@ -369,7 +369,7 @@ class Duration(SFunc):
         :TRIGger:DURATion:TYPe L,X
         The query returns L,X.
         """
-        return self.sdev.dev.ask(":TRIGger:DURATion:TYPe?")
+        return self.instrument.ask(":TRIGger:DURATion:TYPe?")
 
     def set_upper_limit(self, time: float = 2.0e-6) -> None:
         """
@@ -413,7 +413,7 @@ class Duration(SFunc):
         The query returns 3.000000e-06.
         """
         check_input(time, "time", float, 2.0e-9, 4.0, "s")
-        self.sdev.dev.ask(f":TRIGger:DURATion:TUPPer {time}")
+        self.instrument.ask(f":TRIGger:DURATion:TUPPer {time}")
 
     def get_upper_limit(self) -> float:
         """
@@ -456,7 +456,7 @@ class Duration(SFunc):
         :TRIGger:DURATion:TUPPer 0.000003
         The query returns 3.000000e-06.
         """
-        return float(self.sdev.dev.ask(":TRIGger:DURATion:TUPPer?"))
+        return float(self.instrument.ask(":TRIGger:DURATion:TUPPer?"))
 
     def set_lower_limit(self, time: float = 1.0e-6) -> None:
         """
@@ -501,7 +501,7 @@ class Duration(SFunc):
         The query returns 3.000000e-06.
         """
         check_input(time, "time", float, 2.0e-9, 4.0, "s")
-        self.sdev.dev.ask(f":TRIGger:DURATion:TLOWer {time}")
+        self.instrument.ask(f":TRIGger:DURATion:TLOWer {time}")
 
     def get_lower_limit(self) -> float:
         """
@@ -545,4 +545,4 @@ class Duration(SFunc):
         :TRIGger:DURATion:TLOWer 0.000003
         The query returns 3.000000e-06.
         """
-        return float(self.sdev.dev.ask(":TRIGger:DURATion:TLOWer?"))
+        return float(self.instrument.ask(":TRIGger:DURATion:TLOWer?"))

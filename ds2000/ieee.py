@@ -58,7 +58,7 @@ class IEEE(Func):
 
         The query returns RIGOL TECHNOLOGIES,DS2202,DS2A0000000001,00.00.01. Instrument
         """
-        return self.dev.ask("*IDN?")
+        return self.instrument.ask("*IDN?")
 
     def rst(self):
         """
@@ -72,4 +72,4 @@ class IEEE(Func):
 
         Restore the instrument to the default values.
         """
-        self.dev.ask("*RST")
+        self.instrument.ask("*RST")

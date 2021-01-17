@@ -55,7 +55,7 @@ class Sweep(SFunc):
         :TRIGger:SWEep SINGle
         The query returns SING.
         """
-        self.sdev.dev.ask(":TRIGger:SWEep AUTO")
+        self.instrument.ask(":TRIGger:SWEep AUTO")
 
     def normal(self) -> None:
         """
@@ -88,7 +88,7 @@ class Sweep(SFunc):
         :TRIGger:SWEep SINGle
         The query returns SING.
         """
-        self.sdev.dev.ask(":TRIGger:SWEep NORMal")
+        self.instrument.ask(":TRIGger:SWEep NORMal")
 
     def single(self) -> None:
         """
@@ -121,7 +121,7 @@ class Sweep(SFunc):
         :TRIGger:SWEep SINGle
         The query returns SING.
         """
-        self.sdev.dev.ask(":TRIGger:SWEep SINGle")
+        self.instrument.ask(":TRIGger:SWEep SINGle")
 
     def status(self) -> str:
         """
@@ -154,7 +154,7 @@ class Sweep(SFunc):
         :TRIGger:SWEep SINGle
         The query returns SING.
         """
-        status = self.sdev.dev.ask(":TRIGger:SWEep?").lower()
+        status = self.instrument.ask(":TRIGger:SWEep?").lower()
         if status == "auto":
             return "auto"
         if status == "norm":

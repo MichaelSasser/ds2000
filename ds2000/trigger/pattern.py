@@ -76,7 +76,7 @@ class Pattern(SFunc):
                 raise ValueError(
                     'The pattern must only contain "H", "L", "X", "R" or "F".'
                 )
-        self.sdev.dev.ask(
+        self.instrument.ask(
             f":TRIGger:PATTern:PATTern {','.join(pattern)}"
         )
 
@@ -122,7 +122,7 @@ class Pattern(SFunc):
         The query returns H,R.
         """
         return tuple(
-            self.sdev.dev.ask(":TRIGger:PATTern:PATTern?").split(",")
+            self.instrument.ask(":TRIGger:PATTern:PATTern?").split(",")
         )
 
     def set_level(self, channel: int = 1, level: float = 0) -> None:
@@ -174,7 +174,7 @@ class Pattern(SFunc):
         else:
             raise RuntimeError("The oscilloscope returned an unknown channel")
         check_level(level, scale, offset)
-        self.sdev.dev.ask(
+        self.instrument.ask(
             f":TRIGger:PATTern:LEVel CHANnel{channel},", f"{level}"
         )
 
@@ -217,7 +217,7 @@ class Pattern(SFunc):
         The query returns 1.600000e-01.
         """
         return float(
-            self.sdev.dev.ask(
+            self.instrument.ask(
                 f":TRIGger:PATTern:LEVel? CHANnel{channel}"
             )
         )

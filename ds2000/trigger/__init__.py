@@ -82,7 +82,7 @@ class Trigger(Func):
 
         The query returns TD, WAIT, RUN, AUTO or STOP.
         """
-        return self.dev.ask("TRIGger:STATus?").lower()
+        return self.instrument.ask("TRIGger:STATus?").lower()
 
     def get_holdoff(self) -> float:
         """
@@ -120,7 +120,7 @@ class Trigger(Func):
         :TRIGger:HOLDoff 0.0000002
         The query returns 2.000000e-07.
         """
-        return float(self.dev.ask(":TRIGger:HOLDoff?"))
+        return float(self.instrument.ask(":TRIGger:HOLDoff?"))
 
     def set_holdoff(self, time: float = 100.0e-9) -> None:
         """
@@ -163,7 +163,7 @@ class Trigger(Func):
                 f'"time" must be of type float and between '
                 f"100ns..10s. You entered {type(time)}."
             )
-        self.dev.ask(f":TRIGger:HOLDoff {time}")
+        self.instrument.ask(f":TRIGger:HOLDoff {time}")
 
     def get_noise_reject(self) -> bool:
         """
@@ -196,7 +196,7 @@ class Trigger(Func):
         :TRIGger:NREJect ON
         The query returns 1.
         """
-        return bool(int(self.dev.ask(":TRIGger:NREJect?")))
+        return bool(int(self.instrument.ask(":TRIGger:NREJect?")))
 
     def set_noise_reject(self, enable: bool = False) -> None:
         """
@@ -234,4 +234,4 @@ class Trigger(Func):
                 f'"enable" must be of type bool, you entered '
                 f"{type(enable)}."
             )
-        self.dev.ask(f":TRIGger:NREJect {enable}")
+        self.instrument.ask(f":TRIGger:NREJect {enable}")
