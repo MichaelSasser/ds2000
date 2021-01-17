@@ -853,13 +853,12 @@ driver-all = ["python-vxi11", "pyvisa", "pyvisa-py"]
 driver-pyvisa = ["pyvisa"]
 driver-pyvisa-py = ["pyvisa-py"]
 driver-vxi11 = ["python-vxi11"]
-extra-all = ["numpy", "matplotlib"]
-extra-plot = ["numpy", "matplotlib"]
+func = ["numpy", "matplotlib"]
 
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "cdc31348af44d3ec3b46fd999c376f212c5c79c1f044d51a266079b64252847a"
+content-hash = "9abebe72b11da40f398c70556b4e3d86ca864e59fbaec41c1bffd69cea245815"
 
 [metadata.files]
 alabaster = [
