@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# ds2000
+# ds2000 - The Python Library for Rigol DS2000 Oscilloscopes
 # Copyright (C) 2021  Michael Sasser <Michael@MichaelSasser.org>
 
 # This program is free software: you can redistribute it and/or modify

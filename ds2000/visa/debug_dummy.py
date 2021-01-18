@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# ds2000
+# ds2000 - The Python Library for Rigol DS2000 Oscilloscopes
 # Copyright (C) 2021  Michael Sasser <Michael@MichaelSasser.org>
 
 # This program is free software: you can redistribute it and/or modify
@@ -125,7 +125,6 @@ class DebugDummy(VISABase):
                 raise DS2000ExampleFoundBugError(msg, example)
             else:
                 error(f"DEBUG_DUMMY: {msg=}, {example=}")
-
 
     @staticmethod
     def __get_callers_doc() -> Optional[str]:

@@ -257,7 +257,5 @@ class DS2000(object):
     def __repr__(self) -> str:
         return f"{self.__class__.__qualname__}({self.instrument.info.serial})"
 
-    def __del__(self):
-        self.instrument.disconnect()
 
 # vim: set ft=python :
