@@ -17,6 +17,10 @@
 from typing import Any
 from typing import Optional
 from typing import Union
+from typing import NamedTuple
+from typing import List
+from logging import debug
+from logging import error
 
 from .errors import DS2000InternalSyntaxError
 from .visa.driver import VISABase
@@ -25,6 +29,11 @@ from .math.format import get_prefix
 
 __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
+
+
+class Example(NamedTuple):
+    question: str
+    answer: str
 
 
 class Func:  # pylint: disable=R0903
@@ -133,3 +142,33 @@ def check_level(level: float, scale: float, offset: float):
             f'"level" must be of type float and between '
             f"{min_rng}..{max_rng}. You entered type {type(level)}."
         )
+
+
+def get_example(doc: str) -> Optional[Example]:
+    """Extract the example of a docstring."""
+    if doc is None:
+        error("DEBUG_DUMMY.__get_example -> doc is None")
+        return None
+    lines: List[str] = [s.strip()
+                        for s in doc.split("**Example**")[1].splitlines()
+                        if s.strip()
+                        ]
+    # Remove lines at the end that are not part of the example
+    while not lines[-1].startswith("The query returns"):
+        lines.pop()
+
+    # Check if there are only two lines left
+    if not len(lines) == 2:
+        error("DEBUG_DUMMY.__get_example -> More then two lines detected")
+        return None
+
+    if not lines[0].startswith(":"):
+        error("DEBUG_DUMMY.__get_example -> Question dosn't start with \".\"")
+        return None
+
+    # Remove "The query returns " and "." of the answer
+    lines[1] = lines[1].replace("The query returns ", "")[:-1]
+
+    debug(f"DEBUG_DUMMY.__get_example -> Example Q&A: {lines}")
+
+    return Example(*lines)

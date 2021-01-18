@@ -54,6 +54,7 @@ classifiers = [
 
 [tool.poetry.dependencies]
 python = "^3.9"
+coloredlogs = "^15.0"  # TODO: Delete before first release
 # zeroconf = "^0.28.8"  # Not used? used by vxi11?
 
 # Extras (func)
@@ -69,6 +70,7 @@ pyvisa-py = { version = "^0.5.1", optional = true }
 sphinx-autodoc-typehints = { version = "^1.11.1", optional = true }
 Sphinx = { version = "^3.4.3", optional = true }
 sphinx_rtd_theme = { version = "^0.5.1", optional = true  }
+
 
 [tool.poetry.extras]
 # driver  - You only need one

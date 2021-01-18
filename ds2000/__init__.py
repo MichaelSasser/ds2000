@@ -38,25 +38,26 @@ from .waveform import Waveform
 
 Available_Drivers: List[VISADriver] = [VISADriver.DEBUG_DUMMY]
 
+# TODO: Remove NotImplementedError
 try:
     from .visa.vxi11 import VXI11
     Available_Drivers.append(VISADriver.VXI11)
     debug("Driver: VXI11 is now available.")
-except ImportError:
+except (ImportError, NotImplementedError):
     debug("Driver: VXI11 is not installed.")
 
 try:
     from .visa.pyvisa import PYVISA
     Available_Drivers.append(VISADriver.PYVISA)
     debug("Driver: PYVISA is now available.")
-except ImportError:
+except (ImportError, NotImplementedError):
     debug("Driver: PYVISA is not installed.")
 
 try:
     from .visa.pyvisapy import PYVISAPY
     Available_Drivers.append(VISADriver.PYVISAPY)
     debug("Driver: PYVISAPY is now available.")
-except ImportError:
+except (ImportError, NotImplementedError):
     debug("Driver: PYVISAPY is not installed.")
 
 __author__ = "Michael Sasser"

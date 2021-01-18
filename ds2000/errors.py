@@ -20,6 +20,7 @@ from sys import version_info
 from typing import Any
 from typing import List
 from typing import Optional
+from typing  import NamedTuple
 
 from .__version__ import __version__
 from .visa.driver import VISADriver
@@ -58,6 +59,12 @@ class DS2000InternalError(Error):
             msg += "\nFor developers: " + message
 
         super().__init__(msg)
+
+
+class DS2000ExampleFoundBugError(DS2000InternalError):
+    def __init__(self, msg: str, example: NamedTuple) -> None:
+        message: str = f"DEBUG_DUMMY: {msg=}, {example=}"
+        super().__init__(message, None)
 
 
 class DS2000Error(Error):
