@@ -35,7 +35,7 @@ class VISADriver(Enum):
     VXI11 = auto(),  # python-vxi11 - pure python
     PYVISA = auto(),  # pyvisa - uses NI VISA
     PYVISA_PY = auto(),  # pyvisa-py - limited subset of pyvisa, pure python
-    DEBUG_DUMMY = auto(),  # a dummy to debug, mimics a instrument
+    DEBUG_DRIVER = auto(),  # a dummy to debug, mimics a instrument
 
 
 class InstrumentInfo(NamedTuple):

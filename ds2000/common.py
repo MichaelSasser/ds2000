@@ -147,7 +147,7 @@ def check_level(level: float, scale: float, offset: float):
 def get_example(doc: str) -> Optional[Example]:
     """Extract the example of a docstring."""
     if doc is None:
-        error("DEBUG_DUMMY.__get_example -> doc is None")
+        error("DEBUG_DRIVER.__get_example -> doc is None")
         return None
     lines: List[str] = [s.strip()
                         for s in doc.split("**Example**")[1].splitlines()
@@ -159,16 +159,16 @@ def get_example(doc: str) -> Optional[Example]:
 
     # Check if there are only two lines left
     if not len(lines) == 2:
-        error("DEBUG_DUMMY.__get_example -> More then two lines detected")
+        error("DEBUG_DRIVER.__get_example -> More then two lines detected")
         return None
 
     if not lines[0].startswith(":"):
-        error("DEBUG_DUMMY.__get_example -> Question dosn't start with \".\"")
+        error("DEBUG_DRIVER.__get_example -> Question dosn't start with \".\"")
         return None
 
     # Remove "The query returns " and "." of the answer
     lines[1] = lines[1].replace("The query returns ", "")[:-1]
 
-    debug(f"DEBUG_DUMMY.__get_example -> Example Q&A: {lines}")
+    debug(f"DEBUG_DRIVER.__get_example -> Example Q&A: {lines}")
 
     return Example(*lines)

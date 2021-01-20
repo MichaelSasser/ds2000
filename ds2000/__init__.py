@@ -26,7 +26,7 @@ from .errors import DS2000DriverNotFoundError
 from .visa.driver import VISABase
 from .visa.driver import InstrumentInfo
 from .visa.driver import VISADriver
-from .visa.debug_dummy import DebugDummy
+from .visa.debug_driver import DebugDriver
 
 from .acquire import Acquire
 from .channel import Channel
@@ -36,7 +36,7 @@ from .timebase import Timebase
 from .trigger import Trigger
 from .waveform import Waveform
 
-Available_Drivers: List[VISADriver] = [VISADriver.DEBUG_DUMMY]
+Available_Drivers: List[VISADriver] = [VISADriver.DEBUG_DRIVER]
 
 # TODO: Remove NotImplementedError
 try:
@@ -80,9 +80,9 @@ class DS2000(object):
         elif (driver == VISADriver.PYVISA
               and VISADriver.PYVISA in Available_Drivers):
             raise NotImplementedError()
-        elif (driver == VISADriver.DEBUG_DUMMY
-              and VISADriver.DEBUG_DUMMY in Available_Drivers):
-            self.instrument: VISABase = DebugDummy(address)
+        elif (driver == VISADriver.DEBUG_DRIVER
+              and VISADriver.DEBUG_DRIVER in Available_Drivers):
+            self.instrument: VISABase = DebugDriver(address)
         else:
             raise DS2000DriverNotFoundError(driver, Available_Drivers)
 

@@ -89,7 +89,7 @@ class DS2000DriverNotFoundError(Error):
         # TODO: Better description
         self.drivers_available = drivers_available[:]  # deepcopy
         # Remove the alway available Debug driver.
-        self.drivers_available.remove(VISADriver.DEBUG_DUMMY)
+        self.drivers_available.remove(VISADriver.DEBUG_DRIVER)
         if len(self.drivers_available) > 0:
             super().__init__('The requested driver is not available. You need '
                              f'to install the requested driver "{driver}" '

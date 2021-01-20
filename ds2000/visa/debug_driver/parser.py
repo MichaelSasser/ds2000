@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# ds2000 - The Python Library for Rigol DS2000 Oscilloscopes
+# ds2000
 # Copyright (C) 2021  Michael Sasser <Michael@MichaelSasser.org>
 
 # This program is free software: you can redistribute it and/or modify
@@ -16,27 +16,34 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 from __future__ import annotations
 
-import pytest
-
-from ds2000 import DS2000
-from ds2000.visa.driver import VISADriver
+from logging import debug
+from typing import NamedTuple, Optional, Tuple, List
 
 __author__: str = "Michael Sasser"
 __email__: str = "Michael@MichaelSasser.org"
 
 
-@pytest.fixture(scope="session", autouse=True)
-def dev():
-    # Setup
-    #print("setting up", item)
-    dev: DS2000 = DS2000("1.1.1.1", VISADriver.DEBUG_DRIVER)
+class Command(NamedTuple):
+    path: Tuple[str, ...]
+    value: Optional[List[str]]
+    is_question: bool
 
-    # Exercise - None
 
-    # Verify - None
+def parse_msg(msg: str) -> Command:  # TODO: parse types
+    """parse a message and generate an Command"""
+    t: List[str] = msg.split(" ")
+    path: List[str] = t[0].split(":")[1:]  # First is empty
+    is_question: bool = path[-1].endswith("?")
+    if is_question:
+        path[-1] = path[-1].replace("?", "")
+    value: List[str] = " ".join(t[1:]).split(",")  # Reassemble and split by ,
+    command = Command(tuple(path), value, is_question)
+    debug(f"Command: {command}")
+    return command
 
-    # Cleanup -None
-    return dev
 
+def parse_value(value: List[str]) -> str:  # TODO: parse types
+    """pars a value and return a str"""
+    return ",".join(value)
 
 # vim: set ft=python :

@@ -25,11 +25,14 @@ from types import FrameType
 from typing import Any
 from typing import Optional
 
-from .driver import InstrumentInfo
-from .driver import VISABase
-
 import coloredlogs  # TODO: Delete before first release
 
+from .state import State
+from .state import StorageDBType
+from .parser import parse_msg, parse_value
+from .parser import Command
+from ds2000.visa.driver import InstrumentInfo
+from ds2000.visa.driver import VISABase
 from ds2000.errors import DS2000ExampleFoundBugError
 from ds2000.common import Example
 from ds2000.common import get_example
@@ -47,7 +50,7 @@ def setup_logging(debug_mode: bool) -> None:
     coloredlogs.install()
 
 
-class DebugDummy(VISABase):
+class DebugDriver(VISABase):
 
     # TODO: When testing this driver is will be choosen and replaced afterwards
     #       by a special testing version? Or should this driver get the testing
@@ -56,7 +59,7 @@ class DebugDummy(VISABase):
         setup_logging(True)  # TODO: Delete before first release
         # if True: raise error on missmatch between msg and example
         self.check_questions: bool = True
-        self.simple: bool = False  # always a dummy answer (faster)
+        self.state: State = State()
         
         super(self.__class__, self).__init__(address)
         
@@ -68,37 +71,43 @@ class DebugDummy(VISABase):
             "1234567890",
             "1.0.0",
         )
-        print("This is the DEBUG_DUMMY driver. Please keep in mind to "
+        print("This is the DEBUG_DRIVER driver. Please keep in mind to "
               "Enable debug level logging to see the output.")
-        debug("Connected to DEBUG_DUMMY")
+        debug("Connected to DEBUG_DRIVER")
 
     def disconnect(self) -> None:
         """Disconnect from the instrument."""
-        debug("Disconnected from DEBUG_DUMMY")
+        debug("Disconnected from DEBUG_DRIVER")
 
-    def ask(self, msg: str) -> str:
+    def ask(self, msg: str) -> Optional[str]:
         """Write and read afterwards from a instrument."""
         # Extract the example from the function that has called this one
         # To give at least a plausible output, even, if it is fixed.
         # If this fails, give a "1.0" back, which should work with
         # str, int, list, tuple, sets, float.
 
-        answer: str = "1.0"
+        answer: Optional[str] = None
+        command: Command = parse_msg(msg)
+        example: Optional[Example] = None
 
-        if not self.simple:
-            example: Optional[Example] = None
-            try:
-                example = get_example(self.__get_callers_doc())
-            except Exception as e:
-                debug("Exception occured while attempting to get an "
-                      f"Example:\n{e}")
+        try:
+            example = get_example(self.__get_callers_doc())
+        except Exception as e:
+            debug("Exception occured while attempting to get an "
+                  f"Example:\n{e}")
 
-            if example is not None:
-                answer = example.answer
-            if self.check_questions:
-                self.__check_question(msg, example)
+        # Check if the path of the question is the same as in the example
+        if self.check_questions:
+            self.__check_question(msg, example)
 
-        debug(f'Asked: "{msg}", Answered: "{answer}" (DUMMY ANSWER)')
+        # Devide, if this is a question -> get entry or not -> set entry
+        if command.is_question:
+            answer = parse_value(self.state.get(command, example))
+        else:
+            self.state.set(command)
+            answer = None
+
+        debug(f'Asked: "{msg}", Answered: "{answer}"')
         return answer
 
     def write(self, msg: str) -> None:
@@ -117,14 +126,14 @@ class DebugDummy(VISABase):
             fail_on_err: bool = False,
     ) -> None:
         if example is None:
-            debug("DEBUG_DUMMY.__check_question: the example was None")
+            debug("DEBUG_DRIVER.__check_question: the example was None")
 
         question: str = example.question.split(" ", 1)[0]
         if not msg.startswith(question):
             if fail_on_err:
                 raise DS2000ExampleFoundBugError(msg, example)
             else:
-                error(f"DEBUG_DUMMY: {msg=}, {example=}")
+                error(f"DEBUG_DRIVER: {msg=}, {example=}")
 
     @staticmethod
     def __get_callers_doc() -> Optional[str]:

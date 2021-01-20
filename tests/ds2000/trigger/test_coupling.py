@@ -19,7 +19,7 @@ from __future__ import annotations
 from typing import Optional
 
 from ds2000.common import get_example
-from ds2000.visa.debug_dummy import Example
+from ds2000.visa.debug_driver import Example
 
 __author__: str = "Michael Sasser"
 __email__: str = "Michael@MichaelSasser.org"
@@ -49,6 +49,16 @@ __email__: str = "Michael@MichaelSasser.org"
 #
 #     # Cleanup - None
 
+def test_coupling(dev) -> None:
+    # Setup
+    dev.trigger.coupling.ac()
 
+    # Exercise
+    actual = dev.trigger.coupling.status()
+
+    # Verify
+    assert actual == "AC"
+
+    # Cleanup - None
 
 # vim: set ft=python :
