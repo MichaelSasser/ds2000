@@ -17,10 +17,15 @@
 from __future__ import annotations
 
 from logging import debug
-from typing import NamedTuple, Optional, Tuple, List
+from typing import NamedTuple, Optional, Tuple, List, Pattern
+
+import re
 
 __author__: str = "Michael Sasser"
 __email__: str = "Michael@MichaelSasser.org"
+
+
+remove_value: Pattern.sub = re.compile("[a-z]").sub
 
 
 class Command(NamedTuple):
@@ -42,8 +47,9 @@ def parse_msg(msg: str) -> Command:  # TODO: parse types
     return command
 
 
-def parse_value(value: List[str]) -> str:  # TODO: parse types
+def parse_values(values: List[str]) -> str:  # TODO: parse types
     """pars a value and return a str"""
-    return ",".join(value)
+    global remove_value
+    return ",".join([remove_value("", value) for value in values])
 
 # vim: set ft=python :

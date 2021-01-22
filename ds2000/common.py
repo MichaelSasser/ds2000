@@ -17,10 +17,11 @@
 from typing import Any
 from typing import Optional
 from typing import Union
-from typing import NamedTuple
 from typing import List
 from logging import debug
 from logging import error
+from dataclasses import dataclass
+
 
 from .errors import DS2000InternalSyntaxError
 from .visa.driver import VISABase
@@ -31,9 +32,11 @@ __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
 
 
-class Example(NamedTuple):
+@dataclass
+class Example:
     question: str
     answer: str
+    marked: bool = False  # Marked as the one which has been asked.
 
 
 class Func:  # pylint: disable=R0903
@@ -71,7 +74,7 @@ def check_input(
     the other arguments of this function as None. One of both is needed.
 
     To format the error message nicely, use the unit argument. Use "s" for
-    example, if you want to format 10.E-6 as 10µs. If disabled it will fill the
+    examples, if you want to format 10.E-6 as 10µs. If disabled it will fill the
     placeholder with 0.00001 without "s".
 
     mini and maxi need to be the same type.
@@ -144,31 +147,70 @@ def check_level(level: float, scale: float, offset: float):
         )
 
 
-def get_example(doc: str) -> Optional[Example]:
-    """Extract the example of a docstring."""
+def get_examples(doc: str) -> List[Example]:
+    """Extract the examples of a docstring."""
+    # If ther is no "doc", return an empty list
     if doc is None:
         error("DEBUG_DRIVER.__get_example -> doc is None")
-        return None
+        return []
+
+    # Get the lines that are not empy from "doc"
     lines: List[str] = [s.strip()
                         for s in doc.split("**Example**")[1].splitlines()
                         if s.strip()
                         ]
-    # Remove lines at the end that are not part of the example
+
+    # Remove lines at the end that are not part of the examples
+    # e.g. There can be followup documentation after **Example**,
+    # but ther shouldn't be a line starting with "The query returns",
+    # except the last answer
     while not lines[-1].startswith("The query returns"):
         lines.pop()
 
-    # Check if there are only two lines left
-    if not len(lines) == 2:
-        error("DEBUG_DRIVER.__get_example -> More then two lines detected")
-        return None
+    # Return with an empty list if the lines don't have an even number.
+    # There should always be a question and an answer.
+    if not (num_of_lines := len(lines)) % 2 == 0:
+        error("DEBUG_DRIVER.__get_example -> More then two/four lines "
+              "detected")
+        return []
 
-    if not lines[0].startswith(":"):
-        error("DEBUG_DRIVER.__get_example -> Question dosn't start with \".\"")
-        return None
+    examples: List[Example] = []
+    question: Optional[str] = None
+    answer: Optional[str] = None
+    line_must_be_answer: bool = False
+    for line in lines:
+        if line.startswith(":"):  # Qusetion line
+            if question is not None:
+                raise DS2000InternalSyntaxError("There where two questions "
+                                                "next to each other. Check "
+                                                "docs")
+            question = line
+            line_must_be_answer = True
+            continue  # an answer can only be in the next iteration
 
-    # Remove "The query returns " and "." of the answer
-    lines[1] = lines[1].replace("The query returns ", "")[:-1]
+        if line.startswith("The query returns "):  # Answer line
+            if answer is not None:
+                raise DS2000InternalSyntaxError("There where two answers "
+                                                "next to each other. Check "
+                                                "docs")
+            # Remove "The query returns " and "." (last char) of the answer
+            answer = line.replace("The query returns ", "")[:-1]
 
-    debug(f"DEBUG_DRIVER.__get_example -> Example Q&A: {lines}")
+        if question is not None and answer is not None:
+            examples.append(Example(question, answer))
+            debug(f"DEBUG_DRIVER.__get_example -> New Example: {lines}")
+            question = None
+            answer = None
+            line_must_be_answer: False
+            continue
 
-    return Example(*lines)
+        # Ther is no answer after a question -> err
+        if line_must_be_answer:
+            raise DS2000InternalSyntaxError("Missing answer line after "
+                                            "question line. Check docs.")
+
+    return examples
+
+
+def channel_as_int(channel_msg: str) -> int:
+    return int(channel_msg[-1])

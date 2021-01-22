@@ -50,10 +50,11 @@ class State:
         self.__set_nested(command.path, command.value)
         debug(f"CURRENT DB: {self.db}")  # TODO: Remove
 
-    def get(self, command: Command, example: Example) -> List[str]:
+    def get(self, command: Command, examples: List[Example]) -> List[str]:
         """Get a already stored or a fallback value from the db"""
+        answer: List[str] = self.__get_nested(command.path)
         try:
-            if (answer := self.__get_nested(command.path)) is not None:
+            if answer is not None:
                 debug(f'State.get: Key {command.path} found in storage db: '
                       f'{answer}')
                 return answer
@@ -61,11 +62,18 @@ class State:
             pass
         debug(f"State.get: Key {command.path} not found in storage db.")
 
-        if example is not None:
-            debug(f'State.get: Example found. Returning "{example.answer}"')
-            return [example.answer,]
-        debug('State.get: Example not found. '
-              'Returning default dummy value "1.0"')
+        if examples:
+            answers: List[Optional[List[str]]] = [
+                example.answer
+                for example
+                in examples
+                if example.marked
+            ]
+            if answers:
+                debug(f'State.get: Example found. Returning "{answers[0]}"')
+                return answers[0]
+        debug('State.get: Example not found. Returning default dummy value '
+              '"1.0"')
         return self.__class__.DUMMY_VALUE
 
     def __get_nested(self, keys: Tuple[str, ...]) -> Optional[List[str]]:
