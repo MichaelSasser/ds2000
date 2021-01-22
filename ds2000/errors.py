@@ -71,7 +71,7 @@ class DS2000Error(Error):
     pass
 
 
-class DS2000StateError(Error):
+class DS2000StateError(DS2000InternalError):
     pass
 
 

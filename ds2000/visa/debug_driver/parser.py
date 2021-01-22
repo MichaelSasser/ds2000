@@ -50,6 +50,16 @@ def parse_msg(msg: str) -> Command:  # TODO: parse types
 def parse_values(values: List[str]) -> str:  # TODO: parse types
     """pars a value and return a str"""
     global remove_value
-    return ",".join([remove_value("", value) for value in values])
+    if len(values) == 1:
+        debug(f"parse_values: found single string inside values: List[str]")
+        try:
+            value: float = float(values[0])
+            debug(f"parse_values: string is numeric: {values[0]}")
+            return str(value)
+        except ValueError:
+            pass
+        return remove_value("", values[0])
+
+    return ",".join([remove_value("", val) for val in values])
 
 # vim: set ft=python :
