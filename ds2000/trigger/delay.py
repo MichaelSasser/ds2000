@@ -17,7 +17,7 @@
 from enum import Enum
 from typing import Union
 
-from ds2000.common import SFunc
+from ds2000.common import SFunc, channel_as_int
 from ds2000.common import SSFunc
 from ds2000.common import check_input
 
@@ -25,12 +25,19 @@ from ds2000.common import check_input
 __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
 
+from ds2000.errors import DS2000StateError
+
 
 class DelayTypeEnum(Enum):
-    GRE = "greater"  # GREater
+    GREATER = "greater"  # GREater
     LESS = "less"  # LESS
-    GLES = "between"  # GLESs
-    GOUT = "outside"  # GOUT
+    INSIDE = "inside"  # GLESs
+    OUTSIDE = "outside"  # GOUT
+
+
+class DelaySlopeEnum(Enum):
+    POSITIVE = "positive"
+    NEGATIVE = "negative"
 
 
 class DelayType(SSFunc):
@@ -148,7 +155,7 @@ class DelayType(SSFunc):
         """
         self.instrument.ask(":TRIGger:DELay:TYPe LESS")
 
-    def between(self) -> None:
+    def inside(self) -> None:
         """
         **Rigol Programming Guide**
 
@@ -322,27 +329,159 @@ class DelayType(SSFunc):
         )
 
         if ret == "GRE":
-            return DelayTypeEnum.GRE
+            return DelayTypeEnum.GREATER
         elif ret == "LESS":
             return DelayTypeEnum.LESS
         elif ret == "GLES":
-            return DelayTypeEnum.GLES
+            return DelayTypeEnum.INSIDE
         elif ret == "GOUT":
-            return DelayTypeEnum.GOUT
+            return DelayTypeEnum.OUTSIDE
+        raise DS2000StateError(f"got {ret}")
+
+
+class DelaySlope(SSFunc):
+    def __init__(self, device, signal_source: str):
+        super(DelaySlope, self).__init__(device)
+        self.source: str = signal_source
+
+    def set_positive(self) -> None:
+        """
+        **Rigol Programming Guide**
+
+        **Syntax**
+        :TRIGger:DELay:SLOPA <slope>
+        :TRIGger:DELay:SLOPA?
+
+        **Description**
+
+        Set the edge type of edge A of delay trigger.
+        Query the current edge type of edge A of delay trigger.
+
+        Set the edge type of edge B of delay trigger.
+        Query the current edge type of edge B of delay trigger.
+
+        **Parameter**
+
+        ======== ========= ==================== ========
+        Name     Type      Range                Default
+        ======== ========= ==================== ========
+        <slope>  Discrete  {POSitive|NEGative}  POSitive
+        ======== ========= ==================== ========
+
+        **Return Format**
+
+        The query returns POS or NEG.
+
+        **Example**
+
+        :TRIGger:DELay:SLOPA NEGative
+        The query returns NEG.
+
+        :TRIGger:DELay:SLOPB NEGative
+        The query returns NEG.
+        """
+
+        self.instrument.ask(f":TRIGger:DELay:SLOP{self.source} POSitive")
+
+    def set_negative(self) -> None:
+        """
+        **Rigol Programming Guide**
+
+        **Syntax**
+        :TRIGger:DELay:SLOPA <slope>
+        :TRIGger:DELay:SLOPA?
+
+        :TRIGger:DELay:SLOPB <slope>
+        :TRIGger:DELay:SLOPB?
+
+        **Description**
+
+        Set the edge type of edge A of delay trigger.
+        Query the current edge type of edge A of delay trigger.
+
+        Set the edge type of edge B of delay trigger.
+        Query the current edge type of edge B of delay trigger.
+
+        **Parameter**
+
+        ======== ========= ==================== ========
+        Name     Type      Range                Default
+        ======== ========= ==================== ========
+        <slope>  Discrete  {POSitive|NEGative}  POSitive
+        ======== ========= ==================== ========
+
+        **Return Format**
+
+        The query returns POS or NEG.
+
+        **Example**
+
+        :TRIGger:DELay:SLOPA NEGative
+        The query returns NEG.
+
+        :TRIGger:DELay:SLOPB NEGative
+        The query returns NEG.
+        """
+
+        self.instrument.ask(f":TRIGger:DELay:SLOP{self.source} NEGative")
+
+    def status(self) -> DelaySlopeEnum:
+        """
+
+        **Rigol Programming Guide**
+
+        **Syntax**
+        :TRIGger:DELay:SLOPA <slope>
+        :TRIGger:DELay:SLOPA?
+
+        :TRIGger:DELay:SLOPB <slope>
+        :TRIGger:DELay:SLOPB?
+
+        **Description**
+
+        Set the edge type of edge A of delay trigger.
+        Query the current edge type of edge A of delay trigger.
+
+        Set the edge type of edge B of delay trigger.
+        Query the current edge type of edge B of delay trigger.
+
+        **Parameter**
+
+        ======== ========= ==================== ========
+        Name     Type      Range                Default
+        ======== ========= ==================== ========
+        <slope>  Discrete  {POSitive|NEGative}  POSitive
+        ======== ========= ==================== ========
+
+        **Return Format**
+
+        The query returns POS or NEG.
+
+        **Example**
+
+        :TRIGger:DELay:SLOPA NEGative
+        The query returns NEG.
+
+        :TRIGger:DELay:SLOPB NEGative
+        The query returns NEG.
+        """
+        answer: str = self.instrument.ask(f":TRIGger:DELay:SLOP{self.source}?")
+        if answer == "POS":
+            return DelaySlopeEnum.POSITIVE
+        elif answer == "NEG":
+            return DelaySlopeEnum.NEGATIVE
+        raise DS2000StateError()
 
 
 class Delay(SFunc):
     def __init__(self, device):
         super(Delay, self).__init__(device)
         self.type: DelayType = DelayType(self)
+        self.slope_a: DelaySlope = DelaySlope(self, "A")
+        self.slope_b: DelaySlope = DelaySlope(self, "B")
 
-    def set_signal(
-        self, source: Union[str, int], channel: int
-    ) -> None:  # SA/SB
+    def set_channel_signal_source_a(self, channel: int) -> None:
         """
-        source must be "a", "b", "A", "B" 1 or 2
-        channel must be 1 or 2
-
         **Rigol Programming Guide**
 
         **Syntax**
@@ -350,9 +489,107 @@ class Delay(SFunc):
         :TRIGger:DELay:SA <Source>
         :TRIGger:DELay:SA?
 
+        **Description**
+
+        Select the trigger source of signal source A in delay trigger.
+        Query the current trigger source of signal source A in delay trigger.
+
+
+        **Parameter**
+
+        ========= ========= ==================== ========
+        Name      Type      Range                Default
+        ========= ========= ==================== ========
+        <source>  Discrete  {CHANnel1|CHANnel2}  CHANnel1
+        ========= ========= ==================== ========
+
+        **Return Format**
+
+        The query returns CHAN1 or CHAN2.
+
+        **Example**
+
+        :TRIGger:DELay:SA CHANnel2
+        The query returns CHAN2.
+        """
+        check_input(channel, "channel", int, 1, 2)
+        self.instrument.ask(f":TRIGger:DELay:SA CHANnel{channel}")
+
+    def get_channel_signal_source_a(self) -> int:
+        """
+        **Rigol Programming Guide**
+
+        **Syntax**
+
+        :TRIGger:DELay:SA <Source>
+        :TRIGger:DELay:SA?
+
+        **Description**
+
+        Select the trigger source of signal source A in delay trigger.
+        Query the current trigger source of signal source A in delay trigger.
+
+        **Parameter**
+
+        ========= ========= ==================== ========
+        Name      Type      Range                Default
+        ========= ========= ==================== ========
+        <source>  Discrete  {CHANnel1|CHANnel2}  CHANnel1
+        ========= ========= ==================== ========
+
+        **Return Format**
+
+        The query returns CHAN1 or CHAN2.
+
+        **Example**
+
+        :TRIGger:DELay:SA CHANnel2
+        The query returns CHAN2.
+        """
+        return channel_as_int(self.instrument.ask(f":TRIGger:DELay:SA?"))
+
+    def set_channel_signal_source_b(self, channel: int) -> None:
+        """
+        **Rigol Programming Guide**
+
+        **Syntax**
+
         :TRIGger:DELay:SB <Source>
         :TRIGger:DELay:SB?
 
+        **Description**
+
+        Select the trigger source of signal source B in delay trigger.
+        Query the current trigger source of signal source B in delay trigger.
+
+        **Parameter**
+
+        ========= ========= ==================== ========
+        Name      Type      Range                Default
+        ========= ========= ==================== ========
+        <source>  Discrete  {CHANnel1|CHANnel2}  CHANnel1
+        ========= ========= ==================== ========
+
+        **Return Format**
+
+        The query returns CHAN1 or CHAN2.
+
+        **Example**
+
+        :TRIGger:DELay:SB CHANnel2
+        The query returns CHAN2.
+        """
+        check_input(channel, "channel", int, 1, 2)
+        self.instrument.ask(f":TRIGger:DELay:SB CHANnel{channel}")
+
+    def get_channel_signal_source_b(self) -> int:
+        """
+        **Rigol Programming Guide**
+
+        **Syntax**
+
+        :TRIGger:DELay:SB <Source>
+        :TRIGger:DELay:SB?
 
         **Description**
 
@@ -376,166 +613,10 @@ class Delay(SFunc):
 
         **Example**
 
-        :TRIGger:DELay:SA CHANnel2
-        The query returns CHAN2.
-
         :TRIGger:DELay:SB CHANnel2
         The query returns CHAN2.
         """
-        if isinstance(source, int):
-            if source == 1:
-                source = "A"
-            elif source == 2:
-                source = "B"
-
-        self.instrument.ask(f":TRIGger:DELay:S{source} CHANnel{channel}")
-
-    def get_signal(self, source: Union[str, int]) -> int:  # SA/SB
-        """
-        source must be "a", "b", "A", "B" 1 or 2
-        channel must be 1 or 2
-
-        **Rigol Programming Guide**
-
-        **Syntax**
-
-        :TRIGger:DELay:SA <Source>
-        :TRIGger:DELay:SA?
-
-        :TRIGger:DELay:SB <Source>
-        :TRIGger:DELay:SB?
-
-
-        **Description**
-
-        Select the trigger source of signal source A in delay trigger.
-        Query the current trigger source of signal source A in delay trigger.
-
-        Select the trigger source of signal source B in delay trigger.
-        Query the current trigger source of signal source B in delay trigger.
-
-        **Parameter**
-
-        ========= ========= ==================== ========
-        Name      Type      Range                Default
-        ========= ========= ==================== ========
-        <source>  Discrete  {CHANnel1|CHANnel2}  CHANnel1
-        ========= ========= ==================== ========
-
-        **Return Format**
-
-        The query returns CHAN1 or CHAN2.
-
-        **Example**
-
-        :TRIGger:DELay:SA CHANnel2
-        The query returns CHAN2.
-
-        :TRIGger:DELay:SB CHANnel2
-        The query returns CHAN2.
-        """
-        return int(self.instrument.ask(f":TRIGger:DELay:S{source}?")[-1])
-
-    def set_slope(self, source, positive: bool = True) -> None:  # SLOPA/SLOPB
-        """
-        **Rigol Programming Guide**
-
-        **Syntax**
-        :TRIGger:DELay:SLOPA <slope>
-        :TRIGger:DELay:SLOPA?
-
-        :TRIGger:DELay:SLOPB <slope>
-        :TRIGger:DELay:SLOPB?
-
-        **Description**
-
-        Set the edge type of edge A of delay trigger.
-        Query the current edge type of edge A of delay trigger.
-
-        Set the edge type of edge B of delay trigger.
-        Query the current edge type of edge B of delay trigger.
-
-        **Parameter**
-
-        ======== ========= ==================== ========
-        Name     Type      Range                Default
-        ======== ========= ==================== ========
-        <slope>  Discrete  {POSitive|NEGative}  POSitive
-        ======== ========= ==================== ========
-
-        **Return Format**
-
-        The query returns POS or NEG.
-
-        **Example**
-
-        :TRIGger:DELay:SLOPA NEGative
-        The query returns NEG.
-
-        :TRIGger:DELay:SLOPB NEGative
-        The query returns NEG.
-        """
-        if source == 1:
-            source = "A"
-        elif source == 2:
-            source = "B"
-
-        self.instrument.ask(
-            f":TRIGger:DELay:SLOP{source} "
-            f"{'POSitive' if positive else 'NEGative'}"
-        )
-
-    def slope_is_positive(self, source) -> bool:  # SLOPA/SLOPB
-        """
-
-        **Rigol Programming Guide**
-
-        **Syntax**
-        :TRIGger:DELay:SLOPA <slope>
-        :TRIGger:DELay:SLOPA?
-
-        :TRIGger:DELay:SLOPB <slope>
-        :TRIGger:DELay:SLOPB?
-
-        **Description**
-
-        Set the edge type of edge A of delay trigger.
-        Query the current edge type of edge A of delay trigger.
-
-        Set the edge type of edge B of delay trigger.
-        Query the current edge type of edge B of delay trigger.
-
-        **Parameter**
-
-        ======== ========= ==================== ========
-        Name     Type      Range                Default
-        ======== ========= ==================== ========
-        <slope>  Discrete  {POSitive|NEGative}  POSitive
-        ======== ========= ==================== ========
-
-        **Return Format**
-
-        The query returns POS or NEG.
-
-        **Example**
-
-        :TRIGger:DELay:SLOPA NEGative
-        The query returns NEG.
-
-        :TRIGger:DELay:SLOPB NEGative
-        The query returns NEG.
-        """
-        if source == 1:
-            source = "A"
-        elif source == 2:
-            source = "B"
-
-        return (
-            True
-            if self.instrument.ask(f":TRIGger:DELay:SLOP{source}?")
-            == "POS"
-            else False
-        )
+        return channel_as_int(self.instrument.ask(f":TRIGger:DELay:SB?"))
 
     def set_upper_limit(self, time: float = 2.0e-9) -> None:
         """
@@ -580,18 +661,18 @@ class Delay(SFunc):
         delay_type: DelayTypeEnum = self.type.status()
         if delay_type not in (
             DelayTypeEnum.LESS,
-            DelayTypeEnum.GOUT,
-            DelayTypeEnum.GLES,
+            DelayTypeEnum.OUTSIDE,
+            DelayTypeEnum.INSIDE,
         ):
             raise TypeError(
                 "To set the upper limit your delay type has to be: "
                 f"{DelayTypeEnum.LESS.value}, "
-                f"{DelayTypeEnum.GOUT.value}, "
+                f"{DelayTypeEnum.OUTSIDE.value}, "
                 "or "
-                f"{DelayTypeEnum.GLES.value} "
+                f"{DelayTypeEnum.INSIDE.value} "
             )
 
-        if delay_type in (DelayTypeEnum.GLES, DelayTypeEnum.GOUT):
+        if delay_type in (DelayTypeEnum.INSIDE, DelayTypeEnum.OUTSIDE):
             check_input(time, "time", float, 12.0e-9, 4.0, "s")
         else:
             check_input(time, "time", float, 2.0e-9, 4.0, "s")
@@ -641,15 +722,15 @@ class Delay(SFunc):
         delay_type: DelayTypeEnum = self.type.status()
         if delay_type not in (
             DelayTypeEnum.LESS,
-            DelayTypeEnum.GOUT,
-            DelayTypeEnum.GLES,
+            DelayTypeEnum.OUTSIDE,
+            DelayTypeEnum.INSIDE,
         ):
             raise TypeError(
                 "To get the upper limit your delay type has to be: "
                 f"{DelayTypeEnum.LESS.value}, "
-                f"{DelayTypeEnum.GOUT.value}, "
+                f"{DelayTypeEnum.OUTSIDE.value}, "
                 "or "
-                f"{DelayTypeEnum.GLES.value}"
+                f"{DelayTypeEnum.INSIDE.value}"
             )
 
         return float(self.instrument.ask(f":TRIGger:DELay:TUPPer?"))
@@ -698,15 +779,15 @@ class Delay(SFunc):
         delay_type: DelayTypeEnum = self.type.status()
         if delay_type not in (
             DelayTypeEnum.LESS,
-            DelayTypeEnum.GOUT,
-            DelayTypeEnum.GLES,
+            DelayTypeEnum.OUTSIDE,
+            DelayTypeEnum.INSIDE,
         ):
             raise TypeError(
                 "To set the lower limit your delay type has to be: "
                 f"{DelayTypeEnum.LESS.value}, "
-                f"{DelayTypeEnum.GOUT.value}, "
+                f"{DelayTypeEnum.OUTSIDE.value}, "
                 "or "
-                f"{DelayTypeEnum.GLES.value} "
+                f"{DelayTypeEnum.INSIDE.value} "
             )
 
         check_input(time, "time", float, 2.0e-9, 3.99, "s")
@@ -757,15 +838,15 @@ class Delay(SFunc):
         delay_type: DelayTypeEnum = self.type.status()
         if delay_type not in (
             DelayTypeEnum.LESS,
-            DelayTypeEnum.GOUT,
-            DelayTypeEnum.GLES,
+            DelayTypeEnum.OUTSIDE,
+            DelayTypeEnum.INSIDE,
         ):
             raise TypeError(
                 "To set the lower limit your delay type has to be: "
                 f"{DelayTypeEnum.LESS.value}, "
-                f"{DelayTypeEnum.GOUT.value}, "
+                f"{DelayTypeEnum.OUTSIDE.value}, "
                 "or "
-                f"{DelayTypeEnum.GLES.value} "
+                f"{DelayTypeEnum.INSIDE.value} "
             )
 
         return float(self.instrument.ask(f":TRIGger:DELay:TLOWer?"))

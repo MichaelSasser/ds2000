@@ -34,7 +34,7 @@ class CouplingEnum(Enum):
 
 
 class Coupling(SFunc):
-    def ac(self) -> None:
+    def set_ac(self) -> None:
         """
         **Rigol Programming Guide**
 
@@ -71,7 +71,7 @@ class Coupling(SFunc):
         """
         self.instrument.ask(":TRIGger:COUPling AC")
 
-    def dc(self) -> None:
+    def set_dc(self) -> None:
         """
         **Rigol Programming Guide**
 
@@ -108,7 +108,7 @@ class Coupling(SFunc):
         """
         self.instrument.ask(":TRIGger:COUPling DC")
 
-    def lf_reject(self) -> None:
+    def set_lf_reject(self) -> None:
         """
         **Rigol Programming Guide**
 
@@ -145,7 +145,7 @@ class Coupling(SFunc):
         """
         self.instrument.ask(":TRIGger:COUPling LFReject")
 
-    def hf_reject(self) -> None:
+    def set_hf_reject(self) -> None:
         """
         **Rigol Programming Guide**
 

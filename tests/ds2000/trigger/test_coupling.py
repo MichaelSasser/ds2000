@@ -22,9 +22,9 @@ __author__: str = "Michael Sasser"
 __email__: str = "Michael@MichaelSasser.org"
 
 
-def test_coupling_ac(dev) -> None:
+def test_coupling_set_ac(dev) -> None:
     # Setup
-    dev.trigger.coupling.ac()
+    dev.trigger.coupling.set_ac()
 
     # Exercise
     actual: CouplingEnum = dev.trigger.coupling.status()
@@ -35,9 +35,9 @@ def test_coupling_ac(dev) -> None:
     # Cleanup - None
 
 
-def test_coupling_dc(dev) -> None:
+def test_coupling_set_dc(dev) -> None:
     # Setup
-    dev.trigger.coupling.dc()
+    dev.trigger.coupling.set_dc()
 
     # Exercise
     actual: CouplingEnum = dev.trigger.coupling.status()
@@ -48,9 +48,9 @@ def test_coupling_dc(dev) -> None:
     # Cleanup - None
 
 
-def test_coupling_lf_reject(dev) -> None:
+def test_coupling_set_lf_reject(dev) -> None:
     # Setup
-    dev.trigger.coupling.lf_reject()
+    dev.trigger.coupling.set_lf_reject()
 
     # Exercise
     actual: CouplingEnum = dev.trigger.coupling.status()
@@ -61,9 +61,9 @@ def test_coupling_lf_reject(dev) -> None:
     # Cleanup - None
 
 
-def test_coupling_hf_reject(dev) -> None:
+def test_coupling_set_hf_reject(dev) -> None:
     # Setup
-    dev.trigger.coupling.hf_reject()
+    dev.trigger.coupling.set_hf_reject()
 
     # Exercise
     actual: CouplingEnum = dev.trigger.coupling.status()
