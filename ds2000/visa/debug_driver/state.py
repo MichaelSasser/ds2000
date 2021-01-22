@@ -63,7 +63,7 @@ class State:
         debug(f"State.get: Key {command.path} not found in storage db.")
 
         if examples:
-            answers: List[Optional[List[str]]] = [
+            answers: List[str] = [
                 example.answer
                 for example
                 in examples
@@ -71,7 +71,7 @@ class State:
             ]
             if answers:
                 debug(f'State.get: Example found. Returning "{answers[0]}"')
-                return answers[0]
+                return [answers[0], ]
         debug('State.get: Example not found. Returning default dummy value '
               '"1.0"')
         return self.__class__.DUMMY_VALUE
