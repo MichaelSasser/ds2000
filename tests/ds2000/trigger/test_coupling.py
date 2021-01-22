@@ -16,49 +16,62 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 from __future__ import annotations
 
-from typing import Optional
-
-from ds2000.common import get_example
-from ds2000.visa.debug_driver import Example
+from ds2000.trigger.coupling import CouplingEnum
 
 __author__: str = "Michael Sasser"
 __email__: str = "Michael@MichaelSasser.org"
 
 
-# def test_coupling(dev) -> None:
-#     # Setup
-#     desired = "AC"
-#
-#     # Exercise
-#     actual = dev.trigger.coupling.ac()
-#
-#     # Verify
-#     assert desired == actual
-
-    # Cleanup - None
-
-# def test_coupling(dev) -> None:
-#     # Setup
-#     func = dev.trigger.coupling.ac
-#     example: Optional[Example] = get_example(func.__doc__)
-#     # Exercise
-#     print(example.question)
-#     actual = func(example.question) == example.answer
-#     # Verify
-#     assert actual
-#
-#     # Cleanup - None
-
-def test_coupling(dev) -> None:
+def test_coupling_ac(dev) -> None:
     # Setup
     dev.trigger.coupling.ac()
 
     # Exercise
-    actual = dev.trigger.coupling.status()
+    actual: CouplingEnum = dev.trigger.coupling.status()
 
     # Verify
-    assert actual == "AC"
+    assert actual == CouplingEnum.AC
 
     # Cleanup - None
+
+
+def test_coupling_dc(dev) -> None:
+    # Setup
+    dev.trigger.coupling.dc()
+
+    # Exercise
+    actual: CouplingEnum = dev.trigger.coupling.status()
+
+    # Verify
+    assert actual == CouplingEnum.DC
+
+    # Cleanup - None
+
+
+def test_coupling_lf_reject(dev) -> None:
+    # Setup
+    dev.trigger.coupling.lf_reject()
+
+    # Exercise
+    actual: CouplingEnum = dev.trigger.coupling.status()
+
+    # Verify
+    assert actual == CouplingEnum.LF_REJECT
+
+    # Cleanup - None
+
+
+def test_coupling_hf_reject(dev) -> None:
+    # Setup
+    dev.trigger.coupling.hf_reject()
+
+    # Exercise
+    actual: CouplingEnum = dev.trigger.coupling.status()
+
+    # Verify
+    assert actual == CouplingEnum.HF_REJECT
+
+    # Cleanup - None
+
 
 # vim: set ft=python :

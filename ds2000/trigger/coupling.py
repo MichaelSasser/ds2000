@@ -14,16 +14,23 @@
 
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
+from __future__ import annotations
+
+from enum import Enum
 
 from ds2000.common import SFunc
+from ds2000.errors import DS2000StateError
 
 
 __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
 
-__all__ = [
-    "Coupling",
-]
+
+class CouplingEnum(Enum):
+    AC = "ac"
+    DC = "dc"
+    LF_REJECT = "lf_reject"
+    HF_REJECT = "hf_reject"
 
 
 class Coupling(SFunc):
@@ -101,7 +108,7 @@ class Coupling(SFunc):
         """
         self.instrument.ask(":TRIGger:COUPling DC")
 
-    def low_frequency_reject(self) -> None:
+    def lf_reject(self) -> None:
         """
         **Rigol Programming Guide**
 
@@ -138,7 +145,7 @@ class Coupling(SFunc):
         """
         self.instrument.ask(":TRIGger:COUPling LFReject")
 
-    def high_frequency_reject(self) -> None:
+    def hf_reject(self) -> None:
         """
         **Rigol Programming Guide**
 
@@ -175,7 +182,7 @@ class Coupling(SFunc):
         """
         self.instrument.ask(":TRIGger:COUPling HFReject")
 
-    def status(self) -> str:
+    def status(self) -> CouplingEnum:
         """
         **Rigol Programming Guide**
 
@@ -210,4 +217,13 @@ class Coupling(SFunc):
         :TRIGger:COUPling LFReject
         The query returns LFR.
         """
-        return self.instrument.ask(":TRIGger:COUPling?")
+        answer: str = self.instrument.ask(":TRIGger:COUPling?")
+        if answer == "AC":
+            return CouplingEnum.AC
+        elif answer == "DC":
+            return CouplingEnum.DC
+        elif answer == "LFR":
+            return CouplingEnum.LF_REJECT
+        elif answer == "HFR":
+            return CouplingEnum.HF_REJECT
+        raise DS2000StateError()
