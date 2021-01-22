@@ -16,14 +16,16 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 from __future__ import annotations
 
-from typing import Optional
-from logging import error
-from logging import debug
 
-#import pyvisa-py
+# from logging import debug
+# from logging import error
+# from typing import Optional
+#
+# from .driver import InstrumentInfo
+# from .driver import VISABase
 
-from .driver import VISABase
-from .driver import InstrumentInfo
+
+# import pyvisa-py
 
 
 __author__: str = "Michael Sasser"
@@ -33,8 +35,10 @@ __email__: str = "Michael@MichaelSasser.org"
 raise NotImplementedError()
 
 
-class PYVISA(VISABase):
+class PYVISAPY(VISABase):
     pass
+
+
 #     def connect(self):
 #         """Connect to the instrument."""
 #         self.__instrument = vxi11.Instrument(self.address)

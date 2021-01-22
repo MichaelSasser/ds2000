@@ -17,20 +17,28 @@
 from __future__ import annotations
 
 from logging import debug
-from typing import Any, Dict, Optional, List, Tuple
+from typing import Any
+from typing import Dict
+from typing import List
+from typing import Optional
+from typing import Tuple
+from typing import Union
+
+from ds2000.common import Example
 
 from .parser import Command
-from ds2000.common import Example
+
 
 __author__: str = "Michael Sasser"
 __email__: str = "Michael@MichaelSasser.org"
 
 
 # It is basicly StorageDBType = Dict[str, Union[Command, StorageDBType]]
-StorageDBType = Dict[str, Any]
+StorageDBType = Union[Optional[Union[Dict[str, Any], List[str]]], List[str]]
 
 
 class State:
+
     """Store and recall the internal state of the instrument.
 
     **Why is self.db not flat?**
@@ -39,7 +47,10 @@ class State:
     to get an idea, what's the state of it.
 
     """
-    DUMMY_VALUE: List[str] = ["1.0",]
+
+    DUMMY_VALUE: List[str] = [
+        "1.0",
+    ]
 
     def __init__(self):
 
@@ -50,13 +61,15 @@ class State:
         self.__set_nested(command.path, command.value)
         debug(f"CURRENT DB: {self.db}")  # TODO: Remove
 
-    def get(self, command: Command, examples: List[Example]) -> List[str]:
-        """Get a already stored or a fallback value from the db"""
-        answer: List[str] = self.__get_nested(command.path)
+    def get(self, command: Command, examples: List[Example]) -> StorageDBType:
+        """Get a already stored or a fallback value from the db."""
+        answer: StorageDBType = self.__get_nested(command.path)
         try:
             if answer is not None:
-                debug(f'State.get: Key {command.path} found in storage db: '
-                      f'{answer}')
+                debug(
+                    f"State.get: Key {command.path} found in storage db: "
+                    f"{answer}"
+                )
                 return answer
         except KeyError:
             pass
@@ -64,19 +77,20 @@ class State:
 
         if examples:
             answers: List[str] = [
-                example.answer
-                for example
-                in examples
-                if example.marked
+                example.answer for example in examples if example.marked
             ]
             if answers:
                 debug(f'State.get: Example found. Returning "{answers[0]}"')
-                return [answers[0], ]
-        debug('State.get: Example not found. Returning default dummy value '
-              '"1.0"')
+                return [
+                    answers[0],
+                ]
+        debug(
+            "State.get: Example not found. Returning default dummy value "
+            '"1.0"'
+        )
         return self.__class__.DUMMY_VALUE
 
-    def __get_nested(self, keys: Tuple[str, ...]) -> Optional[List[str]]:
+    def __get_nested(self, keys: Tuple[str, ...]) -> StorageDBType:
         """Use a list of keys to get a nested value from the self.db dict.
 
         **Example**
@@ -85,7 +99,7 @@ class State:
         :python: `self.db = {'a': {'b': {'c': ['u', 'v']}}` you would use this
         methode like :python: `self.__get_nested(["a", "b", "c"]`
         """
-        nxt = self.db
+        nxt: Union[StorageDBType] = self.db
         for key in keys:
             if (nxt := nxt.get(key, None)) is None:
                 return None
@@ -110,7 +124,7 @@ class State:
                 tree = {key: values}
             else:
                 tree = {key: tree}
-        self.db |= tree
+        self.db.update(tree)
 
     # TODO:
     # def __getitem__(self, key: str) -> Any:

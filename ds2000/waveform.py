@@ -21,8 +21,9 @@ from typing import NamedTuple
 
 import numpy as np
 
-from .common import Func, check_input
+from .common import Func
 from .common import SFunc
+from .common import check_input
 from .errors import DS2000Error
 
 
@@ -50,7 +51,8 @@ class Preamble(NamedTuple):
 
 class Mode(SFunc):
     def normal(self):
-        """
+        """Set the reading mode of waveform.
+
         **Rigol Programming Guide:**
 
         :WAVeform:MODE
@@ -85,8 +87,8 @@ class Mode(SFunc):
         screen when the instrument is in run state and the number of data
         points in the internal memory in stop state.
 
-        **RAW** : It is only available when the instrument is in stop state. You
-        can use the :WAVeform:POINts command to set the desired number of
+        **RAW** : It is only available when the instrument is in stop state.
+        You can use the :WAVeform:POINts command to set the desired number of
         data points in the internal memory.
 
         **Return Format**
@@ -102,7 +104,8 @@ class Mode(SFunc):
         self.sdev.dev.write(":WAVeform:MODE NORMal")
 
     def maximum(self):
-        """
+        """Set the reading mode of waveform.
+
         **Rigol Programming Guide**
 
         :WAVeform:MODE
@@ -155,7 +158,8 @@ class Mode(SFunc):
         self.sdev.dev.write(":WAVeform:MODE MAXimum")
 
     def raw(self):
-        """
+        """Set the reading mode of waveform.
+
         **Rigol Programming Guide**
 
         :WAVeform:MODE
@@ -191,8 +195,8 @@ class Mode(SFunc):
         screen when the instrument is in run state and the number of data
         points in the internal memory in stop state.
 
-        **RAW** : It is only available when the instrument is in stop state. You
-        can use the :WAVeform:POINts command to set the desired number of
+        **RAW** : It is only available when the instrument is in stop state.
+        You can use the :WAVeform:POINts command to set the desired number of
         data points in the internal memory.
 
         **Return Format**
@@ -227,7 +231,8 @@ class Mode(SFunc):
 
 class Format(SFunc):
     def word(self):
-        """
+        """Set the return format of the waveform data.
+
         **Rigol Programming Guide**
 
         :WAVeform:FORMat
@@ -263,8 +268,8 @@ class Format(SFunc):
         screen when the instrument is in run state and the number of data
         points in the internal memory in stop state.
 
-        **RAW** : It is only available when the instrument is in stop state. You
-        can use the :WAVeform:POINts command to set the desired number of
+        **RAW** : It is only available when the instrument is in stop state.
+        You can use the :WAVeform:POINts command to set the desired number of
         data points in the internal memory.
 
         **Return Format**
@@ -280,7 +285,8 @@ class Format(SFunc):
         self.sdev.dev.write(":WAVeform:FORMat WORD")
 
     def byte(self):
-        """
+        """Set the return format of the waveform data.
+
         **Rigol Programming Guide**
 
         :WAVeform:FORMat
@@ -314,8 +320,8 @@ class Format(SFunc):
         screen when the instrument is in run state and the number of data
         points in the internal memory in stop state.
 
-        **RAW** : It is only available when the instrument is in stop state. You
-        can use the :WAVeform:POINts command to set the desired number of
+        **RAW** : It is only available when the instrument is in stop state.
+        You can use the :WAVeform:POINts command to set the desired number of
         data points in the internal memory.
 
         **Return Format**
@@ -331,7 +337,8 @@ class Format(SFunc):
         self.sdev.dev.write(":WAVeform:FORMat BYTE")
 
     def ascii(self):
-        """
+        """Set the return format of the waveform data.
+
         Rigol Programming Guide:
 
         :WAVeform:FORMat
@@ -364,8 +371,8 @@ class Format(SFunc):
         screen when the instrument is in run state and the number of data
         points in the internal memory in stop state.
 
-        **RAW** : It is only available when the instrument is in stop state. You
-        can use the :WAVeform:POINts command to set the desired number of
+        **RAW** : It is only available when the instrument is in stop state.
+        You can use the :WAVeform:POINts command to set the desired number of
         data points in the internal memory.
 
         **Return Format**
@@ -405,7 +412,8 @@ class Waveform(Func):
         self.format: Format = Format(self)
 
     def channel(self, channel: int = 1):
-        """
+        """Set the channel source of waveform reading.
+
         **Rigol Programming Guide**
 
         :WAVeform:SOURce
@@ -443,7 +451,8 @@ class Waveform(Func):
         self.dev.write(f":WAVeform:SOURce CHANnel{channel}")
 
     def points(self, points: int):
-        """
+        """Set the number of waveform points to be read.
+
         **Rigol Programming Guide**
 
         :WAVeform:POINts
@@ -506,11 +515,11 @@ class Waveform(Func):
                 "The parameter points in maximal mode must be"
                 "between 1 and the current maximum memory depth."
             )
-        points = self.instrument.ask(f"WAVeform:POINts {points}")
-        return points
+        return self.instrument.ask(f"WAVeform:POINts {points}")
 
     def data(self, recorded: bool = False):
-        """
+        """Read the waveform data.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -571,7 +580,8 @@ class Waveform(Func):
                visa32.viScanf(viSession, "%s", strBuild);
                if (strBuild[0] == 'I') {  //IDLE
                    visa32.viPrintf(viSession, ":WAV:DATA?\\n");
-                   visa32.viRead(viSession, wfmBuf, wfmBuf.Length, out readCnt);
+                   visa32.viRead(viSession, wfmBuf, wfmBuf.Length,
+                                 out readCnt);
                    readSum += ( readCnt -12);
                    readTim++;
                    Console.WriteLine("{0}: Read {1} Sum {2}" ,
@@ -579,7 +589,8 @@ class Waveform(Func):
                    return readSum;
                } else {
                    visa32.viPrintf(viSession, ":WAV:DATA?\\n");
-                   visa32.viRead(viSession, wfmBuf, wfmBuf.Length, out readCnt);
+                   visa32.viRead(viSession, wfmBuf, wfmBuf.Length,
+                                 out readCnt);
                    readSum += (readCnt -12);
                    readTim++;
                    Console.WriteLine("{0}: Read {1} Sum {2}" ,
@@ -703,7 +714,8 @@ class Waveform(Func):
                                            visa32.viPrintf(viSession,
                                                            ":WAV:DATA?\\n");
                                            visa32.viRead(viSession, wfmBuf,
-                                                    wfmBuf.Length, out readCnt);
+                                                    wfmBuf.Length,
+                                                    out readCnt);
                                            //data header #9XXXX...
                                            //plus end mark \\n
                                            readCnt -= 12;
@@ -728,7 +740,7 @@ class Waveform(Func):
                                            visa32.viPrintf(viSession,
                                                            ":WAV:DATA?\\n");
                                            visa32.viRead(viSession, wfmBuf,
-                                                    wfmBuf.Length, out readCnt);
+                                                   wfmBuf.Length, out readCnt);
                                            //data header #9XXXX...
                                            //plus end mark \\n
                                            readCnt -= 12;
@@ -779,7 +791,8 @@ class Waveform(Func):
                            if (viRetCount > 0) {
                                    viError = visa32.viOpen(viDef,
                                                            strRsrc.ToString(),
-                                                           0, 0, out viSession);
+                                                           0, 0,
+                                                           out viSession);
                                    if (viError != visa32.VI_SUCCESS) {
                                            visa32.viClose(viDef);
                                            return false;
@@ -842,7 +855,7 @@ class Waveform(Func):
         # print(f"eff_waves = {eff_waves}")
 
         try:
-            raw_wave = data[11 : (11 + eff_waves)]
+            raw_wave = data[11: (11 + eff_waves)]
         except Exception:
             raise DS2000Error("The waveform was corrupted.")
 
@@ -858,7 +871,8 @@ class Waveform(Func):
 
     @property
     def x_increment(self) -> float:
-        """
+        """Query the time difference between two neighboring points.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -885,7 +899,8 @@ class Waveform(Func):
 
     @property
     def x_origin(self) -> float:
-        """
+        """Query the time from the trigger point to the reference time.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -912,7 +927,8 @@ class Waveform(Func):
 
     @property
     def x_reference(self) -> float:
-        """
+        """Query the reference time of the specified source.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -939,7 +955,8 @@ class Waveform(Func):
 
     @property
     def y_increment(self) -> float:
-        """
+        """Query the voltage value per unit of the specified source.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -966,7 +983,8 @@ class Waveform(Func):
 
     @property
     def y_origin(self) -> float:
-        """
+        """Query the vertical offset relative to vertical reference position.
+
         Rigol Programming Guide
 
         **Syntax**
@@ -994,7 +1012,8 @@ class Waveform(Func):
 
     @property
     def y_reference(self) -> float:
-        """
+        """Query the vertical reference position of the specified source.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -1020,7 +1039,8 @@ class Waveform(Func):
         return float(self.instrument.ask(":WAVeform:YREFerence?"))
 
     def start(self, start: int = 1):
-        """
+        """Set the start position of internal memory waveform reading.
+
         **Rigol Programming Guide**
 
         :WAVeform:STARt
@@ -1087,7 +1107,8 @@ class Waveform(Func):
         self.dev.write(f":WAVeform:STARt {start}")
 
     def stop(self, stop: int):
-        """
+        """Set the stop position of internal memory waveform reading.
+
         **Rigol Programming Guide**
 
         :WAVeform:STOP
@@ -1154,7 +1175,8 @@ class Waveform(Func):
         self.dev.write(f":WAVeform:STOP {stop}")
 
     def begin(self):
-        """
+        """Enable the waveform reading.
+
         **Rigol Programming Guide**
 
         :WAVeform:BEGin
@@ -1170,7 +1192,8 @@ class Waveform(Func):
         self.dev.write(":WAVeform:BEGin")
 
     def end(self):
-        """
+        """Stop the waveform reading.
+
         **Rigol Programming Guide**
 
         :WAVeform:END
@@ -1186,7 +1209,8 @@ class Waveform(Func):
         self.dev.write(":WAVeform:END")
 
     def reset(self):
-        """
+        """Reset the waveform reading.
+
         **Rigol Programming Guide**
 
         :WAVeform:RESet
@@ -1202,7 +1226,8 @@ class Waveform(Func):
         self.dev.write(":WAVeform:RESet")
 
     def preamble(self) -> Preamble:
-        """
+        """Query and return all the waveform parameters.
+
         **Rigol Programming Guide**
 
         :WAVeform:PREamble?
@@ -1249,7 +1274,7 @@ class Waveform(Func):
 
         :WAVeform:PREamble?
 
-        The query returns 0,0,1400,1,0.000000,-0.000007,0,0.040000,2.000000,127.
+        The query returns 0,0,1400,1,0.000000,-0.000007,0,0.040000,2.00000,127.
         """
         pre = self.instrument.ask(":WAVeform:PREamble?").split(",")
         if len(pre) != 10:
@@ -1268,7 +1293,8 @@ class Waveform(Func):
         )  # ('y_ref', float)
 
     def status(self) -> WaveformStatus:
-        """
+        """Query and return the current waveform reading state.
+
         **Rigol Programming Guide**
 
         :WAVeform:STATus?

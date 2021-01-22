@@ -16,16 +16,21 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 from __future__ import annotations
 
-from logging import debug
-from typing import NamedTuple, Optional, Tuple, List, Pattern
-
 import re
+
+from logging import debug
+from typing import List
+from typing import NamedTuple
+from typing import Optional
+from typing import Pattern
+from typing import Tuple
+
 
 __author__: str = "Michael Sasser"
 __email__: str = "Michael@MichaelSasser.org"
 
 
-remove_value: Pattern.sub = re.compile("[a-z]").sub
+remove_value: Pattern = re.compile("[a-z]")
 
 
 class Command(NamedTuple):
@@ -35,7 +40,7 @@ class Command(NamedTuple):
 
 
 def parse_msg(msg: str) -> Command:  # TODO: parse types
-    """parse a message and generate an Command"""
+    """Parse a message and generate an Command."""
     t: List[str] = msg.split(" ")
     path: List[str] = t[0].split(":")[1:]  # First is empty
     is_question: bool = path[-1].endswith("?")
@@ -48,18 +53,19 @@ def parse_msg(msg: str) -> Command:  # TODO: parse types
 
 
 def parse_values(values: List[str]) -> str:  # TODO: parse types
-    """pars a value and return a str"""
+    """Parse a value and return a str."""
     global remove_value
     if len(values) == 1:
-        debug(f"parse_values: found single string inside values: List[str]")
+        debug("parse_values: found single string inside values: List[str]")
         try:
             value: float = float(values[0])
             debug(f"parse_values: string is numeric: {values[0]}")
             return str(value)
         except ValueError:
             pass
-        return remove_value("", values[0])
+        return remove_value.sub("", values[0])
 
-    return ",".join([remove_value("", val) for val in values])
+    return ",".join([remove_value.sub("", val) for val in values])
+
 
 # vim: set ft=python :

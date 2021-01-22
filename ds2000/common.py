@@ -15,17 +15,16 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 from typing import Any
+from typing import List
 from typing import Optional
 from typing import Union
-from typing import List
+from dataclasses import dataclass
 from logging import debug
 from logging import error
-from dataclasses import dataclass
-
 
 from .errors import DS2000InternalSyntaxError
-from .visa.driver import VISABase
 from .math.format import get_prefix
+from .visa.driver import VISABase
 
 
 __author__ = "Michael Sasser"
@@ -67,15 +66,17 @@ def check_input(
     ext_type_err: Optional[str] = None,
     ext_range_err: Optional[str] = None,
 ) -> None:
-    """Validating input type and input value is a oftten done thing here.
+    """Validate input type and input value.
+
+    Validate input type and input value is a oftten done thing here.
     To not repeate it the whole time, this should help quite a bit.
 
-    Type and range checks are optional. If you only want to check for one, leave
-    the other arguments of this function as None. One of both is needed.
+    Type and range checks are optional. If you only want to check for one,
+    leave the other arguments of this function as None. One of both is needed.
 
     To format the error message nicely, use the unit argument. Use "s" for
-    examples, if you want to format 10.E-6 as 10µs. If disabled it will fill the
-    placeholder with 0.00001 without "s".
+    examples, if you want to format 10.E-6 as 10µs. If disabled it will fill
+    the placeholder with 0.00001 without "s".
 
     mini and maxi need to be the same type.
 
@@ -155,10 +156,11 @@ def get_examples(doc: str) -> List[Example]:
         return []
 
     # Get the lines that are not empy from "doc"
-    lines: List[str] = [s.strip()
-                        for s in doc.split("**Example**")[1].splitlines()
-                        if s.strip()
-                        ]
+    lines: List[str] = [
+        s.strip()
+        for s in doc.split("**Example**")[1].splitlines()
+        if s.strip()
+    ]
 
     # Remove lines at the end that are not part of the examples
     # e.g. There can be followup documentation after **Example**,
@@ -169,9 +171,11 @@ def get_examples(doc: str) -> List[Example]:
 
     # Return with an empty list if the lines don't have an even number.
     # There should always be a question and an answer.
-    if not (num_of_lines := len(lines)) % 2 == 0:
-        error("DEBUG_DRIVER.__get_example -> More then two/four lines "
-              "detected")
+    if not len(lines) % 2 == 0:
+        error(
+            "DEBUG_DRIVER.__get_example -> More then two/four lines "
+            "detected"
+        )
         return []
 
     examples: List[Example] = []
@@ -181,18 +185,22 @@ def get_examples(doc: str) -> List[Example]:
     for line in lines:
         if line.startswith(":"):  # Qusetion line
             if question is not None:
-                raise DS2000InternalSyntaxError("There where two questions "
-                                                "next to each other. Check "
-                                                "docs")
+                raise DS2000InternalSyntaxError(
+                    "There where two questions "
+                    "next to each other. Check "
+                    "docs"
+                )
             question = line
             line_must_be_answer = True
             continue  # an answer can only be in the next iteration
 
         if line.startswith("The query returns "):  # Answer line
             if answer is not None:
-                raise DS2000InternalSyntaxError("There where two answers "
-                                                "next to each other. Check "
-                                                "docs")
+                raise DS2000InternalSyntaxError(
+                    "There where two answers "
+                    "next to each other. Check "
+                    "docs"
+                )
             # Remove "The query returns " and "." (last char) of the answer
             answer = line.replace("The query returns ", "")[:-1]
 
@@ -201,13 +209,14 @@ def get_examples(doc: str) -> List[Example]:
             debug(f"DEBUG_DRIVER.__get_example -> New Example: {lines}")
             question = None
             answer = None
-            line_must_be_answer: False
+            line_must_be_answer = False
             continue
 
         # Ther is no answer after a question -> err
         if line_must_be_answer:
-            raise DS2000InternalSyntaxError("Missing answer line after "
-                                            "question line. Check docs.")
+            raise DS2000InternalSyntaxError(
+                "Missing answer line after " "question line. Check docs."
+            )
 
     return examples
 

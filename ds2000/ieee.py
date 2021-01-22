@@ -25,21 +25,21 @@ __email__ = "Michael@MichaelSasser.org"
 
 class IEEE(Func):
     def __init__(self, dev):
-        """The "low level" functions barely untouched.
+        """Use "low level" functions which are barely untouched.
 
         :param dev:
         """
         super(IEEE, self).__init__(dev)
 
     def idn(self) -> str:
-        """This method returns the ID character string of the device_address
+        """Get the ID character string of the device_address.
         as a Instrument Tuple.
 
         **Rigol Programming Guide**
 
         **Syntax**
 
-        \*IDN?
+        *IDN?
 
         **Description**
 
@@ -54,19 +54,20 @@ class IEEE(Func):
 
         **Example**
 
-        \*IDN?
+        *IDN?
 
-        The query returns RIGOL TECHNOLOGIES,DS2202,DS2A0000000001,00.00.01. Instrument
+        The query returns RIGOL TECHNOLOGIES,DS2202,DS2xxx,00.00.01. Instrument
         """
         return self.instrument.ask("*IDN?")
 
     def rst(self):
-        """
+        """Restore the instrument to the default values.
+
         **Rigol Programming Guide**
 
         **Syntax**
 
-        \*RST
+        *RST
 
         **Description**
 

@@ -16,31 +16,32 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 from __future__ import annotations
 
+from logging import debug
+from types import TracebackType
+from typing import List
 from typing import Optional
 from typing import Type
-from typing import List
-from types import TracebackType
-from logging import debug
-
-from .errors import DS2000DriverNotFoundError
-from .visa.driver import VISABase
-from .visa.driver import InstrumentInfo
-from .visa.driver import VISADriver
-from .visa.debug_driver import DebugDriver
 
 from .acquire import Acquire
 from .channel import Channel
 from .display import Display
+from .errors import DS2000DriverNotFoundError
 from .ieee import IEEE
 from .timebase import Timebase
 from .trigger import Trigger
+from .visa.debug_driver import DebugDriver
+from .visa.driver import InstrumentInfo
+from .visa.driver import VISABase
+from .visa.driver import VISADriver
 from .waveform import Waveform
+
 
 Available_Drivers: List[VISADriver] = [VISADriver.DEBUG_DRIVER]
 
 # TODO: Remove NotImplementedError
 try:
     from .visa.vxi11 import VXI11
+
     Available_Drivers.append(VISADriver.VXI11)
     debug("Driver: VXI11 is now available.")
 except (ImportError, NotImplementedError):
@@ -48,6 +49,7 @@ except (ImportError, NotImplementedError):
 
 try:
     from .visa.pyvisa import PYVISA
+
     Available_Drivers.append(VISADriver.PYVISA)
     debug("Driver: PYVISA is now available.")
 except (ImportError, NotImplementedError):
@@ -55,7 +57,8 @@ except (ImportError, NotImplementedError):
 
 try:
     from .visa.pyvisapy import PYVISAPY
-    Available_Drivers.append(VISADriver.PYVISAPY)
+
+    Available_Drivers.append(VISADriver.PYVISA_PY)
     debug("Driver: PYVISAPY is now available.")
 except (ImportError, NotImplementedError):
     debug("Driver: PYVISAPY is not installed.")
@@ -69,20 +72,27 @@ DEBUGGING: bool = False
 
 class DS2000(object):
     def __init__(
-            self,
-            address: str,
-            driver: VISADriver = VISADriver.VXI11,
+        self,
+        address: str,
+        driver: VISADriver = VISADriver.VXI11,
     ):
         global Available_Drivers
-        if (driver == VISADriver.VXI11
-                and VISADriver.VXI11 in Available_Drivers):
-            self.instrument: VISABase = VXI11(address)
-        elif (driver == VISADriver.PYVISA
-              and VISADriver.PYVISA in Available_Drivers):
+        self.instrument: VISABase
+        if (
+            driver == VISADriver.VXI11
+            and VISADriver.VXI11 in Available_Drivers
+        ):
+            self.instrument = VXI11(address)
+        elif (
+            driver == VISADriver.PYVISA
+            and VISADriver.PYVISA in Available_Drivers
+        ):
             raise NotImplementedError()
-        elif (driver == VISADriver.DEBUG_DRIVER
-              and VISADriver.DEBUG_DRIVER in Available_Drivers):
-            self.instrument: VISABase = DebugDriver(address)
+        elif (
+            driver == VISADriver.DEBUG_DRIVER
+            and VISADriver.DEBUG_DRIVER in Available_Drivers
+        ):
+            self.instrument = DebugDriver(address)
         else:
             raise DS2000DriverNotFoundError(driver, Available_Drivers)
 
@@ -100,10 +110,11 @@ class DS2000(object):
         self.instrument.connect()
         return self
 
-    def __exit__(self,
-                 exc_type: Optional[Type[BaseException]],
-                 exc_val: Optional[BaseException],
-                 exc_tb: Optional[TracebackType],
+    def __exit__(
+        self,
+        exc_type: Optional[Type[BaseException]],
+        exc_val: Optional[BaseException],
+        exc_tb: Optional[TracebackType],
     ) -> None:
         self.instrument.disconnect()
 
@@ -112,7 +123,8 @@ class DS2000(object):
         return self.instrument.info
 
     def autoscale(self):
-        """
+        """Enable the auto setting function.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -138,7 +150,8 @@ class DS2000(object):
         self.instrument.ask(":AUToscale")
 
     def clear(self):
-        """
+        """Clear all the waveforms on the screen.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -156,7 +169,8 @@ class DS2000(object):
         self.instrument.ask(":AUToscale")
 
     def run(self):
-        """
+        """Start the oscilloscope.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -174,7 +188,8 @@ class DS2000(object):
         self.instrument.ask(":RUN")
 
     def single(self):
-        """
+        """Set the oscilloscope to single trigger mode.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -198,7 +213,8 @@ class DS2000(object):
         self.instrument.ask(":SINGle")
 
     def stop(self):
-        """
+        """Stop the oscilloscope.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -216,7 +232,8 @@ class DS2000(object):
         self.instrument.write(":STOP")
 
     def force(self):
-        """
+        """Generate a trigger signal forcefully.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -234,7 +251,8 @@ class DS2000(object):
         self.instrument.ask(":TFORce")
 
     def level50(self):
-        """
+        """Set the trigger level to the vertical midpoint.
+
         **Rigol Programming Guide**
 
         **Syntax**

@@ -16,15 +16,14 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 from __future__ import annotations
 
-from typing import Optional
-from logging import error
 from logging import debug
-
+from logging import error
+from typing import Optional
 
 import vxi11
 
-from .driver import VISABase
 from .driver import InstrumentInfo
+from .driver import VISABase
 
 
 __author__: str = "Michael Sasser"
@@ -41,7 +40,7 @@ class VXI11(VISABase):
         """Disconnect from the instrument."""
         self.__instrument.close()
 
-    def ask(self, msg: str) -> str:
+    def ask(self, msg: str) -> Optional[str]:
         """Write and read afterwards from a instrument."""
         answer: Optional[str] = None
         try:
@@ -63,7 +62,7 @@ class VXI11(VISABase):
         finally:
             debug(f'Written: "{msg}"')
 
-    def read_raw(self) -> bytes:
+    def read_raw(self) -> Optional[bytes]:
         """Read binary data from the instrument."""
         msg: Optional[bytes] = None
         try:
@@ -72,5 +71,6 @@ class VXI11(VISABase):
             # TODO: Raise before first release.
             error(f"Error while writing: {e}")
         return msg
+
 
 # vim: set ft=python :

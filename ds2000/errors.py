@@ -18,18 +18,20 @@ from __future__ import annotations
 
 from sys import version_info
 from typing import Any
+from typing import Callable
 from typing import List
 from typing import Optional
-from typing  import NamedTuple
 
 from .__version__ import __version__
 from .visa.driver import VISADriver
+
 
 __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
 
 
 class Error(Exception):
+
     """Base class for exceptions in this module."""
 
 
@@ -48,7 +50,7 @@ class DS2000InternalError(Error):
     def __init__(
         self, message: Optional[str] = None, payload: Any = None
     ) -> None:
-        """Raised when an operation attempts a state, due to duck typing.
+        """Raise when an operation attempts a state, due to duck typing.
 
         This should be fixed asap.
         """
@@ -62,8 +64,10 @@ class DS2000InternalError(Error):
 
 
 class DS2000ExampleFoundBugError(DS2000InternalError):
-    def __init__(self, msg: str, example: NamedTuple) -> None:
-        message: str = f"DEBUG_DUMMY: {msg=}, {example=}"
+    def __init__(
+        self, msg: str, examples: Callable[[str, str, bool], None]
+    ) -> None:
+        message: str = f"DEBUG_DUMMY: {msg=}, {examples=}"
         super().__init__(message, None)
 
 
@@ -81,9 +85,9 @@ class DS2000InternalSyntaxError(DS2000InternalError):
 
 class DS2000DriverNotFoundError(Error):
     def __init__(
-            self,
-            driver: VISADriver,
-            drivers_available: List[VISADriver],
+        self,
+        driver: VISADriver,
+        drivers_available: List[VISADriver],
     ) -> None:
         """Raise, when no Instrument driver was found."""
         # TODO: Better description
@@ -91,11 +95,15 @@ class DS2000DriverNotFoundError(Error):
         # Remove the alway available Debug driver.
         self.drivers_available.remove(VISADriver.DEBUG_DRIVER)
         if len(self.drivers_available) > 0:
-            super().__init__('The requested driver is not available. You need '
-                             f'to install the requested driver "{driver}" '
-                             'or choose another driver: '
-                             f'{self.drivers_available}.')
+            super().__init__(
+                "The requested driver is not available. You need "
+                f'to install the requested driver "{driver}" '
+                "or choose another driver: "
+                f"{self.drivers_available}."
+            )
         else:
-            super().__init__("No compatible VISA driver is available on your"
-                             "system. Please read the documentation:"
-                             "https://bit.ly/3bMsjP9.")
+            super().__init__(
+                "No compatible VISA driver is available on your"
+                "system. Please read the documentation:"
+                "https://bit.ly/3bMsjP9."
+            )

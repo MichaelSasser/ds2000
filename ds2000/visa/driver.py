@@ -16,15 +16,15 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 from __future__ import annotations
 
-from typing import Any
-from typing import Optional
-from typing import NamedTuple
-from typing import Type
-from types import TracebackType
 from abc import ABC
 from abc import abstractmethod
 from enum import Enum
 from enum import auto
+from types import TracebackType
+from typing import Any
+from typing import NamedTuple
+from typing import Optional
+from typing import Type
 
 
 __author__: str = "Michael Sasser"
@@ -32,10 +32,10 @@ __email__: str = "Michael@MichaelSasser.org"
 
 
 class VISADriver(Enum):
-    VXI11 = auto(),  # python-vxi11 - pure python
-    PYVISA = auto(),  # pyvisa - uses NI VISA
-    PYVISA_PY = auto(),  # pyvisa-py - limited subset of pyvisa, pure python
-    DEBUG_DRIVER = auto(),  # a dummy to debug, mimics a instrument
+    VXI11 = (auto(),)  # python-vxi11 - pure python
+    PYVISA = (auto(),)  # pyvisa - uses NI VISA
+    PYVISA_PY = (auto(),)  # pyvisa-py - limited subset of pyvisa, pure python
+    DEBUG_DRIVER = (auto(),)  # a dummy to debug, mimics a instrument
 
 
 class InstrumentInfo(NamedTuple):
@@ -62,7 +62,7 @@ class VISABase(ABC):
         pass
 
     @abstractmethod
-    def ask(self, msg: str) -> str:
+    def ask(self, msg: str) -> Optional[str]:
         """Write and read afterwards from a instrument."""
         pass
 
@@ -77,17 +77,17 @@ class VISABase(ABC):
         pass
 
     def __enter__(self) -> VISABase:
-        """Connect to the Instrument with the `with` statement"""
+        """Connect to the Instrument with the `with` statement."""
         self.connect()
         return self
 
     def __exit__(
-            self,
-            exc_type: Optional[Type[BaseException]],
-            exc_val: Optional[BaseException],
-            exc_tb: Optional[TracebackType],
+        self,
+        exc_type: Optional[Type[BaseException]],
+        exc_val: Optional[BaseException],
+        exc_tb: Optional[TracebackType],
     ) -> None:
-        """Connect to the Instrument with the `with` statement"""
+        """Connect to the Instrument with the `with` statement."""
         self.disconnect()
 
     def __repr__(self) -> str:
@@ -95,5 +95,6 @@ class VISABase(ABC):
 
     def __str__(self) -> str:
         return f"{self.__class__.__qualname__}({self.info.serial})"
+
 
 # vim: set ft=python :

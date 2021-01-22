@@ -22,20 +22,24 @@ from inspect import getframeinfo
 from logging import debug
 from logging import error
 from types import FrameType
-from typing import Any, List
+from typing import Any
+from typing import List
 from typing import Optional
 
 import coloredlogs  # TODO: Delete before first release
 
-from .state import State
-from .state import StorageDBType
-from .parser import parse_msg, parse_values
-from .parser import Command
-from ds2000.visa.driver import InstrumentInfo
-from ds2000.visa.driver import VISABase
-from ds2000.errors import DS2000ExampleFoundBugError
 from ds2000.common import Example
 from ds2000.common import get_examples
+from ds2000.errors import DS2000ExampleFoundBugError
+from ds2000.visa.driver import InstrumentInfo
+from ds2000.visa.driver import VISABase
+
+from .parser import Command
+from .parser import parse_msg
+from .parser import parse_values
+from .state import State
+from .state import StorageDBType
+
 
 __author__: str = "Michael Sasser"
 __email__: str = "Michael@MichaelSasser.org"
@@ -47,7 +51,10 @@ def setup_logging(debug_mode: bool) -> None:
         "%(asctime)s - %(levelname)s - %(message)s"
     )
     coloredlogs.DEFAULT_LOG_LEVEL = 0 if debug_mode else 21
-    coloredlogs.install()
+    coloredlogs.install(
+        fmt="%(asctime)s %(hostname)s %(name)s[%(process)d] "
+        "%(levelname)s %(message)s"
+    )
 
 
 class DebugDriver(VISABase):
@@ -71,8 +78,10 @@ class DebugDriver(VISABase):
             "1234567890",
             "1.0.0",
         )
-        print("This is the DEBUG_DRIVER driver. Please keep in mind to "
-              "Enable debug level logging to see the output.")
+        print(
+            "This is the DEBUG_DRIVER driver. Please keep in mind to "
+            "Enable debug level logging to see the output."
+        )
         debug("Connected to DEBUG_DRIVER")
 
     def disconnect(self) -> None:
@@ -93,8 +102,10 @@ class DebugDriver(VISABase):
         try:
             examples = get_examples(self.__get_callers_doc())
         except Exception as e:
-            debug("Exception occured while attempting to get an "
-                  f"Example:\n{e}")
+            debug(
+                "Exception occured while attempting to get an "
+                f"Example:\n{e}"
+            )
 
         # Check if the path of the question is the same as in the examples
         if self.check_questions:
@@ -128,8 +139,8 @@ class DebugDriver(VISABase):
     ) -> None:
         """Mark a `Example`, if it's path matches the path in the `msg`."""
         for path, example in zip(
-                DebugDriver.__get_paths_from_examples(examples),
-                examples):
+            DebugDriver.__get_paths_from_examples(examples), examples
+        ):
             # remove tailing "?"
             if msg.endswith("?"):
                 msg = msg[:-1]
@@ -150,9 +161,9 @@ class DebugDriver(VISABase):
 
     @staticmethod
     def __check_questions(
-            msg: str,
-            examples: List[Example],
-            fail_on_err: bool = False,
+        msg: str,
+        examples: List[Example],
+        fail_on_err: bool = False,
     ) -> None:
         if examples is None:
             debug("DEBUG_DRIVER.__check_question: the examples was None")
@@ -164,29 +175,33 @@ class DebugDriver(VISABase):
         # If there is `None` check if raise an error or just write an error
         # message.
         if not any(
-                (True
-                 for path
-                 in DebugDriver.__get_paths_from_examples(examples)
-                 if msg.startswith(path))
+            (
+                True
+                for path in DebugDriver.__get_paths_from_examples(examples)
+                if msg.startswith(path)
+            )
         ):
             if fail_on_err:
-                raise DS2000ExampleFoundBugError(f"{msg} != {examples}")
+                raise DS2000ExampleFoundBugError(msg, examples)
             else:
                 error(f"DEBUG_DRIVER.__check_question: {msg=} != {examples=}")
 
     @staticmethod
     def __get_callers_doc() -> Optional[str]:
-        """Get the __doc__ of the last called method"""
-        frame: Optional[FrameType] = currentframe().f_back.f_back
+        """Get the __doc__ of the last called method."""
+        frame: Optional[FrameType] = currentframe()
         try:
+            if frame is not None:
+                frame = frame.f_back.f_back
             methode_name: str = getframeinfo(frame).function
-            last_class: Any = getattr_static(frame.f_locals["self"],
-                                             methode_name,
-                                             None)
+            last_class: Any = getattr_static(
+                frame.f_locals["self"], methode_name, None
+            )
             doc: str = last_class.__doc__
         finally:
             del last_class
             del frame
         return doc
+
 
 # vim: set ft=python :
