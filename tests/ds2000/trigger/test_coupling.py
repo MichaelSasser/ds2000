@@ -23,6 +23,40 @@ __email__: str = "Michael@MichaelSasser.org"
 
 
 def test_coupling_set_ac(dev) -> None:
+    """
+    **Rigol Programming Guide**
+
+    **Syntax**
+
+    :TRIGger:COUPling <couple>
+    :TRIGger:COUPling?
+
+    **Description**
+
+    Select the desired trigger coupling mode.
+    Query the current trigger coupling mode.
+
+    **Parameter**
+
+    ========= ========= ========================== =======
+    Name      Type      Range                      Default
+    ========= ========= ========================== =======
+    <couple>  Discrete  {AC|DC|LFReject|HFReject}  DC
+    ========= ========= ========================== =======
+
+    **Explanation**
+
+    It is only available in edge trigger.
+
+    **Return Format**
+
+    The query returns AC, DC, LFR or HFR.
+
+    **Example**
+
+    :TRIGger:COUPling LFReject
+    The query returns LFR.
+    """
     # Setup
     dev.trigger.coupling.set_ac()
 
@@ -36,6 +70,40 @@ def test_coupling_set_ac(dev) -> None:
 
 
 def test_coupling_set_dc(dev) -> None:
+    """
+    **Rigol Programming Guide**
+
+    **Syntax**
+
+    :TRIGger:COUPling <couple>
+    :TRIGger:COUPling?
+
+    **Description**
+
+    Select the desired trigger coupling mode.
+    Query the current trigger coupling mode.
+
+    **Parameter**
+
+    ========= ========= ========================== =======
+    Name      Type      Range                      Default
+    ========= ========= ========================== =======
+    <couple>  Discrete  {AC|DC|LFReject|HFReject}  DC
+    ========= ========= ========================== =======
+
+    **Explanation**
+
+    It is only available in edge trigger.
+
+    **Return Format**
+
+    The query returns AC, DC, LFR or HFR.
+
+    **Example**
+
+    :TRIGger:COUPling LFReject
+    The query returns LFR.
+    """
     # Setup
     dev.trigger.coupling.set_dc()
 
@@ -49,6 +117,40 @@ def test_coupling_set_dc(dev) -> None:
 
 
 def test_coupling_set_lf_reject(dev) -> None:
+    """
+    **Rigol Programming Guide**
+
+    **Syntax**
+
+    :TRIGger:COUPling <couple>
+    :TRIGger:COUPling?
+
+    **Description**
+
+    Select the desired trigger coupling mode.
+    Query the current trigger coupling mode.
+
+    **Parameter**
+
+    ========= ========= ========================== =======
+    Name      Type      Range                      Default
+    ========= ========= ========================== =======
+    <couple>  Discrete  {AC|DC|LFReject|HFReject}  DC
+    ========= ========= ========================== =======
+
+    **Explanation**
+
+    It is only available in edge trigger.
+
+    **Return Format**
+
+    The query returns AC, DC, LFR or HFR.
+
+    **Example**
+
+    :TRIGger:COUPling LFReject
+    The query returns LFR.
+    """
     # Setup
     dev.trigger.coupling.set_lf_reject()
 
@@ -62,6 +164,40 @@ def test_coupling_set_lf_reject(dev) -> None:
 
 
 def test_coupling_set_hf_reject(dev) -> None:
+    """
+    **Rigol Programming Guide**
+
+    **Syntax**
+
+    :TRIGger:COUPling <couple>
+    :TRIGger:COUPling?
+
+    **Description**
+
+    Select the desired trigger coupling mode.
+    Query the current trigger coupling mode.
+
+    **Parameter**
+
+    ========= ========= ========================== =======
+    Name      Type      Range                      Default
+    ========= ========= ========================== =======
+    <couple>  Discrete  {AC|DC|LFReject|HFReject}  DC
+    ========= ========= ========================== =======
+
+    **Explanation**
+
+    It is only available in edge trigger.
+
+    **Return Format**
+
+    The query returns AC, DC, LFR or HFR.
+
+    **Example**
+
+    :TRIGger:COUPling LFReject
+    The query returns LFR.
+    """
     # Setup
     dev.trigger.coupling.set_hf_reject()
 
