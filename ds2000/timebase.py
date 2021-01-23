@@ -397,13 +397,15 @@ class TimebaseDelay(SFunc):
                         (RightTime - DelayRange/2)
         ========= ===== ============================== =======
 
-        Note:
-        LeftTime = 7×MainScale – MainOffset.
-        For the MainScale, refer to the :TIMebase[:MAIN]:SCALe command.
-        RightTime = 7×MainScale + MainOffset.
-        For the MainOffset, refer to the :TIMebase[:MAIN]:OFFSet command.
-        DelayRange = 14×DelayScale.
-        For the DelayScale, refer to the :TIMebase:DELay:SCALe command.
+        .. note::
+           LeftTime = 7×MainScale – MainOffset.
+           For the MainScale, refer to the :TIMebase[:MAIN]:SCALe command.
+
+           RightTime = 7×MainScale + MainOffset.
+           For the MainOffset, refer to the :TIMebase[:MAIN]:OFFSet command.
+
+           DelayRange = 14×DelayScale.
+           For the DelayScale, refer to the :TIMebase:DELay:SCALe command.
 
         **Return Format**
 
@@ -823,10 +825,12 @@ class Timebase(Func):
                         **ROLL STOP**: -7000s to 0
         ========= ===== ======================================= =======
 
-        Note:
-        For the MemDepth, refer to the :ACQuire:MDEPth command.
-        For the SamplingRate, refer to the :ACQuire:SRATe? command.
-        For the TimeScale, refer to the :TIMebase[:MAIN]:SCALe command.
+        .. note::
+           For the MemDepth, refer to the :ACQuire:MDEPth command.
+
+           For the SamplingRate, refer to the :ACQuire:SRATe? command.
+
+           For the TimeScale, refer to the :TIMebase[:MAIN]:SCALe command.
 
         **Return Format**
 

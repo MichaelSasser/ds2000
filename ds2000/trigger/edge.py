@@ -412,7 +412,7 @@ class Edge(SFunc):
         self.instrument.ask(f":TRIGger:EDGe:LEVel {level}")
 
     def get_level(self) -> float:
-        """Query the trigger level of edge trigger
+        """Query the trigger level of edge trigger.
 
         **Rigol Programming Guide**
 

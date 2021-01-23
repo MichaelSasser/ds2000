@@ -465,7 +465,7 @@ class Duration(SFunc):
         return float(self.instrument.ask(":TRIGger:DURATion:TUPPer?"))
 
     def set_lower_limit(self, time: float = 1.0e-6) -> None:
-        """Set the lower limit of the duration in duration trigger and the
+        """Set the lower limit of the duration in duration trigger.
 
         **Rigol Programming Guide**
 
@@ -488,10 +488,8 @@ class Duration(SFunc):
         <NR3>  Real  2ns to 4s  1μs
         ====== ===== ========== =======
 
-        Note:
-
-        when the trigger condition is GLESs, the range is
-        from 2ns to 3.99s.
+        .. note::
+           when the trigger condition is GLESs, the range is from 2ns to 3.99s.
 
         **Explanation**
 

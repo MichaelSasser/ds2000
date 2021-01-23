@@ -526,9 +526,8 @@ class ChannelBandwidthLimit(SFunc):
         <type>  Discrete  {20M|100M|OFF}  OFF
         ======= ========= =============== =======
 
-        Note:
-
-        for DS2072 and DS2012, the bandwidth limit can only be 20MHz.
+        .. note::
+           for DS2072 and DS2012, the bandwidth limit can only be 20MHz.
 
         **Return Format**
 
