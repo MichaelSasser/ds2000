@@ -24,7 +24,8 @@ __email__: str = "Michael@MichaelSasser.org"
 
 
 def test_coupling_set_ac(dev) -> None:
-    """
+    """Test the trigger coupling mode.
+
     **Rigol Programming Guide**
 
     **Syntax**
@@ -71,7 +72,8 @@ def test_coupling_set_ac(dev) -> None:
 
 
 def test_coupling_set_dc(dev) -> None:
-    """
+    """Test the trigger coupling mode.
+
     **Rigol Programming Guide**
 
     **Syntax**
@@ -118,7 +120,8 @@ def test_coupling_set_dc(dev) -> None:
 
 
 def test_coupling_set_lf_reject(dev) -> None:
-    """
+    """Test the trigger coupling mode.
+
     **Rigol Programming Guide**
 
     **Syntax**
@@ -165,7 +168,8 @@ def test_coupling_set_lf_reject(dev) -> None:
 
 
 def test_coupling_set_hf_reject(dev) -> None:
-    """
+    """Test the trigger coupling mode.
+
     **Rigol Programming Guide**
 
     **Syntax**

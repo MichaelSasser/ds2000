@@ -27,7 +27,8 @@ __email__: str = "Michael@MichaelSasser.org"
 
 
 def test_delay_type_greater(dev) -> None:
-    """
+    """Test the delay type of delay trigger.
+
     **Rigol Programming Guide**
 
     **Syntax**
@@ -94,7 +95,8 @@ def test_delay_type_greater(dev) -> None:
 
 
 def test_delay_type_less(dev) -> None:
-    """
+    """Test the delay type of delay trigger.
+
     **Rigol Programming Guide**
 
     **Syntax**
@@ -161,7 +163,8 @@ def test_delay_type_less(dev) -> None:
 
 
 def test_delay_type_inside(dev) -> None:
-    """
+    """Test the delay type of delay trigger.
+
     **Rigol Programming Guide**
 
     **Syntax**
@@ -228,7 +231,8 @@ def test_delay_type_inside(dev) -> None:
 
 
 def test_delay_type_outside(dev) -> None:
-    """
+    """Test the delay type of delay trigger.
+
     **Rigol Programming Guide**
 
     **Syntax**
@@ -295,7 +299,8 @@ def test_delay_type_outside(dev) -> None:
 
 
 def test_delay_slope_a_set_positive(dev) -> None:
-    """
+    """Test the type of edge A of delay trigger.
+
     **Rigol Programming Guide**
 
     **Syntax**
@@ -343,7 +348,8 @@ def test_delay_slope_a_set_positive(dev) -> None:
 
 
 def test_delay_slope_a_set_negative(dev) -> None:
-    """
+    """Test the type of edge A of delay trigger.
+
     **Rigol Programming Guide**
 
     **Syntax**
@@ -391,7 +397,8 @@ def test_delay_slope_a_set_negative(dev) -> None:
 
 
 def test_delay_slope_b_set_positive(dev) -> None:
-    """
+    """Test the type of edge B of delay trigger.
+
     **Rigol Programming Guide**
 
     **Syntax**
@@ -439,7 +446,8 @@ def test_delay_slope_b_set_positive(dev) -> None:
 
 
 def test_delay_slope_b_set_negative(dev) -> None:
-    """
+    """Test the type of edge B of delay trigger.
+
     **Rigol Programming Guide**
 
     **Syntax**
@@ -487,7 +495,8 @@ def test_delay_slope_b_set_negative(dev) -> None:
 
 
 def test_delay_channel_signal_source_a_1(dev) -> None:
-    """
+    """Test the trigger source of signal source A in delay trigger.
+
     **Rigol Programming Guide**
 
     **Syntax**
@@ -531,7 +540,8 @@ def test_delay_channel_signal_source_a_1(dev) -> None:
 
 
 def test_delay_channel_signal_source_a_2(dev) -> None:
-    """
+    """Test the trigger source of signal source A in delay trigger.
+
     **Rigol Programming Guide**
 
     **Syntax**
@@ -575,7 +585,8 @@ def test_delay_channel_signal_source_a_2(dev) -> None:
 
 
 def test_delay_channel_signal_source_a_fail(dev) -> None:
-    """
+    """Test the trigger source of signal source A in delay trigger.
+
     **Rigol Programming Guide**
 
     **Syntax**
@@ -619,7 +630,8 @@ def test_delay_channel_signal_source_a_fail(dev) -> None:
 
 
 def test_delay_channel_signal_source_b_1(dev) -> None:
-    """
+    """Test the trigger source of signal source B in delay trigger.
+
     **Rigol Programming Guide**
 
     **Syntax**
@@ -662,7 +674,8 @@ def test_delay_channel_signal_source_b_1(dev) -> None:
 
 
 def test_delay_channel_signal_source_b_2(dev) -> None:
-    """
+    """Test the trigger source of signal source B in delay trigger.
+
     **Rigol Programming Guide**
 
     **Syntax**
@@ -705,7 +718,8 @@ def test_delay_channel_signal_source_b_2(dev) -> None:
 
 
 def test_delay_channel_signal_source_b_fail(dev) -> None:
-    """
+    """Test the trigger source of signal source B in delay trigger.
+
     **Rigol Programming Guide**
 
     **Syntax**
@@ -748,7 +762,8 @@ def test_delay_channel_signal_source_b_fail(dev) -> None:
 
 
 def test_delay_set_upper_limit_when_less1(dev) -> None:
-    """
+    """Test the upper limit of the delay time in delay trigger.
+
     **Rigol Programming Guide**
 
     **Syntax**
@@ -801,7 +816,8 @@ def test_delay_set_upper_limit_when_less1(dev) -> None:
 
 
 def test_delay_set_upper_limit_when_less2(dev) -> None:
-    """
+    """Test the upper limit of the delay time in delay trigger.
+
     **Rigol Programming Guide**
 
     **Syntax**
@@ -854,7 +870,8 @@ def test_delay_set_upper_limit_when_less2(dev) -> None:
 
 
 def test_delay_set_upper_limit_when_less_fail1(dev) -> None:
-    """
+    """Test the upper limit of the delay time in delay trigger.
+
     **Rigol Programming Guide**
 
     **Syntax**
@@ -904,7 +921,8 @@ def test_delay_set_upper_limit_when_less_fail1(dev) -> None:
 
 
 def test_delay_set_upper_limit_when_less_fail2(dev) -> None:
-    """
+    """Test the upper limit of the delay time in delay trigger.
+
     **Rigol Programming Guide**
 
     **Syntax**
@@ -954,7 +972,8 @@ def test_delay_set_upper_limit_when_less_fail2(dev) -> None:
 
 
 def test_delay_set_upper_limit_when_outside(dev) -> None:
-    """
+    """Test the upper limit of the delay time in delay trigger.
+
     **Rigol Programming Guide**
 
     **Syntax**
@@ -1007,7 +1026,8 @@ def test_delay_set_upper_limit_when_outside(dev) -> None:
 
 
 def test_delay_set_upper_limit_when_outside_fail(dev) -> None:
-    """
+    """Test the upper limit of the delay time in delay trigger.
+
     **Rigol Programming Guide**
 
     **Syntax**
@@ -1057,7 +1077,8 @@ def test_delay_set_upper_limit_when_outside_fail(dev) -> None:
 
 
 def test_delay_set_upper_limit_when_inside(dev) -> None:
-    """
+    """Test the upper limit of the delay time in delay trigger.
+
     **Rigol Programming Guide**
 
     **Syntax**
@@ -1110,7 +1131,8 @@ def test_delay_set_upper_limit_when_inside(dev) -> None:
 
 
 def test_delay_set_upper_limit_when_inside_fail(dev) -> None:
-    """
+    """Test the upper limit of the delay time in delay trigger.
+
     **Rigol Programming Guide**
 
     **Syntax**
@@ -1160,7 +1182,8 @@ def test_delay_set_upper_limit_when_inside_fail(dev) -> None:
 
 
 def test_delay_set_upper_limit_when_greater_fail(dev) -> None:
-    """
+    """Test the upper limit of the delay time in delay trigger.
+
     **Rigol Programming Guide**
 
     **Syntax**
@@ -1210,7 +1233,8 @@ def test_delay_set_upper_limit_when_greater_fail(dev) -> None:
 
 
 def test_delay_set_lower_limit_when_less(dev) -> None:
-    """
+    """Test the lower limit of the delay time in delay trigger.
+
     ToDo: The range in the note is the same as in the table?
     **Rigol Programming Guide**
 
@@ -1264,7 +1288,8 @@ def test_delay_set_lower_limit_when_less(dev) -> None:
 
 
 def test_delay_set_lower_limit_when_less_fail1(dev) -> None:
-    """
+    """Test the lower limit of the delay time in delay trigger.
+
     ToDo: The range in the note is the same as in the table?
     **Rigol Programming Guide**
 
@@ -1315,7 +1340,8 @@ def test_delay_set_lower_limit_when_less_fail1(dev) -> None:
 
 
 def test_delay_set_lower_limit_when_less_fail2(dev) -> None:
-    """
+    """Test the lower limit of the delay time in delay trigger.
+
     ToDo: The range in the note is the same as in the table?
     **Rigol Programming Guide**
 
@@ -1366,7 +1392,8 @@ def test_delay_set_lower_limit_when_less_fail2(dev) -> None:
 
 
 def test_delay_set_lower_limit_when_outside(dev) -> None:
-    """
+    """Test the lower limit of the delay time in delay trigger.
+
     ToDo: The range in the note is the same as in the table?
     **Rigol Programming Guide**
 
@@ -1420,7 +1447,8 @@ def test_delay_set_lower_limit_when_outside(dev) -> None:
 
 
 def test_delay_set_lower_limit_when_inside(dev) -> None:
-    """
+    """Test the lower limit of the delay time in delay trigger.
+
     ToDo: The range in the note is the same as in the table?
     **Rigol Programming Guide**
 
@@ -1474,7 +1502,8 @@ def test_delay_set_lower_limit_when_inside(dev) -> None:
 
 
 def test_delay_set_lower_limit_when_greater_fail(dev) -> None:
-    """
+    """Test the lower limit of the delay time in delay trigger.
+
     ToDo: The range in the note is the same as in the table?
     **Rigol Programming Guide**
 

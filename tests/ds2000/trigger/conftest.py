@@ -28,6 +28,7 @@ __email__: str = "Michael@MichaelSasser.org"
 
 @pytest.fixture(scope="session", autouse=True)
 def dev():
+    """Use "dev" fixture to initialize the debug instrument."""
     # Setup
     # print("setting up", item)
     dev: DS2000 = DS2000("1.1.1.1", VISADriver.DEBUG_DRIVER)
