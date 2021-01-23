@@ -14,6 +14,8 @@
 
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
+from __future__ import annotations
+from typing import Optional
 
 from ds2000.common import SFunc
 from ds2000.common import SSFunc
@@ -164,7 +166,7 @@ class TimeoutSlope(SSFunc):
         :TRIGger:TIMeout:SLOPe NEGative
         The query returns NEG.
         """
-        status: str = self.instrument.ask(":TRIGger:TIMeout:SLOPe?")
+        status: Optional[str] = self.instrument.ask(":TRIGger:TIMeout:SLOPe?")
         if status == "POS":
             return "rising edge"
         if status == "NEG":

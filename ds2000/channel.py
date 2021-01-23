@@ -690,7 +690,7 @@ class Channel(Func):
     def __offset_check_range(
         rge: ChannelOffsetRange, scale: float, offset: float, ratio: float
     ) -> bool:
-        """Checks if the entered offset was within the possible scale range.
+        """Check if the entered offset was within the possible scale range.
 
         If not, a detailed error will show the user, What the limits are.
 
