@@ -15,14 +15,12 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 from enum import Enum
-from typing import Union
 
 from ds2000.common import SFunc
 from ds2000.common import SSFunc
 from ds2000.common import channel_as_int
 from ds2000.common import check_input
 from ds2000.errors import DS2000StateError
-
 
 __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"

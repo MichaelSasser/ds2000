@@ -25,13 +25,11 @@ from typing import Optional
 from .__version__ import __version__
 from .visa.driver import VISADriver
 
-
 __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
 
 
 class Error(Exception):
-
     """Base class for exceptions in this module."""
 
 

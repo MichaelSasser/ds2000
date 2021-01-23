@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from logging import debug
 from logging import error
 
-#!/usr/bin/env python
+# !/usr/bin/env python
 # ds2000 - The Python Library for Rigol DS2000 Oscilloscopes
 # Copyright (C) 2018-2021  Michael Sasser <Michael@MichaelSasser.org>
 #
@@ -26,7 +26,6 @@ from typing import Union
 from .errors import DS2000InternalSyntaxError
 from .math.format import get_prefix
 from .visa.driver import VISABase
-
 
 __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
@@ -128,11 +127,11 @@ def check_input(
     if (mini is not None) and (maxi is not None) and not (mini <= arg <= maxi):
         raise ValueError(
             f'The argument "{arg_name}" needs to be in between '
-            f"{get_prefix(mini).formatted+unit if unit else mini}"
+            f"{get_prefix(mini).formatted + unit if unit else mini}"
             f" and "
-            f"{get_prefix(maxi).formatted+unit if unit else maxi}."
+            f"{get_prefix(maxi).formatted + unit if unit else maxi}."
             f" You entered "
-            f"{get_prefix(arg).formatted+unit if unit else arg}"
+            f"{get_prefix(arg).formatted + unit if unit else arg}"
             f"{'. ' if ext_range_err else '.'}"
             f"{ext_range_err if ext_range_err else ''}"
         )

@@ -25,7 +25,6 @@ import vxi11
 from .driver import InstrumentInfo
 from .driver import VISABase
 
-
 __author__: str = "Michael Sasser"
 __email__: str = "Michael@MichaelSasser.org"
 

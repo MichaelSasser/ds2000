@@ -33,13 +33,11 @@ from ds2000.common import get_examples
 from ds2000.errors import DS2000ExampleFoundBugError
 from ds2000.visa.driver import InstrumentInfo
 from ds2000.visa.driver import VISABase
-
 from .parser import Command
 from .parser import parse_msg
 from .parser import parse_values
 from .state import State
 from .state import StorageDBType
-
 
 __author__: str = "Michael Sasser"
 __email__: str = "Michael@MichaelSasser.org"

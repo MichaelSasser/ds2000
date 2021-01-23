@@ -28,7 +28,6 @@ from .errors import DS2000Error
 from .math.format import Prefixed
 from .math.format import get_prefix
 
-
 __author__: str = "Michael Sasser"
 __email__: str = "Michael@MichaelSasser.org"
 
@@ -1048,8 +1047,8 @@ class Channel(Func):
 
         Enable or disable the fine adjustment function of the vertical scale
         of CH1 or CH2.
-        Query the current status of the fine adjustment function of the vertical
-        scale of CH1 or CH2.
+        Query the current status of the fine adjustment function of the
+        vertical scale of CH1 or CH2.
 
         **Parameter**
 
@@ -1086,8 +1085,8 @@ class Channel(Func):
 
         Enable or disable the fine adjustment function of the vertical scale
         of CH1 or CH2.
-        Query the current status of the fine adjustment function of the vertical
-        scale of CH1 or CH2.
+        Query the current status of the fine adjustment function of the
+        vertical scale of CH1 or CH2.
 
         **Parameter**
 

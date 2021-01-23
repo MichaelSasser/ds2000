@@ -18,7 +18,6 @@ from __future__ import annotations
 
 from ds2000.trigger.coupling import CouplingEnum
 
-
 __author__: str = "Michael Sasser"
 __email__: str = "Michael@MichaelSasser.org"
 

@@ -18,7 +18,6 @@ from logging import debug
 
 from ds2000.math.format import get_prefix
 
-
 try:
     import matplotlib.pyplot as plt
     import numpy as np
@@ -30,7 +29,6 @@ except ImportError:
         'To use this functionality you need the extras: "func".'
         'Install them with pip install "ds2000[func]".'
     )
-
 
 __author__: str = "Michael Sasser"
 __email__: str = "Michael@MichaelSasser.org"
@@ -96,9 +94,8 @@ def simple_plot(inst, title: str = "", recorded: bool = False) -> None:
     )
     plt.show()
 
-    debug(
-        f"lower: {(- inst.waveform.y_origin - inst.waveform.y_reference) * 10 ** get_prefix(inst.channel1.get_scale()).divisor}"
-    )
+    a = -inst.waveform.y_origin - inst.waveform.y_reference  # debug
+    debug(f"lower: {a * 10 ** get_prefix(inst.channel1.get_scale()).divisor}")
 
     debug(f"r.channel1.get_scale()={inst.channel1.get_scale()}\n")
 

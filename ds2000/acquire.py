@@ -25,7 +25,6 @@ from .common import check_input
 from .errors import DS2000Error
 from .errors import DS2000StateError
 
-
 __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
 

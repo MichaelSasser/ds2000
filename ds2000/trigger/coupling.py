@@ -21,7 +21,6 @@ from enum import Enum
 from ds2000.common import SFunc
 from ds2000.errors import DS2000StateError
 
-
 __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
 

@@ -21,7 +21,6 @@ from .common import SFunc
 from .common import SSFunc
 from .common import check_input
 
-
 __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
 

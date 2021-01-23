@@ -25,20 +25,16 @@ from typing import Tuple
 from typing import Union
 
 from ds2000.common import Example
-
 from .parser import Command
-
 
 __author__: str = "Michael Sasser"
 __email__: str = "Michael@MichaelSasser.org"
-
 
 # It is basicly StorageDBType = Dict[str, Union[Command, StorageDBType]]
 StorageDBType = Union[Optional[Union[Dict[str, Any], List[str]]], List[str]]
 
 
 class State:
-
     """Store and recall the internal state of the instrument.
 
     **Why is self.db not flat?**

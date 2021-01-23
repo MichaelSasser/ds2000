@@ -23,7 +23,6 @@ from ds2000.common import SSFunc
 from ds2000.common import check_input
 from ds2000.common import check_level
 
-
 __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
 
@@ -1009,7 +1008,6 @@ class VideoStandard(SSFunc):
 
 
 class Video(SFunc):
-
     MAX_LINES_OF_VIDEO_STANDATD: Dict[str, int] = {
         "NTSC": 525,
         "PAL": 625,

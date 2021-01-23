@@ -18,7 +18,6 @@ from __future__ import annotations
 
 from .common import Func
 
-
 __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
 

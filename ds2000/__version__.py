@@ -18,10 +18,8 @@ from __future__ import annotations
 
 from pkg_resources import get_distribution
 
-
 __author__: str = "Michael Sasser"
 __email__: str = "Michael@MichaelSasser.org"
-
 
 __version__ = get_distribution("ds2000").version
 

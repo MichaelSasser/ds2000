@@ -22,7 +22,6 @@ from typing import Tuple
 from ds2000.common import SFunc
 from ds2000.common import check_level
 
-
 __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
 

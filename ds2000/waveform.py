@@ -26,7 +26,6 @@ from .common import SFunc
 from .common import check_input
 from .errors import DS2000Error
 
-
 __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
 

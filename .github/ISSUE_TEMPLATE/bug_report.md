@@ -1,7 +1,5 @@
 ---
-name: Bug report
-about: Create a report to help us improve
-title: ''
+name: Bug report about: Create a report to help us improve title: ''
 labels: ''
 assignees: ''
 
@@ -32,8 +30,9 @@ The complete traceback here.
 A clear and concise description of what you expected to happen.
 
 **Desktop (please complete the following information):**
- - OS: [e.g. Windows 10 x64 Workstation Build: 19042.746 (20H2)]
- - Version of ds2000 [e.g. 0.1.0]
+
+- OS: [e.g. Windows 10 x64 Workstation Build: 19042.746 (20H2)]
+- Version of ds2000 [e.g. 0.1.0]
 
 **Additional context**
 Add any other context about the problem here.

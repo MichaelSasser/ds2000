@@ -21,7 +21,6 @@ from ds2000.common import SSFunc
 from ds2000.common import check_input
 from ds2000.errors import DS2000StateError
 
-
 __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
 
@@ -1214,7 +1213,7 @@ class I2C(SFunc):
             scale = self.sdev.dev.channel2.scale()
             offset = self.sdev.dev.channel2.get_offset()
         else:
-            Ds2000StateError(
+            DS2000StateError(
                 "The level coul'd only be set, if the source is"
                 "Channel 1 or Channel 2."
             )  # TODO: Right??

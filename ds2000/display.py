@@ -23,7 +23,6 @@ from .common import SFunc
 from .common import check_input
 from .errors import DS2000Error
 
-
 __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
 
@@ -405,9 +404,10 @@ class Display(Func):
         observe glitch that changes relatively slowly or glitch with low
         occurrence probability.
 
-        **INFinite**: in this mode, the oscilloscope displays the newly acquired
-        waveform without clearing the waveform formerly acquired. Enable to
-        measure noise and jitter as well as capture incidental events.
+        **INFinite**: in this mode, the oscilloscope displays the newly
+        acquired waveform without clearing the waveform formerly acquired.
+        Enable to measure noise and jitter as well as capture incidental
+        events.
 
         **Return Format**
 
@@ -714,11 +714,12 @@ class Display(Func):
 
         **Example**
 
-        1. Make sure that the buffer is large enough to receive the data stream,
-           otherwise the program might be abnormal when reading the data stream.
+        1. Make sure that the buffer is large enough to receive the data
+           stream, otherwise the program might be abnormal when reading the
+           data stream.
         2. The returned data stream contains TMC data header and you need to
-           remove the data header to make the data stream a standard bitmap data
-           stream.
+           remove the data header to make the data stream a standard bitmap
+           data stream.
         3. When the data size is larger than 1 M and the communication speed of
            the interface is not fast enough, you need to set an appropriate
            timeout time

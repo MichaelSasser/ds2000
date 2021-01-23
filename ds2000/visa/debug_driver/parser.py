@@ -17,7 +17,6 @@
 from __future__ import annotations
 
 import re
-
 from logging import debug
 from typing import List
 from typing import NamedTuple
@@ -25,10 +24,8 @@ from typing import Optional
 from typing import Pattern
 from typing import Tuple
 
-
 __author__: str = "Michael Sasser"
 __email__: str = "Michael@MichaelSasser.org"
-
 
 remove_value: Pattern = re.compile("[a-z]")
 

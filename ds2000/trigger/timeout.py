@@ -20,7 +20,6 @@ from ds2000.common import SSFunc
 from ds2000.common import check_input
 from ds2000.errors import DS2000StateError
 
-
 __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
 

@@ -18,7 +18,6 @@ from __future__ import annotations
 
 from typing import NamedTuple
 
-
 __author__: str = "Michael Sasser"
 __email__: str = "Michael@MichaelSasser.org"
 

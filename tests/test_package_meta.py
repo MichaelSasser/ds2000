@@ -20,7 +20,6 @@ import re
 
 from ds2000.__version__ import __version__
 
-
 __author__: str = "Michael Sasser"
 __email__: str = "Michael@MichaelSasser.org"
 

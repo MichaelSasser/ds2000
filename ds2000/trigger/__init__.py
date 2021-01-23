@@ -17,7 +17,6 @@
 from __future__ import annotations
 
 from ds2000.common import Func
-
 from .coupling import Coupling
 from .delay import Delay
 from .duration import Duration
@@ -37,7 +36,6 @@ from .timeout import Timeout
 from .usb import USB
 from .video import Video
 from .windows import Windows
-
 
 __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
