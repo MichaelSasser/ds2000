@@ -61,9 +61,7 @@ class TimeoutSlope(SSFunc):
         :TRIGger:TIMeout:SLOPe NEGative
         The query returns NEG.
         """
-        self.instrument.ask(
-            ":TRIGger:TIMeout:SLOPe POSitive"
-        )
+        self.instrument.ask(":TRIGger:TIMeout:SLOPe POSitive")
 
     def falling_edge(self) -> None:
         """
@@ -96,9 +94,7 @@ class TimeoutSlope(SSFunc):
         :TRIGger:TIMeout:SLOPe NEGative
         The query returns NEG.
         """
-        self.instrument.ask(
-            ":TRIGger:TIMeout:SLOPe NEGative"
-        )
+        self.instrument.ask(":TRIGger:TIMeout:SLOPe NEGative")
 
     def both_edges(self) -> None:
         """
@@ -164,9 +160,7 @@ class TimeoutSlope(SSFunc):
         :TRIGger:TIMeout:SLOPe NEGative
         The query returns NEG.
         """
-        status: str = self.instrument.ask(
-            ":TRIGger:TIMeout:SLOPe?"
-        )
+        status: str = self.instrument.ask(":TRIGger:TIMeout:SLOPe?")
         if status == "POS":
             return "rising edge"
         if status == "NEG":
@@ -209,9 +203,7 @@ class TimeoutChannel(SSFunc):
         The query returns CHAN2.
         """
 
-        self.instrument.ask(
-            ":TRIGger:TIMeout:SOURce CHANnel1"
-        )
+        self.instrument.ask(":TRIGger:TIMeout:SOURce CHANnel1")
 
     def channel2(self) -> None:
         """
@@ -245,9 +237,7 @@ class TimeoutChannel(SSFunc):
         The query returns CHAN2.
         """
 
-        self.instrument.ask(
-            ":TRIGger:TIMeout:SOURce CHANnel2"
-        )
+        self.instrument.ask(":TRIGger:TIMeout:SOURce CHANnel2")
 
     def status(self) -> str:
         """
@@ -281,9 +271,7 @@ class TimeoutChannel(SSFunc):
         The query returns CHAN2.
         """
 
-        status: str = self.instrument.ask(
-            ":TRIGger:TIMeout:SOURce?"
-        ).lower()
+        status: str = self.instrument.ask(":TRIGger:TIMeout:SOURce?").lower()
 
         if status == "chan1":
             return "channel 1"

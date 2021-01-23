@@ -15,9 +15,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from ds2000.common import SFunc, check_level
+from ds2000.common import SFunc
 from ds2000.common import SSFunc
 from ds2000.common import check_input
+from ds2000.common import check_level
 from ds2000.errors import DS2000StateError
 
 
@@ -57,9 +58,7 @@ class NthEdgeSource(SSFunc):
         :TRIGger:NEDGe:SOURce CHANnel2
         The query returns CHAN2.
         """
-        self.instrument.ask(
-            ":TRIGger:NEDGe:SOURce CHANnel1"
-        )
+        self.instrument.ask(":TRIGger:NEDGe:SOURce CHANnel1")
 
     def channel2(self) -> None:
         """
@@ -92,9 +91,7 @@ class NthEdgeSource(SSFunc):
         :TRIGger:NEDGe:SOURce CHANnel2
         The query returns CHAN2.
         """
-        self.instrument.ask(
-            ":TRIGger:NEDGe:SOURce CHANnel2"
-        )
+        self.instrument.ask(":TRIGger:NEDGe:SOURce CHANnel2")
 
     def status(self) -> int:
         """
@@ -127,11 +124,7 @@ class NthEdgeSource(SSFunc):
         :TRIGger:NEDGe:SOURce CHANnel2
         The query returns CHAN2.
         """
-        return int(
-            self.instrument.ask(":TRIGger:NEDGe:SOURce?")[
-                -1
-            ]
-        )
+        return int(self.instrument.ask(":TRIGger:NEDGe:SOURce?")[-1])
 
 
 class NthEdge(SFunc):

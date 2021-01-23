@@ -257,9 +257,7 @@ class I2CWhen(SSFunc):
         :TRIGger:IIC:WHEN RESTart
         The query returns REST.
         """
-        self.instrument.ask(
-            ":TRIGger:IIC:WHEN NACKnowledge"
-        )
+        self.instrument.ask(":TRIGger:IIC:WHEN NACKnowledge")
 
     def address(self) -> None:
         """
@@ -653,9 +651,7 @@ class I2CDirection(SSFunc):
         :TRIGger:IIC:DIRection RWRite
         The query returns RWR.
         """
-        return self.instrument.ask(
-            ":TRIGger:IIC:DIRection?"
-        )
+        return self.instrument.ask(":TRIGger:IIC:DIRection?")
 
 
 class I2C(SFunc):

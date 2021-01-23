@@ -1,3 +1,7 @@
+from dataclasses import dataclass
+from logging import debug
+from logging import error
+
 #!/usr/bin/env python
 # ds2000 - The Python Library for Rigol DS2000 Oscilloscopes
 # Copyright (C) 2018-2021  Michael Sasser <Michael@MichaelSasser.org>
@@ -18,9 +22,6 @@ from typing import Any
 from typing import List
 from typing import Optional
 from typing import Union
-from dataclasses import dataclass
-from logging import debug
-from logging import error
 
 from .errors import DS2000InternalSyntaxError
 from .math.format import get_prefix

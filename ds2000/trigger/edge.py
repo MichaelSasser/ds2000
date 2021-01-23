@@ -189,9 +189,7 @@ class EdgeSource(SSFunc):
         :TRIGger:EDGe:SOURce CHANnel2
         The query returns CHAN2.
         """
-        status: str = self.instrument.ask(
-            ":TRIGger:EDGe:SOURce?"
-        ).lower()
+        status: str = self.instrument.ask(":TRIGger:EDGe:SOURce?").lower()
         if status == "chan1":
             return "channel 1"
         if status == "chan2":

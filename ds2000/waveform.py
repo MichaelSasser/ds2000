@@ -855,7 +855,7 @@ class Waveform(Func):
         # print(f"eff_waves = {eff_waves}")
 
         try:
-            raw_wave = data[11: (11 + eff_waves)]
+            raw_wave = data[11 : (11 + eff_waves)]
         except Exception:
             raise DS2000Error("The waveform was corrupted.")
 

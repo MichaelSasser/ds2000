@@ -19,9 +19,12 @@ from __future__ import annotations
 from typing import NamedTuple
 from typing import Tuple
 
-from .common import Func, check_input
+from .common import Func
 from .common import SFunc
-from .errors import DS2000Error, DS2000StateError
+from .common import check_input
+from .errors import DS2000Error
+from .errors import DS2000StateError
+
 
 __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"

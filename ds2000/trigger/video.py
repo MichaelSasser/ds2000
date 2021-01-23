@@ -376,9 +376,7 @@ class VideoStandard(SSFunc):
         :TRIGger:VIDeo:STANdard NTSC
         The query returns NTSC.
         """
-        self.instrument.ask(
-            ":TRIGger:VIDeo:STANdard PALSecam"
-        )
+        self.instrument.ask(":TRIGger:VIDeo:STANdard PALSecam")
 
     def set_ntsc(self) -> None:
         """
@@ -526,9 +524,7 @@ class VideoStandard(SSFunc):
         :TRIGger:VIDeo:STANdard NTSC
         The query returns NTSC.
         """
-        self.instrument.ask(
-            ":TRIGger:VIDeo:STANdard 720P60HZ"
-        )
+        self.instrument.ask(":TRIGger:VIDeo:STANdard 720P60HZ")
 
     def set_on_720p50hz(self) -> None:
         """
@@ -565,9 +561,7 @@ class VideoStandard(SSFunc):
         :TRIGger:VIDeo:STANdard NTSC
         The query returns NTSC.
         """
-        self.instrument.ask(
-            ":TRIGger:VIDeo:STANdard 720P50HZ"
-        )
+        self.instrument.ask(":TRIGger:VIDeo:STANdard 720P50HZ")
 
     def set_on_720p30hz(self) -> None:
         """
@@ -604,9 +598,7 @@ class VideoStandard(SSFunc):
         :TRIGger:VIDeo:STANdard NTSC
         The query returns NTSC.
         """
-        self.instrument.ask(
-            ":TRIGger:VIDeo:STANdard 720P30HZ"
-        )
+        self.instrument.ask(":TRIGger:VIDeo:STANdard 720P30HZ")
 
     def set_on_720p25hz(self) -> None:
         """
@@ -643,9 +635,7 @@ class VideoStandard(SSFunc):
         :TRIGger:VIDeo:STANdard NTSC
         The query returns NTSC.
         """
-        self.instrument.ask(
-            ":TRIGger:VIDeo:STANdard 720P25HZ"
-        )
+        self.instrument.ask(":TRIGger:VIDeo:STANdard 720P25HZ")
 
     def set_on_720p24hz(self) -> None:
         """
@@ -682,9 +672,7 @@ class VideoStandard(SSFunc):
         :TRIGger:VIDeo:STANdard NTSC
         The query returns NTSC.
         """
-        self.instrument.ask(
-            ":TRIGger:VIDeo:STANdard 720P24HZ"
-        )
+        self.instrument.ask(":TRIGger:VIDeo:STANdard 720P24HZ")
 
     def set_on_1080p60hz(self) -> None:
         """
@@ -721,9 +709,7 @@ class VideoStandard(SSFunc):
         :TRIGger:VIDeo:STANdard NTSC
         The query returns NTSC.
         """
-        self.instrument.ask(
-            ":TRIGger:VIDeo:STANdard 1080P60HZ"
-        )
+        self.instrument.ask(":TRIGger:VIDeo:STANdard 1080P60HZ")
 
     def set_on_1080p50hz(self) -> None:
         """
@@ -760,9 +746,7 @@ class VideoStandard(SSFunc):
         :TRIGger:VIDeo:STANdard NTSC
         The query returns NTSC.
         """
-        self.instrument.ask(
-            ":TRIGger:VIDeo:STANdard 1080P50HZ"
-        )
+        self.instrument.ask(":TRIGger:VIDeo:STANdard 1080P50HZ")
 
     def set_on_1080p30hz(self) -> None:
         """
@@ -799,9 +783,7 @@ class VideoStandard(SSFunc):
         :TRIGger:VIDeo:STANdard NTSC
         The query returns NTSC.
         """
-        self.instrument.ask(
-            ":TRIGger:VIDeo:STANdard 1080P30HZ"
-        )
+        self.instrument.ask(":TRIGger:VIDeo:STANdard 1080P30HZ")
 
     def set_on_1080p25hz(self) -> None:
         """
@@ -838,9 +820,7 @@ class VideoStandard(SSFunc):
         :TRIGger:VIDeo:STANdard NTSC
         The query returns NTSC.
         """
-        self.instrument.ask(
-            ":TRIGger:VIDeo:STANdard 1080P25HZ"
-        )
+        self.instrument.ask(":TRIGger:VIDeo:STANdard 1080P25HZ")
 
     def set_on_1080p24hz(self) -> None:
         """
@@ -877,9 +857,7 @@ class VideoStandard(SSFunc):
         :TRIGger:VIDeo:STANdard NTSC
         The query returns NTSC.
         """
-        self.instrument.ask(
-            ":TRIGger:VIDeo:STANdard 1080P24HZ"
-        )
+        self.instrument.ask(":TRIGger:VIDeo:STANdard 1080P24HZ")
 
     def set_on_1080i30hz(self) -> None:
         """
@@ -916,9 +894,7 @@ class VideoStandard(SSFunc):
         :TRIGger:VIDeo:STANdard NTSC
         The query returns NTSC.
         """
-        self.instrument.ask(
-            ":TRIGger:VIDeo:STANdard 1080I30HZ"
-        )
+        self.instrument.ask(":TRIGger:VIDeo:STANdard 1080I30HZ")
 
     def set_on_1080i25hz(self) -> None:
         """
@@ -955,9 +931,7 @@ class VideoStandard(SSFunc):
         :TRIGger:VIDeo:STANdard NTSC
         The query returns NTSC.
         """
-        self.instrument.ask(
-            ":TRIGger:VIDeo:STANdard 1080I25HZ"
-        )
+        self.instrument.ask(":TRIGger:VIDeo:STANdard 1080I25HZ")
 
     def set_on_1080i24hz(self) -> None:
         """
@@ -994,9 +968,7 @@ class VideoStandard(SSFunc):
         :TRIGger:VIDeo:STANdard NTSC
         The query returns NTSC.
         """
-        self.instrument.ask(
-            ":TRIGger:VIDeo:STANdard 1080I24HZ"
-        )
+        self.instrument.ask(":TRIGger:VIDeo:STANdard 1080I24HZ")
 
     def status(self) -> str:
         """
@@ -1033,9 +1005,7 @@ class VideoStandard(SSFunc):
         :TRIGger:VIDeo:STANdard NTSC
         The query returns NTSC.
         """
-        return self.instrument.ask(
-            ":TRIGger:VIDeo:STANdard?"
-        )
+        return self.instrument.ask(":TRIGger:VIDeo:STANdard?")
 
 
 class Video(SFunc):

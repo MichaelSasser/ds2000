@@ -56,9 +56,7 @@ class WindowsSlope(SSFunc):
         :TRIGger:WINDows:SLOPe NEGative
         The query returns NEG.
         """
-        self.instrument.ask(
-            ":TRIGger:WINDows:SLOPe POSitive"
-        )
+        self.instrument.ask(":TRIGger:WINDows:SLOPe POSitive")
 
     def set_negative(self) -> None:
         """
@@ -90,9 +88,7 @@ class WindowsSlope(SSFunc):
         :TRIGger:WINDows:SLOPe NEGative
         The query returns NEG.
         """
-        self.instrument.ask(
-            ":TRIGger:WINDows:SLOPe NEGative"
-        )
+        self.instrument.ask(":TRIGger:WINDows:SLOPe NEGative")
 
     def set_rfali(self) -> None:  # ToDo: what is rfali?
         """
@@ -156,9 +152,7 @@ class WindowsSlope(SSFunc):
         :TRIGger:WINDows:SLOPe NEGative
         The query returns NEG.
         """
-        return self.instrument.ask(
-            ":TRIGger:WINDows:SLOPe?"
-        )
+        return self.instrument.ask(":TRIGger:WINDows:SLOPe?")
 
 
 class WindowsPosition(SSFunc):
@@ -193,9 +187,7 @@ class WindowsPosition(SSFunc):
         :TRIGger:WINDows:POSition ENTER
         The query returns ENTER.
         """
-        self.instrument.ask(
-            ":TRIGger:WINDows:POSition EXIT"
-        )
+        self.instrument.ask(":TRIGger:WINDows:POSition EXIT")
 
     def set_enter(self) -> None:
         """
@@ -228,9 +220,7 @@ class WindowsPosition(SSFunc):
         :TRIGger:WINDows:POSition ENTER
         The query returns ENTER.
         """
-        self.instrument.ask(
-            ":TRIGger:WINDows:POSition ENTER"
-        )
+        self.instrument.ask(":TRIGger:WINDows:POSition ENTER")
 
     def set_time(self) -> None:
         """
@@ -263,9 +253,7 @@ class WindowsPosition(SSFunc):
         :TRIGger:WINDows:POSition ENTER
         The query returns ENTER.
         """
-        self.instrument.ask(
-            ":TRIGger:WINDows:POSition TIMe"
-        )
+        self.instrument.ask(":TRIGger:WINDows:POSition TIMe")
 
     def status(self) -> str:
         """
@@ -298,9 +286,7 @@ class WindowsPosition(SSFunc):
         :TRIGger:WINDows:POSition ENTER
         The query returns ENTER.
         """
-        return self.instrument.ask(
-            ":TRIGger:WINDows:POSition?"
-        )
+        return self.instrument.ask(":TRIGger:WINDows:POSition?")
 
 
 class Windows(SFunc):

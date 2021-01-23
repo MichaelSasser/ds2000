@@ -76,9 +76,7 @@ class Pattern(SFunc):
                 raise ValueError(
                     'The pattern must only contain "H", "L", "X", "R" or "F".'
                 )
-        self.instrument.ask(
-            f":TRIGger:PATTern:PATTern {','.join(pattern)}"
-        )
+        self.instrument.ask(f":TRIGger:PATTern:PATTern {','.join(pattern)}")
 
     def get_pattern(self) -> Tuple[str, ...]:
         """
@@ -217,7 +215,5 @@ class Pattern(SFunc):
         The query returns 1.600000e-01.
         """
         return float(
-            self.instrument.ask(
-                f":TRIGger:PATTern:LEVel? CHANnel{channel}"
-            )
+            self.instrument.ask(f":TRIGger:PATTern:LEVel? CHANnel{channel}")
         )

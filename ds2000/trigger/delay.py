@@ -17,15 +17,15 @@
 from enum import Enum
 from typing import Union
 
-from ds2000.common import SFunc, channel_as_int
+from ds2000.common import SFunc
 from ds2000.common import SSFunc
+from ds2000.common import channel_as_int
 from ds2000.common import check_input
+from ds2000.errors import DS2000StateError
 
 
 __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
-
-from ds2000.errors import DS2000StateError
 
 
 class DelayTypeEnum(Enum):
@@ -324,9 +324,7 @@ class DelayType(SSFunc):
         :TRIGger:DELay:TYPe GOUT
         The query returns GOUT.
         """
-        ret: str = self.instrument.ask(
-            ":TRIGger:DELay:TYPe?"
-        )
+        ret: str = self.instrument.ask(":TRIGger:DELay:TYPe?")
 
         if ret == "GRE":
             return DelayTypeEnum.GREATER

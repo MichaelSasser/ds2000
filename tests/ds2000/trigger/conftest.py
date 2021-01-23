@@ -21,6 +21,7 @@ import pytest
 from ds2000 import DS2000
 from ds2000.visa.driver import VISADriver
 
+
 __author__: str = "Michael Sasser"
 __email__: str = "Michael@MichaelSasser.org"
 
@@ -28,7 +29,7 @@ __email__: str = "Michael@MichaelSasser.org"
 @pytest.fixture(scope="session", autouse=True)
 def dev():
     # Setup
-    #print("setting up", item)
+    # print("setting up", item)
     dev: DS2000 = DS2000("1.1.1.1", VISADriver.DEBUG_DRIVER)
 
     # Exercise - None

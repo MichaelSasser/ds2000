@@ -16,9 +16,10 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 from __future__ import annotations
 
-from .common import Func, check_input
+from .common import Func
 from .common import SFunc
 from .common import SSFunc
+from .common import check_input
 
 
 __author__ = "Michael Sasser"
@@ -297,9 +298,7 @@ class TimebaseDelay(SFunc):
         The query returns 5.000000e-08.
         """
         # ToDo: is this my unterstanding correct?
-        sampl_rate: float = float(
-            self.sdev.dev.acquire.get_samplerate()
-        )
+        sampl_rate: float = float(self.sdev.dev.acquire.get_samplerate())
         max_scale: float = self.sdev.get_scale()
         min_scale: float = 5 / (4 * sampl_rate)
         if (
@@ -905,7 +904,7 @@ class Timebase(Func):
         """
         # ToDo: MinMax dependend on model
         # TODO: Need to enable fine_adjustment before?
-        check_input(seconds, "seconds", int, 2.e-9, 1000., "s")
+        check_input(seconds, "seconds", int, 2.0e-9, 1000.0, "s")
         return float(self.instrument.ask(f":TIMebase:MAIN:SCALe {seconds}"))
 
     def enable_fine_adjustment(self) -> None:

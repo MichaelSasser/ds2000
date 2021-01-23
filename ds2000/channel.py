@@ -21,8 +21,9 @@ from typing import NamedTuple
 from typing import Optional
 from typing import Tuple
 
-from .common import Func, check_input
+from .common import Func
 from .common import SFunc
+from .common import check_input
 from .errors import DS2000Error
 from .math.format import Prefixed
 from .math.format import get_prefix
@@ -77,9 +78,7 @@ class ChannelCoupling(SFunc):
         The query returns AC.
 
         """
-        self.instrument.ask(
-            f":CHANnel{self.sdev._channel}:COUPling AC"
-        )
+        self.instrument.ask(f":CHANnel{self.sdev._channel}:COUPling AC")
 
     def dc(self) -> None:
         """
@@ -114,9 +113,7 @@ class ChannelCoupling(SFunc):
         The query returns AC.
 
         """
-        self.instrument.ask(
-            f":CHANnel{self.sdev._channel}:COUPling DC"
-        )
+        self.instrument.ask(f":CHANnel{self.sdev._channel}:COUPling DC")
 
     def gnd(self) -> None:
         """
@@ -151,9 +148,7 @@ class ChannelCoupling(SFunc):
         The query returns AC.
 
         """
-        self.instrument.ask(
-            f":CHANnel{self.sdev._channel}:COUPling GND"
-        )
+        self.instrument.ask(f":CHANnel{self.sdev._channel}:COUPling GND")
 
     def status(self) -> str:
         """
@@ -227,9 +222,7 @@ class ChannelUnits(SFunc):
         The query returns VOLT.
 
         """
-        self.instrument.ask(
-            f":CHANnel{self.sdev._channel}::UNITs VOLTage"
-        )
+        self.instrument.ask(f":CHANnel{self.sdev._channel}::UNITs VOLTage")
 
     def power(self) -> None:
         """
@@ -264,9 +257,7 @@ class ChannelUnits(SFunc):
         The query returns VOLT.
 
         """
-        self.instrument.ask(
-            f":CHANnel{self.sdev._channel}::UNITs WATT"
-        )
+        self.instrument.ask(f":CHANnel{self.sdev._channel}::UNITs WATT")
 
     def current(self) -> None:
         """
@@ -301,9 +292,7 @@ class ChannelUnits(SFunc):
         The query returns VOLT.
 
         """
-        self.instrument.ask(
-            f":CHANnel{self.sdev._channel}::UNITs AMPere"
-        )
+        self.instrument.ask(f":CHANnel{self.sdev._channel}::UNITs AMPere")
 
     def unknown(self) -> None:
         """
@@ -338,9 +327,7 @@ class ChannelUnits(SFunc):
         The query returns VOLT.
 
         """
-        self.instrument.ask(
-            f":CHANnel{self.sdev._channel}::UNITs UNKNown"
-        )
+        self.instrument.ask(f":CHANnel{self.sdev._channel}::UNITs UNKNown")
 
     def status(self) -> str:
         """
@@ -425,9 +412,7 @@ class ChannelBandwidthLimit(SFunc):
         :CHANnel1:BWLimit 20M
         The query returns 20M.
         """
-        self.instrument.ask(
-            f":CHANnel{self.sdev._channel}:BWLimit OFF"
-        )
+        self.instrument.ask(f":CHANnel{self.sdev._channel}:BWLimit OFF")
 
     def bw_20m(self):
         """
@@ -464,9 +449,7 @@ class ChannelBandwidthLimit(SFunc):
         :CHANnel1:BWLimit 20M
         The query returns 20M.
         """
-        self.instrument.ask(
-            f":CHANnel{self.sdev._channel}:BWLimit 20M"
-        )
+        self.instrument.ask(f":CHANnel{self.sdev._channel}:BWLimit 20M")
 
     def bw_100m(self):  # ToDo: not for DS2072 & DS2012
         """
@@ -503,9 +486,7 @@ class ChannelBandwidthLimit(SFunc):
         :CHANnel1:BWLimit 20M
         The query returns 20M.
         """
-        self.instrument.ask(
-            f":CHANnel{self.sdev._channel}:BWLimit 100M"
-        )
+        self.instrument.ask(f":CHANnel{self.sdev._channel}:BWLimit 100M")
 
     def status(self):
         """
@@ -542,9 +523,7 @@ class ChannelBandwidthLimit(SFunc):
         :CHANnel1:BWLimit 20M
         The query returns 20M.
         """
-        self.instrument.ask(
-            f":CHANnel{self.sdev._channel}:BWLimit?"
-        )
+        self.instrument.ask(f":CHANnel{self.sdev._channel}:BWLimit?")
 
 
 class Channel(Func):
@@ -617,7 +596,9 @@ class Channel(Func):
         :CHANnel1:INVert ON
         The query returns 1.
         """
-        return bool(int(self.instrument.ask(f":CHANnel{self._channel}:INVert?")))
+        return bool(
+            int(self.instrument.ask(f":CHANnel{self._channel}:INVert?"))
+        )
 
     def set_enable_invert(self) -> None:
         """
@@ -686,7 +667,6 @@ class Channel(Func):
         The query returns 1.
         """
         self.instrument.ask(f":CHANnel{self._channel}:INVert 0")
-
 
     @staticmethod
     def __offset_check_range(
@@ -840,7 +820,9 @@ class Channel(Func):
             # of scale.
             for r in self.__class__.OFFSET_RANGES:
                 if self.__offset_check_range(r, scale, offset, ratio):
-                    self.instrument.ask(f":CHANnel{self._channel}:OFFSet {offset}")
+                    self.instrument.ask(
+                        f":CHANnel{self._channel}:OFFSet {offset}"
+                    )
                     return
 
             # Anything between or none of that. Generate and throw an error.
@@ -907,7 +889,7 @@ class Channel(Func):
         """
         return float(self.instrument.ask(f":CHANnel{self._channel}:SCALe?"))
 
-    def set_scale(self, scale: float = 1.) -> None:
+    def set_scale(self, scale: float = 1.0) -> None:
         """
         **Rigol Programming Guide**
 
@@ -948,11 +930,18 @@ class Channel(Func):
         The query returns 1.000000e+00.
         """
         ratio: float = self.get_probe_attenuation_ratio()
-        check_input(scale, "scale", float, 500.e-6*ratio, 10.*ratio, "V",
-                    ext_range_err=("Remember, this values depend on the "
-                                   "probe attenuation ratio."
-                                   )
-                    )
+        check_input(
+            scale,
+            "scale",
+            float,
+            500.0e-6 * ratio,
+            10.0 * ratio,
+            "V",
+            ext_range_err=(
+                "Remember, this values depend on the "
+                "probe attenuation ratio."
+            ),
+        )
         float(self.instrument.ask(f":CHANnel{self._channel}:SCALe {scale}"))
 
     def get_probe_attenuation_ratio(self) -> float:
@@ -1080,7 +1069,9 @@ class Channel(Func):
         :CHANnel1:VERNier ON
         The query returns 1.
         """
-        return bool(int(self.instrument.ask(f":CHANnel{self._channel}:VERNier?")))
+        return bool(
+            int(self.instrument.ask(f":CHANnel{self._channel}:VERNier?"))
+        )
 
     def set_fine_adjust(self, enabled: bool = False) -> None:
         """

@@ -18,8 +18,9 @@ from __future__ import annotations
 
 import math
 
-from .common import Func, check_input
+from .common import Func
 from .common import SFunc
+from .common import check_input
 from .errors import DS2000Error
 
 

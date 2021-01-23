@@ -18,8 +18,8 @@ from __future__ import annotations
 
 import pytest
 
-from ds2000.trigger.delay import DelayTypeEnum
 from ds2000.trigger.delay import DelaySlopeEnum
+from ds2000.trigger.delay import DelayTypeEnum
 
 
 __author__: str = "Michael Sasser"
@@ -488,36 +488,36 @@ def test_delay_slope_b_set_negative(dev) -> None:
 
 def test_delay_channel_signal_source_a_1(dev) -> None:
     """
-   **Rigol Programming Guide**
+    **Rigol Programming Guide**
 
-   **Syntax**
+    **Syntax**
 
-   :TRIGger:DELay:SA <Source>
-   :TRIGger:DELay:SA?
+    :TRIGger:DELay:SA <Source>
+    :TRIGger:DELay:SA?
 
-   **Description**
+    **Description**
 
-   Select the trigger source of signal source A in delay trigger.
-   Query the current trigger source of signal source A in delay trigger.
+    Select the trigger source of signal source A in delay trigger.
+    Query the current trigger source of signal source A in delay trigger.
 
 
-   **Parameter**
+    **Parameter**
 
-   ========= ========= ==================== ========
-   Name      Type      Range                Default
-   ========= ========= ==================== ========
-   <source>  Discrete  {CHANnel1|CHANnel2}  CHANnel1
-   ========= ========= ==================== ========
+    ========= ========= ==================== ========
+    Name      Type      Range                Default
+    ========= ========= ==================== ========
+    <source>  Discrete  {CHANnel1|CHANnel2}  CHANnel1
+    ========= ========= ==================== ========
 
-   **Return Format**
+    **Return Format**
 
-   The query returns CHAN1 or CHAN2.
+    The query returns CHAN1 or CHAN2.
 
-   **Example**
+    **Example**
 
-   :TRIGger:DELay:SA CHANnel2
-   The query returns CHAN2.
-   """
+    :TRIGger:DELay:SA CHANnel2
+    The query returns CHAN2.
+    """
     # Setup
     dev.trigger.delay.set_channel_signal_source_a(1)
 
@@ -532,36 +532,36 @@ def test_delay_channel_signal_source_a_1(dev) -> None:
 
 def test_delay_channel_signal_source_a_2(dev) -> None:
     """
-   **Rigol Programming Guide**
+    **Rigol Programming Guide**
 
-   **Syntax**
+    **Syntax**
 
-   :TRIGger:DELay:SA <Source>
-   :TRIGger:DELay:SA?
+    :TRIGger:DELay:SA <Source>
+    :TRIGger:DELay:SA?
 
-   **Description**
+    **Description**
 
-   Select the trigger source of signal source A in delay trigger.
-   Query the current trigger source of signal source A in delay trigger.
+    Select the trigger source of signal source A in delay trigger.
+    Query the current trigger source of signal source A in delay trigger.
 
 
-   **Parameter**
+    **Parameter**
 
-   ========= ========= ==================== ========
-   Name      Type      Range                Default
-   ========= ========= ==================== ========
-   <source>  Discrete  {CHANnel1|CHANnel2}  CHANnel1
-   ========= ========= ==================== ========
+    ========= ========= ==================== ========
+    Name      Type      Range                Default
+    ========= ========= ==================== ========
+    <source>  Discrete  {CHANnel1|CHANnel2}  CHANnel1
+    ========= ========= ==================== ========
 
-   **Return Format**
+    **Return Format**
 
-   The query returns CHAN1 or CHAN2.
+    The query returns CHAN1 or CHAN2.
 
-   **Example**
+    **Example**
 
-   :TRIGger:DELay:SA CHANnel2
-   The query returns CHAN2.
-   """
+    :TRIGger:DELay:SA CHANnel2
+    The query returns CHAN2.
+    """
     # Setup
     dev.trigger.delay.set_channel_signal_source_a(2)
 
@@ -576,36 +576,36 @@ def test_delay_channel_signal_source_a_2(dev) -> None:
 
 def test_delay_channel_signal_source_a_fail(dev) -> None:
     """
-   **Rigol Programming Guide**
+    **Rigol Programming Guide**
 
-   **Syntax**
+    **Syntax**
 
-   :TRIGger:DELay:SA <Source>
-   :TRIGger:DELay:SA?
+    :TRIGger:DELay:SA <Source>
+    :TRIGger:DELay:SA?
 
-   **Description**
+    **Description**
 
-   Select the trigger source of signal source A in delay trigger.
-   Query the current trigger source of signal source A in delay trigger.
+    Select the trigger source of signal source A in delay trigger.
+    Query the current trigger source of signal source A in delay trigger.
 
 
-   **Parameter**
+    **Parameter**
 
-   ========= ========= ==================== ========
-   Name      Type      Range                Default
-   ========= ========= ==================== ========
-   <source>  Discrete  {CHANnel1|CHANnel2}  CHANnel1
-   ========= ========= ==================== ========
+    ========= ========= ==================== ========
+    Name      Type      Range                Default
+    ========= ========= ==================== ========
+    <source>  Discrete  {CHANnel1|CHANnel2}  CHANnel1
+    ========= ========= ==================== ========
 
-   **Return Format**
+    **Return Format**
 
-   The query returns CHAN1 or CHAN2.
+    The query returns CHAN1 or CHAN2.
 
-   **Example**
+    **Example**
 
-   :TRIGger:DELay:SA CHANnel2
-   The query returns CHAN2.
-   """
+    :TRIGger:DELay:SA CHANnel2
+    The query returns CHAN2.
+    """
     # Setup
     with pytest.raises(ValueError):
         dev.trigger.delay.set_channel_signal_source_a(3)
@@ -1249,7 +1249,7 @@ def test_delay_set_lower_limit_when_less(dev) -> None:
 
     :TRIGger:DELay:TLOWer 0.002
     The query returns 2.000000e-03.
-        """
+    """
     # Setup
     dev.trigger.delay.type.less()
     dev.trigger.delay.set_lower_limit(2.0e-9)
@@ -1303,7 +1303,7 @@ def test_delay_set_lower_limit_when_less_fail1(dev) -> None:
 
     :TRIGger:DELay:TLOWer 0.002
     The query returns 2.000000e-03.
-        """
+    """
     # Setup
     with pytest.raises(ValueError):
         dev.trigger.delay.type.less()
@@ -1354,7 +1354,7 @@ def test_delay_set_lower_limit_when_less_fail2(dev) -> None:
 
     :TRIGger:DELay:TLOWer 0.002
     The query returns 2.000000e-03.
-        """
+    """
     # Setup
     with pytest.raises(ValueError):
         dev.trigger.delay.type.less()
@@ -1405,7 +1405,7 @@ def test_delay_set_lower_limit_when_outside(dev) -> None:
 
     :TRIGger:DELay:TLOWer 0.002
     The query returns 2.000000e-03.
-        """
+    """
     # Setup
     dev.trigger.delay.type.outside()
     dev.trigger.delay.set_lower_limit(2.0e-9)
@@ -1459,7 +1459,7 @@ def test_delay_set_lower_limit_when_inside(dev) -> None:
 
     :TRIGger:DELay:TLOWer 0.002
     The query returns 2.000000e-03.
-        """
+    """
     # Setup
     dev.trigger.delay.type.inside()
     dev.trigger.delay.set_lower_limit(2.0e-9)
@@ -1513,7 +1513,7 @@ def test_delay_set_lower_limit_when_greater_fail(dev) -> None:
 
     :TRIGger:DELay:TLOWer 0.002
     The query returns 2.000000e-03.
-        """
+    """
     # Setup
     with pytest.raises(TypeError):
         dev.trigger.delay.type.greater()
@@ -1522,5 +1522,6 @@ def test_delay_set_lower_limit_when_greater_fail(dev) -> None:
     # Exercise - None
     # Verify - None
     # Cleanup - None
+
 
 # vim: set ft=python :

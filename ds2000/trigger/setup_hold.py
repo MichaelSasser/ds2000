@@ -204,9 +204,7 @@ class SetupHoldType(SSFunc):
         :TRIGger:SHOLd:TYPe SETHOLd
         The query returns SETHOL.
         """
-        status = self.instrument.ask(
-            ":TRIGger:SHOLd:TYPe?"
-        ).lower()
+        status = self.instrument.ask(":TRIGger:SHOLd:TYPe?").lower()
 
         if status == "setup":
             return "setup"
@@ -315,9 +313,7 @@ class SetupHoldDataSource(SSFunc):
         :TRIGger:SHOLd:DSrc CHANnel1
         The query returns CHAN2.
         """
-        status = self.instrument.ask(
-            ":TRIGger:SHOLd:DSrc?"
-        ).lower()
+        status = self.instrument.ask(":TRIGger:SHOLd:DSrc?").lower()
 
         if status == "chan1":
             return "channel 1"
@@ -424,9 +420,7 @@ class SetupHoldClockSource(SSFunc):
         :TRIGger:SHOLd:CSrc CHANnel2
         The query returns CHAN2.
         """
-        status = self.instrument.ask(
-            ":TRIGger:SHOLd:CSrc?"
-        ).lower()
+        status = self.instrument.ask(":TRIGger:SHOLd:CSrc?").lower()
 
         if status == "chan1":
             return "channel 1"
@@ -536,9 +530,7 @@ class SetupHoldSlope(SSFunc):
         :TRIGger:SHOLd:SLOPe NEGative
         The query returns NEG.
         """
-        status: str = self.instrument.ask(
-            ":TRIGger:SHOLd:SLOPe?"
-        ).lower()
+        status: str = self.instrument.ask(":TRIGger:SHOLd:SLOPe?").lower()
         if status == "POSitive":
             return "rising edge"
         if status == "NEGative":
@@ -644,9 +636,7 @@ class SetupHoldPattern(SSFunc):
         :TRIGger:SHOLd:PATTern L
         The query returns L.
         """
-        return self.instrument.ask(
-            ":TRIGger:SHOLd:PATTern?"
-        ).lower()
+        return self.instrument.ask(":TRIGger:SHOLd:PATTern?").lower()
 
 
 class SetupHold(SFunc):

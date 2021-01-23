@@ -73,9 +73,7 @@ class DurationWhen(SSFunc):
         :TRIGger:DURATion:WHEN LESS
         The query returns LESS.
         """
-        self.instrument.ask(
-            ":TRIGger:DURATion:WHEN GREater"
-        )
+        self.instrument.ask(":TRIGger:DURATion:WHEN GREater")
 
     def duration_of_pattern_lower_than_upper_limit(self) -> None:
         """
@@ -222,9 +220,7 @@ class DurationWhen(SSFunc):
         :TRIGger:DURATion:WHEN LESS
         The query returns LESS.
         """
-        return self.instrument.ask(
-            ":TRIGger:DURATion:WHEN?"
-        )
+        return self.instrument.ask(":TRIGger:DURATion:WHEN?")
 
 
 class Duration(SFunc):

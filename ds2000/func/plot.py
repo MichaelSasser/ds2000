@@ -16,6 +16,9 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 from logging import debug
 
+from ds2000.math.format import get_prefix
+
+
 try:
     import matplotlib.pyplot as plt
     import numpy as np
@@ -23,10 +26,10 @@ try:
     from matplotlib.ticker import FormatStrFormatter
     from matplotlib.ticker import MultipleLocator
 except ImportError:
-    raise ImportError('To use this functionality you need the extras: "func".'
-                      'Install them with pip install "ds2000[func]".')
-
-from ds2000.math.format import get_prefix
+    raise ImportError(
+        'To use this functionality you need the extras: "func".'
+        'Install them with pip install "ds2000[func]".'
+    )
 
 
 __author__: str = "Michael Sasser"
