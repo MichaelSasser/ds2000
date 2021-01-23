@@ -488,7 +488,9 @@ class Duration(SFunc):
         <NR3>  Real  2ns to 4s  1μs
         ====== ===== ========== =======
 
-        Note: when the trigger condition is GLESs, the range is
+        Note:
+
+        when the trigger condition is GLESs, the range is
         from 2ns to 3.99s.
 
         **Explanation**

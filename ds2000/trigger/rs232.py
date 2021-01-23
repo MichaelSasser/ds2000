@@ -392,6 +392,7 @@ class RS232Parity(SSFunc):
 
     def status(self) -> str:
         """Query the current even-odd check mode in RS232 trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -918,9 +919,10 @@ class RS232(SFunc):
                        the screen center - OFFSet
         ======== ===== =========================== =======
 
-        Note:
-        For the VerticalScale, refer to the :CHANnel<n>:SCALe command.
-        For the OFFSet, refer to the :CHANNel<n>:OFFSet command.
+        .. note::
+           For the VerticalScale, refer to the :CHANnel<n>:SCALe command.
+
+           For the OFFSet, refer to the :CHANNel<n>:OFFSet command.
 
         **Return Format**
 
@@ -970,9 +972,10 @@ class RS232(SFunc):
                        the screen center - OFFSet
         ======== ===== =========================== =======
 
-        Note:
-        For the VerticalScale, refer to the :CHANnel<n>:SCALe command.
-        For the OFFSet, refer to the :CHANNel<n>:OFFSet command.
+        .. note::
+           For the VerticalScale, refer to the :CHANnel<n>:SCALe command.
+
+           For the OFFSet, refer to the :CHANNel<n>:OFFSet command.
 
         **Return Format**
 

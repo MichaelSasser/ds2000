@@ -30,8 +30,7 @@ __email__ = "Michael@MichaelSasser.org"
 
 class Pattern(SFunc):
     def set_pattern(
-            self,
-            pattern: Union[List[str], Tuple[str]] = ("H", "L")
+        self, pattern: Union[List[str], Tuple[str]] = ("H", "L")
     ) -> None:
         """Set the pattern code of each channel in pattern trigger.
 
@@ -155,9 +154,10 @@ class Pattern(SFunc):
                            the screen - OFFSet
         ======== ========= ========================= ========
 
-        Note:
-        For the VerticalScale, refer to the :CHANnel<n>:SCALe command.
-        For the OFFSet, refer to the :CHANNel<n>:OFFSet command.
+        .. note::
+           For the VerticalScale, refer to the :CHANnel<n>:SCALe command.
+
+           For the OFFSet, refer to the :CHANNel<n>:OFFSet command.
 
         **Return Format**
 
@@ -209,9 +209,10 @@ class Pattern(SFunc):
                            the screen - OFFSet
         ======== ========= ========================= ========
 
-        Note:
-        For the VerticalScale, refer to the :CHANnel<n>:SCALe command.
-        For the OFFSet, refer to the :CHANNel<n>:OFFSet command.
+        .. note::
+           For the VerticalScale, refer to the :CHANnel<n>:SCALe command.
+
+           For the OFFSet, refer to the :CHANNel<n>:OFFSet command.
 
         **Return Format**
 

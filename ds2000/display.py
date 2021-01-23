@@ -677,7 +677,7 @@ class Display(Func):
             self.instrument.ask(f":DISPlay:GRADing:TIME {time}")
 
     def data(self) -> bytearray:  # Screenshot bitmap raw data stream
-        """Read the bitmap data stream of the image currently displayed.
+        r"""Read the bitmap data stream of the image currently displayed.
 
         **Rigol Programming Guide**
 

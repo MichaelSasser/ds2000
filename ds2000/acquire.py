@@ -503,6 +503,7 @@ class Acquire(Func):
 
     def set_enable_antialiasing(self):
         """Enable the antialiasing function.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -610,4 +611,3 @@ class Acquire(Func):
         The query returns 1.
         """
         return bool(self.instrument.ask(":ACQuire:AALias?"))
-

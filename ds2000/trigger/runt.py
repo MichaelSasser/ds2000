@@ -387,7 +387,7 @@ class Runt(SFunc):
         self.instrument.ask(":TRIGger:RUNT:POLarity POSitive")
 
     def set_polarity_negative(self) -> None:
-        """Select the pulse polarity of runt trigger
+        """Select the pulse polarity of runt trigger.
 
         **Rigol Programming Guide**
 
@@ -586,7 +586,7 @@ class Runt(SFunc):
         self.instrument.ask(f":TRIGger:RUNT:WUPPer {time}")
 
     def get_upper_limit(self) -> float:
-        """ Query the current upper limit of the pulse width in runt trigger.
+        """Query the current upper limit of the pulse width in runt trigger.
 
         **Rigol Programming Guide**
 
@@ -654,9 +654,10 @@ class Runt(SFunc):
                        the screen center - OFFSet
         ======== ===== =========================== =======
 
-        Note:
-        For the VerticalScale, refer to the :CHANnel<n>:SCALe command.
-        For the OFFSet, refer to the :CHANNel<n>:OFFSet command.
+        .. note::
+           For the VerticalScale, refer to the :CHANnel<n>:SCALe command.
+
+           For the OFFSet, refer to the :CHANNel<n>:OFFSet command.
 
         **Return Format**
 
@@ -708,9 +709,10 @@ class Runt(SFunc):
                        the screen center - OFFSet
         ======== ===== =========================== =======
 
-        Note:
-        For the VerticalScale, refer to the :CHANnel<n>:SCALe command.
-        For the OFFSet, refer to the :CHANNel<n>:OFFSet command.
+        .. note::
+           For the VerticalScale, refer to the :CHANnel<n>:SCALe command.
+
+           For the OFFSet, refer to the :CHANNel<n>:OFFSet command.
 
         **Return Format**
 
@@ -750,9 +752,10 @@ class Runt(SFunc):
                        the screen center - OFFSet
         ======== ===== =========================== =======
 
-        Note:
-        For the VerticalScale, refer to the :CHANnel<n>:SCALe command.
-        For the OFFSet, refer to the :CHANNel<n>:OFFSet command.
+        .. note::
+           For the VerticalScale, refer to the :CHANnel<n>:SCALe command.
+
+           For the OFFSet, refer to the :CHANNel<n>:OFFSet command.
 
         **Return Format**
 
@@ -804,9 +807,9 @@ class Runt(SFunc):
                        the screen center - OFFSet
         ======== ===== =========================== =======
 
-        Note:
-        For the VerticalScale, refer to the :CHANnel<n>:SCALe command.
-        For the OFFSet, refer to the :CHANNel<n>:OFFSet command.
+        .. note::
+           For the VerticalScale, refer to the :CHANnel<n>:SCALe command.
+           For the OFFSet, refer to the :CHANNel<n>:OFFSet command.
 
         **Return Format**
 

@@ -388,6 +388,7 @@ class DelaySlope(SSFunc):
 
     def set_negative(self) -> None:
         """Set the edge type of edge A/B of delay trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -623,7 +624,7 @@ class Delay(SFunc):
         :TRIGger:DELay:SB CHANnel2
         The query returns CHAN2.
         """
-        return channel_as_int(self.instrument.ask(f":TRIGger:DELay:SB?"))
+        return channel_as_int(self.instrument.ask(":TRIGger:DELay:SB?"))
 
     def set_upper_limit(self, time: float = 2.0e-9) -> None:
         """Set the upper limit of the delay time in delay trigger.

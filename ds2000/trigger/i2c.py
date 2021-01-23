@@ -903,7 +903,7 @@ class I2C(SFunc):
         return int(self.instrument.ask(":TRIGger:IIC:AWIDth?"))
 
     def set_address(self, address: int = 0x01) -> None:
-        """Set the address value in IIC trigger
+        """Set the address value in IIC trigger.
 
         **Rigol Programming Guide**
 
@@ -1109,10 +1109,10 @@ class I2C(SFunc):
                              the screen center - OFFSet
         ======== ===== ================================= ========
 
-        Note:
-        For the VerticalScale, refer to the :CHANnel<n>:SCALe command.
+        .. note::
+           For the VerticalScale, refer to the :CHANnel<n>:SCALe command.
 
-        For the OFFSet, refer to the :CHANNel<n>:OFFSet command.
+           For the OFFSet, refer to the :CHANNel<n>:OFFSet command.
 
         **Return Format**
 
@@ -1174,10 +1174,10 @@ class I2C(SFunc):
                              the screen center - OFFSet
         ======== ===== ================================= ========
 
-        Note:
-        For the VerticalScale, refer to the :CHANnel<n>:SCALe command.
+        .. note::
+           For the VerticalScale, refer to the :CHANnel<n>:SCALe command.
 
-        For the OFFSet, refer to the :CHANNel<n>:OFFSet command.
+           For the OFFSet, refer to the :CHANNel<n>:OFFSet command.
 
         **Return Format**
 
@@ -1215,10 +1215,10 @@ class I2C(SFunc):
                        the screen center - OFFSet
         ======== ===== =========================== ========
 
-        Note:
-        For the VerticalScale, refer to the :CHANnel<n>:SCALe command.
+        .. note::
+           For the VerticalScale, refer to the :CHANnel<n>:SCALe command.
 
-        For the OFFSet, refer to the :CHANNel<n>:OFFSet command.
+           For the OFFSet, refer to the :CHANNel<n>:OFFSet command.
 
         **Return Format**
 
@@ -1280,10 +1280,10 @@ class I2C(SFunc):
                        the screen center - OFFSet
         ======== ===== =========================== ========
 
-        Note:
-        For the VerticalScale, refer to the :CHANnel<n>:SCALe command.
+        .. note::
+           For the VerticalScale, refer to the :CHANnel<n>:SCALe command.
 
-        For the OFFSet, refer to the :CHANNel<n>:OFFSet command.
+           For the OFFSet, refer to the :CHANNel<n>:OFFSet command.
 
         **Return Format**
 

@@ -117,7 +117,7 @@ class Trigger(Func):
 
         The query returns the trigger holdoff time in scientific notation.
 
-        Example
+        **Example**
 
         :TRIGger:HOLDoff 0.0000002
         The query returns 2.000000e-07.
@@ -156,7 +156,7 @@ class Trigger(Func):
 
         The query returns the trigger holdoff time in scientific notation.
 
-        Example
+        **Example**
 
         :TRIGger:HOLDoff 0.0000002
         The query returns 2.000000e-07.

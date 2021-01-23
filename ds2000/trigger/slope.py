@@ -989,9 +989,10 @@ class Slope(SFunc):
                        the screen center - OFFSet
         ======== ===== =========================== =======
 
-        Note:
-        For the VerticalScale, refer to the :CHANnel<n>:SCALe command.
-        For the OFFSet, refer to the :CHANNel<n>:OFFSet command.
+        .. note::
+           For the VerticalScale, refer to the :CHANnel<n>:SCALe command.
+
+           For the OFFSet, refer to the :CHANNel<n>:OFFSet command.
 
         **Return Format**
 
@@ -1042,9 +1043,10 @@ class Slope(SFunc):
                        the screen center - OFFSet
         ======== ===== =========================== =======
 
-        Note:
-        For the VerticalScale, refer to the :CHANnel<n>:SCALe command.
-        For the OFFSet, refer to the :CHANNel<n>:OFFSet command.
+        .. note::
+           For the VerticalScale, refer to the :CHANnel<n>:SCALe command.
+
+           For the OFFSet, refer to the :CHANNel<n>:OFFSet command.
 
         **Return Format**
 
@@ -1083,9 +1085,10 @@ class Slope(SFunc):
                        the screen center - OFFSet
         ======== ===== =========================== =======
 
-        Note:
-        For the VerticalScale, refer to the :CHANnel<n>:SCALe command.
-        For the OFFSet, refer to the :CHANNel<n>:OFFSet command.
+        .. note::
+           For the VerticalScale, refer to the :CHANnel<n>:SCALe command.
+
+           For the OFFSet, refer to the :CHANNel<n>:OFFSet command.
 
         **Return Format**
 
@@ -1136,9 +1139,10 @@ class Slope(SFunc):
                        the screen center - OFFSet
         ======== ===== =========================== =======
 
-        Note:
-        For the VerticalScale, refer to the :CHANnel<n>:SCALe command.
-        For the OFFSet, refer to the :CHANNel<n>:OFFSet command.
+        .. note::
+           For the VerticalScale, refer to the :CHANnel<n>:SCALe command.
+
+           For the OFFSet, refer to the :CHANNel<n>:OFFSet command.
 
         **Return Format**
 

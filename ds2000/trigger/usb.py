@@ -425,7 +425,7 @@ class USB(SFunc):
         self.instrument.ask(f":TRIGger:USB:DMINus CHANnel{channel}")
 
     def get_data_minus_source(self) -> str:
-        """Query the current D- data channel source in USB trigger
+        """Query the current D- data channel source in USB trigger.
 
         **Rigol Programming Guide**
 
@@ -585,9 +585,10 @@ class USB(SFunc):
                        the screen center - OFFSet
         ======== ===== =========================== =======
 
-        Note:
-        For the VerticalScale, refer to the :CHANnel<n>:SCALe command.
-        For the OFFSet, refer to the :CHANNel<n>:OFFSet command.
+        .. note::
+           For the VerticalScale, refer to the :CHANnel<n>:SCALe command.
+
+           For the OFFSet, refer to the :CHANNel<n>:OFFSet command.
 
         **Return Format**
 
@@ -637,9 +638,10 @@ class USB(SFunc):
                        the screen center - OFFSet
         ======== ===== =========================== =======
 
-        Note:
-        For the VerticalScale, refer to the :CHANnel<n>:SCALe command.
-        For the OFFSet, refer to the :CHANNel<n>:OFFSet command.
+        .. note::
+           For the VerticalScale, refer to the :CHANnel<n>:SCALe command.
+
+           For the OFFSet, refer to the :CHANNel<n>:OFFSet command.
 
         **Return Format**
 
@@ -677,9 +679,10 @@ class USB(SFunc):
                        the screen center - OFFSet
         ======== ===== =========================== =======
 
-        Note:
-        For the VerticalScale, refer to the :CHANnel<n>:SCALe command.
-        For the OFFSet, refer to the :CHANNel<n>:OFFSet command.
+        .. note::
+           For the VerticalScale, refer to the :CHANnel<n>:SCALe command.
+
+           For the OFFSet, refer to the :CHANNel<n>:OFFSet command.
 
         **Return Format**
 
@@ -731,6 +734,7 @@ class USB(SFunc):
 
         Note:
         For the VerticalScale, refer to the :CHANnel<n>:SCALe command.
+
         For the OFFSet, refer to the :CHANNel<n>:OFFSet command.
 
         **Return Format**

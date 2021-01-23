@@ -170,8 +170,10 @@ class TimebaseHorizontalRef(SFunc):
         super(TimebaseHorizontalRef, self).__init__(device)
         self.mode: TimebaseHorizontalRefMode = TimebaseHorizontalRefMode(self)
 
+    # TODO: set_position() ?
     def get_position(self) -> int:
-        """
+        """Query the current user-defined reference position.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -336,13 +338,15 @@ class TimebaseDelay(SFunc):
                         (RightTime - DelayRange/2)
         ========= ===== ============================== =======
 
-        Note:
-        LeftTime = 7×MainScale – MainOffset.
-        For the MainScale, refer to the :TIMebase[:MAIN]:SCALe command.
-        RightTime = 7×MainScale + MainOffset.
-        For the MainOffset, refer to the :TIMebase[:MAIN]:OFFSet command.
-        DelayRange = 14×DelayScale.
-        For the DelayScale, refer to the :TIMebase:DELay:SCALe command.
+        .. note::
+           LeftTime = 7×MainScale – MainOffset.
+           For the MainScale, refer to the :TIMebase[:MAIN]:SCALe command.
+
+           RightTime = 7×MainScale + MainOffset.
+           For the MainOffset, refer to the :TIMebase[:MAIN]:OFFSet command.
+
+           DelayRange = 14×DelayScale.
+           For the DelayScale, refer to the :TIMebase:DELay:SCALe command.
 
         **Return Format**
 
@@ -452,8 +456,8 @@ class TimebaseDelay(SFunc):
         max_scale: float = self.sdev.get_scale()
         min_scale: float = 5 / (4 * sampl_rate)
         if (
-                not isinstance(scale, float)
-                and not min_scale >= scale >= max_scale
+            not isinstance(scale, float)
+            and not min_scale >= scale >= max_scale
         ):
             ValueError(
                 f"scale must be of type float and between the main "
@@ -497,7 +501,7 @@ class TimebaseDelay(SFunc):
         :TIMebase:DELay:SCALe 0.00000005
         The query returns 5.000000e-08.
         """
-        return float(self.instrument.ask(f":TIMebase:DELay:SCALe?"))
+        return float(self.instrument.ask(":TIMebase:DELay:SCALe?"))
 
     def set_position(self, pos: int = 0) -> None:
         """Set the user-defined reference position.
@@ -715,10 +719,12 @@ class Timebase(Func):
                         **ROLL STOP**: -7000s to 0
         ========= ===== ======================================= =======
 
-        Note:
-        For the MemDepth, refer to the :ACQuire:MDEPth command.
-        For the SamplingRate, refer to the :ACQuire:SRATe? command.
-        For the TimeScale, refer to the :TIMebase[:MAIN]:SCALe command.
+        .. note::
+           For the MemDepth, refer to the :ACQuire:MDEPth command.
+
+           For the SamplingRate, refer to the :ACQuire:SRATe? command.
+
+           For the TimeScale, refer to the :TIMebase[:MAIN]:SCALe command.
 
         **Return Format**
 
@@ -756,7 +762,7 @@ class Timebase(Func):
                     f"{min_offset}..1"
                 )
             elif time_scale >= 20.0e-3 and not (
-                    min_offset <= seconds <= 10.0 * time_scale
+                min_offset <= seconds <= 10.0 * time_scale
             ):
                 raise ValueError(
                     f'"seconds" in "{trigger.upper()}" '
@@ -860,10 +866,11 @@ class Timebase(Func):
                                 1ks
         =============== ======= ======================= =======
 
-        Note[1]: refer to the :TIMebase:MODE command.
+        .. note::
+           [1]: refer to the :TIMebase:MODE command.
 
-        Note[2]: this value is different for different model. For DS2072 and
-        DS2012, the value is 5 ns.
+           [2]: this value is different for different model. For DS2072 and
+           DS2012, the value is 5 ns.
 
         **Return Format**
 
@@ -925,8 +932,6 @@ class Timebase(Func):
         The query returns 2.000000e-04.
         """
         return float(self.instrument.ask(":TIMebase:MAIN:SCALe?"))
-
-
 
     def enable_fine_adjustment(self) -> None:
         """Enable the fine adjustment of the horizontal scale.

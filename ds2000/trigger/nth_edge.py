@@ -406,6 +406,7 @@ class NthEdge(SFunc):
 
         Note:
         For VerticalScale, refer to the :CHANnel<n>:SCALe command.
+
         For the OFFSet, refer to the :CHANNel<n>:OFFSet command.
 
         **Return Format**
@@ -460,9 +461,10 @@ class NthEdge(SFunc):
                        the screen center - OFFSet
         ======== ===== =========================== =======
 
-        Note:
-        For VerticalScale, refer to the :CHANnel<n>:SCALe command.
-        For the OFFSet, refer to the :CHANNel<n>:OFFSet command.
+        .. note::
+           For VerticalScale, refer to the :CHANnel<n>:SCALe command.
+
+           For the OFFSet, refer to the :CHANNel<n>:OFFSet command.
 
         **Return Format**
 

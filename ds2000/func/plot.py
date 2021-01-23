@@ -107,7 +107,9 @@ def simple_plot(inst, title: str = "", recorded: bool = False) -> None:
     debug(
         f"r.waveform.y_increment={inst.waveform.get_y_increment}"
     )  # voltage value per unit
-    debug(f"r.waveform.y_origin={inst.waveform.get_y_origin}")  # vertical offset
+    debug(
+        f"r.waveform.y_origin={inst.waveform.get_y_origin}"
+    )  # vertical offset
     debug(
         f"r.waveform.y_reference={inst.waveform.get_y_reference}"
     )  # vertical ref

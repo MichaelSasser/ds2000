@@ -34,9 +34,10 @@ __email__: str = "Michael@MichaelSasser.org"
 
 
 class ChannelOffsetRange(NamedTuple):
-    """
-    A structure to get get a iterable to check a entered offset against
-    the ranges defined below.
+
+    """A structure to get an iterable to check a entered offset.
+
+    The offset is checked against the ranges defined below.
     """
 
     min_scl: float  # minimal scale
@@ -502,6 +503,7 @@ class ChannelBandwidthLimit(SFunc):
 
     def status(self):
         """Query the current bandwidth limit.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -524,7 +526,9 @@ class ChannelBandwidthLimit(SFunc):
         <type>  Discrete  {20M|100M|OFF}  OFF
         ======= ========= =============== =======
 
-        Note: for DS2072 and DS2012, the bandwidth limit can only be 20MHz.
+        Note:
+
+        for DS2072 and DS2012, the bandwidth limit can only be 20MHz.
 
         **Return Format**
 
@@ -915,7 +919,7 @@ class Channel(Func):
                 "Remember, this values depend on the "
                 "probe attenuation ratio."
             ),
-            )
+        )
         float(self.instrument.ask(f":CHANnel{self._channel}:SCALe {scale}"))
 
     def get_scale(self) -> float:
@@ -1001,8 +1005,8 @@ class Channel(Func):
 
         """
         if (
-                not isinstance(ratio, float)
-                or ratio not in self.__class__.PROBE_ATTENUATION_RATIOS
+            not isinstance(ratio, float)
+            or ratio not in self.__class__.PROBE_ATTENUATION_RATIOS
         ):
             lst: List[str, ...]
             lst = [str(s) for s in self.__class__.PROBE_ATTENUATION_RATIOS]
@@ -1056,6 +1060,7 @@ class Channel(Func):
 
     def set_fine_adjust(self, enabled: bool = False) -> None:
         """Set the current status of the fine adjustment function (vertival).
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -1092,6 +1097,7 @@ class Channel(Func):
 
     def get_fine_adjust(self) -> bool:
         """Query the current status of the fine adjustment function (vertival).
+
         **Rigol Programming Guide**
 
         **Syntax**

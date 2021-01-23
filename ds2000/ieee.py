@@ -34,7 +34,6 @@ class IEEE(Func):
     def idn(self) -> str:
         """Get the ID chars of the device_address as Instrument Tuple.
 
-
         **Rigol Programming Guide**
 
         **Syntax**

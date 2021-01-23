@@ -37,6 +37,7 @@ StorageDBType = Union[Optional[Union[Dict[str, Any], List[str]]], List[str]]
 
 
 class State:
+
     """Store and recall the internal state of the instrument.
 
     **Why is self.db not flat?**

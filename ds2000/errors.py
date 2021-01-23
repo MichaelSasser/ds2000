@@ -31,6 +31,7 @@ __email__ = "Michael@MichaelSasser.org"
 
 
 class Error(Exception):
+
     """Base class for exceptions in this module."""
 
 
