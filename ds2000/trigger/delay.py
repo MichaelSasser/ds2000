@@ -22,6 +22,7 @@ from ds2000.common import channel_as_int
 from ds2000.common import check_input
 from ds2000.errors import DS2000StateError
 
+
 __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
 
@@ -40,7 +41,8 @@ class DelaySlopeEnum(Enum):
 
 class DelayType(SSFunc):
     def greater(self) -> None:
-        """
+        """Set the delay type of delay trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -97,7 +99,8 @@ class DelayType(SSFunc):
         self.instrument.ask(":TRIGger:DELay:TYPe GREater")
 
     def less(self) -> None:
-        """
+        """Set the delay type of delay trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -154,7 +157,8 @@ class DelayType(SSFunc):
         self.instrument.ask(":TRIGger:DELay:TYPe LESS")
 
     def inside(self) -> None:
-        """
+        """Set the delay type of delay trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -211,7 +215,8 @@ class DelayType(SSFunc):
         self.instrument.ask(":TRIGger:DELay:TYPe GLESs")
 
     def outside(self) -> None:
-        """
+        """Set the delay type of delay trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -268,7 +273,8 @@ class DelayType(SSFunc):
         self.instrument.ask(":TRIGger:DELay:TYPe GOUT")
 
     def status(self) -> DelayTypeEnum:
-        """
+        """Query the current delay type of delay trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -341,7 +347,8 @@ class DelaySlope(SSFunc):
         self.source: str = signal_source
 
     def set_positive(self) -> None:
-        """
+        """Set the edge type of edge A/B of delay trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -380,7 +387,7 @@ class DelaySlope(SSFunc):
         self.instrument.ask(f":TRIGger:DELay:SLOP{self.source} POSitive")
 
     def set_negative(self) -> None:
-        """
+        """Set the edge type of edge A/B of delay trigger.
         **Rigol Programming Guide**
 
         **Syntax**
@@ -422,7 +429,7 @@ class DelaySlope(SSFunc):
         self.instrument.ask(f":TRIGger:DELay:SLOP{self.source} NEGative")
 
     def status(self) -> DelaySlopeEnum:
-        """
+        """Query the current edge type of edge A of delay trigger.
 
         **Rigol Programming Guide**
 
@@ -477,7 +484,8 @@ class Delay(SFunc):
         self.slope_b: DelaySlope = DelaySlope(self, "B")
 
     def set_channel_signal_source_a(self, channel: int) -> None:
-        """
+        """Select the trigger source of signal source A in delay trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -512,7 +520,8 @@ class Delay(SFunc):
         self.instrument.ask(f":TRIGger:DELay:SA CHANnel{channel}")
 
     def get_channel_signal_source_a(self) -> int:
-        """
+        """Query the current trigger source of signal src A in delay trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -542,10 +551,11 @@ class Delay(SFunc):
         :TRIGger:DELay:SA CHANnel2
         The query returns CHAN2.
         """
-        return channel_as_int(self.instrument.ask(f":TRIGger:DELay:SA?"))
+        return channel_as_int(self.instrument.ask(":TRIGger:DELay:SA?"))
 
     def set_channel_signal_source_b(self, channel: int) -> None:
-        """
+        """Select the trigger source of signal source B in delay trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -579,7 +589,8 @@ class Delay(SFunc):
         self.instrument.ask(f":TRIGger:DELay:SB CHANnel{channel}")
 
     def get_channel_signal_source_b(self) -> int:
-        """
+        """Query the current trigger source of signal src A in delay trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -615,7 +626,8 @@ class Delay(SFunc):
         return channel_as_int(self.instrument.ask(f":TRIGger:DELay:SB?"))
 
     def set_upper_limit(self, time: float = 2.0e-9) -> None:
-        """
+        """Set the upper limit of the delay time in delay trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -676,7 +688,8 @@ class Delay(SFunc):
         self.instrument.ask(f":TRIGger:DELay:TUPPer {time}")
 
     def get_upper_limit(self) -> float:
-        """
+        """Query the current upper limit of the delay time in delay trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -729,10 +742,11 @@ class Delay(SFunc):
                 f"{DelayTypeEnum.INSIDE.value}"
             )
 
-        return float(self.instrument.ask(f":TRIGger:DELay:TUPPer?"))
+        return float(self.instrument.ask(":TRIGger:DELay:TUPPer?"))
 
     def set_lower_limit(self, time: float = 1.0e-6) -> None:
-        """
+        """Set the lower limit of the delay time in delay trigger.
+
         ToDo: The range in the note is the same as in the table?
         **Rigol Programming Guide**
 
@@ -791,7 +805,8 @@ class Delay(SFunc):
         self.instrument.ask(f":TRIGger:DELay:TLOWer {time}")
 
     def get_lower_limit(self) -> float:
-        """
+        """Query the current lower limit of the delay time in delay trigger.
+
         ToDo: The range in the note is the same as in the table?
         **Rigol Programming Guide**
 
@@ -845,4 +860,4 @@ class Delay(SFunc):
                 f"{DelayTypeEnum.INSIDE.value} "
             )
 
-        return float(self.instrument.ask(f":TRIGger:DELay:TLOWer?"))
+        return float(self.instrument.ask(":TRIGger:DELay:TLOWer?"))

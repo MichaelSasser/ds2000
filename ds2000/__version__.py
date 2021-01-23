@@ -18,6 +18,7 @@ from __future__ import annotations
 
 from pkg_resources import get_distribution
 
+
 __author__: str = "Michael Sasser"
 __email__: str = "Michael@MichaelSasser.org"
 

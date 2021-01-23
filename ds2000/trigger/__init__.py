@@ -17,6 +17,7 @@
 from __future__ import annotations
 
 from ds2000.common import Func
+
 from .coupling import Coupling
 from .delay import Delay
 from .duration import Duration
@@ -36,6 +37,7 @@ from .timeout import Timeout
 from .usb import USB
 from .video import Video
 from .windows import Windows
+
 
 __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
@@ -65,7 +67,8 @@ class Trigger(Func):
         self.usb: USB = USB(self)
 
     def status(self) -> str:
-        """
+        """Query the current trigger status.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -83,7 +86,8 @@ class Trigger(Func):
         return self.instrument.ask("TRIGger:STATus?").lower()
 
     def get_holdoff(self) -> float:
-        """
+        """Set the trigger holdoff time and the unit is s.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -121,7 +125,8 @@ class Trigger(Func):
         return float(self.instrument.ask(":TRIGger:HOLDoff?"))
 
     def set_holdoff(self, time: float = 100.0e-9) -> None:
-        """
+        """Set the trigger holdoff time and the unit is s.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -164,7 +169,8 @@ class Trigger(Func):
         self.instrument.ask(f":TRIGger:HOLDoff {time}")
 
     def get_noise_reject(self) -> bool:
-        """
+        """Query the current status of noise reject.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -197,7 +203,8 @@ class Trigger(Func):
         return bool(int(self.instrument.ask(":TRIGger:NREJect?")))
 
     def set_noise_reject(self, enable: bool = False) -> None:
-        """
+        """Enable or disable noise reject.
+
         **Rigol Programming Guide**
 
         **Syntax**

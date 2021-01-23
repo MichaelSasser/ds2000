@@ -33,11 +33,12 @@ from ds2000.common import get_examples
 from ds2000.errors import DS2000ExampleFoundBugError
 from ds2000.visa.driver import InstrumentInfo
 from ds2000.visa.driver import VISABase
+
 from .parser import Command
 from .parser import parse_msg
 from .parser import parse_values
 from .state import State
-from .state import StorageDBType
+
 
 __author__: str = "Michael Sasser"
 __email__: str = "Michael@MichaelSasser.org"
@@ -87,12 +88,13 @@ class DebugDriver(VISABase):
         debug("Disconnected from DEBUG_DRIVER")
 
     def ask(self, msg: str) -> Optional[str]:
-        """Write and read afterwards from a instrument."""
-        # Extract the examples from the function that has called this one
-        # To give at least a plausible output, even, if it is fixed.
-        # If this fails, give a "1.0" back, which should work with
-        # str, int, list, tuple, sets, float.
+        """Write and read afterwards from a instrument.
 
+        Extract the examples from the function that has called this one
+        To give at least a plausible output, even, if it is fixed.
+        If this fails, give a "1.0" back, which should work with
+        str, int, list, tuple, sets, float.
+        """
         answer: Optional[str] = None
         command: Command = parse_msg(msg)
         examples: List[Example] = []

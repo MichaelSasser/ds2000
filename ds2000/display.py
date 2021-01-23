@@ -23,13 +23,15 @@ from .common import SFunc
 from .common import check_input
 from .errors import DS2000Error
 
+
 __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
 
 
 class DisplayType(SFunc):
-    def vectors(self):
-        """
+    def set_vectors(self):
+        """Set the display mode of the waveform on the screen.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -71,8 +73,9 @@ class DisplayType(SFunc):
         """
         self.instrument.ask(":DISPlay:TYPE VECTors")
 
-    def dots(self):
-        """
+    def set_dots(self):
+        """Set the display mode of the waveform on the screen.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -114,7 +117,8 @@ class DisplayType(SFunc):
         self.instrument.ask(":DISPlay:TYPE DOTS")
 
     def status(self):
-        """
+        """Query the display mode of the waveform on the screen.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -160,8 +164,9 @@ class DisplayType(SFunc):
 
 
 class DisplayGrid(SFunc):
-    def full(self):
-        """
+    def set_full(self):
+        """Set the grid type of screen display.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -201,8 +206,9 @@ class DisplayGrid(SFunc):
         """
         self.instrument.ask(":DISPlay:GRID FULL")
 
-    def half(self):
-        """
+    def set_half(self):
+        """Set the grid type of screen display.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -242,8 +248,9 @@ class DisplayGrid(SFunc):
         """
         self.instrument.ask(":DISPlay:GRID HALF")
 
-    def none(self):
-        """
+    def set_none(self):
+        """Set the grid type of screen display.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -284,7 +291,8 @@ class DisplayGrid(SFunc):
         self.instrument.ask(":DISPlay:GRID NONE")
 
     def status(self) -> str:
-        """
+        """Query the grid type of screen display.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -350,7 +358,8 @@ class Display(Func):
         self.grid: DisplayGrid = DisplayGrid(self)
 
     def clear(self) -> None:
-        """
+        """Clear all the waveforms on the screen.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -371,7 +380,8 @@ class Display(Func):
         self.dev.write(":DISPlay:CLEar")
 
     def get_persistence_time(self) -> float:
-        """
+        """Set the persistence time and the unit is s.
+
         :return: The persistence in s, where 0.0 means Minimum and math.inf is
                  infinite.
 
@@ -430,7 +440,8 @@ class Display(Func):
         raise DS2000Error()
 
     def set_persistence_time(self, time: float = 0.0) -> None:
-        """
+        """Set the persistence time and the unit is s.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -488,7 +499,8 @@ class Display(Func):
             self.instrument.ask(f":DISPlay:GRADing:TIME {time}")
 
     def get_waveform_brightness(self) -> int:
-        """
+        """Query the waveform brightness and the unit is %.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -521,7 +533,8 @@ class Display(Func):
         return int(self.instrument.ask(":DISPlay:WBRightness?"))
 
     def set_waveform_brightness(self, brightness: int = 50) -> None:
-        """
+        """Set the waveform brightness and the unit is %.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -555,7 +568,8 @@ class Display(Func):
         self.instrument.ask(f":DISPlay:WBRightness {brightness}")
 
     def get_grid_brightness(self) -> int:
-        """
+        """Query the brightness of the screen grid and the unit is %.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -588,7 +602,8 @@ class Display(Func):
         return int(self.instrument.ask(":DISPlay:GBRightness?"))
 
     def set_grid_brightness(self, brightness: int = 50) -> None:
-        """
+        """Query the brightness of the screen grid and the unit is %.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -622,7 +637,8 @@ class Display(Func):
         self.instrument.ask(f":DISPlay:GBRightness {brightness}")
 
     def set_menu_display_time(self, time: int = -1) -> None:
-        """
+        """Query the menu display time and the unit is s.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -661,7 +677,8 @@ class Display(Func):
             self.instrument.ask(f":DISPlay:GRADing:TIME {time}")
 
     def data(self) -> bytearray:  # Screenshot bitmap raw data stream
-        """
+        """Read the bitmap data stream of the image currently displayed.
+
         **Rigol Programming Guide**
 
         **Syntax**

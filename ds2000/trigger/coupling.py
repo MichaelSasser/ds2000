@@ -21,6 +21,7 @@ from enum import Enum
 from ds2000.common import SFunc
 from ds2000.errors import DS2000StateError
 
+
 __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
 
@@ -34,7 +35,8 @@ class CouplingEnum(Enum):
 
 class Coupling(SFunc):
     def set_ac(self) -> None:
-        """
+        """Select the desired trigger coupling mode.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -71,7 +73,8 @@ class Coupling(SFunc):
         self.instrument.ask(":TRIGger:COUPling AC")
 
     def set_dc(self) -> None:
-        """
+        """Select the desired trigger coupling mode.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -108,7 +111,8 @@ class Coupling(SFunc):
         self.instrument.ask(":TRIGger:COUPling DC")
 
     def set_lf_reject(self) -> None:
-        """
+        """Select the desired trigger coupling mode.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -145,7 +149,8 @@ class Coupling(SFunc):
         self.instrument.ask(":TRIGger:COUPling LFReject")
 
     def set_hf_reject(self) -> None:
-        """
+        """Select the desired trigger coupling mode.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -182,7 +187,8 @@ class Coupling(SFunc):
         self.instrument.ask(":TRIGger:COUPling HFReject")
 
     def status(self) -> CouplingEnum:
-        """
+        """Query the current trigger coupling mode.
+
         **Rigol Programming Guide**
 
         **Syntax**

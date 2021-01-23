@@ -23,13 +23,15 @@ from ds2000.common import SSFunc
 from ds2000.common import check_input
 from ds2000.common import check_level
 
+
 __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
 
 
 class RS232When(SSFunc):
     def set_start_frame_position(self) -> None:
-        """
+        """Set the trigger condition of RS232 trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -74,7 +76,8 @@ class RS232When(SSFunc):
         self.instrument.ask(":TRIGger:RS232:WHEN STARt")
 
     def set_error_detected(self) -> None:
-        """
+        """Set the trigger condition of RS232 trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -119,7 +122,8 @@ class RS232When(SSFunc):
         self.instrument.ask(":TRIGger:RS232:WHEN ERRor")
 
     def set_parity_error_detected(self) -> None:
-        """
+        """Set the trigger condition of RS232 trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -164,7 +168,8 @@ class RS232When(SSFunc):
         self.instrument.ask(":TRIGger:RS232:WHEN PARity")
 
     def set_data(self) -> None:
-        """
+        """Set the trigger condition of RS232 trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -209,7 +214,8 @@ class RS232When(SSFunc):
         self.instrument.ask(":TRIGger:RS232:WHEN DATA")
 
     def status(self) -> str:
-        """
+        """Query the current trigger condition of RS232 trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -256,7 +262,8 @@ class RS232When(SSFunc):
 
 class RS232Parity(SSFunc):
     def set_even(self) -> None:
-        """
+        """Set the even-odd check mode in RS232 trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -298,7 +305,8 @@ class RS232Parity(SSFunc):
         self.instrument.ask(":TRIGger:RS232:PARity EVEN")
 
     def set_odd(self) -> None:
-        """
+        """Set the even-odd check mode in RS232 trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -340,7 +348,8 @@ class RS232Parity(SSFunc):
         self.instrument.ask(":TRIGger:RS232:PARity ODD")
 
     def set_none(self) -> None:
-        """
+        """Set the even-odd check mode in RS232 trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -382,7 +391,7 @@ class RS232Parity(SSFunc):
         self.instrument.ask(":TRIGger:RS232:PARity NONE")
 
     def status(self) -> str:
-        """
+        """Query the current even-odd check mode in RS232 trigger.
         **Rigol Programming Guide**
 
         **Syntax**
@@ -432,7 +441,8 @@ class RS232(SFunc):
         self.parity: RS232Parity = RS232Parity(self)
 
     def set_source(self, channel: int = 1) -> None:
-        """
+        """Select the trigger source of RS232 trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -464,7 +474,8 @@ class RS232(SFunc):
         self.instrument.ask(f":TRIGger:RS232:SOURce CHANnel{channel}")
 
     def get_source(self) -> str:
-        """
+        """Query the current trigger source of RS232 trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -496,7 +507,8 @@ class RS232(SFunc):
         return self.instrument.ask(":TRIGger:RS232:SOURce?")
 
     def set_stop_bits(self, stop_bits: int = 1) -> None:
-        """
+        """Set the stop bit in RS232 trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -535,7 +547,8 @@ class RS232(SFunc):
         self.instrument.ask(f":TRIGger:RS232:STOP {stop_bits}")
 
     def get_stop_bits(self) -> int:
-        """
+        """Query the current stop bit in RS232 trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -573,7 +586,8 @@ class RS232(SFunc):
         return int(self.instrument.ask(":TRIGger:RS232:STOP?"))
 
     def set_data(self, data_bits: int = 70) -> None:
-        """
+        """Set the data value in RS232 trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -622,7 +636,8 @@ class RS232(SFunc):
         self.instrument.ask(f":TRIGger:RS232:WIDTh {data_bits}")
 
     def get_data(self) -> int:
-        """
+        """Query the current data value in RS232 trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -663,7 +678,8 @@ class RS232(SFunc):
         return int(self.instrument.ask(":TRIGger:RS232:WIDTh?"))
 
     def set_data_bit_width(self, data_bit_width: int = 70) -> None:
-        """
+        """Set the data bits in RS232 trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -704,7 +720,8 @@ class RS232(SFunc):
         self.instrument.ask(f":TRIGger:RS232:WIDTh {data_bit_width}")
 
     def get_data_bit_width(self) -> int:
-        """
+        """Query the current data bits in RS232 trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -742,7 +759,8 @@ class RS232(SFunc):
         return int(self.instrument.ask(":TRIGger:RS232:WIDTh?"))
 
     def set_baud(self, baud: int = 9600) -> None:  # BAUD and BUSer
-        """
+        """Set the baud rate in RS232 trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -809,7 +827,8 @@ class RS232(SFunc):
         self.instrument.ask(f":TRIGger:RS232:BUSer {baud}")
 
     def get_baud(self) -> Dict[str, int]:  # BAUD and BUSer
-        """
+        """Query the current baud rate in RS232 trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -875,7 +894,8 @@ class RS232(SFunc):
         }
 
     def set_level(self, level: float = 0) -> None:
-        """
+        """Set the trigger level in RS232 trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -926,7 +946,8 @@ class RS232(SFunc):
         self.instrument.ask(f":TRIGger:RS232:LEVel {level}")
 
     def get_level(self) -> float:
-        """
+        """Query the current trigger level in RS232 trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**

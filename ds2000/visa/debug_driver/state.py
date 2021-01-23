@@ -25,7 +25,9 @@ from typing import Tuple
 from typing import Union
 
 from ds2000.common import Example
+
 from .parser import Command
+
 
 __author__: str = "Michael Sasser"
 __email__: str = "Michael@MichaelSasser.org"

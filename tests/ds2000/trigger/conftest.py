@@ -21,6 +21,7 @@ import pytest
 from ds2000 import DS2000
 from ds2000.visa.driver import VISADriver
 
+
 __author__: str = "Michael Sasser"
 __email__: str = "Michael@MichaelSasser.org"
 

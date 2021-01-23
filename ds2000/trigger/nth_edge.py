@@ -21,13 +21,15 @@ from ds2000.common import check_input
 from ds2000.common import check_level
 from ds2000.errors import DS2000StateError
 
+
 __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
 
 
 class NthEdgeSource(SSFunc):
-    def channel1(self) -> None:
-        """
+    def set_channel1(self) -> None:
+        """Select the trigger source of Nth egde trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -59,8 +61,9 @@ class NthEdgeSource(SSFunc):
         """
         self.instrument.ask(":TRIGger:NEDGe:SOURce CHANnel1")
 
-    def channel2(self) -> None:
-        """
+    def set_channel2(self) -> None:
+        """Select the trigger source of Nth egde trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -92,8 +95,9 @@ class NthEdgeSource(SSFunc):
         """
         self.instrument.ask(":TRIGger:NEDGe:SOURce CHANnel2")
 
-    def status(self) -> int:
-        """
+    def set_status(self) -> int:
+        """Select the trigger source of Nth egde trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -132,7 +136,8 @@ class NthEdge(SFunc):
         self.source: NthEdgeSource = NthEdgeSource(self)
 
     def set_slope(self, positive: bool = True) -> None:
-        """
+        """Select the edge type of Nth edge trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -166,8 +171,9 @@ class NthEdge(SFunc):
             f":TRIGger:NEDGe:SLOPe {'POSitive' if positive else 'NEGative'}"
         )
 
-    def slope_is_positive(self) -> bool:
-        """
+    def get_slope_is_positive(self) -> bool:
+        """Query the current edge type of Nth edge trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -204,10 +210,42 @@ class NthEdge(SFunc):
         )
 
     def slope_is_negative(self) -> bool:
+        """Query the current edge type of Nth edge trigger.
+
+        **Rigol Programming Guide**
+
+        **Syntax**
+
+        :TRIGger:NEDGe:SLOPe <slope>
+        :TRIGger:NEDGe:SLOPe?
+
+        **Description**
+
+        Select the edge type of Nth edge trigger.
+        Query the current edge type of Nth edge trigger.
+
+        **Parameter**
+
+        ======== ========= ==================== ========
+        Name     Type      Range                Default
+        ======== ========= ==================== ========
+        <slope>  Discrete  {POSitive|NEGative}  POSitive
+        ======== ========= ==================== ========
+
+        **Return Format**
+
+        The query returns POSitive or NEGative.
+
+        **Example**
+
+        :TRIGger:NEDGe:SLOPe NEGative
+        The query returns NEG.
+        """
         return not self.slope_is_positive()
 
     def set_idle(self, time: float = 1.0e-9) -> None:
-        """
+        """Set the idle time of Nth edge trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -241,7 +279,8 @@ class NthEdge(SFunc):
         self.instrument.ask(f":TRIGger:NEDGe:IDLE {time}")
 
     def get_idle(self) -> float:
-        """
+        """Query the current idle time of Nth edge trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -274,7 +313,8 @@ class NthEdge(SFunc):
         return float(self.instrument.ask(":TRIGger:NEDGe:IDLE?"))
 
     def set_edge(self, number: int = 2) -> None:
-        """
+        """Set the edge number of Nth edge trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -307,7 +347,8 @@ class NthEdge(SFunc):
         self.instrument.ask(f":TRIGger:NEDGe:EDGE {number}")
 
     def get_edge(self) -> int:
-        """
+        """Query the current edge number of Nth edge trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -339,7 +380,8 @@ class NthEdge(SFunc):
         return int(self.instrument.ask(":TRIGger:NEDGe:EDGE?"))
 
     def set_level(self, level: int = 0) -> None:
-        """
+        """Set the trigger level in Nth edge trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -394,7 +436,8 @@ class NthEdge(SFunc):
         self.instrument.ask(f":TRIGger:NEDGe:LEVel {level}")
 
     def get_level(self) -> int:
-        """
+        """Query the current trigger level in Nth edge trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**

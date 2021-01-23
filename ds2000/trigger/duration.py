@@ -19,6 +19,7 @@ from ds2000.common import SFunc
 from ds2000.common import SSFunc
 from ds2000.common import check_input
 
+
 __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
 
@@ -26,7 +27,8 @@ __email__ = "Michael@MichaelSasser.org"
 # TODO: Shorter method names
 class DurationWhen(SSFunc):
     def duration_of_pattern_greater_than_lower_limit(self) -> None:
-        """
+        """Select the trigger condition of duration trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -75,7 +77,8 @@ class DurationWhen(SSFunc):
         self.instrument.ask(":TRIGger:DURATion:WHEN GREater")
 
     def duration_of_pattern_lower_than_upper_limit(self) -> None:
-        """
+        """Select the trigger condition of duration trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -124,7 +127,8 @@ class DurationWhen(SSFunc):
         self.instrument.ask(":TRIGger:DURATion:WHEN LESS")
 
     def duration_of_pattern_between_lower_and_upper_limit(self) -> None:
-        """
+        """Select the trigger condition of duration trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -173,7 +177,8 @@ class DurationWhen(SSFunc):
         self.instrument.ask(":TRIGger:DURATion:WHEN GLESs")
 
     def status(self) -> str:
-        """
+        """Query the current trigger condition of duration trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -228,7 +233,8 @@ class Duration(SFunc):
         self.when: DurationWhen = DurationWhen(self)
 
     def set_source(self, channel: int = 1) -> None:
-        """
+        """Select the trigger source of duration trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -261,7 +267,8 @@ class Duration(SFunc):
         self.instrument.ask(f":TRIGger:DURATion:SOURce CHANnel{channel}")
 
     def get_source(self) -> int:
-        """
+        """Query the current trigger source of duration trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -294,7 +301,8 @@ class Duration(SFunc):
         return int(self.instrument.ask(":TRIGger:DURATion:SOURce?"))
 
     def set_type(self, pattern: str = "H,L") -> None:  # TODO
-        """
+        """Set the current patterns of the channels.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -332,7 +340,8 @@ class Duration(SFunc):
         self.instrument.ask(f":TRIGger:DURATion:TYPe {pattern}")
 
     def get_type(self) -> str:
-        """
+        """Query the current patterns of the channels.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -367,7 +376,8 @@ class Duration(SFunc):
         return self.instrument.ask(":TRIGger:DURATion:TYPe?")
 
     def set_upper_limit(self, time: float = 2.0e-6) -> None:
-        """
+        """Set the upper limit of the duration.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -411,7 +421,8 @@ class Duration(SFunc):
         self.instrument.ask(f":TRIGger:DURATion:TUPPer {time}")
 
     def get_upper_limit(self) -> float:
-        """
+        """Query the current upper limit of the duration in duration trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -454,7 +465,8 @@ class Duration(SFunc):
         return float(self.instrument.ask(":TRIGger:DURATion:TUPPer?"))
 
     def set_lower_limit(self, time: float = 1.0e-6) -> None:
-        """
+        """Set the lower limit of the duration in duration trigger and the
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -499,7 +511,8 @@ class Duration(SFunc):
         self.instrument.ask(f":TRIGger:DURATion:TLOWer {time}")
 
     def get_lower_limit(self) -> float:
-        """
+        """Query the current lower limit of the duration in duration trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**

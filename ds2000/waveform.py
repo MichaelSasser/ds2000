@@ -26,6 +26,7 @@ from .common import SFunc
 from .common import check_input
 from .errors import DS2000Error
 
+
 __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
 
@@ -49,7 +50,7 @@ class Preamble(NamedTuple):
 
 
 class Mode(SFunc):
-    def normal(self):
+    def set_normal(self):
         """Set the reading mode of waveform.
 
         **Rigol Programming Guide:**
@@ -102,7 +103,7 @@ class Mode(SFunc):
         """
         self.sdev.dev.write(":WAVeform:MODE NORMal")
 
-    def maximum(self):
+    def set_maximum(self):
         """Set the reading mode of waveform.
 
         **Rigol Programming Guide**
@@ -156,7 +157,7 @@ class Mode(SFunc):
         """
         self.sdev.dev.write(":WAVeform:MODE MAXimum")
 
-    def raw(self):
+    def set_raw(self):
         """Set the reading mode of waveform.
 
         **Rigol Programming Guide**
@@ -210,7 +211,58 @@ class Mode(SFunc):
         """
         self.sdev.dev.write(":WAVeform:MODE RAW")
 
-    def get(self):
+    def status(self):
+        """Query the current reading mode of waveform.
+
+        **Rigol Programming Guide**
+
+        :WAVeform:MODE
+
+        **Syntax**
+
+        :WAVeform:MODE <mode>
+
+        :WAVeform:MODE?
+
+        **Description**
+
+        Set the reading mode of waveform.
+        Query the current reading mode of waveform.
+
+        **Parameter**
+
+        ======= ========== ====================== =======
+        Name    Type       Range                  Default
+        ======= ========== ====================== =======
+        <type>  Discrete   {NORMal|MAXimum|RAW}   NORMal
+        ======= ========== ====================== =======
+
+        **Explanation**
+
+        In different modes, the :WAVeform:POINts command returns different
+        numbers of waveform points.
+
+        **NORMal** : return the number of waveform points currently displayed.
+
+        **MAXimum** : return the maximum number of effective data points under
+        the current state. Return the number of data points displayed on the
+        screen when the instrument is in run state and the number of data
+        points in the internal memory in stop state.
+
+        **RAW** : It is only available when the instrument is in stop state.
+        You can use the :WAVeform:POINts command to set the desired number of
+        data points in the internal memory.
+
+        **Return Format**
+
+        The query returns NORM, MAX or RAW.
+
+        **Example**
+
+        :WAVeform:MODE RAW
+
+        The query returns RAW.
+        """
         answer: str = self.instrument.ask(":WAVeform:MODE?")
         if answer == "NORM":
             return "Normal"
@@ -222,14 +274,14 @@ class Mode(SFunc):
             raise DS2000Error("Unknown Return Value")
 
     def __str__(self) -> str:
-        return self.get()
+        return self.status()
 
     def __repr__(self) -> str:
-        return self.get()
+        return self.status()
 
 
 class Format(SFunc):
-    def word(self):
+    def set_word(self):
         """Set the return format of the waveform data.
 
         **Rigol Programming Guide**
@@ -283,7 +335,7 @@ class Format(SFunc):
         """
         self.sdev.dev.write(":WAVeform:FORMat WORD")
 
-    def byte(self):
+    def set_byte(self):
         """Set the return format of the waveform data.
 
         **Rigol Programming Guide**
@@ -335,7 +387,7 @@ class Format(SFunc):
         """
         self.sdev.dev.write(":WAVeform:FORMat BYTE")
 
-    def ascii(self):
+    def set_ascii(self):
         """Set the return format of the waveform data.
 
         Rigol Programming Guide:
@@ -386,7 +438,7 @@ class Format(SFunc):
         """
         self.sdev.dev.write(":WAVeform:FORMat ASCii")
 
-    def get(self):
+    def status(self):
         answer: str = self.instrument.ask(":WAVeform:FORMAT?")
         if answer == "WORD":
             return "word"
@@ -398,10 +450,10 @@ class Format(SFunc):
             raise DS2000Error("Unknown Return Value")
 
     def __str__(self) -> str:
-        return self.get()
+        return self.status()
 
     def __repr__(self) -> str:
-        return self.get()
+        return self.status()
 
 
 class Waveform(Func):
@@ -410,7 +462,7 @@ class Waveform(Func):
         self.mode: Mode = Mode(self)
         self.format: Format = Format(self)
 
-    def channel(self, channel: int = 1):
+    def set_channel(self, channel: int = 1):
         """Set the channel source of waveform reading.
 
         **Rigol Programming Guide**
@@ -449,7 +501,7 @@ class Waveform(Func):
         check_input(channel, "channel", int, 1, 2)
         self.dev.write(f":WAVeform:SOURce CHANnel{channel}")
 
-    def points(self, points: int):
+    def set_points(self, points: int):
         """Set the number of waveform points to be read.
 
         **Rigol Programming Guide**
@@ -516,7 +568,7 @@ class Waveform(Func):
             )
         return self.instrument.ask(f"WAVeform:POINts {points}")
 
-    def data(self, recorded: bool = False):
+    def get_data(self, recorded: bool = False):
         """Read the waveform data.
 
         **Rigol Programming Guide**
@@ -820,11 +872,11 @@ class Waveform(Func):
             return dat
 
         if recorded:
-            self.dev.stop()
-            self.mode.raw()
+            self.dev.set_stop()
+            self.mode.set_raw()
             self.reset()
-            self.start(1)
-            self.stop(self.dev.acquire.memorydepth)
+            self.set_start(1)
+            self.set_stop(self.dev.acquire.memorydepth)
             self.begin()
             data = []
             while True:
@@ -854,7 +906,7 @@ class Waveform(Func):
         # print(f"eff_waves = {eff_waves}")
 
         try:
-            raw_wave = data[11 : (11 + eff_waves)]
+            raw_wave = data[11: (11 + eff_waves)]
         except Exception:
             raise DS2000Error("The waveform was corrupted.")
 
@@ -869,7 +921,7 @@ class Waveform(Func):
         return np.frombuffer(raw_wave, np.uint8)  # DataFrame
 
     @property
-    def x_increment(self) -> float:
+    def get_x_increment(self) -> float:
         """Query the time difference between two neighboring points.
 
         **Rigol Programming Guide**
@@ -897,7 +949,7 @@ class Waveform(Func):
         return float(self.instrument.ask(":WAVeform:XINCrement?"))
 
     @property
-    def x_origin(self) -> float:
+    def get_x_origin(self) -> float:
         """Query the time from the trigger point to the reference time.
 
         **Rigol Programming Guide**
@@ -925,7 +977,7 @@ class Waveform(Func):
         return float(self.instrument.ask(":WAVeform:XORigin?"))
 
     @property
-    def x_reference(self) -> float:
+    def get_x_reference(self) -> float:
         """Query the reference time of the specified source.
 
         **Rigol Programming Guide**
@@ -953,7 +1005,7 @@ class Waveform(Func):
         return float(self.instrument.ask(":WAVeform:XREFerence?"))
 
     @property
-    def y_increment(self) -> float:
+    def get_y_increment(self) -> float:
         """Query the voltage value per unit of the specified source.
 
         **Rigol Programming Guide**
@@ -981,7 +1033,7 @@ class Waveform(Func):
         return float(self.instrument.ask(":WAVeform:YINCrement?"))
 
     @property
-    def y_origin(self) -> float:
+    def get_y_origin(self) -> float:
         """Query the vertical offset relative to vertical reference position.
 
         Rigol Programming Guide
@@ -1010,7 +1062,7 @@ class Waveform(Func):
         return float(self.instrument.ask(":WAVeform:YORigin?"))
 
     @property
-    def y_reference(self) -> float:
+    def get_y_reference(self) -> float:
         """Query the vertical reference position of the specified source.
 
         **Rigol Programming Guide**
@@ -1037,7 +1089,7 @@ class Waveform(Func):
         """
         return float(self.instrument.ask(":WAVeform:YREFerence?"))
 
-    def start(self, start: int = 1):
+    def set_start(self, start: int = 1):
         """Set the start position of internal memory waveform reading.
 
         **Rigol Programming Guide**
@@ -1105,7 +1157,7 @@ class Waveform(Func):
             )
         self.dev.write(f":WAVeform:STARt {start}")
 
-    def stop(self, stop: int):
+    def set_stop(self, stop: int):
         """Set the stop position of internal memory waveform reading.
 
         **Rigol Programming Guide**

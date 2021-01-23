@@ -18,13 +18,15 @@
 from ds2000.common import SFunc
 from ds2000.errors import DS2000StateError
 
+
 __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
 
 
 class Mode(SFunc):
-    def edge(self) -> None:
-        """
+    def set_edge(self) -> None:
+        """Select the trigger type.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -59,8 +61,9 @@ class Mode(SFunc):
         """
         self.instrument.ask(":TRIGger:MODE EDGE")
 
-    def pulse(self) -> None:
-        """
+    def set_pulse(self) -> None:
+        """Select the trigger type.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -95,8 +98,9 @@ class Mode(SFunc):
         """
         self.instrument.ask(":TRIGger:MODE PULSe")
 
-    def runt(self) -> None:
-        """
+    def set_runt(self) -> None:
+        """Select the trigger type.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -131,8 +135,9 @@ class Mode(SFunc):
         """
         self.instrument.ask(":TRIGger:MODE RUNT")
 
-    def windows(self) -> None:
-        """
+    def set_windows(self) -> None:
+        """Select the trigger type.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -167,8 +172,9 @@ class Mode(SFunc):
         """
         self.instrument.ask(":TRIGger:MODE WIND")
 
-    def nth_edge(self) -> None:
-        """
+    def set_nth_edge(self) -> None:
+        """Select the trigger type.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -203,8 +209,9 @@ class Mode(SFunc):
         """
         self.instrument.ask(":TRIGger:MODE NEDG")
 
-    def slope(self) -> None:
-        """
+    def set_slope(self) -> None:
+        """Select the trigger type.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -239,8 +246,9 @@ class Mode(SFunc):
         """
         self.instrument.ask(":TRIGger:MODE SLOPe")
 
-    def video(self) -> None:
-        """
+    def set_video(self) -> None:
+        """Select the trigger type.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -275,8 +283,9 @@ class Mode(SFunc):
         """
         self.instrument.ask(":TRIGger:MODE VIDeo")
 
-    def pattern(self) -> None:
-        """
+    def set_pattern(self) -> None:
+        """Select the trigger type.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -311,8 +320,9 @@ class Mode(SFunc):
         """
         self.instrument.ask(":TRIGger:MODE PATTern")
 
-    def delay(self) -> None:
-        """
+    def set_delay(self) -> None:
+        """Select the trigger type.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -347,8 +357,9 @@ class Mode(SFunc):
         """
         self.instrument.ask(":TRIGger:MODE DELay")
 
-    def timeout(self) -> None:
-        """
+    def set_timeout(self) -> None:
+        """Select the trigger type.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -383,8 +394,9 @@ class Mode(SFunc):
         """
         self.instrument.ask(":TRIGger:MODE TIMeout")
 
-    def duration(self) -> None:
-        """
+    def set_duration(self) -> None:
+        """Select the trigger type.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -419,8 +431,9 @@ class Mode(SFunc):
         """
         self.instrument.ask(":TRIGger:MODE DURATion")
 
-    def setup_hold(self) -> None:
-        """
+    def set_setup_hold(self) -> None:
+        """Select the trigger type.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -455,8 +468,9 @@ class Mode(SFunc):
         """
         self.instrument.ask(":TRIGger:MODE SHOLd")
 
-    def rs232(self) -> None:
-        """
+    def set_rs232(self) -> None:
+        """Select the trigger type.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -491,8 +505,9 @@ class Mode(SFunc):
         """
         self.instrument.ask(":TRIGger:MODE RS232")
 
-    def i2c(self) -> None:
-        """
+    def set_i2c(self) -> None:
+        """Select the trigger type.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -527,8 +542,9 @@ class Mode(SFunc):
         """
         self.instrument.ask(":TRIGger:MODE IIC")
 
-    def spi(self) -> None:
-        """
+    def set_spi(self) -> None:
+        """Select the trigger type.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -563,8 +579,9 @@ class Mode(SFunc):
         """
         self.instrument.ask(":TRIGger:MODE SPI")
 
-    def usb(self) -> None:
-        """
+    def set_usb(self) -> None:
+        """Select the trigger type.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -600,7 +617,8 @@ class Mode(SFunc):
         self.instrument.ask(":TRIGger:MODE USB")
 
     def status(self) -> str:
-        """
+        """Query the current trigger type.
+
         **Rigol Programming Guide**
 
         **Syntax**

@@ -21,6 +21,7 @@ import pytest
 from ds2000.trigger.delay import DelaySlopeEnum
 from ds2000.trigger.delay import DelayTypeEnum
 
+
 __author__: str = "Michael Sasser"
 __email__: str = "Michael@MichaelSasser.org"
 

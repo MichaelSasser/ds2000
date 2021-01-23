@@ -19,16 +19,15 @@ from ds2000.common import SFunc
 from ds2000.common import check_input
 from ds2000.common import check_level
 
+
 __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
 
 
 class SPI(SFunc):
-    # def __init__(self, dev) -> None:
-    #     super(Spi, self).__init__(dev)
-
     def set_scl_source(self, channel: int = 1) -> None:
-        """
+        """Select the SCL channel source in SPI trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -62,7 +61,8 @@ class SPI(SFunc):
         self.instrument.ask(f":TRIGger:SPI:SCL CHANnel{channel}")
 
     def get_scl_source(self) -> str:
-        """
+        """Query the current SCL channel source in SPI trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -95,7 +95,8 @@ class SPI(SFunc):
         return self.instrument.ask(":TRIGger:SPI:SCL?")
 
     def set_sda_source(self, channel: int = 2) -> None:
-        """
+        """Select the SDA channel source in SPI trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -129,7 +130,8 @@ class SPI(SFunc):
         self.instrument.ask(f":TRIGger:SPI:SDA CHANnel{channel}")
 
     def get_sda_source(self) -> str:
-        """
+        """Query the current SDA channel source in SPI trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -162,7 +164,8 @@ class SPI(SFunc):
         return self.instrument.ask(":TRIGger:SPI:SDA?")
 
     def set_width(self, width: int = 8) -> None:
-        """
+        """Set the bits of SDA in SPI trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -196,7 +199,8 @@ class SPI(SFunc):
         self.instrument.ask(f":TRIGger:SPI:WIDTh {width}")
 
     def get_width(self) -> int:
-        """
+        """Query the current bits of SDA in SPI trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -229,7 +233,8 @@ class SPI(SFunc):
         return int(self.instrument.ask(":TRIGger:SPI:WIDTh?"))
 
     def set_data(self, data: int = 0) -> None:
-        """
+        """Set the data value in SPI trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -266,7 +271,8 @@ class SPI(SFunc):
         self.instrument.ask(f":TRIGger:SPI:DATA {data}")
 
     def get_data(self) -> int:
-        """
+        """Query the current data value in SPI trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -302,7 +308,8 @@ class SPI(SFunc):
         return int(self.instrument.ask(":TRIGger:SPI:DATA?"))
 
     def set_timeout(self, time: float = 1.0e-6) -> None:
-        """
+        """Set the timeout time in SPI trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -338,7 +345,8 @@ class SPI(SFunc):
         self.instrument.ask(f":TRIGger:SPI:TIMeout {time}")
 
     def get_timeout(self) -> float:
-        """
+        """Query the current timeout time in SPI trigge.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -373,7 +381,8 @@ class SPI(SFunc):
         return float(self.instrument.ask(":TRIGger:SPI:TIMeout?"))
 
     def set_slope_positive(self) -> None:
-        """
+        """Set the trigger edge of the clock signal in SPI trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -406,7 +415,8 @@ class SPI(SFunc):
         self.instrument.ask(":TRIGger:SPI:SLOPe POSitive")
 
     def set_slope_negative(self) -> None:
-        """
+        """Set the trigger edge of the clock signal in SPI trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -439,7 +449,8 @@ class SPI(SFunc):
         self.instrument.ask(":TRIGger:SPI:SLOPe NEGative")
 
     def get_slope(self) -> str:
-        """
+        """Query the current trigger edge of the clock signal in SPI trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -472,7 +483,8 @@ class SPI(SFunc):
         return self.instrument.ask(":TRIGger:SPI:SLOPe?")
 
     def set_scl_trigger_level(self, level: float = 0.0) -> None:
-        """
+        """Set the trigger level of SCL in SPI trigge.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -524,7 +536,8 @@ class SPI(SFunc):
         self.instrument.ask(f":TRIGger:SPI:CLEVel {level}")
 
     def get_scl_trigger_level(self) -> float:
-        """
+        """Query the current trigger level of SCL in SPI trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -564,7 +577,8 @@ class SPI(SFunc):
         return float(self.instrument.ask(":TRIGger:SPI:CLEVel?"))
 
     def set_sda_trigger_level(self, level: float = 0.0) -> None:
-        """
+        """Set the trigger level of SDA in SPI trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -616,7 +630,8 @@ class SPI(SFunc):
         self.instrument.ask(f":TRIGger:SPI:DLEVel {level}")
 
     def get_sda_trigger_level(self) -> float:
-        """
+        """Query the current trigger level of SDA in SPI trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**

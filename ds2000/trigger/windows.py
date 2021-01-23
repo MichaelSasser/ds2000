@@ -20,13 +20,15 @@ from ds2000.common import SFunc
 from ds2000.common import SSFunc
 from ds2000.common import check_input
 
+
 __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
 
 
 class WindowsSlope(SSFunc):
     def set_positive(self) -> None:
-        """
+        """Select the windows type of windows trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -58,7 +60,8 @@ class WindowsSlope(SSFunc):
         self.instrument.ask(":TRIGger:WINDows:SLOPe POSitive")
 
     def set_negative(self) -> None:
-        """
+        """Select the windows type of windows trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -90,7 +93,8 @@ class WindowsSlope(SSFunc):
         self.instrument.ask(":TRIGger:WINDows:SLOPe NEGative")
 
     def set_rfali(self) -> None:  # ToDo: what is rfali?
-        """
+        """Select the windows type of windows trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -122,7 +126,8 @@ class WindowsSlope(SSFunc):
         self.instrument.ask(":TRIGger:WINDows:SLOPe RFALl")
 
     def status(self) -> str:
-        """
+        """Query the current windows type of windows trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -156,7 +161,8 @@ class WindowsSlope(SSFunc):
 
 class WindowsPosition(SSFunc):
     def set_exit(self) -> None:
-        """
+        """Select the trigger position of windows trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -189,7 +195,8 @@ class WindowsPosition(SSFunc):
         self.instrument.ask(":TRIGger:WINDows:POSition EXIT")
 
     def set_enter(self) -> None:
-        """
+        """Select the trigger position of windows trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -222,7 +229,8 @@ class WindowsPosition(SSFunc):
         self.instrument.ask(":TRIGger:WINDows:POSition ENTER")
 
     def set_time(self) -> None:
-        """
+        """Select the trigger position of windows trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -255,7 +263,8 @@ class WindowsPosition(SSFunc):
         self.instrument.ask(":TRIGger:WINDows:POSition TIMe")
 
     def status(self) -> str:
-        """
+        """Query the current trigger position of windows trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -295,7 +304,8 @@ class Windows(SFunc):
         self.position: WindowsPosition = WindowsPosition(self)
 
     def set_source(self, channel: int = 1) -> None:
-        """
+        """Select the trigger source of windows trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -329,7 +339,8 @@ class Windows(SFunc):
         self.instrument.ask(f":TRIGger:WINDows:SOURce CHANnel{channel}")
 
     def get_source(self) -> str:
-        """
+        """Query the current trigger source of windows trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -362,7 +373,8 @@ class Windows(SFunc):
         return self.instrument.ask(":TRIGger:WINDows:SOURce?")
 
     def set_time(self, time: float = 1.0e-6) -> None:
-        """
+        """Select the windows time of windows trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -402,7 +414,8 @@ class Windows(SFunc):
         self.instrument.ask(f":TRIGger:WINDows:TIMe {time}")
 
     def get_time(self) -> float:
-        """
+        """Query the current windows time of windows trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**

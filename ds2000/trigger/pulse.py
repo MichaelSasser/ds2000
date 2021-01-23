@@ -20,6 +20,7 @@ from ds2000.common import SSFunc
 from ds2000.common import check_input
 from ds2000.common import check_level
 
+
 __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
 
@@ -29,7 +30,8 @@ class PulseWhen(SSFunc):
     def set_pos_pulse_width_greater_than_specified_lower_pulse_width(
         self,
     ) -> None:
-        """
+        """Select the trigger condition of pulse trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -99,7 +101,8 @@ class PulseWhen(SSFunc):
     def set_pos_pulse_width_lower_than_specified_upper_pulse_width(
         self,
     ) -> None:
-        """
+        """Select the trigger condition of pulse trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -170,7 +173,8 @@ class PulseWhen(SSFunc):
     def set_neg_pulse_width_greater_than_specified_lower_pulse_width(
         self,
     ) -> None:
-        """
+        """Select the trigger condition of pulse trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -240,7 +244,8 @@ class PulseWhen(SSFunc):
     def set_neg_pulse_width_lower_than_specified_upper_pulse_width(
         self,
     ) -> None:
-        """
+        """Select the trigger condition of pulse trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -310,7 +315,8 @@ class PulseWhen(SSFunc):
     def set_pos_pulse_width_between_specified_upper_and_lower_pulse_width(
         self,
     ) -> None:
-        """
+        """Select the trigger condition of pulse trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -380,7 +386,8 @@ class PulseWhen(SSFunc):
     def set_neg_pulse_width_between_specified_upper_and_lower_pulse_width(
         self,
     ) -> None:
-        """
+        """Select the trigger condition of pulse trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -448,7 +455,8 @@ class PulseWhen(SSFunc):
         self.instrument.ask(":TRIGger:PULSe:WHEN NGLess")
 
     def status(self) -> str:
-        """
+        """Query the current trigger condition of pulse trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -522,7 +530,8 @@ class Pulse(SFunc):
         self.when: PulseWhen = PulseWhen(self)
 
     def set_source(self, channel: int = 1) -> None:
-        """
+        """Select the trigger source in pulse trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -554,7 +563,8 @@ class Pulse(SFunc):
         self.instrument.ask(f":TRIGger:PULSe:SOURce CHANnel{channel}")
 
     def get_source(self) -> str:
-        """
+        """Query the current trigger source in pulse trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -586,7 +596,8 @@ class Pulse(SFunc):
         return self.instrument.ask(":TRIGger:PULSe:SOURce?")
 
     def set_upper_pulse_width(self, time: float = 2.0e-6) -> None:
-        """
+        """Set the upper limit of the pulse width in pulse trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -630,7 +641,8 @@ class Pulse(SFunc):
         self.instrument.ask(f":TRIGger:PULSe:UWIDth {time}")
 
     def get_upper_pulse_width(self) -> float:
-        """
+        """Query the current upper limit of the pulse width in pulse trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -673,7 +685,8 @@ class Pulse(SFunc):
         return float(self.instrument.ask(":TRIGger:PULSe:UWIDth?"))
 
     def set_lower_pulse_width(self, time: float = 1.0e-6) -> None:
-        """
+        """Set the lower limit of the pulse width in pulse trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -717,7 +730,8 @@ class Pulse(SFunc):
         self.instrument.ask(f":TRIGger:PULSe:LWIDth {time}")
 
     def get_lower_pulse_width(self) -> float:
-        """
+        """Query the current lower limit of the pulse width in pulse trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -760,7 +774,8 @@ class Pulse(SFunc):
         return float(self.instrument.ask(":TRIGger:PULSe:LWIDth?"))
 
     def set_level(self, level: float = 0.0) -> None:
-        """
+        """Set the trigger level in pulse trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -811,7 +826,8 @@ class Pulse(SFunc):
         self.instrument.ask(f":TRIGger:PULSe:LEVel {level}")
 
     def get_level(self) -> float:
-        """
+        """Query the current trigger level in pulse trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**

@@ -26,6 +26,7 @@ from typing import NamedTuple
 from typing import Optional
 from typing import Type
 
+
 __author__: str = "Michael Sasser"
 __email__: str = "Michael@MichaelSasser.org"
 

@@ -23,13 +23,15 @@ from ds2000.common import SSFunc
 from ds2000.common import check_input
 from ds2000.common import check_level
 
+
 __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
 
 
 class VideoMode(SSFunc):
     def set_odd_field(self) -> None:
-        """
+        """Set the sync type in video trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -91,7 +93,8 @@ class VideoMode(SSFunc):
         self.instrument.ask(":TRIGger:VIDeo:MODE ODDField")
 
     def set_even_field(self) -> None:
-        """
+        """Set the sync type in video trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -153,7 +156,8 @@ class VideoMode(SSFunc):
         self.instrument.ask(":TRIGger:VIDeo:MODE EVENfield")
 
     def set_specific_line(self) -> None:
-        """
+        """Set the sync type in video trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -215,7 +219,8 @@ class VideoMode(SSFunc):
         self.instrument.ask(":TRIGger:VIDeo:MODE LINE")
 
     def set_all_lines(self) -> None:
-        """
+        """Set the sync type in video trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -277,7 +282,8 @@ class VideoMode(SSFunc):
         self.instrument.ask(":TRIGger:VIDeo:MODE ALINes")
 
     def status(self) -> str:
-        """
+        """Query the current sync type in video trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -341,7 +347,8 @@ class VideoMode(SSFunc):
 
 class VideoStandard(SSFunc):
     def set_pal_secam(self) -> None:
-        """
+        """Select the video standard in video trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -378,7 +385,8 @@ class VideoStandard(SSFunc):
         self.instrument.ask(":TRIGger:VIDeo:STANdard PALSecam")
 
     def set_ntsc(self) -> None:
-        """
+        """Select the video standard in video trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -415,7 +423,8 @@ class VideoStandard(SSFunc):
         self.instrument.ask(":TRIGger:VIDeo:STANdard NTSC")
 
     def set_on_480p(self) -> None:
-        """
+        """Select the video standard in video trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -452,7 +461,8 @@ class VideoStandard(SSFunc):
         self.instrument.ask(":TRIGger:VIDeo:STANdard 480P")
 
     def set_on_576p(self) -> None:
-        """
+        """Select the video standard in video trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -489,7 +499,8 @@ class VideoStandard(SSFunc):
         self.instrument.ask(":TRIGger:VIDeo:STANdard 576P")
 
     def set_on_720p60hz(self) -> None:
-        """
+        """Select the video standard in video trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -526,7 +537,8 @@ class VideoStandard(SSFunc):
         self.instrument.ask(":TRIGger:VIDeo:STANdard 720P60HZ")
 
     def set_on_720p50hz(self) -> None:
-        """
+        """Select the video standard in video trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -563,7 +575,8 @@ class VideoStandard(SSFunc):
         self.instrument.ask(":TRIGger:VIDeo:STANdard 720P50HZ")
 
     def set_on_720p30hz(self) -> None:
-        """
+        """Select the video standard in video trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -600,7 +613,8 @@ class VideoStandard(SSFunc):
         self.instrument.ask(":TRIGger:VIDeo:STANdard 720P30HZ")
 
     def set_on_720p25hz(self) -> None:
-        """
+        """Select the video standard in video trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -637,7 +651,8 @@ class VideoStandard(SSFunc):
         self.instrument.ask(":TRIGger:VIDeo:STANdard 720P25HZ")
 
     def set_on_720p24hz(self) -> None:
-        """
+        """Select the video standard in video trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -674,7 +689,8 @@ class VideoStandard(SSFunc):
         self.instrument.ask(":TRIGger:VIDeo:STANdard 720P24HZ")
 
     def set_on_1080p60hz(self) -> None:
-        """
+        """Select the video standard in video trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -711,7 +727,8 @@ class VideoStandard(SSFunc):
         self.instrument.ask(":TRIGger:VIDeo:STANdard 1080P60HZ")
 
     def set_on_1080p50hz(self) -> None:
-        """
+        """Select the video standard in video trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -748,7 +765,8 @@ class VideoStandard(SSFunc):
         self.instrument.ask(":TRIGger:VIDeo:STANdard 1080P50HZ")
 
     def set_on_1080p30hz(self) -> None:
-        """
+        """Select the video standard in video trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -785,7 +803,8 @@ class VideoStandard(SSFunc):
         self.instrument.ask(":TRIGger:VIDeo:STANdard 1080P30HZ")
 
     def set_on_1080p25hz(self) -> None:
-        """
+        """Select the video standard in video trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -822,7 +841,8 @@ class VideoStandard(SSFunc):
         self.instrument.ask(":TRIGger:VIDeo:STANdard 1080P25HZ")
 
     def set_on_1080p24hz(self) -> None:
-        """
+        """Select the video standard in video trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -859,7 +879,8 @@ class VideoStandard(SSFunc):
         self.instrument.ask(":TRIGger:VIDeo:STANdard 1080P24HZ")
 
     def set_on_1080i30hz(self) -> None:
-        """
+        """Select the video standard in video trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -896,7 +917,8 @@ class VideoStandard(SSFunc):
         self.instrument.ask(":TRIGger:VIDeo:STANdard 1080I30HZ")
 
     def set_on_1080i25hz(self) -> None:
-        """
+        """Select the video standard in video trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -933,7 +955,8 @@ class VideoStandard(SSFunc):
         self.instrument.ask(":TRIGger:VIDeo:STANdard 1080I25HZ")
 
     def set_on_1080i24hz(self) -> None:
-        """
+        """Select the video standard in video trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -970,7 +993,8 @@ class VideoStandard(SSFunc):
         self.instrument.ask(":TRIGger:VIDeo:STANdard 1080I24HZ")
 
     def status(self) -> str:
-        """
+        """Query the current video standard in video trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -1034,7 +1058,8 @@ class Video(SFunc):
         self.standard: VideoStandard = VideoStandard(self)
 
     def set_source(self, channel: int = 1) -> None:
-        """
+        """Select the trigger source of video trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -1068,7 +1093,8 @@ class Video(SFunc):
         self.instrument.ask(f":TRIGger:VIDeo:SOURce CHANnel{channel}")
 
     def get_source(self) -> str:
-        """
+        """Query the current trigger source of video trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -1101,7 +1127,8 @@ class Video(SFunc):
         return self.instrument.ask(":TRIGger:VIDeo:SOURce?")
 
     def set_polarity_positive(self) -> None:
-        """
+        """Set the video polarity in video trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -1134,7 +1161,8 @@ class Video(SFunc):
         self.instrument.ask(":TRIGger:VIDeo:POLarity POSitive")
 
     def set_polarity_negative(self) -> None:
-        """
+        """Set the video polarity in video trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -1167,7 +1195,8 @@ class Video(SFunc):
         self.instrument.ask(":TRIGger:VIDeo:POLarity NEGative")
 
     def get_polarity(self) -> str:
-        """
+        """Query the current video polarity in video trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -1200,7 +1229,8 @@ class Video(SFunc):
         return self.instrument.ask(":TRIGger:VIDeo:POLarity?")
 
     def set_line(self, line: int = 1) -> None:
-        """
+        """Set the line number in video trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -1257,7 +1287,8 @@ class Video(SFunc):
         self.instrument.ask(f":TRIGger:VIDeo:LINE {line}")
 
     def get_line(self) -> int:
-        """
+        """Query the current line number of the specified line.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -1307,7 +1338,8 @@ class Video(SFunc):
         return int(self.instrument.ask(":TRIGger:VIDeo:LINE?"))
 
     def set_level(self, level: float = 0.0) -> None:
-        """
+        """Set the trigger level in video trigge.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -1358,7 +1390,8 @@ class Video(SFunc):
         self.instrument.ask(f":TRIGger:VIDeo:LEVel {level}")
 
     def get_level(self) -> float:
-        """
+        """Query the current trigger level in video trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**

@@ -25,6 +25,7 @@ from .common import check_input
 from .errors import DS2000Error
 from .errors import DS2000StateError
 
+
 __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
 
@@ -35,8 +36,9 @@ class AcquireType(NamedTuple):
 
 
 class Type(SFunc):
-    def normal(self) -> None:
-        """
+    def set_normal(self) -> None:
+        """Set the acquisition mode of the sample.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -74,8 +76,9 @@ class Type(SFunc):
         """
         self.instrument.ask(":ACQuire:TYPE NORMal")
 
-    def average(self) -> None:
-        """
+    def set_average(self) -> None:
+        """Set the acquisition mode of the sample.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -113,8 +116,9 @@ class Type(SFunc):
         """
         self.instrument.ask(":ACQuire:TYPE AVERages")
 
-    def peakdetect(self) -> None:
-        """
+    def set_peakdetect(self) -> None:
+        """Set the acquisition mode of the sample.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -153,8 +157,9 @@ class Type(SFunc):
         """
         self.instrument.ask(":ACQuire:TYPE PEAK")
 
-    def highres(self) -> None:
-        """
+    def set_highres(self) -> None:
+        """Set the acquisition mode of the sample.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -194,6 +199,44 @@ class Type(SFunc):
         self.instrument.ask(":ACQuire:TYPE HRESolution")
 
     def status(self):
+        """Query the current acquisition mode of the sample.
+
+        **Rigol Programming Guide**
+
+        **Syntax**
+
+        :ACQuire:TYPE <type>
+
+        :ACQuire:TYPE?
+
+        **Description**
+
+        Set the acquisition mode of the sample.
+        Query the current acquisition mode of the sample.
+
+        **Parameter**
+
+        ======= ========== ==================================== =======
+        Name    Type       Range                                Default
+        ======= ========== ==================================== =======
+        <type>  Discrete   {NORMal|AVERages|PEAK|HRESolution}   NORMal
+        ======= ========== ==================================== =======
+
+        **Explanation**
+
+        When AVERages is selected, use the :ACQuire:AVERages command to set
+        the number of averages.
+
+        **Return Format**
+
+        The query returns NORM, AVER, PEAK or HRES.
+
+        **Example**
+
+        :ACQuire:TYPE AVERages
+
+        The query returns AVER.
+        """
         answer: str = self.instrument.ask(":ACQuire:TYPE?")
         if answer == "NORM":
             return "Normal"
@@ -235,53 +278,9 @@ class Acquire(Func):
         super(Acquire, self).__init__(dev)
         self.type: Type = Type(self)
 
-    def get_averages(self) -> int:
-        """
-        **Rigol Programming Guide**
-
-        **Syntax**
-
-        :ACQuire:AVERages <count>
-
-        :ACQuire:AVERages?
-
-        **Description**
-
-        Set the number of averages and the value should be a power function
-        of 2. Query the current number of averages of the oscilloscope.
-
-        **Parameter**
-
-        ========= ========= =========== =======
-        Name      Type      Range       Default
-        ========= ========= =========== =======
-        <count>   Integer   2 to 8192   2
-        ========= ========= =========== =======
-
-        **Explanation**
-
-        Use the :ACQuire:TYPE command to select the average acquisition mode.
-        In this mode, the oscilloscope averages the waveforms from multiple
-        samples to reduce the random noise of the input signal and improve the
-        vertical resolution. The greater the number of averages is, the lower
-        the noise will be and the higher the vertical resolution will be but
-        the slower the response of the displayed waveform to the waveform
-        changes will be.
-
-        **Return Format**
-
-        The query returns an integer between 2 and 8192.
-
-        **Example**
-
-        :ACQuire:AVERages 128
-
-        The query returns 128.
-        """
-        return int(self.instrument.ask(":ACQuire:AVERages?"))
-
     def set_averages(self, count: int = 2):
-        """
+        """Set the number of averages.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -292,7 +291,8 @@ class Acquire(Func):
 
         **Description**
         Set the number of averages and the value should be a power function
-        of 2. Query the current number of averages of the oscilloscope.
+        of 2.
+        Query the current number of averages of the oscilloscope.
 
         **Parameter**
 
@@ -325,49 +325,52 @@ class Acquire(Func):
         check_input(count, "count", int, 2, 8192)
         self.instrument.ask(f":ACQuire:AVERages {count}")
 
-    def get_memorydepth(self) -> int:
-        """
+    def get_averages(self) -> int:
+        """Query the current number of averages of the oscilloscope.
+
         **Rigol Programming Guide**
 
         **Syntax**
 
-        :ACQuire:MDEPth <mdep>
+        :ACQuire:AVERages <count>
 
-        :ACQuire:MDEPth?
+        :ACQuire:AVERages?
 
         **Description**
 
-        Set the memory depth of the oscilloscope namely the number of
-        waveform points that can be stored in a single trigger sample.
-        Query the current memory depth of the oscilloscope.
+        Set the number of averages and the value should be a power function
+        of 2.
+        Query the current number of averages of the oscilloscope.
 
         **Parameter**
 
-        ======== ========== ====================== =======
-        Name     Type       Range                  Default
-        ======== ========== ====================== =======
-        <mdep>   Discrete   Refer to Explanation   AUTO
-        ======== ========== ====================== =======
+        ========= ========= =========== =======
+        Name      Type      Range       Default
+        ========= ========= =========== =======
+        <count>   Integer   2 to 8192   2
+        ========= ========= =========== =======
 
         **Explanation**
 
-        When a single channel is on:
-        <mdep> can be set to AUTO|14000|140000|1400000|14000000|56000000.
-
-        When dual channels are on:
-        <mdep> can be set to AUTO|7000|70000|700000|7000000|28000000.
+        Use the :ACQuire:TYPE command to select the average acquisition mode.
+        In this mode, the oscilloscope averages the waveforms from multiple
+        samples to reduce the random noise of the input signal and improve the
+        vertical resolution. The greater the number of averages is, the lower
+        the noise will be and the higher the vertical resolution will be but
+        the slower the response of the displayed waveform to the waveform
+        changes will be.
 
         **Return Format**
 
-        The query returns the actual number of points (integer) or AUTO.
+        The query returns an integer between 2 and 8192.
 
         **Example**
 
-        :ACQuire:MDEPth 1400000
+        :ACQuire:AVERages 128
 
-        The query returns 1400000.
+        The query returns 128.
         """
-        return int(self.instrument.ask(":ACQuire:MDEPth?"))
+        return int(self.instrument.ask(":ACQuire:AVERages?"))
 
     def set_memorydepth(self, memdepth: int = 0):
         """Set the memorydepth of the oscilloscope.
@@ -428,8 +431,54 @@ class Acquire(Func):
             self.instrument.ask(f":ACQuire:MDEPth {memdepth}")
         raise DS2000StateError()
 
-    def get_samplerate(self) -> int:
+    def get_memorydepth(self) -> int:
+        """Query the current memory depth of the oscilloscope.
+
+        **Rigol Programming Guide**
+
+        **Syntax**
+
+        :ACQuire:MDEPth <mdep>
+
+        :ACQuire:MDEPth?
+
+        **Description**
+
+        Set the memory depth of the oscilloscope namely the number of
+        waveform points that can be stored in a single trigger sample.
+        Query the current memory depth of the oscilloscope.
+
+        **Parameter**
+
+        ======== ========== ====================== =======
+        Name     Type       Range                  Default
+        ======== ========== ====================== =======
+        <mdep>   Discrete   Refer to Explanation   AUTO
+        ======== ========== ====================== =======
+
+        **Explanation**
+
+        When a single channel is on:
+        <mdep> can be set to AUTO|14000|140000|1400000|14000000|56000000.
+
+        When dual channels are on:
+        <mdep> can be set to AUTO|7000|70000|700000|7000000|28000000.
+
+        **Return Format**
+
+        The query returns the actual number of points (integer) or AUTO.
+
+        **Example**
+
+        :ACQuire:MDEPth 1400000
+
+        The query returns 1400000.
         """
+        return int(self.instrument.ask(":ACQuire:MDEPth?"))
+
+    def get_samplerate(self) -> int:
+        """Query the sample rate in scientific notation.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -452,44 +501,8 @@ class Acquire(Func):
         """
         return int(self.instrument.ask(":ACQuire:SRATe?"))
 
-    def get_antialiasing(self) -> bool:
-        """
-        **Rigol Programming Guide**
-
-        **Syntax**
-
-        :ACQuire:AALias <bool>
-
-        :ACQuire:AALias?
-
-        **Description**
-
-        Enable or disable the antialiasing function of the oscilloscope.
-        The query returns the current state of the antialiasing function of the
-        oscilloscope.
-
-        **Parameter**
-
-        ======== ====== ================== =======
-        Name     Type   Range              Default
-        ======== ====== ================== =======
-        <bool>   Bool   {{0|OFF}|{1|ON}}   0|OFF
-        ======== ====== ================== =======
-
-        **Return Format**
-
-        The query returns 0 or 1.
-
-        **Example**
-
-        :ACQuire:AALias ON
-
-        The query returns 1.
-        """
-        return bool(self.instrument.ask(":ACQuire:AALias?"))
-
     def set_enable_antialiasing(self):
-        """
+        """Enable the antialiasing function.
         **Rigol Programming Guide**
 
         **Syntax**
@@ -525,7 +538,8 @@ class Acquire(Func):
         self.instrument.ask(":ACQuire:AALias 1")
 
     def set_disable_antialiasing(self):
-        """
+        """Disable the antialiasing function.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -559,3 +573,41 @@ class Acquire(Func):
         The query returns 1.
         """
         self.instrument.ask(":ACQuire:AALias 0")
+
+    def get_antialiasing(self) -> bool:
+        """Query the current state of the antialiasing function.
+
+        **Rigol Programming Guide**
+
+        **Syntax**
+
+        :ACQuire:AALias <bool>
+
+        :ACQuire:AALias?
+
+        **Description**
+
+        Enable or disable the antialiasing function of the oscilloscope.
+        The query returns the current state of the antialiasing function of the
+        oscilloscope.
+
+        **Parameter**
+
+        ======== ====== ================== =======
+        Name     Type   Range              Default
+        ======== ====== ================== =======
+        <bool>   Bool   {{0|OFF}|{1|ON}}   0|OFF
+        ======== ====== ================== =======
+
+        **Return Format**
+
+        The query returns 0 or 1.
+
+        **Example**
+
+        :ACQuire:AALias ON
+
+        The query returns 1.
+        """
+        return bool(self.instrument.ask(":ACQuire:AALias?"))
+

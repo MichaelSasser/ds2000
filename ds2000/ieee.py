@@ -18,6 +18,7 @@ from __future__ import annotations
 
 from .common import Func
 
+
 __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
 
@@ -31,8 +32,8 @@ class IEEE(Func):
         super(IEEE, self).__init__(dev)
 
     def idn(self) -> str:
-        """Get the ID character string of the device_address.
-        as a Instrument Tuple.
+        """Get the ID chars of the device_address as Instrument Tuple.
+
 
         **Rigol Programming Guide**
 

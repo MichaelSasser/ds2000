@@ -20,13 +20,15 @@ from ds2000.common import SSFunc
 from ds2000.common import check_input
 from ds2000.common import check_level
 
+
 __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
 
 
 class USBWhen(SSFunc):
     def set_sop(self) -> None:
-        """
+        """Set the trigger condition of USB trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -73,7 +75,8 @@ class USBWhen(SSFunc):
         self.instrument.ask(":TRIGger:USB:WHEN SOP")
 
     def set_eop(self) -> None:
-        """
+        """Set the trigger condition of USB trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -120,7 +123,8 @@ class USBWhen(SSFunc):
         self.instrument.ask(":TRIGger:USB:WHEN EOP")
 
     def set_rc(self) -> None:
-        """
+        """Set the trigger condition of USB trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -167,7 +171,8 @@ class USBWhen(SSFunc):
         self.instrument.ask(":TRIGger:USB:WHEN RC")
 
     def set_suspend(self) -> None:
-        """
+        """Set the trigger condition of USB trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -214,7 +219,8 @@ class USBWhen(SSFunc):
         self.instrument.ask(":TRIGger:USB:WHEN SUSPend")
 
     def set_exit_suspend(self) -> None:
-        """
+        """Set the trigger condition of USB trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -261,7 +267,8 @@ class USBWhen(SSFunc):
         self.instrument.ask(":TRIGger:USB:WHEN EXITsuspend")
 
     def status(self) -> str:
-        """
+        """Query the current trigger condition of USB trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -314,7 +321,8 @@ class USB(SFunc):
         self.when: USBWhen = USBWhen(self)
 
     def set_data_plus_source(self, channel: int = 1) -> None:
-        """
+        """Select the D+ data channel source in USB trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -348,7 +356,8 @@ class USB(SFunc):
         self.instrument.ask(f":TRIGger:USB:DPLus CHANnel{channel}")
 
     def get_data_plus_source(self) -> str:
-        """
+        """Query the current D+ data channel source in USB trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -381,7 +390,8 @@ class USB(SFunc):
         return self.instrument.ask(":TRIGger:USB:DPLus?")
 
     def set_data_minus_source(self, channel: int = 2) -> None:
-        """
+        """Select the D- data channel source in USB trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -415,7 +425,8 @@ class USB(SFunc):
         self.instrument.ask(f":TRIGger:USB:DMINus CHANnel{channel}")
 
     def get_data_minus_source(self) -> str:
-        """
+        """Query the current D- data channel source in USB trigger
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -448,7 +459,8 @@ class USB(SFunc):
         return self.instrument.ask(":TRIGger:USB:DMINus?")
 
     def set_speed_full(self) -> None:
-        """
+        """Set the signal speed in USB trigger to Full Speed.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -481,7 +493,8 @@ class USB(SFunc):
         self.instrument.ask(":TRIGger:USB:SPEed FULL")
 
     def set_speed_low(self) -> None:
-        """
+        """Set the signal speed in USB trigger to Low Speed.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -514,7 +527,8 @@ class USB(SFunc):
         self.instrument.ask(":TRIGger:USB:SPEed LOW")
 
     def get_speed(self) -> str:
-        """
+        """Query the current signal speed in USB trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -547,7 +561,8 @@ class USB(SFunc):
         return self.instrument.ask(":TRIGger:USB:SPEed?")
 
     def set_data_plus_trigger_level(self, level: float = 0.0) -> None:
-        """
+        """Set the trigger level of the D+ data line in USB trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -598,7 +613,8 @@ class USB(SFunc):
         self.instrument.ask(f":TRIGger:USB:PLEVel {level}")
 
     def get_data_plus_trigger_level(self) -> float:
-        """
+        """Query the current trigger level of the D+ data line in USB trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -637,7 +653,8 @@ class USB(SFunc):
         return float(self.instrument.ask(":TRIGger:USB:PLEVel?"))
 
     def set_data_minus_trigger_level(self, level: float = 0.0) -> None:
-        """
+        """Set the trigger level of the D- data line in USB trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -688,7 +705,8 @@ class USB(SFunc):
         self.instrument.ask(f":TRIGger:USB:MLEVel {level}")
 
     def get_data_minus_trigger_level(self) -> float:
-        """
+        """Query the current trigger level of the D- data line in USB trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**

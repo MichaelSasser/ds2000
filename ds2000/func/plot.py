@@ -18,6 +18,7 @@ from logging import debug
 
 from ds2000.math.format import get_prefix
 
+
 try:
     import matplotlib.pyplot as plt
     import numpy as np
@@ -35,7 +36,7 @@ __email__: str = "Michael@MichaelSasser.org"
 
 
 def simple_plot(inst, title: str = "", recorded: bool = False) -> None:
-    """
+    """Use this simple interface to plot what is on the screen.
 
     :type title: The title of the plot
     :param inst: The instrument class.
@@ -55,7 +56,7 @@ def simple_plot(inst, title: str = "", recorded: bool = False) -> None:
 
     # Get data for x-/y-Axis
     df = (
-        (inst.waveform.data(recorded) - p.y_ref - p.y_origin)
+        (inst.waveform.data(recorded) - p.y_ref - p.get_y_origin)
         * p.y_inc
         * 10.0 ** (-get_prefix(c_scale).divisor)
     )  # y
@@ -94,21 +95,21 @@ def simple_plot(inst, title: str = "", recorded: bool = False) -> None:
     )
     plt.show()
 
-    a = -inst.waveform.y_origin - inst.waveform.y_reference  # debug
+    a = -inst.waveform.get_y_origin - inst.waveform.get_y_reference  # debug
     debug(f"lower: {a * 10 ** get_prefix(inst.channel1.get_scale()).divisor}")
 
     debug(f"r.channel1.get_scale()={inst.channel1.get_scale()}\n")
 
-    debug(f"r.waveform.x_increment={inst.waveform.x_increment}")
-    debug(f"r.waveform.x_origin={inst.waveform.x_origin}")
-    debug(f"r.waveform.x_reference={inst.waveform.x_reference}\n")
+    debug(f"r.waveform.x_increment={inst.waveform.get_x_increment}")
+    debug(f"r.waveform.x_origin={inst.waveform.get_x_origin}")
+    debug(f"r.waveform.x_reference={inst.waveform.get_x_reference}\n")
 
     debug(
-        f"r.waveform.y_increment={inst.waveform.y_increment}"
+        f"r.waveform.y_increment={inst.waveform.get_y_increment}"
     )  # voltage value per unit
-    debug(f"r.waveform.y_origin={inst.waveform.y_origin}")  # vertical offset
+    debug(f"r.waveform.y_origin={inst.waveform.get_y_origin}")  # vertical offset
     debug(
-        f"r.waveform.y_reference={inst.waveform.y_reference}"
+        f"r.waveform.y_reference={inst.waveform.get_y_reference}"
     )  # vertical ref
 
     debug(get_prefix(inst.timebase.get_scale()))

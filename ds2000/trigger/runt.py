@@ -20,6 +20,7 @@ from ds2000.common import SSFunc
 from ds2000.common import check_input
 from ds2000.common import check_level
 
+
 __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
 
@@ -27,7 +28,8 @@ __email__ = "Michael@MichaelSasser.org"
 # ToDo: Shorter function names!!!
 class RuntWhen(SSFunc):
     def set_none(self) -> None:
-        """
+        """Select the qualifier of runt trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -76,7 +78,8 @@ class RuntWhen(SSFunc):
         self.instrument.ask(":TRIGger:RUNT:WHEN NONE")
 
     def set_pulse_width_greater_than_lower_limit(self) -> None:
-        """
+        """Select the qualifier of runt trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -125,7 +128,8 @@ class RuntWhen(SSFunc):
         self.instrument.ask(":TRIGger:RUNT:WHEN GREater")
 
     def set_pulse_width_lower_than_upper_limit(self) -> None:
-        """
+        """Select the qualifier of runt trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -174,7 +178,8 @@ class RuntWhen(SSFunc):
         self.instrument.ask(":TRIGger:RUNT:WHEN LESS")
 
     def set_pulse_width_between_lower_and_upper_limit(self) -> None:
-        """
+        """Select the qualifier of runt trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -223,7 +228,8 @@ class RuntWhen(SSFunc):
         self.instrument.ask(":TRIGger:RUNT:WHEN GLESs")
 
     def status(self) -> str:
-        """
+        """Query the current qualifier of runt trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -278,7 +284,8 @@ class Runt(SFunc):
         self.when: RuntWhen = RuntWhen(self)
 
     def set_source(self, channel: int = 1) -> None:
-        """
+        """Select the trigger source of runt trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -312,7 +319,8 @@ class Runt(SFunc):
         self.instrument.ask(f":TRIGger:RUNT:SOURce CHANnel{channel}")
 
     def get_source(self) -> str:
-        """
+        """Query the current trigger source of runt trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -345,7 +353,8 @@ class Runt(SFunc):
         return self.instrument.ask(":TRIGger:RUNT:SOURce?")
 
     def set_polarity_positive(self) -> None:
-        """
+        """Select the pulse polarity of runt trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -378,7 +387,8 @@ class Runt(SFunc):
         self.instrument.ask(":TRIGger:RUNT:POLarity POSitive")
 
     def set_polarity_negative(self) -> None:
-        """
+        """Select the pulse polarity of runt trigger
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -411,7 +421,8 @@ class Runt(SFunc):
         self.instrument.ask(":TRIGger:RUNT:POLarity NEGative")
 
     def get_polarity(self) -> str:
-        """
+        """Query the current pulse polarity of runt trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -444,7 +455,8 @@ class Runt(SFunc):
         return self.instrument.ask(":TRIGger:RUNT:POLarity?")
 
     def set_lower_limit(self, time: float = 1.0e-6) -> None:
-        """
+        """Set the lower limit of the pulse width in runt trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -487,7 +499,8 @@ class Runt(SFunc):
         self.instrument.ask(f":TRIGger:RUNT:WLOWer {time}")
 
     def get_lower_limit(self) -> float:
-        """
+        """Query the current lower limit of the pulse width in runt trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -529,7 +542,8 @@ class Runt(SFunc):
         return float(self.instrument.ask(":TRIGger:RUNT:WLOWer?"))
 
     def set_upper_limit(self, time: float = 2.0e-6) -> None:
-        """
+        """Set the upper limit of the pulse width in runt trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -572,7 +586,8 @@ class Runt(SFunc):
         self.instrument.ask(f":TRIGger:RUNT:WUPPer {time}")
 
     def get_upper_limit(self) -> float:
-        """
+        """ Query the current upper limit of the pulse width in runt trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -614,7 +629,8 @@ class Runt(SFunc):
         return float(self.instrument.ask(":TRIGger:RUNT:WUPPer?"))
 
     def set_upper_limit_trigger_level(self, level: float = 0.0) -> None:
-        """
+        """Set the upper limit of the trigger level in runt trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -667,7 +683,8 @@ class Runt(SFunc):
         check_level(level, scale, offset)
 
     def get_upper_limit_trigger_level(self) -> float:
-        """
+        """Query the current upper limit of the trigger level in runt trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -708,7 +725,8 @@ class Runt(SFunc):
         return float(self.instrument.ask(":TRIGger:RUNT:ALEVel?"))
 
     def set_lower_limit_trigger_level(self, level: float = 0.0) -> None:
-        """
+        """Set the lower limit of the trigger level in runt trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -761,7 +779,8 @@ class Runt(SFunc):
         self.instrument.ask(f":TRIGger:RUNT:BLEVel {level}")
 
     def get_lower_limit_trigger_level(self) -> float:
-        """
+        """Query the current lower limit of the trigger level in runt trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**

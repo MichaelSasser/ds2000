@@ -20,6 +20,7 @@ from ds2000.common import SSFunc
 from ds2000.common import check_input
 from ds2000.errors import DS2000StateError
 
+
 __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
 
@@ -29,8 +30,9 @@ __all__ = [
 
 
 class TimeoutSlope(SSFunc):
-    def rising_edge(self) -> None:
-        """
+    def set_rising_edge(self) -> None:
+        """Set the edge type of timeout trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -62,8 +64,9 @@ class TimeoutSlope(SSFunc):
         """
         self.instrument.ask(":TRIGger:TIMeout:SLOPe POSitive")
 
-    def falling_edge(self) -> None:
-        """
+    def set_falling_edge(self) -> None:
+        """Set the edge type of timeout trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -95,8 +98,9 @@ class TimeoutSlope(SSFunc):
         """
         self.instrument.ask(":TRIGger:TIMeout:SLOPe NEGative")
 
-    def both_edges(self) -> None:
-        """
+    def set_both_edges(self) -> None:
+        """Set the edge type of timeout trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -129,7 +133,8 @@ class TimeoutSlope(SSFunc):
         self.instrument.ask(":TRIGger:TIMeout:SLOPe RFALl")
 
     def status(self) -> str:
-        """
+        """Query the current edge type of timeout trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -170,8 +175,9 @@ class TimeoutSlope(SSFunc):
 
 
 class TimeoutChannel(SSFunc):
-    def channel1(self) -> None:
-        """
+    def set_channel1(self) -> None:
+        """Select the trigger source of timeout trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -204,8 +210,9 @@ class TimeoutChannel(SSFunc):
 
         self.instrument.ask(":TRIGger:TIMeout:SOURce CHANnel1")
 
-    def channel2(self) -> None:
-        """
+    def set_channel2(self) -> None:
+        """Select the trigger source of timeout trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -239,7 +246,8 @@ class TimeoutChannel(SSFunc):
         self.instrument.ask(":TRIGger:TIMeout:SOURce CHANnel2")
 
     def status(self) -> str:
-        """
+        """Query the current trigger source of timeout trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -285,41 +293,9 @@ class Timeout(SFunc):
         self.slope: TimeoutSlope = TimeoutSlope(self)
         self.channel: TimeoutChannel = TimeoutChannel(self)
 
-    def get_time(self) -> float:
-        """
-        **Rigol Programming Guide**
-
-        **Syntax**
-
-        :TRIGger:TIMeout:TIMe <NR3>
-        :TRIGger:TIMeout:TIMe?
-
-        **Description**
-
-        Set the timeout time of timeout trigger.
-        Query the current timeout time of timeout trigger.
-
-        **Parameter**
-
-        ====== ===== =========== =======
-        Name   Type  Range       Default
-        ====== ===== =========== =======
-        <NR3>  Real  16ns to 4s  1μs
-        ====== ===== =========== =======
-
-        **Return Format**
-
-        The query returns the timeout time in scientific notation.
-
-        **Example**
-
-        :TRIGger:TIMeout:TIMe 0.002
-        The query returns 2.000000e+06.
-        """
-        return float(self.instrument.ask(":TRIGger:TIMeout:TIMe?"))
-
     def set_time(self, time: float = 1.0e-6) -> None:
-        """
+        """Set the timeout time of timeout trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -351,3 +327,37 @@ class Timeout(SFunc):
         """
         check_input(time, "time", float, 16.0e-9, 4.0, "s")
         self.instrument.ask(f":TRIGger:TIMeout:TIMe {time}")
+
+    def get_time(self) -> float:
+        """Set the timeout time of timeout trigger.
+
+        **Rigol Programming Guide**
+
+        **Syntax**
+
+        :TRIGger:TIMeout:TIMe <NR3>
+        :TRIGger:TIMeout:TIMe?
+
+        **Description**
+
+        Set the timeout time of timeout trigger.
+        Query the current timeout time of timeout trigger.
+
+        **Parameter**
+
+        ====== ===== =========== =======
+        Name   Type  Range       Default
+        ====== ===== =========== =======
+        <NR3>  Real  16ns to 4s  1μs
+        ====== ===== =========== =======
+
+        **Return Format**
+
+        The query returns the timeout time in scientific notation.
+
+        **Example**
+
+        :TRIGger:TIMeout:TIMe 0.002
+        The query returns 2.000000e+06.
+        """
+        return float(self.instrument.ask(":TRIGger:TIMeout:TIMe?"))

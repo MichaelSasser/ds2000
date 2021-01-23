@@ -21,13 +21,15 @@ from ds2000.common import SSFunc
 from ds2000.common import check_input
 from ds2000.errors import DS2000StateError
 
+
 __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
 
 
 class I2CWhen(SSFunc):
-    def start(self) -> None:
-        """
+    def set_start(self) -> None:
+        """Set the trigger condition of IIC trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -84,8 +86,9 @@ class I2CWhen(SSFunc):
         """
         self.instrument.ask(":TRIGger:IIC:WHEN STARt")
 
-    def restart(self) -> None:
-        """
+    def set_restart(self) -> None:
+        """Set the trigger condition of IIC trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -142,8 +145,9 @@ class I2CWhen(SSFunc):
         """
         self.instrument.ask(":TRIGger:IIC:WHEN RESTart")
 
-    def stop(self) -> None:
-        """
+    def set_stop(self) -> None:
+        """Set the trigger condition of IIC trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -200,8 +204,9 @@ class I2CWhen(SSFunc):
         """
         self.instrument.ask(":TRIGger:IIC:WHEN STOP")
 
-    def nack(self) -> None:
-        """
+    def set_nack(self) -> None:
+        """Set the trigger condition of IIC trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -258,8 +263,9 @@ class I2CWhen(SSFunc):
         """
         self.instrument.ask(":TRIGger:IIC:WHEN NACKnowledge")
 
-    def address(self) -> None:
-        """
+    def set_address(self) -> None:
+        """Set the trigger condition of IIC trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -316,8 +322,9 @@ class I2CWhen(SSFunc):
         """
         self.instrument.ask(":TRIGger:IIC:WHEN ADDRess")
 
-    def data(self) -> None:
-        """
+    def set_data(self) -> None:
+        """Set the trigger condition of IIC trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -374,8 +381,9 @@ class I2CWhen(SSFunc):
         """
         self.instrument.ask(":TRIGger:IIC:WHEN DATA")
 
-    def address_and_data(self) -> None:
-        """
+    def set_address_and_data(self) -> None:
+        """Set the trigger condition of IIC trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -433,7 +441,8 @@ class I2CWhen(SSFunc):
         self.instrument.ask(":TRIGger:IIC:WHEN ADATa")
 
     def status(self) -> str:
-        """
+        """Query the current trigger condition of IIC trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -492,8 +501,9 @@ class I2CWhen(SSFunc):
 
 
 class I2CDirection(SSFunc):
-    def read(self) -> None:
-        """
+    def set_read(self) -> None:
+        """Set the data direction in IIC trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -532,8 +542,9 @@ class I2CDirection(SSFunc):
         """
         self.instrument.ask(":TRIGger:IIC:DIRection READ")
 
-    def write(self) -> None:
-        """
+    def set_write(self) -> None:
+        """Set the data direction in IIC trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -572,8 +583,9 @@ class I2CDirection(SSFunc):
         """
         self.instrument.ask(":TRIGger:IIC:DIRection WRITe")
 
-    def read_write(self) -> None:
-        """
+    def set_read_write(self) -> None:
+        """Set the data direction in IIC trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -613,7 +625,8 @@ class I2CDirection(SSFunc):
         self.instrument.ask(":TRIGger:IIC:DIRection RWRite")
 
     def status(self) -> str:
-        """
+        """Query the current data direction in IIC trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -660,7 +673,8 @@ class I2C(SFunc):
         self.direction: I2CDirection = I2CDirection(self)
 
     def set_scl_source(self, channel: int = 1) -> None:
-        """
+        """Select the SCL channel source in IIC trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -693,7 +707,8 @@ class I2C(SFunc):
         self.instrument.ask(f":TRIGger:IIC:SCL CHANnel{channel}")
 
     def get_scl_source(self) -> str:
-        """
+        """Query the current SCL channel source in IIC trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -731,7 +746,8 @@ class I2C(SFunc):
         raise RuntimeError("The oscilloscope returned an unknown channel")
 
     def set_sda_source(self, channel: int = 2) -> None:
-        """
+        """Select the SDA channel source in IIC trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -764,7 +780,8 @@ class I2C(SFunc):
         self.instrument.ask(f":TRIGger:IIC:SDA CHANnel{channel}")
 
     def get_sda_source(self) -> str:
-        """
+        """Query the current SDA channel source in IIC trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -802,7 +819,8 @@ class I2C(SFunc):
         raise RuntimeError("The oscilloscope returned an unknown channel")
 
     def set_address_bits_width(self, address_width: int = 7) -> None:
-        """
+        """Set the address bits in IIC trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -844,7 +862,8 @@ class I2C(SFunc):
         self.instrument.ask(f":TRIGger:IIC:AWIDth {address_width}")
 
     def get_address_bits_width(self) -> int:
-        """
+        """Query the current address bits in IIC.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -884,7 +903,8 @@ class I2C(SFunc):
         return int(self.instrument.ask(":TRIGger:IIC:AWIDth?"))
 
     def set_address(self, address: int = 0x01) -> None:
-        """
+        """Set the address value in IIC trigger
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -936,7 +956,8 @@ class I2C(SFunc):
         self.instrument.ask(f":TRIGger:IIC:ADDRess {address}")
 
     def get_address(self) -> int:
-        """
+        """Query the current address value in IIC trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -980,7 +1001,8 @@ class I2C(SFunc):
         return int(self.instrument.ask(":TRIGger:IIC:ADDRess?"))
 
     def set_data(self, data_value: int = 0x00) -> None:
-        """
+        """Set the data value in IIC trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -1022,7 +1044,8 @@ class I2C(SFunc):
         self.instrument.ask(f":TRIGger:IIC:DATA {data_value}")
 
     def get_data(self) -> int:
-        """
+        """Query the current data value in IIC.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -1062,7 +1085,8 @@ class I2C(SFunc):
         return int(self.instrument.ask(":TRIGger:IIC:DATA?"))
 
     def set_scl_trigger_level(self, level: float = 0) -> None:
-        """
+        """Set the trigger level of SCL in IIC.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -1126,7 +1150,8 @@ class I2C(SFunc):
         self.instrument.ask(f":TRIGger:IIC:CLEVel {level}")
 
     def get_scl_trigger_level(self) -> float:
-        """
+        """Query the current trigger level of SCL in IIC trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -1166,7 +1191,8 @@ class I2C(SFunc):
         return float(self.instrument.ask(":TRIGger:IIC:CLEVel?"))
 
     def set_sda_trigger_level(self, level: float = 0) -> None:
-        """
+        """Set the trigger level of SDA in IIC trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -1230,7 +1256,8 @@ class I2C(SFunc):
         self.instrument.ask(f":TRIGger:IIC:DLEVel {level}")
 
     def get_sda_trigger_level(self) -> float:
-        """
+        """Query the current trigger level of SDA.
+
         **Rigol Programming Guide**
 
         **Syntax**

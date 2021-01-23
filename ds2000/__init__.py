@@ -35,6 +35,7 @@ from .visa.driver import VISABase
 from .visa.driver import VISADriver
 from .waveform import Waveform
 
+
 Available_Drivers: List[VISADriver] = [VISADriver.DEBUG_DRIVER]
 
 # TODO: Remove NotImplementedError

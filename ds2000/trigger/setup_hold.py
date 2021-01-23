@@ -20,13 +20,15 @@ from ds2000.common import SSFunc
 from ds2000.common import check_input
 from ds2000.errors import DS2000StateError
 
+
 __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
 
 
 class SetupHoldType(SSFunc):
-    def setup(self) -> None:
-        """
+    def set_setup(self) -> None:
+        """Set the hold type of setup/hold trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -70,8 +72,9 @@ class SetupHoldType(SSFunc):
         """
         self.instrument.ask(":TRIGger:SHOLd:TYPe SETup")
 
-    def hold(self) -> None:
-        """
+    def set_hold(self) -> None:
+        """Set the hold type of setup/hold trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -115,8 +118,9 @@ class SetupHoldType(SSFunc):
         """
         self.instrument.ask(":TRIGger:SHOLd:TYPe HOLd")
 
-    def setup_hold(self) -> None:
-        """
+    def set_setup_hold(self) -> None:
+        """Set the hold type of setup/hold trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -161,7 +165,8 @@ class SetupHoldType(SSFunc):
         self.instrument.ask(":TRIGger:SHOLd:TYPe SETHOLd")
 
     def status(self) -> str:
-        """
+        """Query the current hold type of setup/hold trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -215,8 +220,9 @@ class SetupHoldType(SSFunc):
 
 
 class SetupHoldDataSource(SSFunc):
-    def channel1(self) -> None:
-        """
+    def set_channel1(self) -> None:
+        """Set the data source of setup/hold trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -248,8 +254,9 @@ class SetupHoldDataSource(SSFunc):
         """
         self.instrument.ask(":TRIGger:SHOLd:DSrc CHANel1")
 
-    def channel2(self) -> None:
-        """
+    def set_channel2(self) -> None:
+        """Set the data source of setup/hold trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -282,7 +289,8 @@ class SetupHoldDataSource(SSFunc):
         self.instrument.ask(":TRIGger:SHOLd:DSrc CHANel2")
 
     def status(self) -> str:
-        """
+        """Query the current data source of setup/hold trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -322,8 +330,9 @@ class SetupHoldDataSource(SSFunc):
 
 
 class SetupHoldClockSource(SSFunc):
-    def channel1(self) -> None:
-        """
+    def set_channel1(self) -> None:
+        """Set the clock source of setup/hold trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -355,8 +364,9 @@ class SetupHoldClockSource(SSFunc):
         """
         self.instrument.ask(":TRIGger:SHOLd:CSrc CHANel1")
 
-    def channel2(self) -> None:
-        """
+    def set_channel2(self) -> None:
+        """Set the clock source of setup/hold trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -388,8 +398,9 @@ class SetupHoldClockSource(SSFunc):
         """
         self.instrument.ask(":TRIGger:SHOLd:CSrc CHANel2")
 
-    def status(self) -> str:
-        """
+    def set_status(self) -> str:
+        """Query the current clock source of setup/hold trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -429,8 +440,9 @@ class SetupHoldClockSource(SSFunc):
 
 
 class SetupHoldSlope(SSFunc):
-    def rising_edge(self) -> None:
-        """
+    def set_rising_edge(self) -> None:
+        """Set the edge type of setup/hold trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -463,8 +475,9 @@ class SetupHoldSlope(SSFunc):
         """
         self.instrument.ask(":TRIGger:SHOLd:SLOPe POSitive")
 
-    def falling_edge(self) -> None:
-        """
+    def set_falling_edge(self) -> None:
+        """Set the edge type of setup/hold trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -498,7 +511,8 @@ class SetupHoldSlope(SSFunc):
         self.instrument.ask(":TRIGger:SHOLd:SLOPe NEGative")
 
     def status(self) -> str:
-        """
+        """Query the current edge type of setup/hold trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -538,8 +552,9 @@ class SetupHoldSlope(SSFunc):
 
 
 class SetupHoldPattern(SSFunc):
-    def high(self) -> None:
-        """
+    def set_high(self) -> None:
+        """Set the data type of setup/hold trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -571,8 +586,9 @@ class SetupHoldPattern(SSFunc):
         """
         self.instrument.ask(":TRIGger:SHOLd:PATTern H")
 
-    def low(self) -> None:
-        """
+    def set_low(self) -> None:
+        """Set the data type of setup/hold trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -605,7 +621,8 @@ class SetupHoldPattern(SSFunc):
         self.instrument.ask(":TRIGger:SHOLd:PATTern L")
 
     def status(self) -> str:
-        """
+        """Query the current data type of setup/hold trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -647,44 +664,9 @@ class SetupHold(SFunc):
         self.slope: SetupHoldSlope = SetupHoldSlope(self)
         self.pattern: SetupHoldPattern = SetupHoldPattern(self)
 
-    def get_setup_time(self) -> float:
-        """
-        **Rigol Programming Guide**
-
-        **Syntax**
-
-        :TRIGger:SHOLd:STIMe <NR3>
-        :TRIGger:SHOLd:STIMe?
-
-        **Description**
-
-        Set the setup time of setup/hold trigger.
-        Query the current setup time of setup/hold trigger.
-
-        **Parameter**
-
-        ====== ===== ========== =======
-        Name   Type  Range      Default
-        ====== ===== ========== =======
-        <NR3>  Real  2ns to 1s  50ns
-        ====== ===== ========== =======
-
-        **Explanation**
-
-        This command is available when the hold type (refer to the
-        :TRIGger:SHOLd:TYPe command) is set to SETup or SETHOLd.
-        Reuturn Format
-        The query returns the setup time in scientific notation.
-
-        **Example**
-
-        :TRIGger:SHOLd:STIMe 0.002
-        The query returns 2.000000e-03.
-        """
-        return float(self.instrument.ask(":TRIGger:SHOLd:STIMe?"))
-
     def set_setup_time(self, time: float = 50.0e-9) -> None:
-        """
+        """Set the setup time of setup/hold trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -720,19 +702,20 @@ class SetupHold(SFunc):
         check_input(time, "time", float, 2.0e-9, 1.0, "s")
         self.instrument.ask(f":TRIGger:SHOLd:STIMe {time}")
 
-    def get_hold_time(self) -> float:
-        """
+    def get_setup_time(self) -> float:
+        """Query the current setup time of setup/hold trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
 
-        :TRIGger:SHOLd:HTIMe <NR3>
-        :TRIGger:SHOLd:HTIMe?
+        :TRIGger:SHOLd:STIMe <NR3>
+        :TRIGger:SHOLd:STIMe?
 
         **Description**
 
-        Set the hold time of setup/hold trigger.
-        Query the current hold time of setup/hold trigger.
+        Set the setup time of setup/hold trigger.
+        Query the current setup time of setup/hold trigger.
 
         **Parameter**
 
@@ -745,19 +728,20 @@ class SetupHold(SFunc):
         **Explanation**
 
         This command is available when the hold type (refer to the
-        :TRIGger:SHOLd:TYPe command) is set to HOLd or SETHOLd.
+        :TRIGger:SHOLd:TYPe command) is set to SETup or SETHOLd.
         Reuturn Format
-        The query returns the hold time in scientific notation.
+        The query returns the setup time in scientific notation.
 
         **Example**
 
-        :TRIGger:SHOLd:HTIMe 0.002
+        :TRIGger:SHOLd:STIMe 0.002
         The query returns 2.000000e-03.
         """
-        return float(self.instrument.ask(":TRIGger:SHOLd:HTIMe?"))
+        return float(self.instrument.ask(":TRIGger:SHOLd:STIMe?"))
 
     def set_hold_time(self, time: float = 50.0e-9) -> None:
-        """
+        """Set the hold time of setup/hold trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -792,3 +776,40 @@ class SetupHold(SFunc):
         """
         check_input(time, "time", float, 2.0e-9, 1.0, "s")
         self.instrument.ask(f":TRIGger:SHOLd:HTIMe {time}")
+
+    def get_hold_time(self) -> float:
+        """Query the current hold time of setup/hold trigger.
+
+        **Rigol Programming Guide**
+
+        **Syntax**
+
+        :TRIGger:SHOLd:HTIMe <NR3>
+        :TRIGger:SHOLd:HTIMe?
+
+        **Description**
+
+        Set the hold time of setup/hold trigger.
+        Query the current hold time of setup/hold trigger.
+
+        **Parameter**
+
+        ====== ===== ========== =======
+        Name   Type  Range      Default
+        ====== ===== ========== =======
+        <NR3>  Real  2ns to 1s  50ns
+        ====== ===== ========== =======
+
+        **Explanation**
+
+        This command is available when the hold type (refer to the
+        :TRIGger:SHOLd:TYPe command) is set to HOLd or SETHOLd.
+        Reuturn Format
+        The query returns the hold time in scientific notation.
+
+        **Example**
+
+        :TRIGger:SHOLd:HTIMe 0.002
+        The query returns 2.000000e-03.
+        """
+        return float(self.instrument.ask(":TRIGger:SHOLd:HTIMe?"))

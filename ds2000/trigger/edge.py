@@ -20,13 +20,15 @@ from ds2000.common import SSFunc
 from ds2000.common import check_level
 from ds2000.errors import DS2000StateError
 
+
 __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
 
 
 class EdgeSource(SSFunc):
-    def channel1(self) -> None:
-        """
+    def set_channel1(self) -> None:
+        """Select the trigger source of edge trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -58,8 +60,9 @@ class EdgeSource(SSFunc):
         """
         self.instrument.ask(":TRIGger:EDGe:SOURce CHANnel1")
 
-    def channel2(self) -> None:
-        """
+    def set_channel2(self) -> None:
+        """Select the trigger source of edge trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -91,8 +94,9 @@ class EdgeSource(SSFunc):
         """
         self.instrument.ask(":TRIGger:EDGe:SOURce CHANnel2")
 
-    def ext(self) -> None:
-        """
+    def set_ext(self) -> None:
+        """Select the trigger source of edge trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -124,8 +128,9 @@ class EdgeSource(SSFunc):
         """
         self.instrument.ask(":TRIGger:EDGe:SOURce EXT")
 
-    def ac_line(self) -> None:
-        """
+    def set_ac_line(self) -> None:
+        """Select the trigger source of edge trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -158,7 +163,8 @@ class EdgeSource(SSFunc):
         self.instrument.ask(":TRIGger:EDGe:SOURce ACLine")
 
     def status(self) -> str:
-        """
+        """Query the current trigger source of edge trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -199,8 +205,9 @@ class EdgeSource(SSFunc):
 
 
 class EdgeSlope(SSFunc):
-    def rising_edge(self) -> None:
-        """
+    def set_rising_edge(self) -> None:
+        """Select the edge type of edge trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -232,8 +239,9 @@ class EdgeSlope(SSFunc):
         """
         self.instrument.ask(":TRIGger:EDGe:SLOPe POSitive")
 
-    def falling_edge(self) -> None:
-        """
+    def set_falling_edge(self) -> None:
+        """Select the edge type of edge trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -265,8 +273,9 @@ class EdgeSlope(SSFunc):
         """
         self.instrument.ask(":TRIGger:EDGe:SLOPe NEGative")
 
-    def both_edges(self) -> None:
-        """
+    def set_both_edges(self) -> None:
+        """Select the edge type of edge trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -299,7 +308,8 @@ class EdgeSlope(SSFunc):
         self.instrument.ask(":TRIGger:EDGe:SLOPe RFALl")
 
     def status(self) -> str:
-        """
+        """Query the current edge type of edge trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -343,47 +353,9 @@ class Edge(SFunc):
         self.source: EdgeSource = EdgeSource(self)
         self.slope: EdgeSlope = EdgeSlope(self)
 
-    def get_level(self) -> float:
-        """
-        **Rigol Programming Guide**
-
-        **Syntax**
-
-        :TRIGger:EDGe:LEVel <level>
-        :TRIGger:EDGe:LEVel?
-
-        **Description**
-
-        Set the trigger level of edge trigger and the unit is the same with the
-        current amplitude unit.
-        Query the current trigger level of edge trigger.
-
-        **Parameter**
-
-        ======== ===== =========================== =======
-        Name     Type  Range                       Default
-        ======== ===== =========================== =======
-        <level>  Real  ± 5 × VerticalScale from    0
-                       the screen center - OFFSet
-        ======== ===== =========================== =======
-
-        Note:
-        For the VerticalScale, refer to the :CHANnel<n>:SCALe command.
-        For the OFFSet, refer to the :CHANNel<n>:OFFSet command.
-
-        **Return Format**
-
-        The query returns the trigger level in scientific notation.
-
-        **Example**
-
-        :TRIGger:EDGe:LEVel 0.16
-        The query returns 1.600000e-01.
-        """
-        return float(self.instrument.ask(":TRIGger:EDGe:LEVel?"))
-
     def set_level(self, level: float = 0.0) -> None:
-        """
+        """Set the trigger level of edge trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -437,3 +409,43 @@ class Edge(SFunc):
 
         check_level(level, scale, offset)
         self.instrument.ask(f":TRIGger:EDGe:LEVel {level}")
+
+    def get_level(self) -> float:
+        """Query the trigger level of edge trigger
+
+        **Rigol Programming Guide**
+
+        **Syntax**
+
+        :TRIGger:EDGe:LEVel <level>
+        :TRIGger:EDGe:LEVel?
+
+        **Description**
+
+        Set the trigger level of edge trigger and the unit is the same with the
+        current amplitude unit.
+        Query the current trigger level of edge trigger.
+
+        **Parameter**
+
+        ======== ===== =========================== =======
+        Name     Type  Range                       Default
+        ======== ===== =========================== =======
+        <level>  Real  ± 5 × VerticalScale from    0
+                       the screen center - OFFSet
+        ======== ===== =========================== =======
+
+        Note:
+        For the VerticalScale, refer to the :CHANnel<n>:SCALe command.
+        For the OFFSet, refer to the :CHANNel<n>:OFFSet command.
+
+        **Return Format**
+
+        The query returns the trigger level in scientific notation.
+
+        **Example**
+
+        :TRIGger:EDGe:LEVel 0.16
+        The query returns 1.600000e-01.
+        """
+        return float(self.instrument.ask(":TRIGger:EDGe:LEVel?"))

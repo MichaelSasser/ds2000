@@ -21,6 +21,7 @@ from ds2000.common import SSFunc
 from ds2000.common import check_input
 from ds2000.common import check_level
 
+
 __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
 
@@ -30,7 +31,8 @@ class SlopeWhen(SSFunc):
     def set_positive_slope_time_greater_than_specified_lower_limit(
         self,
     ) -> None:
-        """
+        """Select the trigger condition of slope trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -98,7 +100,8 @@ class SlopeWhen(SSFunc):
         self.instrument.ask(":TRIGger:SLOPe:WHEN PGReater")
 
     def set_positive_slope_time_lower_than_specified_upper_limit(self) -> None:
-        """
+        """Select the trigger condition of slope trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -168,7 +171,8 @@ class SlopeWhen(SSFunc):
     def set_negative_slope_time_greater_than_specified_lower_limit(
         self,
     ) -> None:
-        """
+        """Select the trigger condition of slope trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -236,7 +240,8 @@ class SlopeWhen(SSFunc):
         self.instrument.ask(":TRIGger:SLOPe:WHEN NGReater")
 
     def set_negative_slope_time_lower_than_specified_upper_limit(self) -> None:
-        """
+        """Select the trigger condition of slope trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -306,7 +311,8 @@ class SlopeWhen(SSFunc):
     def set_positive_slope_time_between_specified_lower_and_upper_limit(
         self,
     ) -> None:
-        """
+        """Select the trigger condition of slope trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -376,7 +382,8 @@ class SlopeWhen(SSFunc):
     def set_negative_slope_time_between_specified_lower_and_upper_limit(
         self,
     ) -> None:
-        """
+        """Select the trigger condition of slope trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -444,7 +451,8 @@ class SlopeWhen(SSFunc):
         self.instrument.ask(":TRIGger:SLOPe:WHEN NGLess")
 
     def status(self) -> str:
-        """
+        """Query the current trigger condition of slope trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -515,7 +523,8 @@ class SlopeWhen(SSFunc):
 # ToDo: shorter method names.
 class SlopeWindow(SSFunc):
     def set_adjust_upper_limit_of_trigger_level(self) -> None:
-        """
+        """Set the type of the vertical window in slope trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -563,7 +572,8 @@ class SlopeWindow(SSFunc):
         self.instrument.ask(":TRIGger:SLOPe:WINDow TA")
 
     def set_adjust_lower_limit_of_trigger_level(self) -> None:
-        """
+        """Set the type of the vertical window in slope trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -611,7 +621,8 @@ class SlopeWindow(SSFunc):
         self.instrument.ask(":TRIGger:SLOPe:WINDow TB")
 
     def set_adjust_upper_and_lower_limit_of_trigger_level(self) -> None:
-        """
+        """Set the type of the vertical window in slope trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -659,7 +670,8 @@ class SlopeWindow(SSFunc):
         self.instrument.ask(":TRIGger:SLOPe:WINDow TAB")
 
     def status(self) -> str:
-        """
+        """Query the current type of the vertical window in slope trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -714,7 +726,8 @@ class Slope(SFunc):
         self.window: SlopeWindow = SlopeWindow(self)
 
     def set_source(self, channel: int = 1) -> None:
-        """
+        """Select the trigger source of slope trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -748,7 +761,8 @@ class Slope(SFunc):
         self.instrument.ask(":TRIGger:SLOPe:SOURce CHANnel{channel}")
 
     def get_source(self) -> str:
-        """
+        """Query the current trigger source of slope trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -781,7 +795,8 @@ class Slope(SFunc):
         return self.instrument.ask(":TRIGger:SLOPe:SOURce?")
 
     def set_upper_limit(self, time: float = 2.0e-6) -> None:
-        """
+        """Set the upper limit of time in slope trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -823,7 +838,8 @@ class Slope(SFunc):
         self.instrument.ask(f":TRIGger:SLOPe:TUPPer {time}")
 
     def get_upper_limit(self) -> float:
-        """
+        """Query the current upper limit of time in slope trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -864,7 +880,8 @@ class Slope(SFunc):
         return float(self.instrument.ask(":TRIGger:SLOPe:TUPPer?"))
 
     def set_lower_limit(self, time: float = 1.0e-6) -> None:
-        """
+        """Set the lower limit of time in slope trigger and the unit is s.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -906,7 +923,8 @@ class Slope(SFunc):
         self.instrument.ask(f":TRIGger:SLOPe:TLOWer {time}")
 
     def get_lower_limit(self) -> float:
-        """
+        """Query the current lower limit of time in slope trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -947,7 +965,8 @@ class Slope(SFunc):
         return float(self.instrument.ask(":TRIGger:SLOPe:TLOWer?"))
 
     def set_upper_limit_trigger_level(self, level: float = 0.0) -> None:
-        """
+        """Set the upper limit of the trigger level in slope trigge.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -999,7 +1018,8 @@ class Slope(SFunc):
         self.instrument.ask(":TRIGger:SLOPe:ALEVel {level}")
 
     def get_upper_limit_trigger_level(self) -> float:
-        """
+        """Query the current upper limit of the trigger level in slope trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -1039,7 +1059,8 @@ class Slope(SFunc):
         return float(self.instrument.ask(":TRIGger:SLOPe:ALEVel?"))
 
     def set_lower_limit_trigger_level(self, level: float = 0.0) -> None:
-        """
+        """Set the lower limit of the trigger level in slope trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -1091,7 +1112,8 @@ class Slope(SFunc):
         self.instrument.ask(f":TRIGger:SLOPe:BLEVel {level}")
 
     def get_lower_limit_trigger_level(self) -> float:
-        """
+        """Query the current lower limit of the trigger level in slope trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**

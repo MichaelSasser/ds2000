@@ -28,6 +28,7 @@ from .errors import DS2000Error
 from .math.format import Prefixed
 from .math.format import get_prefix
 
+
 __author__: str = "Michael Sasser"
 __email__: str = "Michael@MichaelSasser.org"
 
@@ -44,8 +45,9 @@ class ChannelOffsetRange(NamedTuple):
 
 
 class ChannelCoupling(SFunc):
-    def ac(self) -> None:
-        """
+    def set_ac(self) -> None:
+        """Set the coupling mode.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -79,8 +81,9 @@ class ChannelCoupling(SFunc):
         """
         self.instrument.ask(f":CHANnel{self.sdev._channel}:COUPling AC")
 
-    def dc(self) -> None:
-        """
+    def set_dc(self) -> None:
+        """Set the coupling mode.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -114,8 +117,9 @@ class ChannelCoupling(SFunc):
         """
         self.instrument.ask(f":CHANnel{self.sdev._channel}:COUPling DC")
 
-    def gnd(self) -> None:
-        """
+    def set_gnd(self) -> None:
+        """Set the coupling mode.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -150,7 +154,8 @@ class ChannelCoupling(SFunc):
         self.instrument.ask(f":CHANnel{self.sdev._channel}:COUPling GND")
 
     def status(self) -> str:
-        """
+        """Query the current coupling mode of CH1 or CH2.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -188,8 +193,9 @@ class ChannelCoupling(SFunc):
 
 
 class ChannelUnits(SFunc):
-    def voltage(self) -> None:
-        """
+    def set_voltage(self) -> None:
+        """Set the amplitude display.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -223,8 +229,9 @@ class ChannelUnits(SFunc):
         """
         self.instrument.ask(f":CHANnel{self.sdev._channel}::UNITs VOLTage")
 
-    def power(self) -> None:
-        """
+    def set_power(self) -> None:
+        """Set the amplitude display.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -258,8 +265,9 @@ class ChannelUnits(SFunc):
         """
         self.instrument.ask(f":CHANnel{self.sdev._channel}::UNITs WATT")
 
-    def current(self) -> None:
-        """
+    def set_current(self) -> None:
+        """Set the amplitude display.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -293,8 +301,9 @@ class ChannelUnits(SFunc):
         """
         self.instrument.ask(f":CHANnel{self.sdev._channel}::UNITs AMPere")
 
-    def unknown(self) -> None:
-        """
+    def set_unknown(self) -> None:
+        """Set the amplitude display.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -329,7 +338,8 @@ class ChannelUnits(SFunc):
         self.instrument.ask(f":CHANnel{self.sdev._channel}::UNITs UNKNown")
 
     def status(self) -> str:
-        """
+        """Query the current amplitude display unit.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -376,8 +386,9 @@ class ChannelUnits(SFunc):
 
 
 class ChannelBandwidthLimit(SFunc):
-    def off(self):
-        """
+    def set_off(self):
+        """Set the bandwidth limit.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -413,8 +424,9 @@ class ChannelBandwidthLimit(SFunc):
         """
         self.instrument.ask(f":CHANnel{self.sdev._channel}:BWLimit OFF")
 
-    def bw_20m(self):
-        """
+    def set_bw_20m(self):
+        """Set the bandwidth limit.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -450,8 +462,9 @@ class ChannelBandwidthLimit(SFunc):
         """
         self.instrument.ask(f":CHANnel{self.sdev._channel}:BWLimit 20M")
 
-    def bw_100m(self):  # ToDo: not for DS2072 & DS2012
-        """
+    def set_bw_100m(self):  # ToDo: not for DS2072 & DS2012
+        """Set the bandwidth limit.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -488,7 +501,7 @@ class ChannelBandwidthLimit(SFunc):
         self.instrument.ask(f":CHANnel{self.sdev._channel}:BWLimit 100M")
 
     def status(self):
-        """
+        """Query the current bandwidth limit.
         **Rigol Programming Guide**
 
         **Syntax**
@@ -563,8 +576,79 @@ class Channel(Func):
             self
         )
 
-    def get_invert(self) -> bool:
+    def set_enable_invert(self) -> None:
+        """Enable the inverted display.
+
+        **Rigol Programming Guide**
+
+        **Syntax**
+
+        :CHANnel<n>:INVert <bool>
+        :CHANnel<n>:INVert?
+
+        **Description**
+
+        Enable or disable the inverted display of CH1 or CH2.
+        Query the current status of the inverted display of CH1 or CH2.
+
+        **Parameter**
+
+        ======= ========= ================= =======
+        Name    Type      Range             Default
+        ======= ========= ================= =======
+        <n>     Discrete  {1|2}             --
+        <bool>  Bool      {{0|OFF}|{1|ON}}  0|OFF
+        ======= ========= ================= =======
+
+        **Return Format**
+
+        The query returns 0 or 1.
+
+        **Example**
+
+        :CHANnel1:INVert ON
+        The query returns 1.
         """
+        self.instrument.ask(f":CHANnel{self._channel}:INVert 1")
+
+    def set_disable_invert(self) -> None:
+        """Disable the inverted display.
+
+        **Rigol Programming Guide**
+
+        **Syntax**
+
+        :CHANnel<n>:INVert <bool>
+        :CHANnel<n>:INVert?
+
+        **Description**
+
+        Enable or disable the inverted display of CH1 or CH2.
+        Query the current status of the inverted display of CH1 or CH2.
+
+        **Parameter**
+
+        ======= ========= ================= =======
+        Name    Type      Range             Default
+        ======= ========= ================= =======
+        <n>     Discrete  {1|2}             --
+        <bool>  Bool      {{0|OFF}|{1|ON}}  0|OFF
+        ======= ========= ================= =======
+
+        **Return Format**
+
+        The query returns 0 or 1.
+
+        **Example**
+
+        :CHANnel1:INVert ON
+        The query returns 1.
+        """
+        self.instrument.ask(f":CHANnel{self._channel}:INVert 0")
+
+    def get_invert(self) -> bool:
+        """Query the current status of the inverted display.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -599,81 +683,13 @@ class Channel(Func):
             int(self.instrument.ask(f":CHANnel{self._channel}:INVert?"))
         )
 
-    def set_enable_invert(self) -> None:
-        """
-        **Rigol Programming Guide**
-
-        **Syntax**
-
-        :CHANnel<n>:INVert <bool>
-        :CHANnel<n>:INVert?
-
-        **Description**
-
-        Enable or disable the inverted display of CH1 or CH2.
-        Query the current status of the inverted display of CH1 or CH2.
-
-        **Parameter**
-
-        ======= ========= ================= =======
-        Name    Type      Range             Default
-        ======= ========= ================= =======
-        <n>     Discrete  {1|2}             --
-        <bool>  Bool      {{0|OFF}|{1|ON}}  0|OFF
-        ======= ========= ================= =======
-
-        **Return Format**
-
-        The query returns 0 or 1.
-
-        **Example**
-
-        :CHANnel1:INVert ON
-        The query returns 1.
-        """
-        self.instrument.ask(f":CHANnel{self._channel}:INVert 1")
-
-    def set_disable_invert(self) -> None:
-        """
-        **Rigol Programming Guide**
-
-        **Syntax**
-
-        :CHANnel<n>:INVert <bool>
-        :CHANnel<n>:INVert?
-
-        **Description**
-
-        Enable or disable the inverted display of CH1 or CH2.
-        Query the current status of the inverted display of CH1 or CH2.
-
-        **Parameter**
-
-        ======= ========= ================= =======
-        Name    Type      Range             Default
-        ======= ========= ================= =======
-        <n>     Discrete  {1|2}             --
-        <bool>  Bool      {{0|OFF}|{1|ON}}  0|OFF
-        ======= ========= ================= =======
-
-        **Return Format**
-
-        The query returns 0 or 1.
-
-        **Example**
-
-        :CHANnel1:INVert ON
-        The query returns 1.
-        """
-        self.instrument.ask(f":CHANnel{self._channel}:INVert 0")
-
     @staticmethod
     def __offset_check_range(
         rge: ChannelOffsetRange, scale: float, offset: float, ratio: float
     ) -> bool:
-        """This function checks if the entered offset was within the possible
-        scale range. If not, a detailed error will show the user, What the
-        limits are.
+        """Checks if the entered offset was within the possible scale range.
+
+        If not, a detailed error will show the user, What the limits are.
 
         scl means scale
         off means offset
@@ -721,50 +737,8 @@ class Channel(Func):
                 )
         return False  # This was not the correct range
 
-    def get_offset(self) -> float:
-        """
-
-        :offset: - Set to None to get the default value. (Default)
-                 - Enter a floating point value to set the offset by yourselt.
-
-        **Rigol Programming Guide**
-
-        **Syntax**
-
-        :CHANnel<n>:OFFSet <offset>
-        :CHANnel<n>:OFFSet?
-
-        **Description**
-
-        Set the vertical offset of the waveform of CH1 or CH2.
-        Query the current vertical offset of the waveform of CH1 or CH2.
-
-        **Parameter**
-
-        ========= ========= ================================= =============
-        Name      Type      Range                             Default
-        ========= ========= ================================= =============
-        <n>       Discrete  {1|2}                             --
-        <offset>  Real      **500μV/div to 50mV/div**: ± 2V   CHANnel1: 2V
-                            **51mV/div to 200mV/div**: ± 10V  CHANnel2: -2V
-                            **205mV/div to 2V/div**: ± 50V
-                            **2.05V/div to 10V/div**: ± 100V
-        ========= ========= ================================= =============
-
-
-        **Return Format**
-
-        The query returns the vertical offset in scientific notation.
-
-        **Example**
-
-        :CHANnel1:OFFSet 0.01
-        The query returns 1.000000e-02.
-        """
-        return float(self.instrument.ask(f":CHANnel{self._channel}:OFFSet?"))
-
     def set_offset(self, offset: Optional[float] = None) -> None:
-        """
+        """Set the vertical offset of the waveform.
 
         :offset: - Set to None to get the default value. (Default)
                  - Enter a floating point value to set the offset by yourselt.
@@ -846,50 +820,51 @@ class Channel(Func):
                 f"{type(offset)}."
             )
 
-    def get_scale(self) -> float:
-        """
-        **Rigol Programming Guide**
+    def get_offset(self) -> float:
+        """Query the current vertical offset of the waveform.
 
-        :CHANnel<n>:SCALe
+        :offset: - Set to None to get the default value. (Default)
+                 - Enter a floating point value to set the offset by yourselt.
+
+        **Rigol Programming Guide**
 
         **Syntax**
 
-        :CHANnel<n>:SCALe <scale>
-
-        :CHANnel<n>:SCALe?
+        :CHANnel<n>:OFFSet <offset>
+        :CHANnel<n>:OFFSet?
 
         **Description**
 
-        Set the vertical scale of the waveform of CH1 or CH2.
-        Query the current vertical scale of the waveform of CH1 or CH2.
+        Set the vertical offset of the waveform of CH1 or CH2.
+        Query the current vertical offset of the waveform of CH1 or CH2.
 
         **Parameter**
 
-        ========= ========= ============== =======
-        Name      Type      Range          Default
-        ========= ========= ============== =======
-        <n>       Discrete  {1|2}          --
-        <scale>   Real      500μV to 10V   1V
-        ========= ========= ============== =======
+        ========= ========= ================================= =============
+        Name      Type      Range                             Default
+        ========= ========= ================================= =============
+        <n>       Discrete  {1|2}                             --
+        <offset>  Real      **500μV/div to 50mV/div**: ± 2V   CHANnel1: 2V
+                            **51mV/div to 200mV/div**: ± 10V  CHANnel2: -2V
+                            **205mV/div to 2V/div**: ± 50V
+                            **2.05V/div to 10V/div**: ± 100V
+        ========= ========= ================================= =============
 
-        Note: the range of the vertical scale is related to the probe ratio
-        currently set. For the setting of the probe ratio, refer to the
-        :CHANnel<n>:PROBe command.
 
         **Return Format**
 
-        The query returns the vertical scale in scientific notation.
+        The query returns the vertical offset in scientific notation.
 
         **Example**
 
-        :CHANnel1:SCALe 1
-
-        The query returns 1.000000e+00.
+        :CHANnel1:OFFSet 0.01
+        The query returns 1.000000e-02.
         """
-        return float(self.instrument.ask(f":CHANnel{self._channel}:SCALe?"))
+        return float(self.instrument.ask(f":CHANnel{self._channel}:OFFSet?"))
 
     def set_scale(self, scale: float = 1.0) -> None:
-        """
+        """Set the vertical scale of the waveform.
+
         **Rigol Programming Guide**
 
         :CHANnel<n>:SCALe
@@ -940,11 +915,107 @@ class Channel(Func):
                 "Remember, this values depend on the "
                 "probe attenuation ratio."
             ),
-        )
+            )
         float(self.instrument.ask(f":CHANnel{self._channel}:SCALe {scale}"))
 
-    def get_probe_attenuation_ratio(self) -> float:
+    def get_scale(self) -> float:
+        """Query the current vertical scale of the waveform.
+
+        **Rigol Programming Guide**
+
+        :CHANnel<n>:SCALe
+
+        **Syntax**
+
+        :CHANnel<n>:SCALe <scale>
+
+        :CHANnel<n>:SCALe?
+
+        **Description**
+
+        Set the vertical scale of the waveform of CH1 or CH2.
+        Query the current vertical scale of the waveform of CH1 or CH2.
+
+        **Parameter**
+
+        ========= ========= ============== =======
+        Name      Type      Range          Default
+        ========= ========= ============== =======
+        <n>       Discrete  {1|2}          --
+        <scale>   Real      500μV to 10V   1V
+        ========= ========= ============== =======
+
+        Note: the range of the vertical scale is related to the probe ratio
+        currently set. For the setting of the probe ratio, refer to the
+        :CHANnel<n>:PROBe command.
+
+        **Return Format**
+
+        The query returns the vertical scale in scientific notation.
+
+        **Example**
+
+        :CHANnel1:SCALe 1
+
+        The query returns 1.000000e+00.
         """
+        return float(self.instrument.ask(f":CHANnel{self._channel}:SCALe?"))
+
+    def set_probe_attenuation_ratio(self, ratio: float = 1) -> None:
+        """Set the probe attenuation ratio.
+
+        **Rigol Programming Guide**
+
+        **Syntax**
+
+        :CHANnel<n>:PROBe
+
+        **Syntax**
+
+        :CHANnel<n>:PROBe <atten>
+        :CHANnel<n>:PROBe?
+
+        **Description**
+
+        Set the probe attenuation ratio of CH1 or CH2.
+        Query the probe attenuation ratio of CH1 or CH2.
+
+        **Parameter**
+
+        ======== ========= =================================== =======
+        Name     Type      Range                               Default
+        ======== ========= =================================== =======
+        <n>      Discrete  {1|2}                               --
+        <atten>  Discrete  {0.01|0.02|0.05|0.1|0.2|0.5|1|2|5|  1
+                           10|20|50|100|200|500|1000}
+        ======== ========= =================================== =======
+
+        **Return Format**
+
+        The query returns the attenuation ratio currently set.
+
+        **Example**
+
+        :CHANnel1:PROBe 10
+        The query returns 10.
+
+        """
+        if (
+                not isinstance(ratio, float)
+                or ratio not in self.__class__.PROBE_ATTENUATION_RATIOS
+        ):
+            lst: List[str, ...]
+            lst = [str(s) for s in self.__class__.PROBE_ATTENUATION_RATIOS]
+            ValueError(
+                f'"ratio" must be one of: '
+                f"{', '.join(lst)} and of type float. You entered "
+                f"{type(ratio)}."
+            )
+        self.instrument.ask(f":CHANnel{self._channel}:PROBe {ratio}")
+
+    def get_probe_attenuation_ratio(self) -> float:
+        """Query the probe attenuation ratio.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -983,59 +1054,44 @@ class Channel(Func):
         """
         return float(self.instrument.ask(f":CHANnel{self._channel}:PROBe?"))
 
-    def set_probe_attenuation_ratio(self, ratio: float = 1) -> None:
-        """
+    def set_fine_adjust(self, enabled: bool = False) -> None:
+        """Set the current status of the fine adjustment function (vertival).
         **Rigol Programming Guide**
 
         **Syntax**
 
-        :CHANnel<n>:PROBe
-
-        **Syntax**
-
-        :CHANnel<n>:PROBe <atten>
-        :CHANnel<n>:PROBe?
+        :CHANnel<n>:VERNier <bool>
+        :CHANnel<n>:VERNier?
 
         **Description**
 
-        Set the probe attenuation ratio of CH1 or CH2.
-        Query the probe attenuation ratio of CH1 or CH2.
+        Enable or disable the fine adjustment function of the vertical scale
+        of CH1 or CH2.
+        Query the current status of the fine adjustment function of the
+        vertical scale of CH1 or CH2.
 
         **Parameter**
 
-        ======== ========= =================================== =======
-        Name     Type      Range                               Default
-        ======== ========= =================================== =======
-        <n>      Discrete  {1|2}                               --
-        <atten>  Discrete  {0.01|0.02|0.05|0.1|0.2|0.5|1|2|5|  1
-                           10|20|50|100|200|500|1000}
-        ======== ========= =================================== =======
+        ======= ========= ================ =======
+        Name    Type      Range            Default
+        ======= ========= ================ =======
+        <n>     Discrete  {1|2}            --
+        <bool>  Bool      {0|OFF}|{1|ON}}  0|OFF
+        ======= ========= ================ =======
 
         **Return Format**
 
-        The query returns the attenuation ratio currently set.
+        The query returns 0 or 1.
 
         **Example**
 
-        :CHANnel1:PROBe 10
-        The query returns 10.
-
+        :CHANnel1:VERNier ON
+        The query returns 1.
         """
-        if (
-            not isinstance(ratio, float)
-            or ratio not in self.__class__.PROBE_ATTENUATION_RATIOS
-        ):
-            lst: List[str, ...]
-            lst = [str(s) for s in self.__class__.PROBE_ATTENUATION_RATIOS]
-            ValueError(
-                f'"ratio" must be one of: '
-                f"{', '.join(lst)} and of type float. You entered "
-                f"{type(ratio)}."
-            )
-        self.instrument.ask(f":CHANnel{self._channel}:PROBe {ratio}")
+        self.instrument.ask(f":CHANnel{self._channel}:VERNier {int(enabled)}")
 
     def get_fine_adjust(self) -> bool:
-        """
+        """Query the current status of the fine adjustment function (vertival).
         **Rigol Programming Guide**
 
         **Syntax**
@@ -1071,39 +1127,3 @@ class Channel(Func):
         return bool(
             int(self.instrument.ask(f":CHANnel{self._channel}:VERNier?"))
         )
-
-    def set_fine_adjust(self, enabled: bool = False) -> None:
-        """
-        **Rigol Programming Guide**
-
-        **Syntax**
-
-        :CHANnel<n>:VERNier <bool>
-        :CHANnel<n>:VERNier?
-
-        **Description**
-
-        Enable or disable the fine adjustment function of the vertical scale
-        of CH1 or CH2.
-        Query the current status of the fine adjustment function of the
-        vertical scale of CH1 or CH2.
-
-        **Parameter**
-
-        ======= ========= ================ =======
-        Name    Type      Range            Default
-        ======= ========= ================ =======
-        <n>     Discrete  {1|2}            --
-        <bool>  Bool      {0|OFF}|{1|ON}}  0|OFF
-        ======= ========= ================ =======
-
-        **Return Format**
-
-        The query returns 0 or 1.
-
-        **Example**
-
-        :CHANnel1:VERNier ON
-        The query returns 1.
-        """
-        self.instrument.ask(f":CHANnel{self._channel}:VERNier {int(enabled)}")

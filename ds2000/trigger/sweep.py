@@ -18,13 +18,15 @@
 from ds2000.common import SFunc
 from ds2000.errors import DS2000Error
 
+
 __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
 
 
 class Sweep(SFunc):
-    def auto(self) -> None:
-        """
+    def set_auto(self) -> None:
+        """Set the trigger mode.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -56,8 +58,9 @@ class Sweep(SFunc):
         """
         self.instrument.ask(":TRIGger:SWEep AUTO")
 
-    def normal(self) -> None:
-        """
+    def set_normal(self) -> None:
+        """Set the trigger mode.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -89,8 +92,9 @@ class Sweep(SFunc):
         """
         self.instrument.ask(":TRIGger:SWEep NORMal")
 
-    def single(self) -> None:
-        """
+    def set_single(self) -> None:
+        """Set the trigger mode.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -122,8 +126,9 @@ class Sweep(SFunc):
         """
         self.instrument.ask(":TRIGger:SWEep SINGle")
 
-    def status(self) -> str:
-        """
+    def set_status(self) -> str:
+        """Query the current trigger mode.
+
         **Rigol Programming Guide**
 
         **Syntax**

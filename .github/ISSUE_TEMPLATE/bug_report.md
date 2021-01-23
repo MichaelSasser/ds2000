@@ -18,7 +18,7 @@ from ds2000.func import simple_plot
 ip = "192.168.30.186"
 with DS2000(ip) as o:
     print("info:", o.info())
-    o.waveform.start(1)
+    o.waveform.set_start(1)
     simple_plot(o, recorded=False)
 ```
 

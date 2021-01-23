@@ -18,17 +18,23 @@ from __future__ import annotations
 
 from typing import List
 from typing import Tuple
+from typing import Union
 
 from ds2000.common import SFunc
 from ds2000.common import check_level
+
 
 __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
 
 
 class Pattern(SFunc):
-    def set_pattern(self, pattern: List[str] = ["H", "L"]) -> None:
-        """
+    def set_pattern(
+            self,
+            pattern: Union[List[str], Tuple[str]] = ("H", "L")
+    ) -> None:
+        """Set the pattern code of each channel in pattern trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -78,7 +84,8 @@ class Pattern(SFunc):
         self.instrument.ask(f":TRIGger:PATTern:PATTern {','.join(pattern)}")
 
     def get_pattern(self) -> Tuple[str, ...]:
-        """
+        """Query the current pattern code of each channel in pattern trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -123,7 +130,8 @@ class Pattern(SFunc):
         )
 
     def set_level(self, channel: int = 1, level: float = 0) -> None:
-        """
+        """Set the trigger level of each channel in pattern trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
@@ -176,7 +184,8 @@ class Pattern(SFunc):
         )
 
     def get_level(self, channel: int = 1) -> float:
-        """
+        """Query the current trigger level of each channel in pattern trigger.
+
         **Rigol Programming Guide**
 
         **Syntax**
