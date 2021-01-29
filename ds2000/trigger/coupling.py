@@ -16,21 +16,13 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 from __future__ import annotations
 
-from enum import Enum
-
 from ds2000.common import SFunc
 from ds2000.errors import DS2000StateError
+from ds2000.enums import TriggerCouplingEnum
 
 
 __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
-
-
-class CouplingEnum(Enum):
-    AC = "ac"
-    DC = "dc"
-    LF_REJECT = "lf_reject"
-    HF_REJECT = "hf_reject"
 
 
 class Coupling(SFunc):
@@ -186,7 +178,7 @@ class Coupling(SFunc):
         """
         self.instrument.ask(":TRIGger:COUPling HFReject")
 
-    def status(self) -> CouplingEnum:
+    def status(self) -> TriggerCouplingEnum:
         """Query the current trigger coupling mode.
 
         **Rigol Programming Guide**
@@ -224,11 +216,11 @@ class Coupling(SFunc):
         """
         answer: str = self.instrument.ask(":TRIGger:COUPling?")
         if answer == "AC":
-            return CouplingEnum.AC
+            return TriggerCouplingEnum.AC
         elif answer == "DC":
-            return CouplingEnum.DC
+            return TriggerCouplingEnum.DC
         elif answer == "LFR":
-            return CouplingEnum.LF_REJECT
+            return TriggerCouplingEnum.LF_REJECT
         elif answer == "HFR":
-            return CouplingEnum.HF_REJECT
+            return TriggerCouplingEnum.HF_REJECT
         raise DS2000StateError()

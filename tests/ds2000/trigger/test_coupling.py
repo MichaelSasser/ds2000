@@ -16,7 +16,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 from __future__ import annotations
 
-from ds2000.trigger.coupling import CouplingEnum
+from ds2000.trigger.coupling import TriggerCouplingEnum
 
 
 __author__: str = "Michael Sasser"
@@ -60,11 +60,11 @@ def test_coupling_set_ac(dev) -> None:
     The query returns LFR.
     """
     # Setup
-    desired: CouplingEnum = CouplingEnum.AC
+    desired: TriggerCouplingEnum = TriggerCouplingEnum.AC
     dev.trigger.coupling.set_ac()
 
     # Exercise
-    actual: CouplingEnum = dev.trigger.coupling.status()
+    actual: TriggerCouplingEnum = dev.trigger.coupling.status()
 
     # Verify
     assert actual == desired
@@ -109,11 +109,11 @@ def test_coupling_set_dc(dev) -> None:
     The query returns LFR.
     """
     # Setup
-    desired: CouplingEnum = CouplingEnum.DC
+    desired: TriggerCouplingEnum = TriggerCouplingEnum.DC
     dev.trigger.coupling.set_dc()
 
     # Exercise
-    actual: CouplingEnum = dev.trigger.coupling.status()
+    actual: TriggerCouplingEnum = dev.trigger.coupling.status()
 
     # Verify
     assert actual == desired
@@ -158,11 +158,11 @@ def test_coupling_set_lf_reject(dev) -> None:
     The query returns LFR.
     """
     # Setup
-    desired: CouplingEnum = CouplingEnum.LF_REJECT
+    desired: TriggerCouplingEnum = TriggerCouplingEnum.LF_REJECT
     dev.trigger.coupling.set_lf_reject()
 
     # Exercise
-    actual: CouplingEnum = dev.trigger.coupling.status()
+    actual: TriggerCouplingEnum = dev.trigger.coupling.status()
 
     # Verify
     assert actual == desired
@@ -207,11 +207,11 @@ def test_coupling_set_hf_reject(dev) -> None:
     The query returns LFR.
     """
     # Setup
-    desired: CouplingEnum = CouplingEnum.HF_REJECT
+    desired: TriggerCouplingEnum = TriggerCouplingEnum.HF_REJECT
     dev.trigger.coupling.set_hf_reject()
 
     # Exercise
-    actual: CouplingEnum = dev.trigger.coupling.status()
+    actual: TriggerCouplingEnum = dev.trigger.coupling.status()
 
     # Verify
     assert actual == desired

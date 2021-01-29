@@ -16,10 +16,12 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 from __future__ import annotations
 
-from ds2000.common import SFunc
+from ds2000.common import SFunc, channel_as_enum, check_level
 from ds2000.common import SSFunc
 from ds2000.common import check_input
 from ds2000.errors import DS2000StateError
+from ds2000.enums import TriggerI2CWhenEnum, ChannelEnum
+from ds2000.enums import TriggerI2CDirectionEnum
 
 
 __author__ = "Michael Sasser"
@@ -440,7 +442,7 @@ class I2CWhen(SSFunc):
         """
         self.instrument.ask(":TRIGger:IIC:WHEN ADATa")
 
-    def status(self) -> str:
+    def status(self) -> TriggerI2CWhenEnum:
         """Query the current trigger condition of IIC trigger.
 
         **Rigol Programming Guide**
@@ -497,7 +499,23 @@ class I2CWhen(SSFunc):
         :TRIGger:IIC:WHEN RESTart
         The query returns REST.
         """
-        return self.instrument.ask(":TRIGger:IIC:WHEN?")
+        answer: str = self.instrument.ask(":TRIGger:IIC:WHEN?")
+        if answer == "STAR":
+            return TriggerI2CWhenEnum.START
+        elif answer == "REST":
+            return TriggerI2CWhenEnum.RESTART
+        elif answer == "STOP":
+            return TriggerI2CWhenEnum.STOP
+        elif answer == "NACK":
+            return TriggerI2CWhenEnum.NACK
+        elif answer == "ADDR":
+            return TriggerI2CWhenEnum.ADDRESS
+        elif answer == "DATA":
+            return TriggerI2CWhenEnum.DATA
+        elif answer == "ADATA":
+            return TriggerI2CWhenEnum.ADDRESS_AND_DATA
+        else:
+            DS2000StateError()
 
 
 class I2CDirection(SSFunc):
@@ -624,7 +642,7 @@ class I2CDirection(SSFunc):
         """
         self.instrument.ask(":TRIGger:IIC:DIRection RWRite")
 
-    def status(self) -> str:
+    def status(self) -> TriggerI2CDirectionEnum:
         """Query the current data direction in IIC trigger.
 
         **Rigol Programming Guide**
@@ -663,16 +681,23 @@ class I2CDirection(SSFunc):
         :TRIGger:IIC:DIRection RWRite
         The query returns RWR.
         """
-        return self.instrument.ask(":TRIGger:IIC:DIRection?")
+        answer: str = self.instrument.ask(":TRIGger:IIC:DIRection?")
+        if answer == "READ":
+            return TriggerI2CDirectionEnum.READ
+        elif answer == "WRIT":
+            return TriggerI2CDirectionEnum.WRITE
+        elif answer == "RWR":
+            return TriggerI2CDirectionEnum.READ_AND_WRITE
+        else:
+            DS2000StateError()
 
 
-class I2C(SFunc):
-    def __init__(self, device):
-        super(I2C, self).__init__(device)
-        self.when: I2CWhen = I2CWhen(self)
-        self.direction: I2CDirection = I2CDirection(self)
+class I2CSource(SSFunc):
+    def __init__(self, device, signal: str):
+        super(I2CSource, self).__init__(device)
+        self.signal: str = signal
 
-    def set_scl_source(self, channel: int = 1) -> None:
+    def set_channel_1(self) -> None:
         """Select the SCL channel source in IIC trigger.
 
         **Rigol Programming Guide**
@@ -682,10 +707,16 @@ class I2C(SFunc):
         :TRIGger:IIC:SCL <source>
         :TRIGger:IIC:SCL?
 
+        :TRIGger:IIC:SDA <source>
+        :TRIGger:IIC:SDA?
+
         **Description**
 
         Select the SCL channel source in IIC trigger.
         Query the current SCL channel source in IIC trigger.
+
+        Select the SDA channel source in IIC trigger.
+        Query the current SDA channel source in IIC trigger.
 
         **Parameter**
 
@@ -703,11 +734,14 @@ class I2C(SFunc):
 
         :TRIGger:IIC:SCL CHANnel2
         The query returns CHAN2.
-        """
-        self.instrument.ask(f":TRIGger:IIC:SCL CHANnel{channel}")
 
-    def get_scl_source(self) -> str:
-        """Query the current SCL channel source in IIC trigger.
+        :TRIGger:IIC:SDA CHANnel2
+        The query returns CHAN2.
+        """
+        self.instrument.ask(f":TRIGger:IIC:{self.signal} CHANnel1")
+
+    def set_channel_2(self) -> None:
+        """Select the SCL channel source in IIC trigger.
 
         **Rigol Programming Guide**
 
@@ -716,10 +750,16 @@ class I2C(SFunc):
         :TRIGger:IIC:SCL <source>
         :TRIGger:IIC:SCL?
 
+        :TRIGger:IIC:SDA <source>
+        :TRIGger:IIC:SDA?
+
         **Description**
 
         Select the SCL channel source in IIC trigger.
         Query the current SCL channel source in IIC trigger.
+
+        Select the SDA channel source in IIC trigger.
+        Query the current SDA channel source in IIC trigger.
 
         **Parameter**
 
@@ -737,25 +777,29 @@ class I2C(SFunc):
 
         :TRIGger:IIC:SCL CHANnel2
         The query returns CHAN2.
-        """
-        scl: str = self.instrument.ask(":TRIGger:IIC:SCL?").lower()
-        if scl == "chan1":
-            return "channel 1"
-        if scl == "chan2":
-            return "channel 2"
-        raise RuntimeError("The oscilloscope returned an unknown channel")
 
-    def set_sda_source(self, channel: int = 2) -> None:
-        """Select the SDA channel source in IIC trigger.
+        :TRIGger:IIC:SDA CHANnel2
+        The query returns CHAN2.
+        """
+        self.instrument.ask(f":TRIGger:IIC:{self.signal} CHANnel2")
+
+    def status(self) -> channel_as_enum:
+        """Select the SCL channel source in IIC trigger.
 
         **Rigol Programming Guide**
 
         **Syntax**
 
+        :TRIGger:IIC:SCL <source>
+        :TRIGger:IIC:SCL?
+
         :TRIGger:IIC:SDA <source>
         :TRIGger:IIC:SDA?
 
         **Description**
+
+        Select the SCL channel source in IIC trigger.
+        Query the current SCL channel source in IIC trigger.
 
         Select the SDA channel source in IIC trigger.
         Query the current SDA channel source in IIC trigger.
@@ -765,7 +809,7 @@ class I2C(SFunc):
         ========= ========= ==================== ========
         Name      Type      Range                Default
         ========= ========= ==================== ========
-        <source>  Discrete  {CHANnel1|CHANnel2}  CHANnel2
+        <source>  Discrete  {CHANnel1|CHANnel2}  CHANnel1
         ========= ========= ==================== ========
 
         **Return Format**
@@ -774,49 +818,24 @@ class I2C(SFunc):
 
         **Example**
 
-        :TRIGger:IIC:SDA CHANnel2
+        :TRIGger:IIC:SCL CHANnel2
         The query returns CHAN2.
-        """
-        self.instrument.ask(f":TRIGger:IIC:SDA CHANnel{channel}")
-
-    def get_sda_source(self) -> str:
-        """Query the current SDA channel source in IIC trigger.
-
-        **Rigol Programming Guide**
-
-        **Syntax**
-
-        :TRIGger:IIC:SDA <source>
-        :TRIGger:IIC:SDA?
-
-        **Description**
-
-        Select the SDA channel source in IIC trigger.
-        Query the current SDA channel source in IIC trigger.
-
-        **Parameter**
-
-        ========= ========= ==================== ========
-        Name      Type      Range                Default
-        ========= ========= ==================== ========
-        <source>  Discrete  {CHANnel1|CHANnel2}  CHANnel2
-        ========= ========= ==================== ========
-
-        **Return Format**
-
-        The query returns CHAN1 or CHAN2.
-
-        **Example**
 
         :TRIGger:IIC:SDA CHANnel2
         The query returns CHAN2.
         """
-        sda: str = self.instrument.ask("TRIGger:IIC:SDA?").lower()
-        if sda == "chan1":
-            return "channel 1"
-        if sda == "chan2":
-            return "channel 2"
-        raise RuntimeError("The oscilloscope returned an unknown channel")
+        return channel_as_enum(
+            self.instrument.ask(f":TRIGger:IIC:{self.signal}?")
+        )
+
+
+class I2C(SFunc):
+    def __init__(self, device):
+        super(I2C, self).__init__(device)
+        self.source_scl: I2CSource = I2CSource(self, "SCL")
+        self.source_sda: I2CSource = I2CSource(self, "SDA")
+        self.when: I2CWhen = I2CWhen(self)
+        self.direction: I2CDirection = I2CDirection(self)
 
     def set_address_bits_width(self, address_width: int = 7) -> None:
         """Set the address bits in IIC trigger.
@@ -1084,6 +1103,8 @@ class I2C(SFunc):
         """
         return int(self.instrument.ask(":TRIGger:IIC:DATA?"))
 
+
+    # TODO: SSfunc the two
     def set_scl_trigger_level(self, level: float = 0) -> None:
         """Set the trigger level of SCL in IIC.
 
@@ -1123,29 +1144,20 @@ class I2C(SFunc):
         :TRIGger:IIC:CLEVel 0.16
         The query returns 1.600000e-01.
         """
-        scale: float = -1.0
-        offset: float = -1.0
-        source = self.get_scl_source()
-        if source == "channel 1":
+        source: ChannelEnum = self.source_scl.status()
+        if source == ChannelEnum.CHANNEL_1:
             scale = self.sdev.dev.channel1.get_scale()
             offset = self.sdev.dev.channel1.get_offset()
-        elif source == "channel 2":
+        elif source == ChannelEnum.CHANNEL_2:
             scale = self.sdev.dev.channel2.scale()
             offset = self.sdev.dev.channel2.get_offset()
         else:
-            DS2000StateError(
+            raise DS2000StateError(
                 "The level coul'd only be set, if the source is"
                 "Channel 1 or Channel 2."
             )  # TODO: Right??
 
-        min_rng = -5 * scale - offset
-        max_rng = 5 * scale - offset
-
-        if not isinstance(level, float) or not min_rng <= level <= max_rng:
-            ValueError(
-                f'"level" must be of type float and between '
-                f"{min_rng}..{max_rng}. You entered type {type(level)}."
-            )
+        check_level(level, scale, offset)
 
         self.instrument.ask(f":TRIGger:IIC:CLEVel {level}")
 
@@ -1229,29 +1241,21 @@ class I2C(SFunc):
         :TRIGger:IIC:DLEVel 0.16
         The query returns 1.600000e-01.
         """
-        scale: float = -1.0
-        offset: float = -1.0
-        source = self.get_sda_source()
-        if source == "channel 1":
+
+        source: ChannelEnum = self.source_sda.status()
+        if source == ChannelEnum.CHANNEL_1:
             scale = self.sdev.dev.channel1.get_scale()
             offset = self.sdev.dev.channel1.get_offset()
-        elif source == "channel 2":
+        elif source == ChannelEnum.CHANNEL_2:
             scale = self.sdev.dev.channel2.scale()
             offset = self.sdev.dev.channel2.get_offset()
         else:
-            DS2000StateError(
+            raise DS2000StateError(
                 "The level coul'd only be set, if the source is"
                 "Channel 1 or Channel 2."
             )  # TODO: Right??
 
-        min_rng = -5 * scale - offset
-        max_rng = 5 * scale - offset
-
-        if not isinstance(level, float) or not min_rng <= level <= max_rng:
-            ValueError(
-                f'"level" must be of type float and between '
-                f"{min_rng}..{max_rng}. You entered type {type(level)}."
-            )
+        check_level(level, scale, offset)
 
         self.instrument.ask(f":TRIGger:IIC:DLEVel {level}")
 

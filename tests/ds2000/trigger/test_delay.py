@@ -18,8 +18,9 @@ from __future__ import annotations
 
 import pytest
 
-from ds2000.trigger.delay import DelaySlopeEnum
-from ds2000.trigger.delay import DelayTypeEnum
+from ds2000.enums import ChannelEnum
+from ds2000.trigger.delay import TriggerDelaySlopeEnum
+from ds2000.trigger.delay import TriggerDelayTypeEnum
 
 
 __author__: str = "Michael Sasser"
@@ -83,11 +84,11 @@ def test_delay_type_greater(dev) -> None:
     The query returns GOUT.
     """
     # Setup
-    desired: DelayTypeEnum = DelayTypeEnum.GREATER
+    desired: TriggerDelayTypeEnum = TriggerDelayTypeEnum.GREATER
     dev.trigger.delay.type.greater()
 
     # Exercise
-    actual: DelayTypeEnum = dev.trigger.delay.type.status()
+    actual: TriggerDelayTypeEnum = dev.trigger.delay.type.status()
 
     # Verify
     assert actual == desired
@@ -152,11 +153,11 @@ def test_delay_type_less(dev) -> None:
     The query returns GOUT.
     """
     # Setup
-    desired: DelayTypeEnum = DelayTypeEnum.LESS
+    desired: TriggerDelayTypeEnum = TriggerDelayTypeEnum.LESS
     dev.trigger.delay.type.less()
 
     # Exercise
-    actual: DelayTypeEnum = dev.trigger.delay.type.status()
+    actual: TriggerDelayTypeEnum = dev.trigger.delay.type.status()
 
     # Verify
     assert actual == desired
@@ -221,11 +222,11 @@ def test_delay_type_inside(dev) -> None:
     The query returns GOUT.
     """
     # Setup
-    desired: DelayTypeEnum = DelayTypeEnum.INSIDE
+    desired: TriggerDelayTypeEnum = TriggerDelayTypeEnum.INSIDE
     dev.trigger.delay.type.inside()
 
     # Exercise
-    actual: DelayTypeEnum = dev.trigger.delay.type.status()
+    actual: TriggerDelayTypeEnum = dev.trigger.delay.type.status()
 
     # Verify
     assert actual == desired
@@ -290,11 +291,11 @@ def test_delay_type_outside(dev) -> None:
     The query returns GOUT.
     """
     # Setup
-    desired: DelayTypeEnum = DelayTypeEnum.OUTSIDE
+    desired: TriggerDelayTypeEnum = TriggerDelayTypeEnum.OUTSIDE
     dev.trigger.delay.type.outside()
 
     # Exercise
-    actual: DelayTypeEnum = dev.trigger.delay.type.status()
+    actual: TriggerDelayTypeEnum = dev.trigger.delay.type.status()
 
     # Verify
     assert actual == desired
@@ -340,11 +341,11 @@ def test_delay_slope_a_set_positive(dev) -> None:
     The query returns NEG.
     """
     # Setup
-    desired: DelaySlopeEnum = DelaySlopeEnum.POSITIVE
+    desired: TriggerDelaySlopeEnum = TriggerDelaySlopeEnum.POSITIVE
     dev.trigger.delay.slope_a.set_positive()
 
     # Exercise
-    actual: DelayTypeEnum = dev.trigger.delay.slope_a.status()
+    actual: TriggerDelayTypeEnum = dev.trigger.delay.slope_a.status()
 
     # Verify
     assert actual == desired
@@ -390,11 +391,11 @@ def test_delay_slope_a_set_negative(dev) -> None:
     The query returns NEG.
     """
     # Setup
-    desired: DelaySlopeEnum = DelaySlopeEnum.NEGATIVE
+    desired: TriggerDelaySlopeEnum = TriggerDelaySlopeEnum.NEGATIVE
     dev.trigger.delay.slope_a.set_negative()
 
     # Exercise
-    actual: DelayTypeEnum = dev.trigger.delay.slope_a.status()
+    actual: TriggerDelayTypeEnum = dev.trigger.delay.slope_a.status()
 
     # Verify
     assert actual == desired
@@ -440,11 +441,11 @@ def test_delay_slope_b_set_positive(dev) -> None:
     The query returns NEG.
     """
     # Setup
-    desired: DelaySlopeEnum = DelaySlopeEnum.POSITIVE
+    desired: TriggerDelaySlopeEnum = TriggerDelaySlopeEnum.POSITIVE
     dev.trigger.delay.slope_b.set_positive()
 
     # Exercise
-    actual: DelayTypeEnum = dev.trigger.delay.slope_b.status()
+    actual: TriggerDelayTypeEnum = dev.trigger.delay.slope_b.status()
 
     # Verify
     assert actual == desired
@@ -490,11 +491,11 @@ def test_delay_slope_b_set_negative(dev) -> None:
     The query returns NEG.
     """
     # Setup
-    desired: DelaySlopeEnum = DelaySlopeEnum.NEGATIVE
+    desired: TriggerDelaySlopeEnum = TriggerDelaySlopeEnum.NEGATIVE
     dev.trigger.delay.slope_b.set_negative()
 
     # Exercise
-    actual: DelayTypeEnum = dev.trigger.delay.slope_b.status()
+    actual: TriggerDelayTypeEnum = dev.trigger.delay.slope_b.status()
 
     # Verify
     assert actual == desired
@@ -502,7 +503,7 @@ def test_delay_slope_b_set_negative(dev) -> None:
     # Cleanup - None
 
 
-def test_delay_channel_signal_source_a_1(dev) -> None:
+def test_delay_source_a_channel_1(dev) -> None:
     """Test the trigger source of signal source A in delay trigger.
 
     **Rigol Programming Guide**
@@ -536,11 +537,11 @@ def test_delay_channel_signal_source_a_1(dev) -> None:
     The query returns CHAN2.
     """
     # Setup
-    desired: int = 1
-    dev.trigger.delay.set_channel_signal_source_a(desired)
+    desired: ChannelEnum = ChannelEnum.CHANNEL_1
+    dev.trigger.delay.source_a.set_channel_1()
 
     # Exercise
-    actual: int = dev.trigger.delay.get_channel_signal_source_a()
+    actual: int = dev.trigger.delay.source_a.status()
 
     # Verify
     assert actual == desired
@@ -548,7 +549,7 @@ def test_delay_channel_signal_source_a_1(dev) -> None:
     # Cleanup - None
 
 
-def test_delay_channel_signal_source_a_2(dev) -> None:
+def test_delay_source_a_channel_2(dev) -> None:
     """Test the trigger source of signal source A in delay trigger.
 
     **Rigol Programming Guide**
@@ -582,11 +583,11 @@ def test_delay_channel_signal_source_a_2(dev) -> None:
     The query returns CHAN2.
     """
     # Setup
-    desired: int = 2
-    dev.trigger.delay.set_channel_signal_source_a(desired)
+    desired: ChannelEnum = ChannelEnum.CHANNEL_2
+    dev.trigger.delay.source_a.set_channel_2()
 
     # Exercise
-    actual: int = dev.trigger.delay.get_channel_signal_source_a()
+    actual: int = dev.trigger.delay.source_a.status()
 
     # Verify
     assert actual == desired
@@ -594,52 +595,7 @@ def test_delay_channel_signal_source_a_2(dev) -> None:
     # Cleanup - None
 
 
-def test_delay_channel_signal_source_a_fail(dev) -> None:
-    """Test the trigger source of signal source A in delay trigger.
-
-    **Rigol Programming Guide**
-
-    **Syntax**
-
-    :TRIGger:DELay:SA <Source>
-    :TRIGger:DELay:SA?
-
-    **Description**
-
-    Select the trigger source of signal source A in delay trigger.
-    Query the current trigger source of signal source A in delay trigger.
-
-
-    **Parameter**
-
-    ========= ========= ==================== ========
-    Name      Type      Range                Default
-    ========= ========= ==================== ========
-    <source>  Discrete  {CHANnel1|CHANnel2}  CHANnel1
-    ========= ========= ==================== ========
-
-    **Return Format**
-
-    The query returns CHAN1 or CHAN2.
-
-    **Example**
-
-    :TRIGger:DELay:SA CHANnel2
-    The query returns CHAN2.
-    """
-    # Setup - None
-    # Exercise - None
-    # Verify
-    with pytest.raises(ValueError):
-        dev.trigger.delay.set_channel_signal_source_a(3)
-
-    with pytest.raises(ValueError):
-        dev.trigger.delay.set_channel_signal_source_a(0)
-
-    # Cleanup - None
-
-
-def test_delay_channel_signal_source_b_1(dev) -> None:
+def test_delay_source_b_channel_1(dev) -> None:
     """Test the trigger source of signal source B in delay trigger.
 
     **Rigol Programming Guide**
@@ -672,11 +628,11 @@ def test_delay_channel_signal_source_b_1(dev) -> None:
     The query returns CHAN2.
     """
     # Setup
-    desired: int = 1
-    dev.trigger.delay.set_channel_signal_source_b(desired)
+    desired: ChannelEnum = ChannelEnum.CHANNEL_1
+    dev.trigger.delay.source_b.set_channel_1()
 
     # Exercise
-    actual: int = dev.trigger.delay.get_channel_signal_source_b()
+    actual: int = dev.trigger.delay.source_b.status()
 
     # Verify
     assert actual == desired
@@ -684,7 +640,7 @@ def test_delay_channel_signal_source_b_1(dev) -> None:
     # Cleanup - None
 
 
-def test_delay_channel_signal_source_b_2(dev) -> None:
+def test_delay_source_b_channel_2(dev) -> None:
     """Test the trigger source of signal source B in delay trigger.
 
     **Rigol Programming Guide**
@@ -717,58 +673,14 @@ def test_delay_channel_signal_source_b_2(dev) -> None:
     The query returns CHAN2.
     """
     # Setup
-    desired: int = 2
-    dev.trigger.delay.set_channel_signal_source_b(desired)
+    desired: ChannelEnum = ChannelEnum.CHANNEL_2
+    dev.trigger.delay.source_b.set_channel_2()
 
     # Exercise
-    actual: int = dev.trigger.delay.get_channel_signal_source_b()
+    actual: int = dev.trigger.delay.source_b.status()
 
     # Verify
     assert actual == desired
-
-    # Cleanup - None
-
-
-def test_delay_channel_signal_source_b_fail(dev) -> None:
-    """Test the trigger source of signal source B in delay trigger.
-
-    **Rigol Programming Guide**
-
-    **Syntax**
-
-    :TRIGger:DELay:SB <Source>
-    :TRIGger:DELay:SB?
-
-    **Description**
-
-    Select the trigger source of signal source B in delay trigger.
-    Query the current trigger source of signal source B in delay trigger.
-
-    **Parameter**
-
-    ========= ========= ==================== ========
-    Name      Type      Range                Default
-    ========= ========= ==================== ========
-    <source>  Discrete  {CHANnel1|CHANnel2}  CHANnel1
-    ========= ========= ==================== ========
-
-    **Return Format**
-
-    The query returns CHAN1 or CHAN2.
-
-    **Example**
-
-    :TRIGger:DELay:SB CHANnel2
-    The query returns CHAN2.
-    """
-    # Setup - None
-    # Exercise - None
-    # Verify
-    with pytest.raises(ValueError):
-        dev.trigger.delay.set_channel_signal_source_b(3)
-
-    with pytest.raises(ValueError):
-        dev.trigger.delay.set_channel_signal_source_b(0)
 
     # Cleanup - None
 

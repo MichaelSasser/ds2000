@@ -16,29 +16,16 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 from __future__ import annotations
 
-from enum import Enum
-
-from ds2000.common import SFunc
+from ds2000.common import SFunc, channel_as_enum
 from ds2000.common import SSFunc
 from ds2000.common import check_level
 from ds2000.errors import DS2000StateError
+from ds2000.enums import ChannelEnum
+from ds2000.enums import TriggerEdgeSlopeEnum
 
 
 __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
-
-
-class EdgeSourceEnum(Enum):
-    CHANNEL_1 = "channel_1"
-    CHANNEL_2 = "channel_2"
-    EXT = "ext"
-    AC_LINE = "ac_line"
-
-
-class EdgeSlopeEnum(Enum):
-    RISING = "rising"
-    FALLING = "falling"
-    BOTH = "both"
 
 
 class EdgeSource(SSFunc):
@@ -178,7 +165,7 @@ class EdgeSource(SSFunc):
         """
         self.instrument.ask(":TRIGger:EDGe:SOURce ACLine")
 
-    def status(self) -> EdgeSourceEnum:
+    def status(self) -> ChannelEnum:
         """Query the current trigger source of edge trigger.
 
         **Rigol Programming Guide**
@@ -210,16 +197,7 @@ class EdgeSource(SSFunc):
         :TRIGger:EDGe:SOURce CHANnel2
         The query returns CHAN2.
         """
-        answer: str = self.instrument.ask(":TRIGger:EDGe:SOURce?")
-        if answer == "CHAN1":
-            return EdgeSourceEnum.CHANNEL_1
-        elif answer == "CHAN2":
-            return EdgeSourceEnum.CHANNEL_2
-        elif answer == "EXT":
-            return EdgeSourceEnum.EXT
-        elif answer == "ACL":
-            return EdgeSourceEnum.AC_LINE
-        raise DS2000StateError()
+        return channel_as_enum(self.instrument.ask(":TRIGger:EDGe:SOURce?"))
 
 
 class EdgeSlope(SSFunc):
@@ -325,7 +303,7 @@ class EdgeSlope(SSFunc):
         """
         self.instrument.ask(":TRIGger:EDGe:SLOPe RFALl")
 
-    def status(self) -> EdgeSlopeEnum:
+    def status(self) -> TriggerEdgeSlopeEnum:
         """Query the current edge type of edge trigger.
 
         **Rigol Programming Guide**
@@ -359,11 +337,11 @@ class EdgeSlope(SSFunc):
         """
         status: str = self.instrument.ask(":TRIGger:EDGe:SLOPe?")
         if status == "POS":
-            return EdgeSlopeEnum.RISING
+            return TriggerEdgeSlopeEnum.RISING
         if status == "NEG":
-            return EdgeSlopeEnum.FALLING
+            return TriggerEdgeSlopeEnum.FALLING
         elif status == "RFAL":
-            return EdgeSlopeEnum.BOTH
+            return TriggerEdgeSlopeEnum.BOTH
         raise DS2000StateError()
 
 
@@ -413,20 +391,18 @@ class Edge(SFunc):
         The query returns 1.600000e-01.
         """
         # ToDo: What is with ext and acline? Is this the center?
-        scale: float = -1.0
-        offset: float = -1.0
-        source: EdgeSourceEnum = self.source.status()
-        if source == EdgeSourceEnum.CHANNEL_1:
+        source: ChannelEnum = self.source.status()
+        if source == ChannelEnum.CHANNEL_1:
             scale = self.sdev.dev.channel1.get_scale()
             offset = self.sdev.dev.channel1.get_offset()
-        elif source == EdgeSourceEnum.CHANNEL_2:
+        elif source == ChannelEnum.CHANNEL_2:
             scale = self.sdev.dev.channel2.scale()
             offset = self.sdev.dev.channel2.get_offset()
         else:
-            DS2000StateError(
+            raise DS2000StateError(
                 "The level coul'd only be set, if the source is"
                 "Channel 1 or Channel 2."
-            )  # ToDo: Right??
+            )  # TODO: Right??
 
         check_level(level, scale, offset)
         self.instrument.ask(f":TRIGger:EDGe:LEVel {level}")

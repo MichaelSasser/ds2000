@@ -16,25 +16,19 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 from __future__ import annotations
 
-from enum import Enum
 from typing import Tuple
 from typing import List
 from typing import Union
 
-from ds2000.common import SFunc
+from ds2000.common import SFunc, channel_as_enum
 from ds2000.common import SSFunc
 from ds2000.common import check_input
 from ds2000.errors import DS2000StateError
+from ds2000.enums import TriggerDurationWhenEnum
 
 
 __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
-
-
-class DurationWhenEnum(Enum):
-    GREATER = "greater"
-    LESS = "less"
-    BETWEEN = "between"
 
 
 class DurationWhen(SSFunc):
@@ -194,7 +188,7 @@ class DurationWhen(SSFunc):
         """
         self.instrument.ask(":TRIGger:DURATion:WHEN GLESs")
 
-    def status(self) -> DurationWhenEnum:
+    def status(self) -> TriggerDurationWhenEnum:
         """Query the current trigger condition of duration trigger.
 
         **Rigol Programming Guide**
@@ -244,20 +238,16 @@ class DurationWhen(SSFunc):
         """
         answer: str = self.instrument.ask(":TRIGger:DURATion:WHEN?")
         if answer == "GRE":
-            return DurationWhenEnum.GREATER
+            return TriggerDurationWhenEnum.GREATER
         elif answer == "LESS":
-            return DurationWhenEnum.LESS
+            return TriggerDurationWhenEnum.LESS
         elif answer == "GLES":
-            return DurationWhenEnum.BETWEEN
+            return TriggerDurationWhenEnum.BETWEEN
         raise DS2000StateError()
 
 
-class Duration(SFunc):
-    def __init__(self, device):
-        super(Duration, self).__init__(device)
-        self.when: DurationWhen = DurationWhen(self)
-
-    def set_channel(self, channel: int = 1) -> None:
+class DurationSource(SSFunc):
+    def channel_1(self):
         """Select the trigger source of duration trigger.
 
         **Rigol Programming Guide**
@@ -289,11 +279,10 @@ class Duration(SFunc):
         :TRIGger:DURATion:SOURce CHANnel2
         The query returns CHAN2.
         """
-        check_input(channel, "channel", int, 1, 2)
-        self.instrument.ask(f":TRIGger:DURATion:SOURce CHANnel{channel}")
+        self.instrument.ask(":TRIGger:DURATion:SOURce CHANnel1")
 
-    def get_channel(self) -> int:
-        """Query the current trigger source of duration trigger.
+    def channel_2(self):
+        """Select the trigger source of duration trigger.
 
         **Rigol Programming Guide**
 
@@ -324,7 +313,48 @@ class Duration(SFunc):
         :TRIGger:DURATion:SOURce CHANnel2
         The query returns CHAN2.
         """
-        return int(self.instrument.ask(":TRIGger:DURATion:SOURce?"))
+        self.instrument.ask(":TRIGger:DURATion:SOURce CHANnel2")
+
+    def status(self):
+        """Select the trigger source of duration trigger.
+
+        **Rigol Programming Guide**
+
+        **Syntax**
+
+        :TRIGger:DURATion:SOURce <source>
+        :TRIGger:DURATion:SOURce?
+
+        **Description**
+
+        Select the trigger source of duration trigger.
+        Query the current trigger source of duration trigger.
+
+        **Parameter**
+
+        ========= ========= ==================== ========
+        Name      Type      Range                Default
+        ========= ========= ==================== ========
+        <source>  Discrete  {CHANnel1|CHANnel2}  CHANnel1
+        ========= ========= ==================== ========
+
+        **Return Format**
+
+        The query returns CHAN1 or CHAN2.
+
+        **Example**
+
+        :TRIGger:DURATion:SOURce CHANnel2
+        The query returns CHAN2.
+        """
+        return channel_as_enum(
+            self.instrument.ask(":TRIGger:DURATion:SOURce?")
+        )
+
+class Duration(SFunc):
+    def __init__(self, device):
+        super(Duration, self).__init__(device)
+        self.when: DurationWhen = DurationWhen(self)
 
     # TODO
     def set_type(self,

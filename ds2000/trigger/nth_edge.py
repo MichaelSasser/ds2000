@@ -15,10 +15,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from ds2000.common import SFunc
+from ds2000.common import SFunc, channel_as_enum
 from ds2000.common import SSFunc
 from ds2000.common import check_input
 from ds2000.common import check_level
+from ds2000.enums import ChannelEnum
 from ds2000.errors import DS2000StateError
 
 
@@ -27,7 +28,7 @@ __email__ = "Michael@MichaelSasser.org"
 
 
 class NthEdgeSource(SSFunc):
-    def set_channel1(self) -> None:
+    def set_channel_1(self) -> None:
         """Select the trigger source of Nth egde trigger.
 
         **Rigol Programming Guide**
@@ -61,7 +62,7 @@ class NthEdgeSource(SSFunc):
         """
         self.instrument.ask(":TRIGger:NEDGe:SOURce CHANnel1")
 
-    def set_channel2(self) -> None:
+    def set_channel_2(self) -> None:
         """Select the trigger source of Nth egde trigger.
 
         **Rigol Programming Guide**
@@ -95,7 +96,7 @@ class NthEdgeSource(SSFunc):
         """
         self.instrument.ask(":TRIGger:NEDGe:SOURce CHANnel2")
 
-    def set_status(self) -> int:
+    def status(self) -> ChannelEnum:
         """Select the trigger source of Nth egde trigger.
 
         **Rigol Programming Guide**
@@ -127,7 +128,9 @@ class NthEdgeSource(SSFunc):
         :TRIGger:NEDGe:SOURce CHANnel2
         The query returns CHAN2.
         """
-        return int(self.instrument.ask(":TRIGger:NEDGe:SOURce?")[-1])
+        return channel_as_enum(
+            self.instrument.ask(":TRIGger:NEDGe:SOURce?")
+        )
 
 
 class NthEdge(SFunc):
@@ -171,7 +174,7 @@ class NthEdge(SFunc):
             f":TRIGger:NEDGe:SLOPe {'POSitive' if positive else 'NEGative'}"
         )
 
-    def get_slope_is_positive(self) -> bool:
+    def slope_is_positive(self) -> bool:
         """Query the current edge type of Nth edge trigger.
 
         **Rigol Programming Guide**
@@ -418,20 +421,19 @@ class NthEdge(SFunc):
         :TRIGger:NEDGe:LEVel 0.16
         The query returns 1.600000e-01.
         """
-        scale: float = -1.0
-        offset: float = -1.0
         source = self.source.status()
-        if source == "channel 1":
+        if source == ChannelEnum.CHANNEL_1:
             scale = self.sdev.dev.channel1.get_scale()
             offset = self.sdev.dev.channel1.get_offset()
-        elif source == "channel 2":
+        elif source == ChannelEnum.CHANNEL_2:
             scale = self.sdev.dev.channel2.scale()
             offset = self.sdev.dev.channel2.get_offset()
         else:
-            DS2000StateError(
+            raise DS2000StateError(
                 "The level coul'd only be set, if the source is"
                 "Channel 1 or Channel 2."
-            )  # ToDo: Right??
+            )  # TODO: Right??
+
         check_level(level, scale, offset)
 
         self.instrument.ask(f":TRIGger:NEDGe:LEVel {level}")

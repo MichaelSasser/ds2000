@@ -17,6 +17,7 @@
 
 from ds2000.common import SFunc
 from ds2000.errors import DS2000StateError
+from ds2000.enums import TriggerModeEnum
 
 
 __author__ = "Michael Sasser"
@@ -616,7 +617,7 @@ class Mode(SFunc):
         """
         self.instrument.ask(":TRIGger:MODE USB")
 
-    def status(self) -> str:
+    def status(self) -> TriggerModeEnum:
         """Query the current trigger type.
 
         **Rigol Programming Guide**
@@ -651,28 +652,37 @@ class Mode(SFunc):
         :TRIGger:MODE SLOPe
         The query returns SLOP.
         """
-        status = self.instrument.ask(":TRIGger:MODE?").lower()
-        if status in (
-            "edge",
-            "pulse",
-            "runt",
-            "slope",
-            "video",
-            "pattern",
-            "delay",
-            "timeout",
-            "duration",
-            "rs232",
-            "spi",
-            "usb",
-        ):
-            return status
-        if status == "wind":
-            return "windows"
-        if status == "nedg":
-            return "nth edge"
-        if status == "shold":
-            return "setup/hold"
-        if status == "iic":
-            return "i2c"
+        answer: str = self.instrument.ask(":TRIGger:MODE?")
+        if answer == "EDGE":
+            return TriggerModeEnum.EDGE
+        if answer == "PULS":
+            return TriggerModeEnum.PULSE
+        if answer == "RUNT":
+            return TriggerModeEnum.RUNT
+        if answer == "WIND":
+            return TriggerModeEnum.WINDOW
+        if answer == "NEDG":
+            return TriggerModeEnum.NTH_EDGE
+        if answer == "SLOP":
+            return TriggerModeEnum.SLOPE
+        if answer == "VID":
+            return TriggerModeEnum.VIDEO
+        if answer == "PATT":
+            return TriggerModeEnum.PATTERN
+        if answer == "DEL":
+            return TriggerModeEnum.DELAY
+        if answer == "TIM":
+            return TriggerModeEnum.TIMEOUT
+        if answer == "DURAT":
+            return TriggerModeEnum.DURATION
+        if answer == "SHOL":
+            return TriggerModeEnum.SETUP_HOLD
+        if answer == "RS232":
+            return TriggerModeEnum.RS232
+        if answer == "IIC":
+            return TriggerModeEnum.I2C
+        if answer == "SPI":
+            return TriggerModeEnum.SPI
+        if answer == "USB":
+            return TriggerModeEnum.USB
         raise DS2000StateError()

@@ -21,7 +21,8 @@ from typing import List
 from typing import Optional
 from typing import Union
 
-from .errors import DS2000InternalSyntaxError
+from .enums import ChannelEnum
+from .errors import DS2000InternalSyntaxError, DS2000StateError
 from .math.format import get_prefix
 from .visa.driver import VISABase
 
@@ -220,5 +221,14 @@ def get_examples(doc: str) -> List[Example]:
     return examples
 
 
-def channel_as_int(channel_msg: str) -> int:
-    return int(channel_msg[-1])
+def channel_as_enum(channel_msg: str) -> ChannelEnum:
+    if channel_msg == "CHAN1":
+        return ChannelEnum.CHANNEL_1
+    if channel_msg == "CHAN2":
+        return ChannelEnum.CHANNEL_2
+    if channel_msg == "EXT":
+        return ChannelEnum.EXT
+    if channel_msg == "ACL":
+        return ChannelEnum.AC_LINE
+    DS2000StateError("The function common -> channel_as_enum did not "
+                     f"understand: {channel_msg}")
