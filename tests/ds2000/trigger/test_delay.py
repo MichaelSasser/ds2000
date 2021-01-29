@@ -83,13 +83,14 @@ def test_delay_type_greater(dev) -> None:
     The query returns GOUT.
     """
     # Setup
+    desired: DelayTypeEnum = DelayTypeEnum.GREATER
     dev.trigger.delay.type.greater()
 
     # Exercise
     actual: DelayTypeEnum = dev.trigger.delay.type.status()
 
     # Verify
-    assert actual == DelayTypeEnum.GREATER
+    assert actual == desired
 
     # Cleanup - None
 
@@ -151,13 +152,14 @@ def test_delay_type_less(dev) -> None:
     The query returns GOUT.
     """
     # Setup
+    desired: DelayTypeEnum = DelayTypeEnum.LESS
     dev.trigger.delay.type.less()
 
     # Exercise
     actual: DelayTypeEnum = dev.trigger.delay.type.status()
 
     # Verify
-    assert actual == DelayTypeEnum.LESS
+    assert actual == desired
 
     # Cleanup - None
 
@@ -219,13 +221,14 @@ def test_delay_type_inside(dev) -> None:
     The query returns GOUT.
     """
     # Setup
+    desired: DelayTypeEnum = DelayTypeEnum.INSIDE
     dev.trigger.delay.type.inside()
 
     # Exercise
     actual: DelayTypeEnum = dev.trigger.delay.type.status()
 
     # Verify
-    assert actual == DelayTypeEnum.INSIDE
+    assert actual == desired
 
     # Cleanup - None
 
@@ -287,13 +290,14 @@ def test_delay_type_outside(dev) -> None:
     The query returns GOUT.
     """
     # Setup
+    desired: DelayTypeEnum = DelayTypeEnum.OUTSIDE
     dev.trigger.delay.type.outside()
 
     # Exercise
     actual: DelayTypeEnum = dev.trigger.delay.type.status()
 
     # Verify
-    assert actual == DelayTypeEnum.OUTSIDE
+    assert actual == desired
 
     # Cleanup - None
 
@@ -336,13 +340,14 @@ def test_delay_slope_a_set_positive(dev) -> None:
     The query returns NEG.
     """
     # Setup
+    desired: DelaySlopeEnum = DelaySlopeEnum.POSITIVE
     dev.trigger.delay.slope_a.set_positive()
 
     # Exercise
     actual: DelayTypeEnum = dev.trigger.delay.slope_a.status()
 
     # Verify
-    assert actual == DelaySlopeEnum.POSITIVE
+    assert actual == desired
 
     # Cleanup - None
 
@@ -385,13 +390,14 @@ def test_delay_slope_a_set_negative(dev) -> None:
     The query returns NEG.
     """
     # Setup
+    desired: DelaySlopeEnum = DelaySlopeEnum.NEGATIVE
     dev.trigger.delay.slope_a.set_negative()
 
     # Exercise
     actual: DelayTypeEnum = dev.trigger.delay.slope_a.status()
 
     # Verify
-    assert actual == DelaySlopeEnum.NEGATIVE
+    assert actual == desired
 
     # Cleanup - None
 
@@ -434,13 +440,14 @@ def test_delay_slope_b_set_positive(dev) -> None:
     The query returns NEG.
     """
     # Setup
+    desired: DelaySlopeEnum = DelaySlopeEnum.POSITIVE
     dev.trigger.delay.slope_b.set_positive()
 
     # Exercise
     actual: DelayTypeEnum = dev.trigger.delay.slope_b.status()
 
     # Verify
-    assert actual == DelaySlopeEnum.POSITIVE
+    assert actual == desired
 
     # Cleanup - None
 
@@ -483,13 +490,14 @@ def test_delay_slope_b_set_negative(dev) -> None:
     The query returns NEG.
     """
     # Setup
+    desired: DelaySlopeEnum = DelaySlopeEnum.NEGATIVE
     dev.trigger.delay.slope_b.set_negative()
 
     # Exercise
     actual: DelayTypeEnum = dev.trigger.delay.slope_b.status()
 
     # Verify
-    assert actual == DelaySlopeEnum.NEGATIVE
+    assert actual == desired
 
     # Cleanup - None
 
@@ -528,13 +536,14 @@ def test_delay_channel_signal_source_a_1(dev) -> None:
     The query returns CHAN2.
     """
     # Setup
-    dev.trigger.delay.set_channel_signal_source_a(1)
+    desired: int = 1
+    dev.trigger.delay.set_channel_signal_source_a(desired)
 
     # Exercise
     actual: int = dev.trigger.delay.get_channel_signal_source_a()
 
     # Verify
-    assert actual == 1
+    assert actual == desired
 
     # Cleanup - None
 
@@ -573,13 +582,14 @@ def test_delay_channel_signal_source_a_2(dev) -> None:
     The query returns CHAN2.
     """
     # Setup
-    dev.trigger.delay.set_channel_signal_source_a(2)
+    desired: int = 2
+    dev.trigger.delay.set_channel_signal_source_a(desired)
 
     # Exercise
     actual: int = dev.trigger.delay.get_channel_signal_source_a()
 
     # Verify
-    assert actual == 2
+    assert actual == desired
 
     # Cleanup - None
 
@@ -617,15 +627,15 @@ def test_delay_channel_signal_source_a_fail(dev) -> None:
     :TRIGger:DELay:SA CHANnel2
     The query returns CHAN2.
     """
-    # Setup
+    # Setup - None
+    # Exercise - None
+    # Verify
     with pytest.raises(ValueError):
         dev.trigger.delay.set_channel_signal_source_a(3)
 
     with pytest.raises(ValueError):
         dev.trigger.delay.set_channel_signal_source_a(0)
 
-    # Exercise
-    # Verify - None
     # Cleanup - None
 
 
@@ -662,13 +672,14 @@ def test_delay_channel_signal_source_b_1(dev) -> None:
     The query returns CHAN2.
     """
     # Setup
-    dev.trigger.delay.set_channel_signal_source_b(1)
+    desired: int = 1
+    dev.trigger.delay.set_channel_signal_source_b(desired)
 
     # Exercise
     actual: int = dev.trigger.delay.get_channel_signal_source_b()
 
     # Verify
-    assert actual == 1
+    assert actual == desired
 
     # Cleanup - None
 
@@ -706,13 +717,14 @@ def test_delay_channel_signal_source_b_2(dev) -> None:
     The query returns CHAN2.
     """
     # Setup
-    dev.trigger.delay.set_channel_signal_source_b(2)
+    desired: int = 2
+    dev.trigger.delay.set_channel_signal_source_b(desired)
 
     # Exercise
     actual: int = dev.trigger.delay.get_channel_signal_source_b()
 
     # Verify
-    assert actual == 2
+    assert actual == desired
 
     # Cleanup - None
 
@@ -749,15 +761,15 @@ def test_delay_channel_signal_source_b_fail(dev) -> None:
     :TRIGger:DELay:SB CHANnel2
     The query returns CHAN2.
     """
-    # Setup
+    # Setup - None
+    # Exercise - None
+    # Verify
     with pytest.raises(ValueError):
         dev.trigger.delay.set_channel_signal_source_b(3)
 
     with pytest.raises(ValueError):
         dev.trigger.delay.set_channel_signal_source_b(0)
 
-    # Exercise
-    # Verify - None
     # Cleanup - None
 
 
@@ -803,14 +815,15 @@ def test_delay_set_upper_limit_when_less1(dev) -> None:
     The query returns 2.000000e-03.
     """
     # Setup
+    desired: float = 2.0e-9
     dev.trigger.delay.type.less()
-    dev.trigger.delay.set_upper_limit(2.0e-9)
+    dev.trigger.delay.set_upper_limit(desired)
 
     # Exercise
     actual: float = dev.trigger.delay.get_upper_limit()
 
     # Verify
-    assert pytest.approx(actual, 0.0001) == 2.0e-9
+    assert pytest.approx(actual, 0.0001) == desired
 
     # Cleanup - None
 
@@ -857,14 +870,15 @@ def test_delay_set_upper_limit_when_less2(dev) -> None:
     The query returns 2.000000e-03.
     """
     # Setup
+    desired: float = 4.0
     dev.trigger.delay.type.less()
-    dev.trigger.delay.set_upper_limit(4.0)
+    dev.trigger.delay.set_upper_limit(desired)
 
     # Exercise
     actual: float = dev.trigger.delay.get_upper_limit()
 
     # Verify
-    assert pytest.approx(actual, 0.0001) == 4.0
+    assert pytest.approx(actual, 0.0001) == desired
 
     # Cleanup - None
 
@@ -910,13 +924,13 @@ def test_delay_set_upper_limit_when_less_fail1(dev) -> None:
     :TRIGger:DELay:TUPPer 0.002
     The query returns 2.000000e-03.
     """
-    # Setup
+    # Setup - None
+    # Exercise - None
+    # Verify
     with pytest.raises(ValueError):
         dev.trigger.delay.type.inside()
         dev.trigger.delay.set_upper_limit(1.0e-9)
 
-    # Exercise - None
-    # Verify - None
     # Cleanup - None
 
 
@@ -961,13 +975,13 @@ def test_delay_set_upper_limit_when_less_fail2(dev) -> None:
     :TRIGger:DELay:TUPPer 0.002
     The query returns 2.000000e-03.
     """
-    # Setup
+    # Setup - None
+    # Exercise - None
+    # Verify
     with pytest.raises(ValueError):
         dev.trigger.delay.type.inside()
         dev.trigger.delay.set_upper_limit(4.1)
 
-    # Exercise - None
-    # Verify - None
     # Cleanup - None
 
 
@@ -1013,14 +1027,15 @@ def test_delay_set_upper_limit_when_outside(dev) -> None:
     The query returns 2.000000e-03.
     """
     # Setup
+    desired: float = 12.0e-9
     dev.trigger.delay.type.outside()
-    dev.trigger.delay.set_upper_limit(12.0e-9)
+    dev.trigger.delay.set_upper_limit(desired)
 
     # Exercise
     actual: float = dev.trigger.delay.get_upper_limit()
 
     # Verify
-    assert pytest.approx(actual, 0.0001) == 12.0e-9
+    assert pytest.approx(actual, 0.0001) == desired
 
     # Cleanup - None
 
@@ -1066,13 +1081,13 @@ def test_delay_set_upper_limit_when_outside_fail(dev) -> None:
     :TRIGger:DELay:TUPPer 0.002
     The query returns 2.000000e-03.
     """
-    # Setup
+    # Setup - None
+    # Exercise - None
+    # Verify
     with pytest.raises(ValueError):
         dev.trigger.delay.type.outside()
         dev.trigger.delay.set_upper_limit(2.0e-9)
 
-    # Exercise - None
-    # Verify - None
     # Cleanup - None
 
 
@@ -1118,14 +1133,15 @@ def test_delay_set_upper_limit_when_inside(dev) -> None:
     The query returns 2.000000e-03.
     """
     # Setup
+    desired: float = 12.0e-9
     dev.trigger.delay.type.inside()
-    dev.trigger.delay.set_upper_limit(12.0e-9)
+    dev.trigger.delay.set_upper_limit(desired)
 
     # Exercise
     actual: float = dev.trigger.delay.get_upper_limit()
 
     # Verify
-    assert pytest.approx(actual, 0.0001) == 12.0e-9
+    assert pytest.approx(actual, 0.0001) == desired
 
     # Cleanup - None
 
@@ -1171,13 +1187,13 @@ def test_delay_set_upper_limit_when_inside_fail(dev) -> None:
     :TRIGger:DELay:TUPPer 0.002
     The query returns 2.000000e-03.
     """
-    # Setup
+    # Setup - None
+    # Exercise - None
+    # Verify
     with pytest.raises(ValueError):
         dev.trigger.delay.type.inside()
         dev.trigger.delay.set_upper_limit(2.0e-9)
 
-    # Exercise - None
-    # Verify - None
     # Cleanup - None
 
 
@@ -1222,13 +1238,13 @@ def test_delay_set_upper_limit_when_greater_fail(dev) -> None:
     :TRIGger:DELay:TUPPer 0.002
     The query returns 2.000000e-03.
     """
-    # Setup
+    # Setup - None
+    # Exercise - None
+    # Verify - None
     with pytest.raises(TypeError):
         dev.trigger.delay.type.greater()
         dev.trigger.delay.set_upper_limit(12.0e-9)
 
-    # Exercise - None
-    # Verify - None
     # Cleanup - None
 
 
@@ -1275,14 +1291,15 @@ def test_delay_set_lower_limit_when_less(dev) -> None:
     The query returns 2.000000e-03.
     """
     # Setup
+    desired: float = 2.0e-9
     dev.trigger.delay.type.less()
-    dev.trigger.delay.set_lower_limit(2.0e-9)
+    dev.trigger.delay.set_lower_limit(desired)
 
     # Exercise
     actual: float = dev.trigger.delay.get_lower_limit()
 
     # Verify
-    assert pytest.approx(actual, 0.0001) == 2.0e-9
+    assert pytest.approx(actual, 0.0001) == desired
 
     # Cleanup - None
 
@@ -1329,13 +1346,13 @@ def test_delay_set_lower_limit_when_less_fail1(dev) -> None:
     :TRIGger:DELay:TLOWer 0.002
     The query returns 2.000000e-03.
     """
-    # Setup
+    # Setup - None
+    # Exercise - None
+    # Verify
     with pytest.raises(ValueError):
         dev.trigger.delay.type.less()
         dev.trigger.delay.set_lower_limit(1.0e-9)
 
-    # Exercise - None
-    # Verify - None
     # Cleanup - None
 
 
@@ -1381,13 +1398,13 @@ def test_delay_set_lower_limit_when_less_fail2(dev) -> None:
     :TRIGger:DELay:TLOWer 0.002
     The query returns 2.000000e-03.
     """
-    # Setup
+    # Setup - None
+    # Exercise - None
+    # Verify
     with pytest.raises(ValueError):
         dev.trigger.delay.type.less()
         dev.trigger.delay.set_lower_limit(4.0)
 
-    # Exercise - None
-    # Verify - None
     # Cleanup - None
 
 
@@ -1434,14 +1451,15 @@ def test_delay_set_lower_limit_when_outside(dev) -> None:
     The query returns 2.000000e-03.
     """
     # Setup
+    desired: float = 2.0e-9
     dev.trigger.delay.type.outside()
-    dev.trigger.delay.set_lower_limit(2.0e-9)
+    dev.trigger.delay.set_lower_limit(desired)
 
     # Exercise
     actual: float = dev.trigger.delay.get_lower_limit()
 
     # Verify
-    assert pytest.approx(actual, 0.0001) == 2.0e-9
+    assert pytest.approx(actual, 0.0001) == desired
 
     # Cleanup - None
 
@@ -1489,14 +1507,15 @@ def test_delay_set_lower_limit_when_inside(dev) -> None:
     The query returns 2.000000e-03.
     """
     # Setup
+    desired: float = 2.0e-9
     dev.trigger.delay.type.inside()
-    dev.trigger.delay.set_lower_limit(2.0e-9)
+    dev.trigger.delay.set_lower_limit(desired)
 
     # Exercise
     actual: float = dev.trigger.delay.get_lower_limit()
 
     # Verify
-    assert pytest.approx(actual, 0.0001) == 2.0e-9
+    assert pytest.approx(actual, 0.0001) == desired
 
     # Cleanup - None
 
@@ -1543,13 +1562,13 @@ def test_delay_set_lower_limit_when_greater_fail(dev) -> None:
     :TRIGger:DELay:TLOWer 0.002
     The query returns 2.000000e-03.
     """
-    # Setup
+    # Setup - None
+    # Exercise - None
+    # Verify
     with pytest.raises(TypeError):
         dev.trigger.delay.type.greater()
         dev.trigger.delay.set_lower_limit(2.0e-9)
 
-    # Exercise - None
-    # Verify - None
     # Cleanup - None
 
 

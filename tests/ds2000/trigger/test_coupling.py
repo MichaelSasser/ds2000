@@ -60,13 +60,14 @@ def test_coupling_set_ac(dev) -> None:
     The query returns LFR.
     """
     # Setup
+    desired: CouplingEnum = CouplingEnum.AC
     dev.trigger.coupling.set_ac()
 
     # Exercise
     actual: CouplingEnum = dev.trigger.coupling.status()
 
     # Verify
-    assert actual == CouplingEnum.AC
+    assert actual == desired
 
     # Cleanup - None
 
@@ -108,13 +109,14 @@ def test_coupling_set_dc(dev) -> None:
     The query returns LFR.
     """
     # Setup
+    desired: CouplingEnum = CouplingEnum.DC
     dev.trigger.coupling.set_dc()
 
     # Exercise
     actual: CouplingEnum = dev.trigger.coupling.status()
 
     # Verify
-    assert actual == CouplingEnum.DC
+    assert actual == desired
 
     # Cleanup - None
 
@@ -156,13 +158,14 @@ def test_coupling_set_lf_reject(dev) -> None:
     The query returns LFR.
     """
     # Setup
+    desired: CouplingEnum = CouplingEnum.LF_REJECT
     dev.trigger.coupling.set_lf_reject()
 
     # Exercise
     actual: CouplingEnum = dev.trigger.coupling.status()
 
     # Verify
-    assert actual == CouplingEnum.LF_REJECT
+    assert actual == desired
 
     # Cleanup - None
 
@@ -204,13 +207,14 @@ def test_coupling_set_hf_reject(dev) -> None:
     The query returns LFR.
     """
     # Setup
+    desired: CouplingEnum = CouplingEnum.HF_REJECT
     dev.trigger.coupling.set_hf_reject()
 
     # Exercise
     actual: CouplingEnum = dev.trigger.coupling.status()
 
     # Verify
-    assert actual == CouplingEnum.HF_REJECT
+    assert actual == desired
 
     # Cleanup - None
 
