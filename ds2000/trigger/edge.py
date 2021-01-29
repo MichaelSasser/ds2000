@@ -14,6 +14,9 @@
 
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
+from __future__ import annotations
+
+from enum import Enum
 
 from ds2000.common import SFunc
 from ds2000.common import SSFunc
@@ -25,8 +28,21 @@ __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
 
 
+class EdgeSourceEnum(Enum):
+    CHANNEL_1 = "channel_1"
+    CHANNEL_2 = "channel_2"
+    EXT = "ext"
+    AC_LINE = "ac_line"
+
+
+class EdgeSlopeEnum(Enum):
+    RISING = "rising"
+    FALLING = "falling"
+    BOTH = "both"
+
+
 class EdgeSource(SSFunc):
-    def set_channel1(self) -> None:
+    def set_channel_1(self) -> None:
         """Select the trigger source of edge trigger.
 
         **Rigol Programming Guide**
@@ -60,7 +76,7 @@ class EdgeSource(SSFunc):
         """
         self.instrument.ask(":TRIGger:EDGe:SOURce CHANnel1")
 
-    def set_channel2(self) -> None:
+    def set_channel_2(self) -> None:
         """Select the trigger source of edge trigger.
 
         **Rigol Programming Guide**
@@ -162,7 +178,7 @@ class EdgeSource(SSFunc):
         """
         self.instrument.ask(":TRIGger:EDGe:SOURce ACLine")
 
-    def status(self) -> str:
+    def status(self) -> EdgeSourceEnum:
         """Query the current trigger source of edge trigger.
 
         **Rigol Programming Guide**
@@ -194,18 +210,20 @@ class EdgeSource(SSFunc):
         :TRIGger:EDGe:SOURce CHANnel2
         The query returns CHAN2.
         """
-        status: str = self.instrument.ask(":TRIGger:EDGe:SOURce?").lower()
-        if status == "chan1":
-            return "channel 1"
-        if status == "chan2":
-            return "channel 2"
-        if status == "ext":
-            return "ext"
-        return "ac line"
+        answer: str = self.instrument.ask(":TRIGger:EDGe:SOURce?")
+        if answer == "CHAN1":
+            return EdgeSourceEnum.CHANNEL_1
+        elif answer == "CHAN2":
+            return EdgeSourceEnum.CHANNEL_2
+        elif answer == "EXT":
+            return EdgeSourceEnum.EXT
+        elif answer == "ACL":
+            return EdgeSourceEnum.AC_LINE
+        raise DS2000StateError()
 
 
 class EdgeSlope(SSFunc):
-    def set_rising_edge(self) -> None:
+    def set_rising(self) -> None:
         """Select the edge type of edge trigger.
 
         **Rigol Programming Guide**
@@ -239,7 +257,7 @@ class EdgeSlope(SSFunc):
         """
         self.instrument.ask(":TRIGger:EDGe:SLOPe POSitive")
 
-    def set_falling_edge(self) -> None:
+    def set_falling(self) -> None:
         """Select the edge type of edge trigger.
 
         **Rigol Programming Guide**
@@ -273,7 +291,7 @@ class EdgeSlope(SSFunc):
         """
         self.instrument.ask(":TRIGger:EDGe:SLOPe NEGative")
 
-    def set_both_edges(self) -> None:
+    def set_both(self) -> None:
         """Select the edge type of edge trigger.
 
         **Rigol Programming Guide**
@@ -307,7 +325,7 @@ class EdgeSlope(SSFunc):
         """
         self.instrument.ask(":TRIGger:EDGe:SLOPe RFALl")
 
-    def status(self) -> str:
+    def status(self) -> EdgeSlopeEnum:
         """Query the current edge type of edge trigger.
 
         **Rigol Programming Guide**
@@ -339,12 +357,14 @@ class EdgeSlope(SSFunc):
         :TRIGger:EDGe:SLOPe NEGative
         The query returns NEG.
         """
-        status = self.instrument.ask(":TRIGger:EDGe:SLOPe?")
+        status: str = self.instrument.ask(":TRIGger:EDGe:SLOPe?")
         if status == "POS":
-            return "rising edge"
+            return EdgeSlopeEnum.RISING
         if status == "NEG":
-            return "falling edge"
-        return "both edges"
+            return EdgeSlopeEnum.FALLING
+        elif status == "RFAL":
+            return EdgeSlopeEnum.BOTH
+        raise DS2000StateError()
 
 
 class Edge(SFunc):
@@ -395,11 +415,11 @@ class Edge(SFunc):
         # ToDo: What is with ext and acline? Is this the center?
         scale: float = -1.0
         offset: float = -1.0
-        source = self.source.status()
-        if source == "channel 1":
+        source: EdgeSourceEnum = self.source.status()
+        if source == EdgeSourceEnum.CHANNEL_1:
             scale = self.sdev.dev.channel1.get_scale()
             offset = self.sdev.dev.channel1.get_offset()
-        elif source == "channel 2":
+        elif source == EdgeSourceEnum.CHANNEL_2:
             scale = self.sdev.dev.channel2.scale()
             offset = self.sdev.dev.channel2.get_offset()
         else:

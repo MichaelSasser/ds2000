@@ -95,7 +95,7 @@ class DebugDriver(VISABase):
         If this fails, give a "1.0" back, which should work with
         str, int, list, tuple, sets, float.
         """
-        answer: Optional[str] = None
+        answer: Optional[str]
         command: Command = parse_msg(msg)
         examples: List[Example] = []
 

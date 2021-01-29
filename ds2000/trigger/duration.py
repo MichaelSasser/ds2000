@@ -14,20 +14,34 @@
 
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
+from __future__ import annotations
+
+from enum import Enum
+from typing import Tuple
+from typing import List
+from typing import Union
 
 from ds2000.common import SFunc
 from ds2000.common import SSFunc
 from ds2000.common import check_input
+from ds2000.errors import DS2000StateError
 
 
 __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
 
 
-# TODO: Shorter method names
+class DurationWhenEnum(Enum):
+    GREATER = "greater"
+    LESS = "less"
+    BETWEEN = "between"
+
+
 class DurationWhen(SSFunc):
-    def duration_of_pattern_greater_than_lower_limit(self) -> None:
+    def set_greater(self) -> None:
         """Select the trigger condition of duration trigger.
+
+        The duration of the pattern is greater the lower limit.
 
         **Rigol Programming Guide**
 
@@ -76,8 +90,10 @@ class DurationWhen(SSFunc):
         """
         self.instrument.ask(":TRIGger:DURATion:WHEN GREater")
 
-    def duration_of_pattern_lower_than_upper_limit(self) -> None:
+    def set_less(self) -> None:
         """Select the trigger condition of duration trigger.
+
+        The duration of the pattern is lower then the upper limit.
 
         **Rigol Programming Guide**
 
@@ -126,8 +142,10 @@ class DurationWhen(SSFunc):
         """
         self.instrument.ask(":TRIGger:DURATion:WHEN LESS")
 
-    def duration_of_pattern_between_lower_and_upper_limit(self) -> None:
+    def set_between(self) -> None:
         """Select the trigger condition of duration trigger.
+
+        The duration of the pattern is between the lower and the upper limit.
 
         **Rigol Programming Guide**
 
@@ -176,7 +194,7 @@ class DurationWhen(SSFunc):
         """
         self.instrument.ask(":TRIGger:DURATion:WHEN GLESs")
 
-    def status(self) -> str:
+    def status(self) -> DurationWhenEnum:
         """Query the current trigger condition of duration trigger.
 
         **Rigol Programming Guide**
@@ -224,7 +242,14 @@ class DurationWhen(SSFunc):
         :TRIGger:DURATion:WHEN LESS
         The query returns LESS.
         """
-        return self.instrument.ask(":TRIGger:DURATion:WHEN?")
+        answer: str = self.instrument.ask(":TRIGger:DURATion:WHEN?")
+        if answer == "GRE":
+            return DurationWhenEnum.GREATER
+        elif answer == "LESS":
+            return DurationWhenEnum.LESS
+        elif answer == "GLES":
+            return DurationWhenEnum.BETWEEN
+        raise DS2000StateError()
 
 
 class Duration(SFunc):
@@ -232,7 +257,7 @@ class Duration(SFunc):
         super(Duration, self).__init__(device)
         self.when: DurationWhen = DurationWhen(self)
 
-    def set_source(self, channel: int = 1) -> None:
+    def set_channel(self, channel: int = 1) -> None:
         """Select the trigger source of duration trigger.
 
         **Rigol Programming Guide**
@@ -264,9 +289,10 @@ class Duration(SFunc):
         :TRIGger:DURATion:SOURce CHANnel2
         The query returns CHAN2.
         """
+        check_input(channel, "channel", int, 1, 2)
         self.instrument.ask(f":TRIGger:DURATion:SOURce CHANnel{channel}")
 
-    def get_source(self) -> int:
+    def get_channel(self) -> int:
         """Query the current trigger source of duration trigger.
 
         **Rigol Programming Guide**
@@ -300,7 +326,10 @@ class Duration(SFunc):
         """
         return int(self.instrument.ask(":TRIGger:DURATion:SOURce?"))
 
-    def set_type(self, pattern: str = "H,L") -> None:  # TODO
+    # TODO
+    def set_type(self,
+                 pattern: Union[List[str], Tuple[str]] = ("H", "L")
+                 ) -> None:
         """Set the current patterns of the channels.
 
         **Rigol Programming Guide**
@@ -334,12 +363,12 @@ class Duration(SFunc):
         :TRIGger:DURATion:TYPe L,X
         The query returns L,X.
         """
-        for b in pattern:
-            if b not in ("H", "L", "X", ","):
+        for p in pattern:
+            if p not in ("H", "L", "X", ","):
                 raise ValueError("Pattern is not valid.")
-        self.instrument.ask(f":TRIGger:DURATion:TYPe {pattern}")
+        self.instrument.ask(f':TRIGger:DURATion:TYPe {",".join(pattern)}')
 
-    def get_type(self) -> str:
+    def get_type(self) -> Tuple[str]:
         """Query the current patterns of the channels.
 
         **Rigol Programming Guide**
@@ -373,7 +402,7 @@ class Duration(SFunc):
         :TRIGger:DURATion:TYPe L,X
         The query returns L,X.
         """
-        return self.instrument.ask(":TRIGger:DURATion:TYPe?")
+        return tuple(self.instrument.ask(":TRIGger:DURATion:TYPe?").split(","))
 
     def set_upper_limit(self, time: float = 2.0e-6) -> None:
         """Set the upper limit of the duration.

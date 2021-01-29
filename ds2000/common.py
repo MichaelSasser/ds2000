@@ -59,8 +59,8 @@ def check_input(
     arg: Any,
     arg_name: str,
     arg_type: Optional[Any] = None,
-    mini: Union[None, int, float] = None,
-    maxi: Union[None, int, float] = None,
+    min_: Union[None, int, float] = None,
+    max_: Union[None, int, float] = None,
     unit: Optional[str] = None,
     ext_type_err: Optional[str] = None,
     ext_range_err: Optional[str] = None,
@@ -82,8 +82,8 @@ def check_input(
     :param arg: The argument, to validate.
     :param arg_name: The name of the argument as string.
     :param arg_type: The type the argument should be.
-    :param mini: The min value of the argument range.
-    :param maxi: The max value of the argument range.
+    :param min_: The min value of the argument range.
+    :param max_: The max value of the argument range.
     :param unit: The unit of the argument, if it should be formated.
     :param ext_type_err: Some extended error msg, if a type error will occure.
     :param ext_range_err: Some extended error msg, if a Value will occure.
@@ -92,7 +92,7 @@ def check_input(
 
     # Check, if this function is used as intended: One or both checks are
     # active.
-    if (arg_type is None) and (mini is None or maxi is None):
+    if (arg_type is None) and (min_ is None or max_ is None):
         raise DS2000InternalSyntaxError(
             "This check does nothing. If this is "
             "intended, remove this check. "
@@ -100,15 +100,15 @@ def check_input(
             "the argument type and/or the argument "
             "value range."
         )
-    # Check, if this function is used as intended: mini and maxi have the same
+    # Check, if this function is used as intended: min_ and max_ have the same
     # type.
-    if (mini is None or maxi is None) and type(mini) != type(maxi):
+    if (min_ is None or max_ is None) and type(min_) != type(max_):
         raise DS2000InternalSyntaxError(
-            "The arguments mini and maxi have"
+            "The arguments min_ and max_ have"
             "a different type. Make sure you"
             "always compare same types.\n"
-            f"mini: {type(mini)}\n"
-            f"maxi: {type(maxi)}\n"
+            f"min_: {type(min_)}\n"
+            f"max_: {type(max_)}\n"
             f"Keep in mind. 1 is an integer and "
             f"1.0 is a float type."
         )
@@ -123,12 +123,12 @@ def check_input(
         )
 
     # Check for the argument range.
-    if (mini is not None) and (maxi is not None) and not (mini <= arg <= maxi):
+    if (min_ is not None) and (max_ is not None) and not (min_ <= arg <= max_):
         raise ValueError(
             f'The argument "{arg_name}" needs to be in between '
-            f"{get_prefix(mini).formatted + unit if unit else mini}"
+            f"{get_prefix(min_).formatted + unit if unit else min_}"
             f" and "
-            f"{get_prefix(maxi).formatted + unit if unit else maxi}."
+            f"{get_prefix(max_).formatted + unit if unit else max_}."
             f" You entered "
             f"{get_prefix(arg).formatted + unit if unit else arg}"
             f"{'. ' if ext_range_err else '.'}"
