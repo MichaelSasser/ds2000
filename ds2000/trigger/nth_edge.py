@@ -21,7 +21,7 @@ from ds2000.common import channel_as_enum
 from ds2000.common import check_input
 from ds2000.common import check_level
 from ds2000.enums import ChannelEnum
-from ds2000.enums import TriggerNthEdgeSlopeEnum
+from ds2000.enums import SlopeEnum
 from ds2000.errors import DS2000StateError
 
 
@@ -202,7 +202,7 @@ class NthEdgeSlope(SSFunc):
         """
         self.instrument.ask(f":TRIGger:NEDGe:SLOPe NEGative")
 
-    def status(self) -> TriggerNthEdgeSlopeEnum:
+    def status(self) -> SlopeEnum:
         """Query the current edge type of Nth edge trigger.
 
         **Rigol Programming Guide**
@@ -236,9 +236,9 @@ class NthEdgeSlope(SSFunc):
         """
         answer: str = self.instrument.ask(":TRIGger:NEDGe:SLOPe?")
         if answer == "POS":
-            return TriggerNthEdgeSlopeEnum.POSITIVE
+            return SlopeEnum.POSITIVE
         if answer == "NEG":
-            return TriggerNthEdgeSlopeEnum.NEGATIVE
+            return SlopeEnum.NEGATIVE
 
 
 class NthEdge(SFunc):

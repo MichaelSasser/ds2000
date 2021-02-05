@@ -23,7 +23,7 @@ from ds2000.common import SSFunc
 from ds2000.common import channel_as_enum
 from ds2000.common import check_input
 from ds2000.enums import ChannelEnum
-from ds2000.enums import TriggerTimeoutSlopeEnum
+from ds2000.enums import SlopeEnum
 from ds2000.errors import DS2000StateError
 
 
@@ -138,7 +138,7 @@ class TimeoutChannel(SSFunc):
 
 
 class TimeoutSlope(SSFunc):
-    def set_rising_edge(self) -> None:
+    def set_positive(self) -> None:
         """Set the edge type of timeout trigger.
 
         **Rigol Programming Guide**
@@ -172,7 +172,7 @@ class TimeoutSlope(SSFunc):
         """
         self.instrument.ask(":TRIGger:TIMeout:SLOPe POSitive")
 
-    def set_falling_edge(self) -> None:
+    def set_negative(self) -> None:
         """Set the edge type of timeout trigger.
 
         **Rigol Programming Guide**
@@ -206,7 +206,7 @@ class TimeoutSlope(SSFunc):
         """
         self.instrument.ask(":TRIGger:TIMeout:SLOPe NEGative")
 
-    def set_both_edges(self) -> None:
+    def set_both(self) -> None:
         """Set the edge type of timeout trigger.
 
         **Rigol Programming Guide**
@@ -240,7 +240,7 @@ class TimeoutSlope(SSFunc):
         """
         self.instrument.ask(":TRIGger:TIMeout:SLOPe RFALl")
 
-    def status(self) -> TriggerTimeoutSlopeEnum:
+    def status(self) -> SlopeEnum:
         """Query the current edge type of timeout trigger.
 
         **Rigol Programming Guide**
@@ -274,11 +274,11 @@ class TimeoutSlope(SSFunc):
         """
         status: Optional[str] = self.instrument.ask(":TRIGger:TIMeout:SLOPe?")
         if status == "POS":
-            return TriggerTimeoutSlopeEnum.RISING
+            return SlopeEnum.POSITIVE
         if status == "NEG":
-            return TriggerTimeoutSlopeEnum.FALLING
+            return SlopeEnum.NEGATIVE
         if status == "RFAL":
-            return TriggerTimeoutSlopeEnum.BOTH
+            return SlopeEnum.BOTH
         raise DS2000StateError()
 
 

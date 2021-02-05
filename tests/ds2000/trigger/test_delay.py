@@ -19,7 +19,7 @@ from __future__ import annotations
 import pytest
 
 from ds2000.enums import ChannelEnum
-from ds2000.trigger.delay import TriggerDelaySlopeEnum
+from ds2000.trigger.delay import SlopeEnum
 from ds2000.trigger.delay import TriggerDelayTypeEnum
 
 
@@ -341,7 +341,7 @@ def test_delay_slope_a_set_positive(dev) -> None:
     The query returns NEG.
     """
     # Setup
-    desired: TriggerDelaySlopeEnum = TriggerDelaySlopeEnum.POSITIVE
+    desired: SlopeEnum = SlopeEnum.POSITIVE
     dev.trigger.delay.slope_a.set_positive()
 
     # Exercise
@@ -391,7 +391,7 @@ def test_delay_slope_a_set_negative(dev) -> None:
     The query returns NEG.
     """
     # Setup
-    desired: TriggerDelaySlopeEnum = TriggerDelaySlopeEnum.NEGATIVE
+    desired: SlopeEnum = SlopeEnum.NEGATIVE
     dev.trigger.delay.slope_a.set_negative()
 
     # Exercise
@@ -441,7 +441,7 @@ def test_delay_slope_b_set_positive(dev) -> None:
     The query returns NEG.
     """
     # Setup
-    desired: TriggerDelaySlopeEnum = TriggerDelaySlopeEnum.POSITIVE
+    desired: SlopeEnum = SlopeEnum.POSITIVE
     dev.trigger.delay.slope_b.set_positive()
 
     # Exercise
@@ -491,7 +491,7 @@ def test_delay_slope_b_set_negative(dev) -> None:
     The query returns NEG.
     """
     # Setup
-    desired: TriggerDelaySlopeEnum = TriggerDelaySlopeEnum.NEGATIVE
+    desired: SlopeEnum = SlopeEnum.NEGATIVE
     dev.trigger.delay.slope_b.set_negative()
 
     # Exercise

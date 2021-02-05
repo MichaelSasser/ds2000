@@ -21,7 +21,7 @@ from ds2000.common import channel_as_enum
 from ds2000.common import check_input
 from ds2000.common import check_level
 from ds2000.enums import ChannelEnum
-from ds2000.enums import TriggerSPISlopeEnum
+from ds2000.enums import SlopeEnum
 from ds2000.errors import DS2000StateError
 
 
@@ -235,7 +235,7 @@ class SPISlope(SSFunc):
         """
         self.instrument.ask(":TRIGger:SPI:SLOPe NEGative")
 
-    def status(self) -> TriggerSPISlopeEnum:
+    def status(self) -> SlopeEnum:
         """Query the current trigger edge of the clock signal in SPI trigger.
 
         **Rigol Programming Guide**
@@ -269,9 +269,9 @@ class SPISlope(SSFunc):
         """
         answer: str = self.instrument.ask(":TRIGger:SPI:SLOPe?")
         if answer == "POS":
-            return TriggerSPISlopeEnum.POSITIVE
+            return SlopeEnum.POSITIVE
         if answer == "NEG":
-            return TriggerSPISlopeEnum.NEGATIVE
+            return SlopeEnum.NEGATIVE
         raise DS2000StateError()
 
 

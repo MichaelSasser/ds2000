@@ -21,7 +21,7 @@ from ds2000.common import SSFunc
 from ds2000.common import channel_as_enum
 from ds2000.common import check_level
 from ds2000.enums import ChannelEnum
-from ds2000.enums import TriggerEdgeSlopeEnum
+from ds2000.enums import SlopeEnum
 from ds2000.errors import DS2000StateError
 
 
@@ -202,7 +202,7 @@ class EdgeSource(SSFunc):
 
 
 class EdgeSlope(SSFunc):
-    def set_rising(self) -> None:
+    def set_positive(self) -> None:
         """Select the edge type of edge trigger.
 
         **Rigol Programming Guide**
@@ -236,7 +236,7 @@ class EdgeSlope(SSFunc):
         """
         self.instrument.ask(":TRIGger:EDGe:SLOPe POSitive")
 
-    def set_falling(self) -> None:
+    def set_negative(self) -> None:
         """Select the edge type of edge trigger.
 
         **Rigol Programming Guide**
@@ -304,7 +304,7 @@ class EdgeSlope(SSFunc):
         """
         self.instrument.ask(":TRIGger:EDGe:SLOPe RFALl")
 
-    def status(self) -> TriggerEdgeSlopeEnum:
+    def status(self) -> SlopeEnum:
         """Query the current edge type of edge trigger.
 
         **Rigol Programming Guide**
@@ -338,11 +338,11 @@ class EdgeSlope(SSFunc):
         """
         status: str = self.instrument.ask(":TRIGger:EDGe:SLOPe?")
         if status == "POS":
-            return TriggerEdgeSlopeEnum.RISING
+            return SlopeEnum.POSITIVE
         if status == "NEG":
-            return TriggerEdgeSlopeEnum.FALLING
+            return SlopeEnum.NEGATIVE
         elif status == "RFAL":
-            return TriggerEdgeSlopeEnum.BOTH
+            return SlopeEnum.BOTH
         raise DS2000StateError()
 
 

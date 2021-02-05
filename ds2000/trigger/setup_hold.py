@@ -21,7 +21,7 @@ from ds2000.common import channel_as_enum
 from ds2000.common import check_input
 from ds2000.enums import ChannelEnum
 from ds2000.enums import TriggerSetupHoldPatternEnum
-from ds2000.enums import TriggerSetupHoldSlopeEnum
+from ds2000.enums import SlopeEnum
 from ds2000.enums import TriggerSetupHoldTypeEnum
 from ds2000.errors import DS2000StateError
 
@@ -362,7 +362,7 @@ class SetupHoldSource(SSFunc):
 
 
 class SetupHoldSlope(SSFunc):
-    def set_rising_edge(self) -> None:
+    def set_positive(self) -> None:
         """Set the edge type of setup/hold trigger.
 
         **Rigol Programming Guide**
@@ -397,7 +397,7 @@ class SetupHoldSlope(SSFunc):
         """
         self.instrument.ask(":TRIGger:SHOLd:SLOPe POSitive")
 
-    def set_falling_edge(self) -> None:
+    def set_negative(self) -> None:
         """Set the edge type of setup/hold trigger.
 
         **Rigol Programming Guide**
@@ -432,7 +432,7 @@ class SetupHoldSlope(SSFunc):
         """
         self.instrument.ask(":TRIGger:SHOLd:SLOPe NEGative")
 
-    def status(self) -> TriggerSetupHoldSlopeEnum:
+    def status(self) -> SlopeEnum:
         """Query the current edge type of setup/hold trigger.
 
         **Rigol Programming Guide**
@@ -467,9 +467,9 @@ class SetupHoldSlope(SSFunc):
         """
         answer: str = self.instrument.ask(":TRIGger:SHOLd:SLOPe?").lower()
         if answer == "POS":
-            return TriggerSetupHoldSlopeEnum.RISING
+            return SlopeEnum.POSITIVE
         if answer == "NEG":
-            return TriggerSetupHoldSlopeEnum.FALLING
+            return SlopeEnum.NEGATIVE
         raise DS2000StateError()
 
 

@@ -21,7 +21,7 @@ from ds2000.common import SSFunc
 from ds2000.common import channel_as_enum
 from ds2000.common import check_input
 from ds2000.enums import ChannelEnum
-from ds2000.enums import TriggerDelaySlopeEnum
+from ds2000.enums import SlopeEnum
 from ds2000.enums import TriggerDelayTypeEnum
 from ds2000.errors import DS2000StateError
 
@@ -551,7 +551,7 @@ class DelaySlope(SSFunc):
 
         self.instrument.ask(f":TRIGger:DELay:SLOP{self.source} NEGative")
 
-    def status(self) -> TriggerDelaySlopeEnum:
+    def status(self) -> SlopeEnum:
         """Query the current edge type of edge A of delay trigger.
 
         **Rigol Programming Guide**
@@ -593,9 +593,9 @@ class DelaySlope(SSFunc):
         """
         answer: str = self.instrument.ask(f":TRIGger:DELay:SLOP{self.source}?")
         if answer == "POS":
-            return TriggerDelaySlopeEnum.POSITIVE
+            return SlopeEnum.POSITIVE
         if answer == "NEG":
-            return TriggerDelaySlopeEnum.NEGATIVE
+            return SlopeEnum.NEGATIVE
         raise DS2000StateError()
 
 

@@ -35,6 +35,12 @@ class ChannelEnum(Enum):
     AC_LINE = "ac_line"
 
 
+# TODO: Maybe TriggerSlopeEnum
+class SlopeEnum(Enum):
+    POSITIVE = "positive"
+    NEGATIVE = "negative"
+    BOTH = "both"
+
 # Trigger -> Coupling
 
 
@@ -55,11 +61,6 @@ class TriggerDelayTypeEnum(Enum):
     OUTSIDE = "outside"  # GOUT
 
 
-class TriggerDelaySlopeEnum(Enum):
-    POSITIVE = "positive"
-    NEGATIVE = "negative"
-
-
 # Trigger -> Duration
 
 
@@ -70,12 +71,6 @@ class TriggerDurationWhenEnum(Enum):  # TODO: most of TriggerDelayTypeEnum
 
 
 # Trigger -> Edge
-
-
-class TriggerEdgeSlopeEnum(Enum):
-    RISING = "rising"
-    FALLING = "falling"
-    BOTH = "both"
 
 
 # Trigger -> I2C
@@ -120,11 +115,6 @@ class TriggerModeEnum(Enum):
 
 
 # Trigger -> Nth Edge
-
-
-class TriggerNthEdgeSlopeEnum(Enum):
-    POSITIVE = "positive"
-    NEGATIVE = "negative"
 
 
 # Trigger -> Pulse
@@ -179,11 +169,6 @@ class TriggerSetupHoldTypeEnum(Enum):
     SETUP_HOLD = "setup_hold"
 
 
-class TriggerSetupHoldSlopeEnum(Enum):
-    RISING = "rising"
-    FALLING = "falling"
-
-
 class TriggerSetupHoldPatternEnum(Enum):
     HIGH = "high"
     LOW = "low"
@@ -201,18 +186,7 @@ class TriggerSlopeWhenEnum(Enum):
     NEGATIVE_BETWEEN = "negative_between"
 
 
-class TriggerSlopeWindowEnum(Enum):
-    UPPER = "upper"
-    LOWER = "lower"
-    BOTH = "both"
-
-
 # Trigger -> SPI
-
-
-class TriggerSPISlopeEnum(Enum):
-    POSITIVE = "positive"
-    NEGATIVE = "negative"
 
 
 # Trigger -> Sweep
@@ -225,12 +199,6 @@ class TriggerSweepEnum(Enum):
 
 
 # Trigger -> Timeout
-
-
-class TriggerTimeoutSlopeEnum(Enum):
-    RISING = "rising"
-    FALLING = "falling"
-    BOTH = "both"
 
 
 # Trigger -> USB
@@ -285,13 +253,6 @@ class TriggerVideoStandardEnum(Enum):
 
 
 # Trigger -> Windows
-
-
-class TriggerWindowsSlopeEnum(Enum):
-    POSITIVE = "positive"
-    NEGATIVE = "negative"
-    BOTH = "both"
-
 
 class TriggerWindowsPositionEnum(Enum):
     EXIT = "exit"
