@@ -218,4 +218,20 @@ class TriggerTimeoutSlopeEnum(Enum):
     FALLING = "falling"
     BOTH = "both"
 
+
+# Trigger -> USB
+
+# TODO: Maybe rename to start, end etc.
+class TriggerUSBWhenEnum(Enum):
+    SOP = "sop"
+    EOP = "eop"
+    RC = "rc"
+    SUSPEND = "suspend"
+    SUSPEND_EXIT = "suspend exit"
+
+
+class TrigerUSBSppedEnum(Enum):
+    FULL = "full"
+    LOW = "low"
+
 # vim: set ft=python :
