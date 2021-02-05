@@ -211,5 +211,11 @@ class TriggerSweepEnum(Enum):
     SINGLE = "single"
 
 
+# Trigger -> Timeout
+
+class TriggerTimeoutSlopeEnum(Enum):
+    RISING = "rising"
+    FALLING = "falling"
+    BOTH = "both"
 
 # vim: set ft=python :

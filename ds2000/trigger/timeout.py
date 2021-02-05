@@ -17,18 +17,123 @@
 from __future__ import annotations
 from typing import Optional
 
-from ds2000.common import SFunc
+from ds2000.common import SFunc, channel_as_enum
 from ds2000.common import SSFunc
 from ds2000.common import check_input
+from ds2000.enums import TriggerTimeoutSlopeEnum, ChannelEnum
 from ds2000.errors import DS2000StateError
 
 
 __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
 
-__all__ = [
-    "Timeout",
-]
+
+class TimeoutChannel(SSFunc):
+    def set_channel_1(self) -> None:
+        """Select the trigger source of timeout trigger.
+
+        **Rigol Programming Guide**
+
+        **Syntax**
+
+        :TRIGger:TIMeout:SOURce <source>
+        :TRIGger:TIMeout:SOURce?
+
+        **Description**
+
+        Select the trigger source of timeout trigger.
+        Query the current trigger source of timeout trigger.
+
+        **Parameter**
+
+        ========= ========= ==================== ========
+        Name      Type      Range                Default
+        ========= ========= ==================== ========
+        <source>  Discrete  {CHANnel1|CHANnel2}  CHANnel1
+        ========= ========= ==================== ========
+
+        **Return Format**
+
+        The query returns CHAN1 or CHAN2.
+
+        **Example**
+
+        :TRIGger:TIMeout:SOURce CHANnel2
+        The query returns CHAN2.
+        """
+
+        self.instrument.ask(":TRIGger:TIMeout:SOURce CHANnel1")
+
+    def set_channel_2(self) -> None:
+        """Select the trigger source of timeout trigger.
+
+        **Rigol Programming Guide**
+
+        **Syntax**
+
+        :TRIGger:TIMeout:SOURce <source>
+        :TRIGger:TIMeout:SOURce?
+
+        **Description**
+
+        Select the trigger source of timeout trigger.
+        Query the current trigger source of timeout trigger.
+
+        **Parameter**
+
+        ========= ========= ==================== ========
+        Name      Type      Range                Default
+        ========= ========= ==================== ========
+        <source>  Discrete  {CHANnel1|CHANnel2}  CHANnel1
+        ========= ========= ==================== ========
+
+        **Return Format**
+
+        The query returns CHAN1 or CHAN2.
+
+        **Example**
+
+        :TRIGger:TIMeout:SOURce CHANnel2
+        The query returns CHAN2.
+        """
+
+        self.instrument.ask(":TRIGger:TIMeout:SOURce CHANnel2")
+
+    def status(self) -> ChannelEnum:
+        """Query the current trigger source of timeout trigger.
+
+        **Rigol Programming Guide**
+
+        **Syntax**
+
+        :TRIGger:TIMeout:SOURce <source>
+        :TRIGger:TIMeout:SOURce?
+
+        **Description**
+
+        Select the trigger source of timeout trigger.
+        Query the current trigger source of timeout trigger.
+
+        **Parameter**
+
+        ========= ========= ==================== ========
+        Name      Type      Range                Default
+        ========= ========= ==================== ========
+        <source>  Discrete  {CHANnel1|CHANnel2}  CHANnel1
+        ========= ========= ==================== ========
+
+        **Return Format**
+
+        The query returns CHAN1 or CHAN2.
+
+        **Example**
+
+        :TRIGger:TIMeout:SOURce CHANnel2
+        The query returns CHAN2.
+        """
+        return channel_as_enum(
+            self.instrument.ask(":TRIGger:TIMeout:SOURce?")
+        )
 
 
 class TimeoutSlope(SSFunc):
@@ -134,7 +239,7 @@ class TimeoutSlope(SSFunc):
         """
         self.instrument.ask(":TRIGger:TIMeout:SLOPe RFALl")
 
-    def status(self) -> str:
+    def status(self) -> TriggerTimeoutSlopeEnum:
         """Query the current edge type of timeout trigger.
 
         **Rigol Programming Guide**
@@ -168,124 +273,11 @@ class TimeoutSlope(SSFunc):
         """
         status: Optional[str] = self.instrument.ask(":TRIGger:TIMeout:SLOPe?")
         if status == "POS":
-            return "rising edge"
+            return TriggerTimeoutSlopeEnum.RISING
         if status == "NEG":
-            return "falling edge"
+            return TriggerTimeoutSlopeEnum.FALLING
         if status == "RFAL":
-            return "both edges"
-        raise DS2000StateError()
-
-
-class TimeoutChannel(SSFunc):
-    def set_channel1(self) -> None:
-        """Select the trigger source of timeout trigger.
-
-        **Rigol Programming Guide**
-
-        **Syntax**
-
-        :TRIGger:TIMeout:SOURce <source>
-        :TRIGger:TIMeout:SOURce?
-
-        **Description**
-
-        Select the trigger source of timeout trigger.
-        Query the current trigger source of timeout trigger.
-
-        **Parameter**
-
-        ========= ========= ==================== ========
-        Name      Type      Range                Default
-        ========= ========= ==================== ========
-        <source>  Discrete  {CHANnel1|CHANnel2}  CHANnel1
-        ========= ========= ==================== ========
-
-        **Return Format**
-
-        The query returns CHAN1 or CHAN2.
-
-        **Example**
-
-        :TRIGger:TIMeout:SOURce CHANnel2
-        The query returns CHAN2.
-        """
-
-        self.instrument.ask(":TRIGger:TIMeout:SOURce CHANnel1")
-
-    def set_channel2(self) -> None:
-        """Select the trigger source of timeout trigger.
-
-        **Rigol Programming Guide**
-
-        **Syntax**
-
-        :TRIGger:TIMeout:SOURce <source>
-        :TRIGger:TIMeout:SOURce?
-
-        **Description**
-
-        Select the trigger source of timeout trigger.
-        Query the current trigger source of timeout trigger.
-
-        **Parameter**
-
-        ========= ========= ==================== ========
-        Name      Type      Range                Default
-        ========= ========= ==================== ========
-        <source>  Discrete  {CHANnel1|CHANnel2}  CHANnel1
-        ========= ========= ==================== ========
-
-        **Return Format**
-
-        The query returns CHAN1 or CHAN2.
-
-        **Example**
-
-        :TRIGger:TIMeout:SOURce CHANnel2
-        The query returns CHAN2.
-        """
-
-        self.instrument.ask(":TRIGger:TIMeout:SOURce CHANnel2")
-
-    def status(self) -> str:
-        """Query the current trigger source of timeout trigger.
-
-        **Rigol Programming Guide**
-
-        **Syntax**
-
-        :TRIGger:TIMeout:SOURce <source>
-        :TRIGger:TIMeout:SOURce?
-
-        **Description**
-
-        Select the trigger source of timeout trigger.
-        Query the current trigger source of timeout trigger.
-
-        **Parameter**
-
-        ========= ========= ==================== ========
-        Name      Type      Range                Default
-        ========= ========= ==================== ========
-        <source>  Discrete  {CHANnel1|CHANnel2}  CHANnel1
-        ========= ========= ==================== ========
-
-        **Return Format**
-
-        The query returns CHAN1 or CHAN2.
-
-        **Example**
-
-        :TRIGger:TIMeout:SOURce CHANnel2
-        The query returns CHAN2.
-        """
-
-        status: str = self.instrument.ask(":TRIGger:TIMeout:SOURce?").lower()
-
-        if status == "chan1":
-            return "channel 1"
-        if status == "chan2":
-            return "channel 2"
+            return TriggerTimeoutSlopeEnum.BOTH
         raise DS2000StateError()
 
 
