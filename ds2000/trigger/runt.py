@@ -15,17 +15,123 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from ds2000.common import SFunc
+from ds2000.common import SFunc, channel_as_enum
 from ds2000.common import SSFunc
 from ds2000.common import check_input
 from ds2000.common import check_level
+from ds2000.enums import TriggerRuntWhenEnum, ChannelEnum, \
+    TriggerRuntPolarityEnum
+from ds2000.errors import DS2000StateError
 
 
-__author__ = "Michael Sasser"
-__email__ = "Michael@MichaelSasser.org"
+__author__: str = "Michael Sasser"
+__email__: str = "Michael@MichaelSasser.org"
 
 
-# ToDo: Shorter function names!!!
+class RuntSource(SSFunc):
+    def set_channel_1(self) -> None:
+        """Select the trigger source of runt trigger.
+
+        **Rigol Programming Guide**
+
+        **Syntax**
+
+        :TRIGger:RUNT:SOURce <source>
+        :TRIGger:RUNT:SOURce?
+
+        **Description**
+
+        Select the trigger source of runt trigger.
+        Query the current trigger source of runt trigger.
+
+        **Parameter**
+
+        ========= ========= ==================== ========
+        Name      Type      Range                Default
+        ========= ========= ==================== ========
+        <source>  Discrete  {CHANnel1|CHANnel2}  CHANnel1
+        ========= ========= ==================== ========
+
+        **Return Format**
+
+        The query returns CHAN1 or CHAN2.
+
+        **Example**
+
+        :TRIGger:RUNT:SOURce CHANnel2
+        The query returns CHAN2.
+        """
+        self.instrument.ask(f":TRIGger:RUNT:SOURce CHANnel1")
+
+    def set_channel_2(self) -> None:
+        """Select the trigger source of runt trigger.
+
+        **Rigol Programming Guide**
+
+        **Syntax**
+
+        :TRIGger:RUNT:SOURce <source>
+        :TRIGger:RUNT:SOURce?
+
+        **Description**
+
+        Select the trigger source of runt trigger.
+        Query the current trigger source of runt trigger.
+
+        **Parameter**
+
+        ========= ========= ==================== ========
+        Name      Type      Range                Default
+        ========= ========= ==================== ========
+        <source>  Discrete  {CHANnel1|CHANnel2}  CHANnel1
+        ========= ========= ==================== ========
+
+        **Return Format**
+
+        The query returns CHAN1 or CHAN2.
+
+        **Example**
+
+        :TRIGger:RUNT:SOURce CHANnel2
+        The query returns CHAN2.
+        """
+        self.instrument.ask(f":TRIGger:RUNT:SOURce CHANnel2")
+
+    def status(self) -> ChannelEnum:
+        """Query the current trigger source of runt trigger.
+
+        **Rigol Programming Guide**
+
+        **Syntax**
+
+        :TRIGger:RUNT:SOURce <source>
+        :TRIGger:RUNT:SOURce?
+
+        **Description**
+
+        Select the trigger source of runt trigger.
+        Query the current trigger source of runt trigger.
+
+        **Parameter**
+
+        ========= ========= ==================== ========
+        Name      Type      Range                Default
+        ========= ========= ==================== ========
+        <source>  Discrete  {CHANnel1|CHANnel2}  CHANnel1
+        ========= ========= ==================== ========
+
+        **Return Format**
+
+        The query returns CHAN1 or CHAN2.
+
+        **Example**
+
+        :TRIGger:RUNT:SOURce CHANnel2
+        The query returns CHAN2.
+        """
+        return channel_as_enum(self.instrument.ask(":TRIGger:RUNT:SOURce?"))
+
+
 class RuntWhen(SSFunc):
     def set_none(self) -> None:
         """Select the qualifier of runt trigger.
@@ -77,7 +183,7 @@ class RuntWhen(SSFunc):
         """
         self.instrument.ask(":TRIGger:RUNT:WHEN NONE")
 
-    def set_pulse_width_greater_than_lower_limit(self) -> None:
+    def set_greater(self) -> None:
         """Select the qualifier of runt trigger.
 
         **Rigol Programming Guide**
@@ -127,7 +233,7 @@ class RuntWhen(SSFunc):
         """
         self.instrument.ask(":TRIGger:RUNT:WHEN GREater")
 
-    def set_pulse_width_lower_than_upper_limit(self) -> None:
+    def set_less(self) -> None:
         """Select the qualifier of runt trigger.
 
         **Rigol Programming Guide**
@@ -177,7 +283,7 @@ class RuntWhen(SSFunc):
         """
         self.instrument.ask(":TRIGger:RUNT:WHEN LESS")
 
-    def set_pulse_width_between_lower_and_upper_limit(self) -> None:
+    def set_between(self) -> None:
         """Select the qualifier of runt trigger.
 
         **Rigol Programming Guide**
@@ -227,7 +333,7 @@ class RuntWhen(SSFunc):
         """
         self.instrument.ask(":TRIGger:RUNT:WHEN GLESs")
 
-    def status(self) -> str:
+    def status(self) -> TriggerRuntWhenEnum:
         """Query the current qualifier of runt trigger.
 
         **Rigol Programming Guide**
@@ -275,84 +381,21 @@ class RuntWhen(SSFunc):
         :TRIGger:RUNT:WHEN LESS
         The query returns LESS.
         """
-        return self.instrument.ask(":TRIGger:RUNT:WHEN?")
+        answer: str = self.instrument.ask(":TRIGger:RUNT:WHEN?")
+        if answer == "NONE":
+            return TriggerRuntWhenEnum.NONE
+        if answer == "GRE":
+            return TriggerRuntWhenEnum.GREATER
+        if answer == "LESS":
+            return TriggerRuntWhenEnum.LESS
+        if answer == "GLES":
+            return TriggerRuntWhenEnum.BETWEEN
+        else:
+            DS2000StateError()
 
 
-class Runt(SFunc):
-    def __init__(self, device):
-        super(Runt, self).__init__(device)
-        self.when: RuntWhen = RuntWhen(self)
-
-    def set_source(self, channel: int = 1) -> None:
-        """Select the trigger source of runt trigger.
-
-        **Rigol Programming Guide**
-
-        **Syntax**
-
-        :TRIGger:RUNT:SOURce <source>
-        :TRIGger:RUNT:SOURce?
-
-        **Description**
-
-        Select the trigger source of runt trigger.
-        Query the current trigger source of runt trigger.
-
-        **Parameter**
-
-        ========= ========= ==================== ========
-        Name      Type      Range                Default
-        ========= ========= ==================== ========
-        <source>  Discrete  {CHANnel1|CHANnel2}  CHANnel1
-        ========= ========= ==================== ========
-
-        **Return Format**
-
-        The query returns CHAN1 or CHAN2.
-
-        **Example**
-
-        :TRIGger:RUNT:SOURce CHANnel2
-        The query returns CHAN2.
-        """
-        check_input(channel, "channel", int, 1, 2)
-        self.instrument.ask(f":TRIGger:RUNT:SOURce CHANnel{channel}")
-
-    def get_source(self) -> str:
-        """Query the current trigger source of runt trigger.
-
-        **Rigol Programming Guide**
-
-        **Syntax**
-
-        :TRIGger:RUNT:SOURce <source>
-        :TRIGger:RUNT:SOURce?
-
-        **Description**
-
-        Select the trigger source of runt trigger.
-        Query the current trigger source of runt trigger.
-
-        **Parameter**
-
-        ========= ========= ==================== ========
-        Name      Type      Range                Default
-        ========= ========= ==================== ========
-        <source>  Discrete  {CHANnel1|CHANnel2}  CHANnel1
-        ========= ========= ==================== ========
-
-        **Return Format**
-
-        The query returns CHAN1 or CHAN2.
-
-        **Example**
-
-        :TRIGger:RUNT:SOURce CHANnel2
-        The query returns CHAN2.
-        """
-        return self.instrument.ask(":TRIGger:RUNT:SOURce?")
-
-    def set_polarity_positive(self) -> None:
+class RuntPolarity(SSFunc):
+    def set_positive(self) -> None:
         """Select the pulse polarity of runt trigger.
 
         **Rigol Programming Guide**
@@ -386,7 +429,7 @@ class Runt(SFunc):
         """
         self.instrument.ask(":TRIGger:RUNT:POLarity POSitive")
 
-    def set_polarity_negative(self) -> None:
+    def set_negative(self) -> None:
         """Select the pulse polarity of runt trigger.
 
         **Rigol Programming Guide**
@@ -420,7 +463,7 @@ class Runt(SFunc):
         """
         self.instrument.ask(":TRIGger:RUNT:POLarity NEGative")
 
-    def get_polarity(self) -> str:
+    def status(self) -> TriggerRuntPolarityEnum:
         """Query the current pulse polarity of runt trigger.
 
         **Rigol Programming Guide**
@@ -452,7 +495,21 @@ class Runt(SFunc):
         :TRIGger:RUNT:POLarity NEGative
         The query returns NEG.
         """
-        return self.instrument.ask(":TRIGger:RUNT:POLarity?")
+        answer = self.instrument.ask(":TRIGger:RUNT:POLarity?")
+        if answer == "POS":
+            return TriggerRuntPolarityEnum.POSITIVE
+        if answer == "NEG":
+            return TriggerRuntPolarityEnum.NEGATIVE
+        else:
+            DS2000StateError()
+
+
+class Runt(SFunc):
+    def __init__(self, device):
+        super(Runt, self).__init__(device)
+        self.source: RuntSource = RuntSource(self)
+        self.when: RuntWhen = RuntWhen(self)
+        self.polarity: RuntPolarity = RuntPolarity(self)
 
     def set_lower_limit(self, time: float = 1.0e-6) -> None:
         """Set the lower limit of the pulse width in runt trigger.
@@ -669,19 +726,20 @@ class Runt(SFunc):
         :TRIGger:RUNT:ALEVel 0.16
         The query returns 1.600000e-01.
         """
-        scale: float = -1.0
-        offset: float = -1.0
-        channel: str = self.get_source()
-        if channel == "CHANnel1":
+        channel: ChannelEnum = self.source.status()
+        if channel == ChannelEnum.CHANNEL_1:
             scale = self.sdev.dev.channel1.get_scale()
             offset = self.sdev.dev.channel1.get_offset()
-        elif channel == "CHANnel2":
+        elif channel == ChannelEnum.CHANNEL_2:
             scale = self.sdev.dev.channel2.scale()
             offset = self.sdev.dev.channel2.get_offset()
         else:
-            raise RuntimeError("The oscilloscope returned an unknown channel")
-        self.instrument.ask(f":TRIGger:RUNT:ALEVel {level}")
+            raise DS2000StateError(
+                "The level coul'd only be set, if the source is"
+                "Channel 1 or Channel 2."
+            )  # TODO: Right??
         check_level(level, scale, offset)
+        self.instrument.ask(f":TRIGger:RUNT:ALEVel {level}")
 
     def get_upper_limit_trigger_level(self) -> float:
         """Query the current upper limit of the trigger level in runt trigger.
@@ -767,17 +825,18 @@ class Runt(SFunc):
         :TRIGger:RUNT:BLEVel 0.16
         The query returns 1.600000e-01.
         """
-        scale: float = -1.0
-        offset: float = -1.0
-        channel: str = self.get_source()
-        if channel == "CHANnel1":
+        channel: ChannelEnum = self.source.status()
+        if channel == ChannelEnum.CHANNEL_1:
             scale = self.sdev.dev.channel1.get_scale()
             offset = self.sdev.dev.channel1.get_offset()
-        elif channel == "CHANnel2":
+        elif channel == ChannelEnum.CHANNEL_2:
             scale = self.sdev.dev.channel2.scale()
             offset = self.sdev.dev.channel2.get_offset()
         else:
-            raise RuntimeError("The oscilloscope returned an unknown channel")
+            raise DS2000StateError(
+                "The level coul'd only be set, if the source is"
+                "Channel 1 or Channel 2."
+            )  # TODO: Right??
         check_level(level, scale, offset)
         self.instrument.ask(f":TRIGger:RUNT:BLEVel {level}")
 

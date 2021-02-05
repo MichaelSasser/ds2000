@@ -180,7 +180,7 @@ class Pattern(SFunc):
             raise RuntimeError("The oscilloscope returned an unknown channel")
         check_level(level, scale, offset)
         self.instrument.ask(
-            f":TRIGger:PATTern:LEVel CHANnel{channel},", f"{level}"
+            f":TRIGger:PATTern:LEVel CHANnel{channel},{level}"
         )
 
     def get_level(self, channel: int = 1) -> float:

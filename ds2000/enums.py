@@ -111,4 +111,45 @@ class TriggerModeEnum(Enum):
     SPI = "spi"
     USB = "usb"
 
+
+# Trigger -> Pulse
+
+class TriggerPulseWhenEnum(Enum):
+    POSIVE_GREATER = "positive_greater"
+    POSITIVE_LESS = "positive_less"
+    NEGATIVE_GREATER = "negative_greater"
+    NEGATIVE_LESS = "negative_less"
+    POSITIVE_BETWEEN = "positive_between"
+    NEGATIVE_BETWEEN = "negative_between"
+
+
+# Trigger -> RS232
+
+class TriggerRS232WhenEnum(Enum):
+    START_FRAME = "start_frame"
+    ERROR = "error"
+    PARITY_ERROR = "parity_error"
+    DATA = "data"
+
+
+class TriggerRS232Parity(Enum):
+    EVEN = "even"
+    ODD = "odd"
+    NONE = "none"
+
+
+# Trigger -> Runt
+
+class TriggerRuntWhenEnum(Enum):
+    NONE = "none"
+    GREATER = "greater"
+    LESS = "less"
+    BETWEEN = "between"
+
+
+class TriggerRuntPolarityEnum(Enum):
+    POSITIVE = "positive"
+    NEGATIVE = "negative"
+
+
 # vim: set ft=python :

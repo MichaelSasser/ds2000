@@ -15,19 +15,123 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from ds2000.common import SFunc
+from ds2000.common import SFunc, channel_as_enum
 from ds2000.common import SSFunc
 from ds2000.common import check_input
 from ds2000.common import check_level
-
+from ds2000.enums import TriggerPulseWhenEnum, ChannelEnum
 
 __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
 
 
 # ToDo: Shorter function names!!!
+from ds2000.errors import DS2000StateError
+
+
+class PulseSource(SSFunc):
+    def set_channel_1(self) -> None:
+        """Select the trigger source in pulse trigger.
+
+        **Rigol Programming Guide**
+
+        **Syntax**
+
+        :TRIGger:PULSe:SOURce <source>
+        :TRIGger:PULSe:SOURce?
+
+        **Description**
+
+        Select the trigger source in pulse trigger.
+        Query the current trigger source in pulse trigger.
+
+        **Parameter**
+
+        ========= ========= ==================== ========
+        Name      Type      Range                Default
+        ========= ========= ==================== ========
+        <source>  Discrete  {CHANnel1|CHANnel2}  CHANnel1
+        ========= ========= ==================== ========
+
+        **Return Format**
+        The query returns CHAN1 or CHAN2.
+
+        **Example**
+
+        :TRIGger:PULSe:SOURce CHANnel2
+        The query returns CHAN2.
+        """
+        self.instrument.ask(":TRIGger:PULSe:SOURce CHANnel1")
+
+    def set_channel_2(self) -> None:
+        """Select the trigger source in pulse trigger.
+
+        **Rigol Programming Guide**
+
+        **Syntax**
+
+        :TRIGger:PULSe:SOURce <source>
+        :TRIGger:PULSe:SOURce?
+
+        **Description**
+
+        Select the trigger source in pulse trigger.
+        Query the current trigger source in pulse trigger.
+
+        **Parameter**
+
+        ========= ========= ==================== ========
+        Name      Type      Range                Default
+        ========= ========= ==================== ========
+        <source>  Discrete  {CHANnel1|CHANnel2}  CHANnel1
+        ========= ========= ==================== ========
+
+        **Return Format**
+        The query returns CHAN1 or CHAN2.
+
+        **Example**
+
+        :TRIGger:PULSe:SOURce CHANnel2
+        The query returns CHAN2.
+        """
+        self.instrument.ask(":TRIGger:PULSe:SOURce CHANnel2")
+
+    def status(self) -> ChannelEnum:
+        """Query the current trigger source in pulse trigger.
+
+        **Rigol Programming Guide**
+
+        **Syntax**
+
+        :TRIGger:PULSe:SOURce <source>
+        :TRIGger:PULSe:SOURce?
+
+        **Description**
+
+        Select the trigger source in pulse trigger.
+        Query the current trigger source in pulse trigger.
+
+        **Parameter**
+
+        ========= ========= ==================== ========
+        Name      Type      Range                Default
+        ========= ========= ==================== ========
+        <source>  Discrete  {CHANnel1|CHANnel2}  CHANnel1
+        ========= ========= ==================== ========
+
+        **Return Format**
+        The query returns CHAN1 or CHAN2.
+
+        **Example**
+
+        :TRIGger:PULSe:SOURce CHANnel2
+        The query returns CHAN2.
+        """
+        return channel_as_enum(self.instrument.ask(":TRIGger:PULSe:SOURce?"))
+
+
 class PulseWhen(SSFunc):
-    def set_pos_pulse_width_greater_than_specified_lower_pulse_width(
+    def set_positive_greater(
         self,
     ) -> None:
         """Select the trigger condition of pulse trigger.
@@ -98,7 +202,7 @@ class PulseWhen(SSFunc):
         """
         self.instrument.ask(":TRIGger:PULSe:WHEN GReater")
 
-    def set_pos_pulse_width_lower_than_specified_upper_pulse_width(
+    def set_positive_less(
         self,
     ) -> None:
         """Select the trigger condition of pulse trigger.
@@ -170,7 +274,7 @@ class PulseWhen(SSFunc):
 
         self.instrument.ask(":TRIGger:PULSe:WHEN PLESs")
 
-    def set_neg_pulse_width_greater_than_specified_lower_pulse_width(
+    def set_negative_greater(
         self,
     ) -> None:
         """Select the trigger condition of pulse trigger.
@@ -241,7 +345,7 @@ class PulseWhen(SSFunc):
         """
         self.instrument.ask(":TRIGger:PULSe:WHEN NGReater")
 
-    def set_neg_pulse_width_lower_than_specified_upper_pulse_width(
+    def set_negative_less(
         self,
     ) -> None:
         """Select the trigger condition of pulse trigger.
@@ -312,7 +416,7 @@ class PulseWhen(SSFunc):
         """
         self.instrument.ask(":TRIGger:PULSe:WHEN NLESs")
 
-    def set_pos_pulse_width_between_specified_upper_and_lower_pulse_width(
+    def set_positive_between(
         self,
     ) -> None:
         """Select the trigger condition of pulse trigger.
@@ -383,7 +487,7 @@ class PulseWhen(SSFunc):
         """
         self.instrument.ask(":TRIGger:PULSe:WHEN PGLess")
 
-    def set_neg_pulse_width_between_specified_upper_and_lower_pulse_width(
+    def set_negative_between(
         self,
     ) -> None:
         """Select the trigger condition of pulse trigger.
@@ -454,7 +558,7 @@ class PulseWhen(SSFunc):
         """
         self.instrument.ask(":TRIGger:PULSe:WHEN NGLess")
 
-    def status(self) -> str:
+    def status(self) -> TriggerPulseWhenEnum:
         """Query the current trigger condition of pulse trigger.
 
         **Rigol Programming Guide**
@@ -521,79 +625,28 @@ class PulseWhen(SSFunc):
         :TRIGger:PULSe:WHEN PGReater
         The query returns PGR.
         """
-        return self.instrument.ask(":TRIGger:PULSe:WHEN?")
+        answer: str = self.instrument.ask(":TRIGger:PULSe:WHEN?")
+        if answer == "PGR":
+            return TriggerPulseWhenEnum.POSIVE_GREATER
+        elif answer == "PLES":
+            return TriggerPulseWhenEnum.POSITIVE_LESS
+        elif answer == "NGR":
+            return TriggerPulseWhenEnum.NEGATIVE_GREATER
+        elif answer == "NLES":
+            return TriggerPulseWhenEnum.NEGATIVE_LESS
+        elif answer == "PGL":
+            return TriggerPulseWhenEnum.POSITIVE_BETWEEN
+        elif answer == "NGL":
+            return TriggerPulseWhenEnum.NEGATIVE_BETWEEN
+        else:
+            DS2000StateError()
 
 
 class Pulse(SFunc):
     def __init__(self, device):
         super(Pulse, self).__init__(device)
+        self.source: PulseSource = PulseSource(self)
         self.when: PulseWhen = PulseWhen(self)
-
-    def set_source(self, channel: int = 1) -> None:
-        """Select the trigger source in pulse trigger.
-
-        **Rigol Programming Guide**
-
-        **Syntax**
-
-        :TRIGger:PULSe:SOURce <source>
-        :TRIGger:PULSe:SOURce?
-
-        **Description**
-
-        Select the trigger source in pulse trigger.
-        Query the current trigger source in pulse trigger.
-
-        **Parameter**
-
-        ========= ========= ==================== ========
-        Name      Type      Range                Default
-        ========= ========= ==================== ========
-        <source>  Discrete  {CHANnel1|CHANnel2}  CHANnel1
-        ========= ========= ==================== ========
-
-        **Return Format**
-        The query returns CHAN1 or CHAN2.
-
-        **Example**
-
-        :TRIGger:PULSe:SOURce CHANnel2
-        The query returns CHAN2.
-        """
-        self.instrument.ask(f":TRIGger:PULSe:SOURce CHANnel{channel}")
-
-    def get_source(self) -> str:
-        """Query the current trigger source in pulse trigger.
-
-        **Rigol Programming Guide**
-
-        **Syntax**
-
-        :TRIGger:PULSe:SOURce <source>
-        :TRIGger:PULSe:SOURce?
-
-        **Description**
-
-        Select the trigger source in pulse trigger.
-        Query the current trigger source in pulse trigger.
-
-        **Parameter**
-
-        ========= ========= ==================== ========
-        Name      Type      Range                Default
-        ========= ========= ==================== ========
-        <source>  Discrete  {CHANnel1|CHANnel2}  CHANnel1
-        ========= ========= ==================== ========
-
-        **Return Format**
-        The query returns CHAN1 or CHAN2.
-
-        **Example**
-
-        :TRIGger:PULSe:SOURce CHANnel2
-        The query returns CHAN2.
-        """
-        return self.instrument.ask(":TRIGger:PULSe:SOURce?")
 
     def set_upper_pulse_width(self, time: float = 2.0e-6) -> None:
         """Set the upper limit of the pulse width in pulse trigger.
@@ -812,17 +865,18 @@ class Pulse(SFunc):
         :TRIGger:PULSe:LEVel 0.16
         The query returns 1.600000e-01.
         """
-        scale: float = -1.0
-        offset: float = -1.0
-        channel: str = self.get_source()
-        if channel == "CHANnel1":
+        channel: ChannelEnum = self.source.status()
+        if channel == ChannelEnum.Channel_1:
             scale = self.sdev.dev.channel1.get_scale()
             offset = self.sdev.dev.channel1.get_offset()
-        elif channel == "CHANnel2":
+        elif channel == ChannelEnum.Channel_2:
             scale = self.sdev.dev.channel2.scale()
             offset = self.sdev.dev.channel2.get_offset()
         else:
-            raise RuntimeError("The oscilloscope returned an unknown channel")
+            raise DS2000StateError(
+                "The level coul'd only be set, if the source is"
+                "Channel 1 or Channel 2."
+            )  # TODO: Right??
         check_level(level, scale, offset)
         self.instrument.ask(f":TRIGger:PULSe:LEVel {level}")
 

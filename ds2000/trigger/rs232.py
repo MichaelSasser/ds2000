@@ -18,7 +18,7 @@ from __future__ import annotations
 
 from typing import Dict
 
-from ds2000.common import SFunc
+from ds2000.common import SFunc, channel_as_enum
 from ds2000.common import SSFunc
 from ds2000.common import check_input
 from ds2000.common import check_level
@@ -27,9 +27,113 @@ from ds2000.common import check_level
 __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
 
+from ds2000.enums import TriggerRS232WhenEnum, TriggerRS232Parity, ChannelEnum
+from ds2000.errors import DS2000StateError
+
+
+class RS232Source(SSFunc):
+    def set_channel_1(self) -> None:
+        """Select the trigger source of RS232 trigger.
+
+        **Rigol Programming Guide**
+
+        **Syntax**
+
+        :TRIGger:RS232:SOURce <source>
+        :TRIGger:RS232:SOURce?
+
+        **Description**
+
+        Select the trigger source of RS232 trigger.
+        Query the current trigger source of RS232 trigger.
+
+        **Parameter**
+
+        ========= ========= ==================== ========
+        Name      Type      Range                Default
+        ========= ========= ==================== ========
+        <source>  Discrete  {CHANnel1|CHANnel2}  CHANnel1
+        ========= ========= ==================== ========
+
+        Reuturn Format
+        The query returns CHAN1 or CHAN2.
+
+        **Example**
+
+        :TRIGger:RS232:SOURce CHANnel2
+        The query returns CHAN2.
+        """
+        self.instrument.ask(":TRIGger:RS232:SOURce CHANnel1")
+
+    def set_channel_2(self) -> None:
+        """Select the trigger source of RS232 trigger.
+
+        **Rigol Programming Guide**
+
+        **Syntax**
+
+        :TRIGger:RS232:SOURce <source>
+        :TRIGger:RS232:SOURce?
+
+        **Description**
+
+        Select the trigger source of RS232 trigger.
+        Query the current trigger source of RS232 trigger.
+
+        **Parameter**
+
+        ========= ========= ==================== ========
+        Name      Type      Range                Default
+        ========= ========= ==================== ========
+        <source>  Discrete  {CHANnel1|CHANnel2}  CHANnel1
+        ========= ========= ==================== ========
+
+        Reuturn Format
+        The query returns CHAN1 or CHAN2.
+
+        **Example**
+
+        :TRIGger:RS232:SOURce CHANnel2
+        The query returns CHAN2.
+        """
+        self.instrument.ask(":TRIGger:RS232:SOURce CHANnel2")
+
+    def status(self) -> ChannelEnum:
+        """Query the current trigger source of RS232 trigger.
+
+        **Rigol Programming Guide**
+
+        **Syntax**
+
+        :TRIGger:RS232:SOURce <source>
+        :TRIGger:RS232:SOURce?
+
+        **Description**
+
+        Select the trigger source of RS232 trigger.
+        Query the current trigger source of RS232 trigger.
+
+        **Parameter**
+
+        ========= ========= ==================== ========
+        Name      Type      Range                Default
+        ========= ========= ==================== ========
+        <source>  Discrete  {CHANnel1|CHANnel2}  CHANnel1
+        ========= ========= ==================== ========
+
+        Reuturn Format
+        The query returns CHAN1 or CHAN2.
+
+        **Example**
+
+        :TRIGger:RS232:SOURce CHANnel2
+        The query returns CHAN2.
+        """
+        return channel_as_enum(self.instrument.ask(":TRIGger:RS232:SOURce?"))
+
 
 class RS232When(SSFunc):
-    def set_start_frame_position(self) -> None:
+    def set_start_frame(self) -> None:
         """Set the trigger condition of RS232 trigger.
 
         **Rigol Programming Guide**
@@ -75,7 +179,7 @@ class RS232When(SSFunc):
         """
         self.instrument.ask(":TRIGger:RS232:WHEN STARt")
 
-    def set_error_detected(self) -> None:
+    def set_error(self) -> None:
         """Set the trigger condition of RS232 trigger.
 
         **Rigol Programming Guide**
@@ -121,7 +225,7 @@ class RS232When(SSFunc):
         """
         self.instrument.ask(":TRIGger:RS232:WHEN ERRor")
 
-    def set_parity_error_detected(self) -> None:
+    def set_parity_error(self) -> None:
         """Set the trigger condition of RS232 trigger.
 
         **Rigol Programming Guide**
@@ -213,7 +317,7 @@ class RS232When(SSFunc):
         """
         self.instrument.ask(":TRIGger:RS232:WHEN DATA")
 
-    def status(self) -> str:
+    def status(self) -> TriggerRS232WhenEnum:
         """Query the current trigger condition of RS232 trigger.
 
         **Rigol Programming Guide**
@@ -257,7 +361,17 @@ class RS232When(SSFunc):
         :TRIGger:RS232:WHEN ERRor
         The query returns ERR.
         """
-        return self.instrument.ask(":TRIGger:RS232:WHEN?")
+        answer: str = self.instrument.ask(":TRIGger:RS232:WHEN?")
+        if answer == "STAR":
+            return TriggerRS232WhenEnum.START_FRAME
+        if answer == "ERR":
+            return TriggerRS232WhenEnum.ERROR
+        if answer == "PAR":
+            return TriggerRS232WhenEnum.PARITY_ERROR
+        if answer == "DATA":
+            return TriggerRS232WhenEnum.DATA
+        else:
+            DS2000StateError()
 
 
 class RS232Parity(SSFunc):
@@ -390,7 +504,7 @@ class RS232Parity(SSFunc):
         """
         self.instrument.ask(":TRIGger:RS232:PARity NONE")
 
-    def status(self) -> str:
+    def status(self) -> TriggerRS232Parity:
         """Query the current even-odd check mode in RS232 trigger.
 
         **Rigol Programming Guide**
@@ -431,81 +545,24 @@ class RS232Parity(SSFunc):
         :TRIGger:RS232:PARity EVEN
         The query returns EVEN.
         """
-        return self.instrument.ask(":TRIGger:RS232:PARity?")
+        answer: str = self.instrument.ask(":TRIGger:RS232:PARity?")
+        if answer == "EVEN":
+            return TriggerRS232Parity.EVEN
+        if answer == "ODD":
+            return TriggerRS232Parity.ODD
+        if answer == "NONE":
+            return TriggerRS232Parity.NONE
+        else:
+            DS2000StateError()
 
 
 # TODO: Check selected trigger before settitng values
 class RS232(SFunc):
     def __init__(self, device) -> None:
         super(RS232, self).__init__(device)
+        self.source: RS232Source = RS232Source(self)
         self.when: RS232When = RS232When(self)
         self.parity: RS232Parity = RS232Parity(self)
-
-    def set_source(self, channel: int = 1) -> None:
-        """Select the trigger source of RS232 trigger.
-
-        **Rigol Programming Guide**
-
-        **Syntax**
-
-        :TRIGger:RS232:SOURce <source>
-        :TRIGger:RS232:SOURce?
-
-        **Description**
-
-        Select the trigger source of RS232 trigger.
-        Query the current trigger source of RS232 trigger.
-
-        **Parameter**
-
-        ========= ========= ==================== ========
-        Name      Type      Range                Default
-        ========= ========= ==================== ========
-        <source>  Discrete  {CHANnel1|CHANnel2}  CHANnel1
-        ========= ========= ==================== ========
-
-        Reuturn Format
-        The query returns CHAN1 or CHAN2.
-
-        **Example**
-
-        :TRIGger:RS232:SOURce CHANnel2
-        The query returns CHAN2.
-        """
-        self.instrument.ask(f":TRIGger:RS232:SOURce CHANnel{channel}")
-
-    def get_source(self) -> str:
-        """Query the current trigger source of RS232 trigger.
-
-        **Rigol Programming Guide**
-
-        **Syntax**
-
-        :TRIGger:RS232:SOURce <source>
-        :TRIGger:RS232:SOURce?
-
-        **Description**
-
-        Select the trigger source of RS232 trigger.
-        Query the current trigger source of RS232 trigger.
-
-        **Parameter**
-
-        ========= ========= ==================== ========
-        Name      Type      Range                Default
-        ========= ========= ==================== ========
-        <source>  Discrete  {CHANnel1|CHANnel2}  CHANnel1
-        ========= ========= ==================== ========
-
-        Reuturn Format
-        The query returns CHAN1 or CHAN2.
-
-        **Example**
-
-        :TRIGger:RS232:SOURce CHANnel2
-        The query returns CHAN2.
-        """
-        return self.instrument.ask(":TRIGger:RS232:SOURce?")
 
     def set_stop_bits(self, stop_bits: int = 1) -> None:
         """Set the stop bit in RS232 trigger.
@@ -933,17 +990,18 @@ class RS232(SFunc):
         :TRIGger:RS232:LEVel 0.16
         The query returns 1.600000e-01.
         """
-        scale: float = -1.0
-        offset: float = -1.0
-        channel: str = self.get_source()
-        if channel == "CHANnel1":
+        channel: ChannelEnum = self.source.status()
+        if channel == ChannelEnum.CHANNEL_1:
             scale = self.sdev.dev.channel1.get_scale()
             offset = self.sdev.dev.channel1.get_offset()
-        elif channel == "CHANnel2":
+        elif channel == ChannelEnum.CHANNEL_2:
             scale = self.sdev.dev.channel2.scale()
             offset = self.sdev.dev.channel2.get_offset()
         else:
-            raise RuntimeError("The oscilloscope returned an unknown channel")
+            raise DS2000StateError(
+                "The level coul'd only be set, if the source is"
+                "Channel 1 or Channel 2."
+            )  # TODO: Right??
         check_level(level, scale, offset)
         self.instrument.ask(f":TRIGger:RS232:LEVel {level}")
 
