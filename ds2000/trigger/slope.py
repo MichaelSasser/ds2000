@@ -16,7 +16,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 from __future__ import annotations
 
-from ds2000.common import SFunc
+from ds2000.common import SFunc, channel_as_enum
 from ds2000.common import SSFunc
 from ds2000.common import check_input
 from ds2000.common import check_level
@@ -27,10 +27,116 @@ __email__ = "Michael@MichaelSasser.org"
 
 
 # ToDo: shorter method names.
+from ds2000.enums import TriggerSlopeWhenEnum, SlopeWindowEnum, ChannelEnum
+from ds2000.errors import DS2000StateError
+
+
+class SlopeSource(SSFunc):
+    def set_channel_1(self) -> None:
+        """Select the trigger source of slope trigger.
+
+        **Rigol Programming Guide**
+
+        **Syntax**
+
+        :TRIGger:SLOPe:SOURce <source>
+        :TRIGger:SLOPe:SOURce?
+
+        **Description**
+
+        Select the trigger source of slope trigger.
+        Query the current trigger source of slope trigger.
+
+        **Parameter**
+
+        ========= ========= ==================== ========
+        Name      Type      Range                Default
+        ========= ========= ==================== ========
+        <source>  Discrete  {CHANnel1|CHANnel2}  CHANnel1
+        ========= ========= ==================== ========
+
+        **Return Format**
+
+        The query returns CHAN1 or CHAN2.
+
+        **Example**
+
+        :TRIGger:SLOPe:SOURce CHANnel2
+        The query returns CHAN2.
+        """
+        self.instrument.ask(":TRIGger:SLOPe:SOURce CHANnel1")
+
+    def set_channel_2(self) -> None:
+        """Select the trigger source of slope trigger.
+
+        **Rigol Programming Guide**
+
+        **Syntax**
+
+        :TRIGger:SLOPe:SOURce <source>
+        :TRIGger:SLOPe:SOURce?
+
+        **Description**
+
+        Select the trigger source of slope trigger.
+        Query the current trigger source of slope trigger.
+
+        **Parameter**
+
+        ========= ========= ==================== ========
+        Name      Type      Range                Default
+        ========= ========= ==================== ========
+        <source>  Discrete  {CHANnel1|CHANnel2}  CHANnel1
+        ========= ========= ==================== ========
+
+        **Return Format**
+
+        The query returns CHAN1 or CHAN2.
+
+        **Example**
+
+        :TRIGger:SLOPe:SOURce CHANnel2
+        The query returns CHAN2.
+        """
+        self.instrument.ask(":TRIGger:SLOPe:SOURce CHANnel2")
+
+    def status(self) -> ChannelEnum:
+        """Query the current trigger source of slope trigger.
+
+        **Rigol Programming Guide**
+
+        **Syntax**
+
+        :TRIGger:SLOPe:SOURce <source>
+        :TRIGger:SLOPe:SOURce?
+
+        **Description**
+
+        Select the trigger source of slope trigger.
+        Query the current trigger source of slope trigger.
+
+        **Parameter**
+
+        ========= ========= ==================== ========
+        Name      Type      Range                Default
+        ========= ========= ==================== ========
+        <source>  Discrete  {CHANnel1|CHANnel2}  CHANnel1
+        ========= ========= ==================== ========
+
+        **Return Format**
+
+        The query returns CHAN1 or CHAN2.
+
+        **Example**
+
+        :TRIGger:SLOPe:SOURce CHANnel2
+        The query returns CHAN2.
+        """
+        return channel_as_enum(self.instrument.ask(":TRIGger:SLOPe:SOURce?"))
+
+
 class SlopeWhen(SSFunc):
-    def set_positive_slope_time_greater_than_specified_lower_limit(
-        self,
-    ) -> None:
+    def set_positive_greater(self) -> None:
         """Select the trigger condition of slope trigger.
 
         **Rigol Programming Guide**
@@ -99,7 +205,7 @@ class SlopeWhen(SSFunc):
         """
         self.instrument.ask(":TRIGger:SLOPe:WHEN PGReater")
 
-    def set_positive_slope_time_lower_than_specified_upper_limit(self) -> None:
+    def set_positive_less(self) -> None:
         """Select the trigger condition of slope trigger.
 
         **Rigol Programming Guide**
@@ -168,9 +274,7 @@ class SlopeWhen(SSFunc):
         """
         self.instrument.ask(":TRIGger:SLOPe:WHEN PLESs")
 
-    def set_negative_slope_time_greater_than_specified_lower_limit(
-        self,
-    ) -> None:
+    def set_negative_greater(self) -> None:
         """Select the trigger condition of slope trigger.
 
         **Rigol Programming Guide**
@@ -239,7 +343,7 @@ class SlopeWhen(SSFunc):
         """
         self.instrument.ask(":TRIGger:SLOPe:WHEN NGReater")
 
-    def set_negative_slope_time_lower_than_specified_upper_limit(self) -> None:
+    def set_negative_less(self) -> None:
         """Select the trigger condition of slope trigger.
 
         **Rigol Programming Guide**
@@ -308,9 +412,7 @@ class SlopeWhen(SSFunc):
         """
         self.instrument.ask(":TRIGger:SLOPe:WHEN NLESs")
 
-    def set_positive_slope_time_between_specified_lower_and_upper_limit(
-        self,
-    ) -> None:
+    def set_positive_between(self) -> None:
         """Select the trigger condition of slope trigger.
 
         **Rigol Programming Guide**
@@ -379,9 +481,7 @@ class SlopeWhen(SSFunc):
         """
         self.instrument.ask(":TRIGger:SLOPe:WHEN PGLess")
 
-    def set_negative_slope_time_between_specified_lower_and_upper_limit(
-        self,
-    ) -> None:
+    def set_negative_between(self) -> None:
         """Select the trigger condition of slope trigger.
 
         **Rigol Programming Guide**
@@ -450,7 +550,7 @@ class SlopeWhen(SSFunc):
         """
         self.instrument.ask(":TRIGger:SLOPe:WHEN NGLess")
 
-    def status(self) -> str:
+    def status(self) -> TriggerSlopeWhenEnum:
         """Query the current trigger condition of slope trigger.
 
         **Rigol Programming Guide**
@@ -517,12 +617,24 @@ class SlopeWhen(SSFunc):
         :TRIGger:SLOPe:WHEN PGReater
         The query returns PGR.
         """
-        return self.instrument.ask(":TRIGger:SLOPe:WHEN?")
+        answer: str = self.instrument.ask(":TRIGger:SLOPe:WHEN?")
+        if answer == "PGR":
+            return TriggerSlopeWhenEnum.POSIVE_GREATER
+        if answer == "PLES":
+            return TriggerSlopeWhenEnum.POSITIVE_LESS
+        if answer == "NGR":
+            return TriggerSlopeWhenEnum.NEGATIVE_GREATER
+        if answer == "NLES":
+            return TriggerSlopeWhenEnum.NEGATIVE_LESS
+        if answer == "PGL":
+            return TriggerSlopeWhenEnum.POSITIVE_BETWEEN
+        if answer == "NGL":
+            return TriggerSlopeWhenEnum.NEGATIVE_BETWEEN
+        raise DS2000StateError()
 
 
-# ToDo: shorter method names.
 class SlopeWindow(SSFunc):
-    def set_adjust_upper_limit_of_trigger_level(self) -> None:
+    def set_adjust_upper_limit(self) -> None:
         """Set the type of the vertical window in slope trigger.
 
         **Rigol Programming Guide**
@@ -571,7 +683,7 @@ class SlopeWindow(SSFunc):
         """
         self.instrument.ask(":TRIGger:SLOPe:WINDow TA")
 
-    def set_adjust_lower_limit_of_trigger_level(self) -> None:
+    def set_adjust_lower_limit(self) -> None:
         """Set the type of the vertical window in slope trigger.
 
         **Rigol Programming Guide**
@@ -620,7 +732,7 @@ class SlopeWindow(SSFunc):
         """
         self.instrument.ask(":TRIGger:SLOPe:WINDow TB")
 
-    def set_adjust_upper_and_lower_limit_of_trigger_level(self) -> None:
+    def set_adjust_both_limits(self) -> None:
         """Set the type of the vertical window in slope trigger.
 
         **Rigol Programming Guide**
@@ -669,7 +781,7 @@ class SlopeWindow(SSFunc):
         """
         self.instrument.ask(":TRIGger:SLOPe:WINDow TAB")
 
-    def status(self) -> str:
+    def status(self) -> SlopeWindowEnum:
         """Query the current type of the vertical window in slope trigger.
 
         **Rigol Programming Guide**
@@ -716,83 +828,22 @@ class SlopeWindow(SSFunc):
         :TRIGger:SLOPe:WINDow TB
         The query returns TB.
         """
-        return self.instrument.ask(":TRIGger:SLOPe:WINDow?")
+        answer: str = self.instrument.ask(":TRIGger:SLOPe:WINDow?")
+        if answer == "TA":
+            return SlopeWindowEnum.UPPER
+        if answer == "TB":
+            return SlopeWindowEnum.LOWER
+        if answer == "TAB":
+            return SlopeWindowEnum.BOTH
+        raise DS2000StateError()
 
 
 class Slope(SFunc):
     def __init__(self, device):
         super(Slope, self).__init__(device)
+        self.source: SlopeSource = SlopeSource(self)
         self.when: SlopeWhen = SlopeWhen(self)
         self.window: SlopeWindow = SlopeWindow(self)
-
-    def set_source(self, channel: int = 1) -> None:
-        """Select the trigger source of slope trigger.
-
-        **Rigol Programming Guide**
-
-        **Syntax**
-
-        :TRIGger:SLOPe:SOURce <source>
-        :TRIGger:SLOPe:SOURce?
-
-        **Description**
-
-        Select the trigger source of slope trigger.
-        Query the current trigger source of slope trigger.
-
-        **Parameter**
-
-        ========= ========= ==================== ========
-        Name      Type      Range                Default
-        ========= ========= ==================== ========
-        <source>  Discrete  {CHANnel1|CHANnel2}  CHANnel1
-        ========= ========= ==================== ========
-
-        **Return Format**
-
-        The query returns CHAN1 or CHAN2.
-
-        **Example**
-
-        :TRIGger:SLOPe:SOURce CHANnel2
-        The query returns CHAN2.
-        """
-        check_input(channel, "channel", int, 1, 2)
-        self.instrument.ask(":TRIGger:SLOPe:SOURce CHANnel{channel}")
-
-    def get_source(self) -> str:
-        """Query the current trigger source of slope trigger.
-
-        **Rigol Programming Guide**
-
-        **Syntax**
-
-        :TRIGger:SLOPe:SOURce <source>
-        :TRIGger:SLOPe:SOURce?
-
-        **Description**
-
-        Select the trigger source of slope trigger.
-        Query the current trigger source of slope trigger.
-
-        **Parameter**
-
-        ========= ========= ==================== ========
-        Name      Type      Range                Default
-        ========= ========= ==================== ========
-        <source>  Discrete  {CHANnel1|CHANnel2}  CHANnel1
-        ========= ========= ==================== ========
-
-        **Return Format**
-
-        The query returns CHAN1 or CHAN2.
-
-        **Example**
-
-        :TRIGger:SLOPe:SOURce CHANnel2
-        The query returns CHAN2.
-        """
-        return self.instrument.ask(":TRIGger:SLOPe:SOURce?")
 
     def set_upper_limit(self, time: float = 2.0e-6) -> None:
         """Set the upper limit of time in slope trigger.
@@ -1004,17 +1055,18 @@ class Slope(SFunc):
         :TRIGger:SLOPe:ALEVel 0.16
         The query returns 1.600000e-01.
         """
-        scale: float = -1.0
-        offset: float = -1.0
-        channel: str = self.get_source()
-        if channel == "CHANnel1":
+        channel: ChannelEnum = self.source.status()
+        if channel == ChannelEnum.CHANNEL_1:
             scale = self.sdev.dev.channel1.get_scale()
             offset = self.sdev.dev.channel1.get_offset()
-        elif channel == "CHANnel2":
+        elif channel == ChannelEnum.CHANNEL_2:
             scale = self.sdev.dev.channel2.scale()
             offset = self.sdev.dev.channel2.get_offset()
         else:
-            raise RuntimeError("The oscilloscope returned an unknown channel")
+            raise DS2000StateError(
+                "The level coul'd only be set, if the source is"
+                "Channel 1 or Channel 2."
+            )  # TODO: Right??
         check_level(level, scale, offset)
         self.instrument.ask(":TRIGger:SLOPe:ALEVel {level}")
 
@@ -1102,15 +1154,18 @@ class Slope(SFunc):
         """
         scale: float = -1.0
         offset: float = -1.0
-        channel: str = self.get_source()
-        if channel == "CHANnel1":
+        channel: ChannelEnum = self.source.status()
+        if channel == ChannelEnum.CHANNEL_1:
             scale = self.sdev.dev.channel1.get_scale()
             offset = self.sdev.dev.channel1.get_offset()
-        elif channel == "CHANnel2":
+        elif channel == ChannelEnum.CHANNEL_2:
             scale = self.sdev.dev.channel2.scale()
             offset = self.sdev.dev.channel2.get_offset()
         else:
-            raise RuntimeError("The oscilloscope returned an unknown channel")
+            raise DS2000StateError(
+                "The level coul'd only be set, if the source is"
+                "Channel 1 or Channel 2."
+            )  # TODO: Right??
         check_level(level, scale, offset)
         self.instrument.ask(f":TRIGger:SLOPe:BLEVel {level}")
 

@@ -177,4 +177,21 @@ class SetupHoldPatternEnum(Enum):
     LOW = "low"
 
 
+# Trigger -> Slope
+
+class TriggerSlopeWhenEnum(Enum):
+    POSIVE_GREATER = "positive_greater"
+    POSITIVE_LESS = "positive_less"
+    NEGATIVE_GREATER = "negative_greater"
+    NEGATIVE_LESS = "negative_less"
+    POSITIVE_BETWEEN = "positive_between"
+    NEGATIVE_BETWEEN = "negative_between"
+
+
+class SlopeWindowEnum(Enum):
+    UPPER = "upper"
+    LOWER = "lower"
+    BOTH = "both"
+
+
 # vim: set ft=python :
