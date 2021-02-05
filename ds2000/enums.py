@@ -267,4 +267,18 @@ class TriggerVideoStandardEnum(Enum):
     Video1080I30HZ = "Video1080I30HZ"
     Video1080I25HZ = "Video1080I25HZ"
     Video1080I24HZ = "Video1080I24HZ"
+
+
+# Trigger -> Windows
+
+class TriggerWindowsSlopeEnum(Enum):
+    POSITIVE = "positive"
+    NEGATIVE = "negative"
+    BOTH = "both"
+
+
+class TriggerWindowsPositionEnum(Enum):
+    EXIT = "exit"
+    ENTER = "enter"
+    TIME = "time"
 # vim: set ft=python :

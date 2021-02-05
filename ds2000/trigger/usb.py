@@ -29,7 +29,6 @@ __email__ = "Michael@MichaelSasser.org"
 # TODO: Maybe rename to start, end etc.
 
 
-
 class USBSource(SSFunc):
     def __init__(self, device, source: str):
         super(USBSource, self).__init__(device)
