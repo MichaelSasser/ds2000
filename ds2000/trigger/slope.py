@@ -16,19 +16,21 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 from __future__ import annotations
 
-from ds2000.common import SFunc, channel_as_enum
+from ds2000.common import SFunc
 from ds2000.common import SSFunc
+from ds2000.common import channel_as_enum
 from ds2000.common import check_input
 from ds2000.common import check_level
+
+# ToDo: shorter method names.
+from ds2000.enums import ChannelEnum
+from ds2000.enums import TriggerSlopeWhenEnum
+from ds2000.enums import TriggerSlopeWindowEnum
+from ds2000.errors import DS2000StateError
 
 
 __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
-
-
-# ToDo: shorter method names.
-from ds2000.enums import TriggerSlopeWhenEnum, TriggerSlopeWindowEnum, ChannelEnum
-from ds2000.errors import DS2000StateError
 
 
 class SlopeSource(SSFunc):

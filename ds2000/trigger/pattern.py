@@ -179,9 +179,7 @@ class Pattern(SFunc):
         else:
             raise RuntimeError("The oscilloscope returned an unknown channel")
         check_level(level, scale, offset)
-        self.instrument.ask(
-            f":TRIGger:PATTern:LEVel CHANnel{channel},{level}"
-        )
+        self.instrument.ask(f":TRIGger:PATTern:LEVel CHANnel{channel},{level}")
 
     def get_level(self, channel: int = 1) -> float:
         """Query the current trigger level of each channel in pattern trigger.

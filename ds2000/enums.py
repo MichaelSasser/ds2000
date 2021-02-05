@@ -18,6 +18,7 @@ from __future__ import annotations
 
 from enum import Enum
 
+
 __author__: str = "Michael Sasser"
 __email__: str = "Michael@MichaelSasser.org"
 
@@ -26,11 +27,13 @@ __email__: str = "Michael@MichaelSasser.org"
 
 # Common
 
+
 class ChannelEnum(Enum):
     CHANNEL_1 = "channel_1"
     CHANNEL_2 = "channel_2"
     EXT = "ext"
     AC_LINE = "ac_line"
+
 
 # Trigger -> Coupling
 
@@ -77,6 +80,7 @@ class TriggerEdgeSlopeEnum(Enum):
 
 # Trigger -> I2C
 
+
 class TriggerI2CWhenEnum(Enum):
     START = "start"
     RESTART = "restart"
@@ -94,6 +98,7 @@ class TriggerI2CDirectionEnum(Enum):
 
 
 # Trigger -> Mode
+
 
 class TriggerModeEnum(Enum):
     EDGE = "edge"
@@ -116,12 +121,14 @@ class TriggerModeEnum(Enum):
 
 # Trigger -> Nth Edge
 
+
 class TriggerNthEdgeSlopeEnum(Enum):
     POSITIVE = "positive"
     NEGATIVE = "negative"
 
 
 # Trigger -> Pulse
+
 
 class TriggerPulseWhenEnum(Enum):
     POSIVE_GREATER = "positive_greater"
@@ -133,6 +140,7 @@ class TriggerPulseWhenEnum(Enum):
 
 
 # Trigger -> RS232
+
 
 class TriggerRS232WhenEnum(Enum):
     START_FRAME = "start_frame"
@@ -149,6 +157,7 @@ class TriggerRS232Parity(Enum):
 
 # Trigger -> Runt
 
+
 class TriggerRuntWhenEnum(Enum):
     NONE = "none"
     GREATER = "greater"
@@ -162,6 +171,7 @@ class TriggerRuntPolarityEnum(Enum):
 
 
 # Trigger -> Setup/Hold
+
 
 class TriggerSetupHoldTypeEnum(Enum):
     SETUP = "setup"
@@ -181,6 +191,7 @@ class TriggerSetupHoldPatternEnum(Enum):
 
 # Trigger -> Slope
 
+
 class TriggerSlopeWhenEnum(Enum):
     POSIVE_GREATER = "positive_greater"
     POSITIVE_LESS = "positive_less"
@@ -198,12 +209,14 @@ class TriggerSlopeWindowEnum(Enum):
 
 # Trigger -> SPI
 
+
 class TriggerSPISlopeEnum(Enum):
     POSITIVE = "positive"
     NEGATIVE = "negative"
 
 
 # Trigger -> Sweep
+
 
 class TriggerSweepEnum(Enum):
     AUTO = "auto"
@@ -212,6 +225,7 @@ class TriggerSweepEnum(Enum):
 
 
 # Trigger -> Timeout
+
 
 class TriggerTimeoutSlopeEnum(Enum):
     RISING = "rising"
@@ -236,6 +250,7 @@ class TrigerUSBSppedEnum(Enum):
 
 
 # Trigger -> Video
+
 
 class TriggerVideoPolarityEnum(Enum):
     POSITIVE = "positive"
@@ -271,6 +286,7 @@ class TriggerVideoStandardEnum(Enum):
 
 # Trigger -> Windows
 
+
 class TriggerWindowsSlopeEnum(Enum):
     POSITIVE = "positive"
     NEGATIVE = "negative"
@@ -281,4 +297,6 @@ class TriggerWindowsPositionEnum(Enum):
     EXIT = "exit"
     ENTER = "enter"
     TIME = "time"
+
+
 # vim: set ft=python :

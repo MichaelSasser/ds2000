@@ -22,7 +22,8 @@ from typing import Optional
 from typing import Union
 
 from .enums import ChannelEnum
-from .errors import DS2000InternalSyntaxError, DS2000StateError
+from .errors import DS2000InternalSyntaxError
+from .errors import DS2000StateError
 from .math.format import get_prefix
 from .visa.driver import VISABase
 
@@ -230,5 +231,7 @@ def channel_as_enum(channel_msg: str) -> ChannelEnum:
         return ChannelEnum.EXT
     if channel_msg == "ACL":
         return ChannelEnum.AC_LINE
-    DS2000StateError("The function common -> channel_as_enum did not "
-                     f"understand: {channel_msg}")
+    DS2000StateError(
+        "The function common -> channel_as_enum did not "
+        f"understand: {channel_msg}"
+    )

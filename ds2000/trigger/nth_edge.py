@@ -15,11 +15,13 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from ds2000.common import SFunc, channel_as_enum
+from ds2000.common import SFunc
 from ds2000.common import SSFunc
+from ds2000.common import channel_as_enum
 from ds2000.common import check_input
 from ds2000.common import check_level
-from ds2000.enums import ChannelEnum, TriggerNthEdgeSlopeEnum
+from ds2000.enums import ChannelEnum
+from ds2000.enums import TriggerNthEdgeSlopeEnum
 from ds2000.errors import DS2000StateError
 
 
@@ -128,13 +130,10 @@ class NthEdgeSource(SSFunc):
         :TRIGger:NEDGe:SOURce CHANnel2
         The query returns CHAN2.
         """
-        return channel_as_enum(
-            self.instrument.ask(":TRIGger:NEDGe:SOURce?")
-        )
+        return channel_as_enum(self.instrument.ask(":TRIGger:NEDGe:SOURce?"))
 
 
 class NthEdgeSlope(SSFunc):
-
     def set_positive(self) -> None:
         """Select the edge type of Nth edge trigger.
 
@@ -167,9 +166,7 @@ class NthEdgeSlope(SSFunc):
         :TRIGger:NEDGe:SLOPe NEGative
         The query returns NEG.
         """
-        self.instrument.ask(
-            ":TRIGger:NEDGe:SLOPe POSitive"
-        )
+        self.instrument.ask(":TRIGger:NEDGe:SLOPe POSitive")
 
     def set_negative(self) -> None:
         """Select the edge type of Nth edge trigger.
@@ -203,9 +200,7 @@ class NthEdgeSlope(SSFunc):
         :TRIGger:NEDGe:SLOPe NEGative
         The query returns NEG.
         """
-        self.instrument.ask(
-            f":TRIGger:NEDGe:SLOPe NEGative"
-        )
+        self.instrument.ask(f":TRIGger:NEDGe:SLOPe NEGative")
 
     def status(self) -> TriggerNthEdgeSlopeEnum:
         """Query the current edge type of Nth edge trigger.

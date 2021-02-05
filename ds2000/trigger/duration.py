@@ -16,15 +16,16 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 from __future__ import annotations
 
-from typing import Tuple
 from typing import List
+from typing import Tuple
 from typing import Union
 
-from ds2000.common import SFunc, channel_as_enum
+from ds2000.common import SFunc
 from ds2000.common import SSFunc
+from ds2000.common import channel_as_enum
 from ds2000.common import check_input
-from ds2000.errors import DS2000StateError
 from ds2000.enums import TriggerDurationWhenEnum
+from ds2000.errors import DS2000StateError
 
 
 __author__ = "Michael Sasser"
@@ -351,15 +352,16 @@ class DurationSource(SSFunc):
             self.instrument.ask(":TRIGger:DURATion:SOURce?")
         )
 
+
 class Duration(SFunc):
     def __init__(self, device):
         super(Duration, self).__init__(device)
         self.when: DurationWhen = DurationWhen(self)
 
     # TODO
-    def set_type(self,
-                 pattern: Union[List[str], Tuple[str]] = ("H", "L")
-                 ) -> None:
+    def set_type(
+        self, pattern: Union[List[str], Tuple[str]] = ("H", "L")
+    ) -> None:
         """Set the current patterns of the channels.
 
         **Rigol Programming Guide**

@@ -16,17 +16,18 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 from __future__ import annotations
 
-from ds2000.common import SFunc, channel_as_enum
+from ds2000.common import SFunc
 from ds2000.common import SSFunc
+from ds2000.common import channel_as_enum
 from ds2000.common import check_input
+from ds2000.enums import ChannelEnum
+from ds2000.enums import TriggerWindowsPositionEnum
+from ds2000.enums import TriggerWindowsSlopeEnum
+from ds2000.errors import DS2000StateError
 
 
 __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
-
-from ds2000.enums import TriggerWindowsSlopeEnum, TriggerWindowsPositionEnum, \
-    ChannelEnum
-from ds2000.errors import DS2000StateError
 
 
 class WindowsSource(SSFunc):
@@ -130,9 +131,8 @@ class WindowsSource(SSFunc):
         :TRIGger:WINDows:SOURce CHANnel2
         The query returns CHAN2.
         """
-        return channel_as_enum(
-            self.instrument.ask(":TRIGger:WINDows:SOURce?")
-        )
+        return channel_as_enum(self.instrument.ask(":TRIGger:WINDows:SOURce?"))
+
 
 class WindowsSlope(SSFunc):
     def set_positive(self) -> None:

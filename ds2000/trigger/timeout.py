@@ -15,12 +15,15 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 from __future__ import annotations
+
 from typing import Optional
 
-from ds2000.common import SFunc, channel_as_enum
+from ds2000.common import SFunc
 from ds2000.common import SSFunc
+from ds2000.common import channel_as_enum
 from ds2000.common import check_input
-from ds2000.enums import TriggerTimeoutSlopeEnum, ChannelEnum
+from ds2000.enums import ChannelEnum
+from ds2000.enums import TriggerTimeoutSlopeEnum
 from ds2000.errors import DS2000StateError
 
 
@@ -131,9 +134,7 @@ class TimeoutChannel(SSFunc):
         :TRIGger:TIMeout:SOURce CHANnel2
         The query returns CHAN2.
         """
-        return channel_as_enum(
-            self.instrument.ask(":TRIGger:TIMeout:SOURce?")
-        )
+        return channel_as_enum(self.instrument.ask(":TRIGger:TIMeout:SOURce?"))
 
 
 class TimeoutSlope(SSFunc):

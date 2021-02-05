@@ -20,9 +20,10 @@ from ds2000.common import SFunc
 from ds2000.common import SSFunc
 from ds2000.common import channel_as_enum
 from ds2000.common import check_input
-from ds2000.errors import DS2000StateError
-from ds2000.enums import TriggerDelayTypeEnum, ChannelEnum
+from ds2000.enums import ChannelEnum
 from ds2000.enums import TriggerDelaySlopeEnum
+from ds2000.enums import TriggerDelayTypeEnum
+from ds2000.errors import DS2000StateError
 
 
 __author__ = "Michael Sasser"
@@ -650,9 +651,9 @@ class Delay(SFunc):
         """
         delay_type: TriggerDelayTypeEnum = self.type.status()
         if delay_type not in (
-                TriggerDelayTypeEnum.LESS,
-                TriggerDelayTypeEnum.OUTSIDE,
-                TriggerDelayTypeEnum.INSIDE,
+            TriggerDelayTypeEnum.LESS,
+            TriggerDelayTypeEnum.OUTSIDE,
+            TriggerDelayTypeEnum.INSIDE,
         ):
             raise TypeError(
                 "To set the upper limit your delay type has to be: "
@@ -662,7 +663,10 @@ class Delay(SFunc):
                 f"{TriggerDelayTypeEnum.INSIDE.value} "
             )
 
-        if delay_type in (TriggerDelayTypeEnum.INSIDE, TriggerDelayTypeEnum.OUTSIDE):
+        if delay_type in (
+            TriggerDelayTypeEnum.INSIDE,
+            TriggerDelayTypeEnum.OUTSIDE,
+        ):
             check_input(time, "time", float, 12.0e-9, 4.0, "s")
         else:
             check_input(time, "time", float, 2.0e-9, 4.0, "s")
@@ -712,9 +716,9 @@ class Delay(SFunc):
         """
         delay_type: TriggerDelayTypeEnum = self.type.status()
         if delay_type not in (
-                TriggerDelayTypeEnum.LESS,
-                TriggerDelayTypeEnum.OUTSIDE,
-                TriggerDelayTypeEnum.INSIDE,
+            TriggerDelayTypeEnum.LESS,
+            TriggerDelayTypeEnum.OUTSIDE,
+            TriggerDelayTypeEnum.INSIDE,
         ):
             raise TypeError(
                 "To get the upper limit your delay type has to be: "
@@ -770,9 +774,9 @@ class Delay(SFunc):
         """
         delay_type: TriggerDelayTypeEnum = self.type.status()
         if delay_type not in (
-                TriggerDelayTypeEnum.LESS,
-                TriggerDelayTypeEnum.OUTSIDE,
-                TriggerDelayTypeEnum.INSIDE,
+            TriggerDelayTypeEnum.LESS,
+            TriggerDelayTypeEnum.OUTSIDE,
+            TriggerDelayTypeEnum.INSIDE,
         ):
             raise TypeError(
                 "To set the lower limit your delay type has to be: "
@@ -830,9 +834,9 @@ class Delay(SFunc):
         """
         delay_type: TriggerDelayTypeEnum = self.type.status()
         if delay_type not in (
-                TriggerDelayTypeEnum.LESS,
-                TriggerDelayTypeEnum.OUTSIDE,
-                TriggerDelayTypeEnum.INSIDE,
+            TriggerDelayTypeEnum.LESS,
+            TriggerDelayTypeEnum.OUTSIDE,
+            TriggerDelayTypeEnum.INSIDE,
         ):
             raise TypeError(
                 "To set the lower limit your delay type has to be: "

@@ -16,8 +16,8 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from ds2000.common import SFunc
-from ds2000.errors import DS2000StateError
 from ds2000.enums import TriggerModeEnum
+from ds2000.errors import DS2000StateError
 
 
 __author__ = "Michael Sasser"

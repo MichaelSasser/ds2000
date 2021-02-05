@@ -18,18 +18,20 @@ from __future__ import annotations
 
 from typing import Dict
 
-from ds2000.common import SFunc, channel_as_enum
+from ds2000.common import SFunc
 from ds2000.common import SSFunc
+from ds2000.common import channel_as_enum
 from ds2000.common import check_input
 from ds2000.common import check_level
+from ds2000.enums import ChannelEnum
+from ds2000.enums import TriggerVideoModeEnum
+from ds2000.enums import TriggerVideoPolarityEnum
+from ds2000.enums import TriggerVideoStandardEnum
+from ds2000.errors import DS2000StateError
 
 
 __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
-
-from ds2000.enums import TriggerVideoModeEnum, TriggerVideoStandardEnum, \
-    ChannelEnum, TriggerVideoPolarityEnum
-from ds2000.errors import DS2000StateError
 
 
 class VideoSource(SSFunc):
@@ -133,9 +135,7 @@ class VideoSource(SSFunc):
         :TRIGger:VIDeo:SOURce CHANnel2
         The query returns CHAN2.
         """
-        return channel_as_enum(
-            self.instrument.ask(":TRIGger:VIDeo:SOURce?")
-        )
+        return channel_as_enum(self.instrument.ask(":TRIGger:VIDeo:SOURce?"))
 
 
 class VideoPolarity(SSFunc):

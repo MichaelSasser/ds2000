@@ -15,10 +15,13 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from ds2000.common import SFunc, channel_as_enum
+from ds2000.common import SFunc
 from ds2000.common import SSFunc
+from ds2000.common import channel_as_enum
 from ds2000.common import check_level
-from ds2000.enums import TriggerUSBWhenEnum, ChannelEnum, TrigerUSBSppedEnum
+from ds2000.enums import ChannelEnum
+from ds2000.enums import TrigerUSBSppedEnum
+from ds2000.enums import TriggerUSBWhenEnum
 from ds2000.errors import DS2000StateError
 
 

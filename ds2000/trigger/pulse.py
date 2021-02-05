@@ -15,17 +15,20 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from ds2000.common import SFunc, channel_as_enum
+from ds2000.common import SFunc
 from ds2000.common import SSFunc
+from ds2000.common import channel_as_enum
 from ds2000.common import check_input
 from ds2000.common import check_level
-from ds2000.enums import TriggerPulseWhenEnum, ChannelEnum
-
-__author__ = "Michael Sasser"
-__email__ = "Michael@MichaelSasser.org"
+from ds2000.enums import ChannelEnum
+from ds2000.enums import TriggerPulseWhenEnum
 
 # ToDo: Shorter function names!!!
 from ds2000.errors import DS2000StateError
+
+
+__author__ = "Michael Sasser"
+__email__ = "Michael@MichaelSasser.org"
 
 
 class PulseSource(SSFunc):
