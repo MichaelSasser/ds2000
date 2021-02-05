@@ -27,7 +27,7 @@ __email__ = "Michael@MichaelSasser.org"
 
 
 # ToDo: shorter method names.
-from ds2000.enums import TriggerSlopeWhenEnum, SlopeWindowEnum, ChannelEnum
+from ds2000.enums import TriggerSlopeWhenEnum, TriggerSlopeWindowEnum, ChannelEnum
 from ds2000.errors import DS2000StateError
 
 
@@ -781,7 +781,7 @@ class SlopeWindow(SSFunc):
         """
         self.instrument.ask(":TRIGger:SLOPe:WINDow TAB")
 
-    def status(self) -> SlopeWindowEnum:
+    def status(self) -> TriggerSlopeWindowEnum:
         """Query the current type of the vertical window in slope trigger.
 
         **Rigol Programming Guide**
@@ -830,11 +830,11 @@ class SlopeWindow(SSFunc):
         """
         answer: str = self.instrument.ask(":TRIGger:SLOPe:WINDow?")
         if answer == "TA":
-            return SlopeWindowEnum.UPPER
+            return TriggerSlopeWindowEnum.UPPER
         if answer == "TB":
-            return SlopeWindowEnum.LOWER
+            return TriggerSlopeWindowEnum.LOWER
         if answer == "TAB":
-            return SlopeWindowEnum.BOTH
+            return TriggerSlopeWindowEnum.BOTH
         raise DS2000StateError()
 
 

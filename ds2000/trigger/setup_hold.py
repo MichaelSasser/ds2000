@@ -19,7 +19,7 @@ from ds2000.common import SFunc, channel_as_enum
 from ds2000.common import SSFunc
 from ds2000.common import check_input
 from ds2000.enums import TriggerSetupHoldTypeEnum, ChannelEnum, \
-    SetupHoldSlopeEnum, SetupHoldPatternEnum
+    TriggerSetupHoldSlopeEnum, TriggerSetupHoldPatternEnum
 from ds2000.errors import DS2000StateError
 
 __author__ = "Michael Sasser"
@@ -428,7 +428,7 @@ class SetupHoldSlope(SSFunc):
         """
         self.instrument.ask(":TRIGger:SHOLd:SLOPe NEGative")
 
-    def status(self) -> SetupHoldSlopeEnum:
+    def status(self) -> TriggerSetupHoldSlopeEnum:
         """Query the current edge type of setup/hold trigger.
 
         **Rigol Programming Guide**
@@ -463,9 +463,9 @@ class SetupHoldSlope(SSFunc):
         """
         answer: str = self.instrument.ask(":TRIGger:SHOLd:SLOPe?").lower()
         if answer == "POS":
-            return SetupHoldSlopeEnum.RISING
+            return TriggerSetupHoldSlopeEnum.RISING
         if answer == "NEG":
-            return SetupHoldSlopeEnum.FALLING
+            return TriggerSetupHoldSlopeEnum.FALLING
         raise DS2000StateError()
 
 
@@ -540,7 +540,7 @@ class SetupHoldPattern(SSFunc):
         """
         self.instrument.ask(":TRIGger:SHOLd:PATTern L")
 
-    def status(self) -> SetupHoldPatternEnum:
+    def status(self) -> TriggerSetupHoldPatternEnum:
         """Query the current data type of setup/hold trigger.
 
         **Rigol Programming Guide**
@@ -574,9 +574,9 @@ class SetupHoldPattern(SSFunc):
         """
         answer: str = self.instrument.ask(":TRIGger:SHOLd:PATTern?")
         if answer == "H":
-            return SetupHoldPatternEnum.HIGH
+            return TriggerSetupHoldPatternEnum.HIGH
         if answer == "L":
-            return SetupHoldPatternEnum.LOW
+            return TriggerSetupHoldPatternEnum.LOW
         raise DS2000StateError()
 
 

@@ -22,6 +22,8 @@ __author__: str = "Michael Sasser"
 __email__: str = "Michael@MichaelSasser.org"
 
 
+# TODO: Many are the same or part of another.
+
 # Common
 
 class ChannelEnum(Enum):
@@ -167,12 +169,12 @@ class TriggerSetupHoldTypeEnum(Enum):
     SETUP_HOLD = "setup_hold"
 
 
-class SetupHoldSlopeEnum(Enum):
+class TriggerSetupHoldSlopeEnum(Enum):
     RISING = "rising"
     FALLING = "falling"
 
 
-class SetupHoldPatternEnum(Enum):
+class TriggerSetupHoldPatternEnum(Enum):
     HIGH = "high"
     LOW = "low"
 
@@ -188,10 +190,16 @@ class TriggerSlopeWhenEnum(Enum):
     NEGATIVE_BETWEEN = "negative_between"
 
 
-class SlopeWindowEnum(Enum):
+class TriggerSlopeWindowEnum(Enum):
     UPPER = "upper"
     LOWER = "lower"
     BOTH = "both"
 
+
+# Trigger -> SPI
+
+class TriggerSPISlopeEnum(Enum):
+    POSITIVE = "positive"
+    NEGATIVE = "negative"
 
 # vim: set ft=python :

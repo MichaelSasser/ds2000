@@ -15,153 +15,270 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from ds2000.common import SFunc
+from ds2000.common import SFunc, SSFunc, channel_as_enum
 from ds2000.common import check_input
 from ds2000.common import check_level
+from ds2000.enums import ChannelEnum, TriggerSPISlopeEnum
+from ds2000.errors import DS2000StateError
 
 
-__author__ = "Michael Sasser"
-__email__ = "Michael@MichaelSasser.org"
+__author__: str = "Michael Sasser"
+__email__: str = "Michael@MichaelSasser.org"
+
+
+
+
+class SPISource(SSFunc):
+    def __init__(self, device, source: str):
+        super(SPISource, self).__init__(device)
+        self.src: str = source
+
+    def set_channel_1(self) -> None:
+        """Select the channel source in SPI trigger.
+
+        **Rigol Programming Guide**
+
+        **Syntax**
+
+        :TRIGger:SPI:SCL <source>
+        :TRIGger:SPI:SCL?
+
+        :TRIGger:SPI:SDA <source>
+        :TRIGger:SPI:SDA?
+
+        **Description**
+
+        Select the SCL channel source in SPI trigger.
+        Query the current SCL channel source in SPI trigger.
+
+        Select the SDA channel source in SPI trigger.
+        Query the current SDA channel source in SPI trigger.
+
+        **Parameter**
+
+        ========= ========= ==================== ========
+        Name      Type      Range                Default
+        ========= ========= ==================== ========
+        <source>  Discrete  {CHANnel1|CHANnel2}  CHANnel1
+        ========= ========= ==================== ========
+
+        **Return Format**
+
+        The query returns CHAN1 or CHAN2.
+
+        **Example**
+
+        :TRIGger:SPI:SCL CHANnel2
+        The query returns CHAN2.
+
+        :TRIGger:SPI:SDA CHANnel2
+        The query returns CHAN2.
+        """
+        self.instrument.ask(f":TRIGger:SPI:{self.src} CHANnel1")
+
+    def set_channel_2(self) -> None:
+        """Select the channel source in SPI trigger.
+
+        **Rigol Programming Guide**
+
+        **Syntax**
+
+        :TRIGger:SPI:SCL <source>
+        :TRIGger:SPI:SCL?
+
+        :TRIGger:SPI:SDA <source>
+        :TRIGger:SPI:SDA?
+
+        **Description**
+
+        Select the SCL channel source in SPI trigger.
+        Query the current SCL channel source in SPI trigger.
+
+        Select the SDA channel source in SPI trigger.
+        Query the current SDA channel source in SPI trigger.
+
+        **Parameter**
+
+        ========= ========= ==================== ========
+        Name      Type      Range                Default
+        ========= ========= ==================== ========
+        <source>  Discrete  {CHANnel1|CHANnel2}  CHANnel1
+        ========= ========= ==================== ========
+
+        **Return Format**
+
+        The query returns CHAN1 or CHAN2.
+
+        **Example**
+
+        :TRIGger:SPI:SCL CHANnel2
+        The query returns CHAN2.
+
+        :TRIGger:SPI:SDA CHANnel2
+        The query returns CHAN2.
+        """
+        self.instrument.ask(f":TRIGger:SPI:{self.src} CHANnel2")
+
+    def status(self) -> ChannelEnum:
+        """Select the channel source in SPI trigger.
+
+        **Rigol Programming Guide**
+
+        **Syntax**
+
+        :TRIGger:SPI:SCL <source>
+        :TRIGger:SPI:SCL?
+
+        :TRIGger:SPI:SDA <source>
+        :TRIGger:SPI:SDA?
+
+        **Description**
+
+        Select the SCL channel source in SPI trigger.
+        Query the current SCL channel source in SPI trigger.
+
+        Select the SDA channel source in SPI trigger.
+        Query the current SDA channel source in SPI trigger.
+
+        **Parameter**
+
+        ========= ========= ==================== ========
+        Name      Type      Range                Default
+        ========= ========= ==================== ========
+        <source>  Discrete  {CHANnel1|CHANnel2}  CHANnel1
+        ========= ========= ==================== ========
+
+        **Return Format**
+
+        The query returns CHAN1 or CHAN2.
+
+        **Example**
+
+        :TRIGger:SPI:SCL CHANnel2
+        The query returns CHAN2.
+
+        :TRIGger:SPI:SDA CHANnel2
+        The query returns CHAN2.
+        """
+        return channel_as_enum(
+            self.instrument.ask(f":TRIGger:SPI:{self.src}?")
+        )
+
+
+class SPISlope(SSFunc):
+    def set_positive(self) -> None:
+        """Set the trigger edge of the clock signal in SPI trigger.
+
+        **Rigol Programming Guide**
+
+        **Syntax**
+
+        :TRIGger:SPI:SLOPe <slope>
+        :TRIGger:SPI:SLOPe?
+
+        **Description**
+
+        Set the trigger edge of the clock signal in SPI trigger.
+        Query the current trigger edge of the clock signal in SPI trigger.
+
+        **Parameter**
+
+        ======== ========= ==================== ========
+        Name     Type      Range                Default
+        ======== ========= ==================== ========
+        <slope>  Discrete  {POSitive|NEGative}  POSitive
+        ======== ========= ==================== ========
+
+        **Return Format**
+
+        The query returns POS or NEG.
+
+        **Example**
+
+        :TRIGger:SPI:SLOPe POSitive
+        The query returns POS.
+        """
+        self.instrument.ask(":TRIGger:SPI:SLOPe POSitive")
+
+    def set_negative(self) -> None:
+        """Set the trigger edge of the clock signal in SPI trigger.
+
+        **Rigol Programming Guide**
+
+        **Syntax**
+
+        :TRIGger:SPI:SLOPe <slope>
+        :TRIGger:SPI:SLOPe?
+
+        **Description**
+
+        Set the trigger edge of the clock signal in SPI trigger.
+        Query the current trigger edge of the clock signal in SPI trigger.
+
+        **Parameter**
+
+        ======== ========= ==================== ========
+        Name     Type      Range                Default
+        ======== ========= ==================== ========
+        <slope>  Discrete  {POSitive|NEGative}  POSitive
+        ======== ========= ==================== ========
+
+        **Return Format**
+
+        The query returns POS or NEG.
+
+        **Example**
+
+        :TRIGger:SPI:SLOPe POSitive
+        The query returns POS.
+        """
+        self.instrument.ask(":TRIGger:SPI:SLOPe NEGative")
+
+    def status(self) -> TriggerSPISlopeEnum:
+        """Query the current trigger edge of the clock signal in SPI trigger.
+
+        **Rigol Programming Guide**
+
+        **Syntax**
+
+        :TRIGger:SPI:SLOPe <slope>
+        :TRIGger:SPI:SLOPe?
+
+        **Description**
+
+        Set the trigger edge of the clock signal in SPI trigger.
+        Query the current trigger edge of the clock signal in SPI trigger.
+
+        **Parameter**
+
+        ======== ========= ==================== ========
+        Name     Type      Range                Default
+        ======== ========= ==================== ========
+        <slope>  Discrete  {POSitive|NEGative}  POSitive
+        ======== ========= ==================== ========
+
+        **Return Format**
+
+        The query returns POS or NEG.
+
+        **Example**
+
+        :TRIGger:SPI:SLOPe POSitive
+        The query returns POS.
+        """
+        answer: str = self.instrument.ask(":TRIGger:SPI:SLOPe?")
+        if answer == "POS":
+            return TriggerSPISlopeEnum.POSITIVE
+        if answer == "NEG":
+            return TriggerSPISlopeEnum.NEGATIVE
+        raise DS2000StateError()
 
 
 class SPI(SFunc):
-    def set_scl_source(self, channel: int = 1) -> None:
-        """Select the SCL channel source in SPI trigger.
-
-        **Rigol Programming Guide**
-
-        **Syntax**
-
-        :TRIGger:SPI:SCL <source>
-        :TRIGger:SPI:SCL?
-
-        **Description**
-
-        Select the SCL channel source in SPI trigger.
-        Query the current SCL channel source in SPI trigger.
-
-        **Parameter**
-
-        ========= ========= ==================== ========
-        Name      Type      Range                Default
-        ========= ========= ==================== ========
-        <source>  Discrete  {CHANnel1|CHANnel2}  CHANnel1
-        ========= ========= ==================== ========
-
-        **Return Format**
-
-        The query returns CHAN1 or CHAN2.
-
-        **Example**
-
-        :TRIGger:SPI:SCL CHANnel2
-        The query returns CHAN2.
-        """
-        check_input(channel, "channel", int, 1, 2)
-        self.instrument.ask(f":TRIGger:SPI:SCL CHANnel{channel}")
-
-    def get_scl_source(self) -> str:
-        """Query the current SCL channel source in SPI trigger.
-
-        **Rigol Programming Guide**
-
-        **Syntax**
-
-        :TRIGger:SPI:SCL <source>
-        :TRIGger:SPI:SCL?
-
-        **Description**
-
-        Select the SCL channel source in SPI trigger.
-        Query the current SCL channel source in SPI trigger.
-
-        **Parameter**
-
-        ========= ========= ==================== ========
-        Name      Type      Range                Default
-        ========= ========= ==================== ========
-        <source>  Discrete  {CHANnel1|CHANnel2}  CHANnel1
-        ========= ========= ==================== ========
-
-        **Return Format**
-
-        The query returns CHAN1 or CHAN2.
-
-        **Example**
-
-        :TRIGger:SPI:SCL CHANnel2
-        The query returns CHAN2.
-        """
-        return self.instrument.ask(":TRIGger:SPI:SCL?")
-
-    def set_sda_source(self, channel: int = 2) -> None:
-        """Select the SDA channel source in SPI trigger.
-
-        **Rigol Programming Guide**
-
-        **Syntax**
-
-        :TRIGger:SPI:SDA <source>
-        :TRIGger:SPI:SDA?
-
-        **Description**
-
-        Select the SDA channel source in SPI trigger.
-        Query the current SDA channel source in SPI trigger.
-
-        **Parameter**
-
-        ========= ========= ==================== ========
-        Name      Type      Range                Default
-        ========= ========= ==================== ========
-        <source>  Discrete  {CHANnel1|CHANnel2}  CHANnel2
-        ========= ========= ==================== ========
-
-        **Return Format**
-
-        The query returns CHAN1 or CHAN2.
-
-        **Example**
-
-        :TRIGger:SPI:SDA CHANnel2
-        The query returns CHAN2.
-        """
-        check_input(channel, "channel", int, 1, 2)
-        self.instrument.ask(f":TRIGger:SPI:SDA CHANnel{channel}")
-
-    def get_sda_source(self) -> str:
-        """Query the current SDA channel source in SPI trigger.
-
-        **Rigol Programming Guide**
-
-        **Syntax**
-
-        :TRIGger:SPI:SDA <source>
-        :TRIGger:SPI:SDA?
-
-        **Description**
-
-        Select the SDA channel source in SPI trigger.
-        Query the current SDA channel source in SPI trigger.
-
-        **Parameter**
-
-        ========= ========= ==================== ========
-        Name      Type      Range                Default
-        ========= ========= ==================== ========
-        <source>  Discrete  {CHANnel1|CHANnel2}  CHANnel2
-        ========= ========= ==================== ========
-
-        **Return Format**
-
-        The query returns CHAN1 or CHAN2.
-
-        **Example**
-
-        :TRIGger:SPI:SDA CHANnel2
-        The query returns CHAN2.
-        """
-        return self.instrument.ask(":TRIGger:SPI:SDA?")
+    def __init__(self, device):
+        super(SPI, self).__init__(device)
+        self.source_scl: SPISource = SPISource(self, "SCL")
+        self.source_sda: SPISource = SPISource(self, "SDA")
 
     def set_width(self, width: int = 8) -> None:
         """Set the bits of SDA in SPI trigger.
@@ -380,108 +497,6 @@ class SPI(SFunc):
         """
         return float(self.instrument.ask(":TRIGger:SPI:TIMeout?"))
 
-    def set_slope_positive(self) -> None:
-        """Set the trigger edge of the clock signal in SPI trigger.
-
-        **Rigol Programming Guide**
-
-        **Syntax**
-
-        :TRIGger:SPI:SLOPe <slope>
-        :TRIGger:SPI:SLOPe?
-
-        **Description**
-
-        Set the trigger edge of the clock signal in SPI trigger.
-        Query the current trigger edge of the clock signal in SPI trigger.
-
-        **Parameter**
-
-        ======== ========= ==================== ========
-        Name     Type      Range                Default
-        ======== ========= ==================== ========
-        <slope>  Discrete  {POSitive|NEGative}  POSitive
-        ======== ========= ==================== ========
-
-        **Return Format**
-
-        The query returns POS or NEG.
-
-        **Example**
-
-        :TRIGger:SPI:SLOPe POSitive
-        The query returns POS.
-        """
-        self.instrument.ask(":TRIGger:SPI:SLOPe POSitive")
-
-    def set_slope_negative(self) -> None:
-        """Set the trigger edge of the clock signal in SPI trigger.
-
-        **Rigol Programming Guide**
-
-        **Syntax**
-
-        :TRIGger:SPI:SLOPe <slope>
-        :TRIGger:SPI:SLOPe?
-
-        **Description**
-
-        Set the trigger edge of the clock signal in SPI trigger.
-        Query the current trigger edge of the clock signal in SPI trigger.
-
-        **Parameter**
-
-        ======== ========= ==================== ========
-        Name     Type      Range                Default
-        ======== ========= ==================== ========
-        <slope>  Discrete  {POSitive|NEGative}  POSitive
-        ======== ========= ==================== ========
-
-        **Return Format**
-
-        The query returns POS or NEG.
-
-        **Example**
-
-        :TRIGger:SPI:SLOPe POSitive
-        The query returns POS.
-        """
-        self.instrument.ask(":TRIGger:SPI:SLOPe NEGative")
-
-    def get_slope(self) -> str:
-        """Query the current trigger edge of the clock signal in SPI trigger.
-
-        **Rigol Programming Guide**
-
-        **Syntax**
-
-        :TRIGger:SPI:SLOPe <slope>
-        :TRIGger:SPI:SLOPe?
-
-        **Description**
-
-        Set the trigger edge of the clock signal in SPI trigger.
-        Query the current trigger edge of the clock signal in SPI trigger.
-
-        **Parameter**
-
-        ======== ========= ==================== ========
-        Name     Type      Range                Default
-        ======== ========= ==================== ========
-        <slope>  Discrete  {POSitive|NEGative}  POSitive
-        ======== ========= ==================== ========
-
-        **Return Format**
-
-        The query returns POS or NEG.
-
-        **Example**
-
-        :TRIGger:SPI:SLOPe POSitive
-        The query returns POS.
-        """
-        return self.instrument.ask(":TRIGger:SPI:SLOPe?")
-
     def set_scl_trigger_level(self, level: float = 0.0) -> None:
         """Set the trigger level of SCL in SPI trigge.
 
@@ -521,17 +536,18 @@ class SPI(SFunc):
         :TRIGger:SPI:CLEVel 0.16
         The query returns 1.600000e-01.
         """
-        scale: float = -1.0
-        offset: float = -1.0
-        channel: str = self.get_scl_source()
-        if channel == "CHANnel1":
+        channel: ChannelEnum = self.source_scl.status()
+        if channel == ChannelEnum.CHANNEL_1:
             scale = self.sdev.dev.channel1.get_scale()
             offset = self.sdev.dev.channel1.get_offset()
-        elif channel == "CHANnel2":
+        elif channel == ChannelEnum.CHANNEL_2:
             scale = self.sdev.dev.channel2.scale()
             offset = self.sdev.dev.channel2.get_offset()
         else:
-            raise RuntimeError("The oscilloscope returned an unknown channel")
+            raise DS2000StateError(
+                "The level coul'd only be set, if the source is"
+                "Channel 1 or Channel 2."
+            )  # TODO: Right??
         check_level(level, scale, offset)
         self.instrument.ask(f":TRIGger:SPI:CLEVel {level}")
 
@@ -614,17 +630,18 @@ class SPI(SFunc):
         :TRIGger:SPI:DLEVel 0.16
         The query returns 1.600000e-01.
         """
-        scale: float = -1.0
-        offset: float = -1.0
-        channel: str = self.get_sda_source()
-        if channel == "CHANnel1":
+        channel: ChannelEnum = self.source_sda.status()
+        if channel == ChannelEnum.CHANNEL_1:
             scale = self.sdev.dev.channel1.get_scale()
             offset = self.sdev.dev.channel1.get_offset()
-        elif channel == "CHANnel2":
+        elif channel == ChannelEnum.CHANNEL_2:
             scale = self.sdev.dev.channel2.scale()
             offset = self.sdev.dev.channel2.get_offset()
         else:
-            raise RuntimeError("The oscilloscope returned an unknown channel")
+            raise DS2000StateError(
+                "The level coul'd only be set, if the source is"
+                "Channel 1 or Channel 2."
+            )  # TODO: Right??
         check_level(level, scale, offset)
         self.instrument.ask(f":TRIGger:SPI:DLEVel {level}")
 
