@@ -234,4 +234,37 @@ class TrigerUSBSppedEnum(Enum):
     FULL = "full"
     LOW = "low"
 
+
+# Trigger -> Video
+
+class TriggerVideoPolarityEnum(Enum):
+    POSITIVE = "positive"
+    NEGATIVE = "negative"
+
+
+class TriggerVideoModeEnum(Enum):
+    ODD_FIELD = "odd_field"
+    EVEN_FIELD = "even_line"
+    SPECIFIC_LINE = "specific_line"
+    ALL_LINES = "all_lines"
+
+
+class TriggerVideoStandardEnum(Enum):
+    VideoPALSecam = "VideoPALSecam"
+    VideoNTSC = "VideoNTSC"
+    Video480P = "Video480P"
+    Video576P = "Video576P"
+    Video720P60HZ = "Video720P60HZ"
+    Video720P50HZ = "Video720P50HZ"
+    Video720P30HZ = "Video720P30HZ"
+    Video720P25HZ = "Video720P25HZ"
+    Video720P24HZ = "Video720P24HZ"
+    Video1080P60HZ = "Video1080P60HZ"
+    Video1080P50HZ = "Video1080P50HZ"
+    Video1080P30HZ = "Video1080P30HZ"
+    Video1080P25HZ = "Video1080P25HZ"
+    Video1080P24HZ = "Video1080P24HZ"
+    Video1080I30HZ = "Video1080I30HZ"
+    Video1080I25HZ = "Video1080I25HZ"
+    Video1080I24HZ = "Video1080I24HZ"
 # vim: set ft=python :
