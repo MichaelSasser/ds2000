@@ -21,8 +21,8 @@ from ds2000.common import SSFunc
 from ds2000.common import channel_as_enum
 from ds2000.common import check_input
 from ds2000.enums import ChannelEnum
-from ds2000.enums import TriggerWindowsPositionEnum
 from ds2000.enums import SlopeEnum
+from ds2000.enums import TriggerWindowsPositionEnum
 from ds2000.errors import DS2000StateError
 
 

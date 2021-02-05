@@ -17,7 +17,11 @@
 from __future__ import annotations
 
 from ds2000.common import Func
+from ds2000.common import SFunc
+from ds2000.common import check_input
 
+from ..enums import TriggerStatus
+from ..errors import DS2000StateError
 from .coupling import Coupling
 from .delay import Delay
 from .duration import Duration
@@ -43,6 +47,144 @@ __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
 
 
+class TriggerNoiseReject(SFunc):
+    def set_noise_reject_enabled(self) -> None:
+        """Enable or disable noise reject.
+
+        **Rigol Programming Guide**
+
+        **Syntax**
+
+        :TRIGger:NREJect <bool>
+        :TRIGger:NREJect?
+
+        **Description**
+
+        Enable or disable noise reject.
+        Query the current status of noise reject.
+
+        **Parameter**
+
+        ======= ===== ================= =======
+        Name    Type  Range             Default
+        ======= ===== ================= =======
+        <bool>  Bool  {{0|OFF}|{1|ON}}  0|OFF
+        ======= ===== ================= =======
+
+        **Return Format**
+
+        The query returns 0 or 1.
+
+        ++Example**
+
+        :TRIGger:NREJect ON
+        The query returns 1.
+        """
+        self.instrument.ask(f":TRIGger:NREJect 1")
+
+    def set_noise_reject_disabled(self) -> None:
+        """Enable or disable noise reject.
+
+        **Rigol Programming Guide**
+
+        **Syntax**
+
+        :TRIGger:NREJect <bool>
+        :TRIGger:NREJect?
+
+        **Description**
+
+        Enable or disable noise reject.
+        Query the current status of noise reject.
+
+        **Parameter**
+
+        ======= ===== ================= =======
+        Name    Type  Range             Default
+        ======= ===== ================= =======
+        <bool>  Bool  {{0|OFF}|{1|ON}}  0|OFF
+        ======= ===== ================= =======
+
+        **Return Format**
+
+        The query returns 0 or 1.
+
+        ++Example**
+
+        :TRIGger:NREJect ON
+        The query returns 1.
+        """
+        self.instrument.ask(f":TRIGger:NREJect 1")
+
+    def get_noise_reject_enabled(self) -> bool:
+        """Query the current status of noise reject.
+
+        **Rigol Programming Guide**
+
+        **Syntax**
+
+        :TRIGger:NREJect <bool>
+        :TRIGger:NREJect?
+
+        **Description**
+
+        Enable or disable noise reject.
+        Query the current status of noise reject.
+
+        **Parameter**
+
+        ======= ===== ================= =======
+        Name    Type  Range             Default
+        ======= ===== ================= =======
+        <bool>  Bool  {{0|OFF}|{1|ON}}  0|OFF
+        ======= ===== ================= =======
+
+        **Return Format**
+
+        The query returns 0 or 1.
+
+        ++Example**
+
+        :TRIGger:NREJect ON
+        The query returns 1.
+        """
+        return bool(int(self.instrument.ask(":TRIGger:NREJect?")))
+
+    def get_noise_reject_disabled(self) -> bool:
+        """Query the current status of noise reject.
+
+        **Rigol Programming Guide**
+
+        **Syntax**
+
+        :TRIGger:NREJect <bool>
+        :TRIGger:NREJect?
+
+        **Description**
+
+        Enable or disable noise reject.
+        Query the current status of noise reject.
+
+        **Parameter**
+
+        ======= ===== ================= =======
+        Name    Type  Range             Default
+        ======= ===== ================= =======
+        <bool>  Bool  {{0|OFF}|{1|ON}}  0|OFF
+        ======= ===== ================= =======
+
+        **Return Format**
+
+        The query returns 0 or 1.
+
+        ++Example**
+
+        :TRIGger:NREJect ON
+        The query returns 1.
+        """
+        return not self.get_noise_reject_enabled()
+
+
 class Trigger(Func):
     def __init__(self, dev):
         super(Trigger, self).__init__(dev)
@@ -62,11 +204,11 @@ class Trigger(Func):
         self.duration: Duration = Duration(self)
         self.setup_hold: SetupHold = SetupHold(self)
         self.rs232: RS232 = RS232(self)
-        self.iic: I2C = I2C(self)  # change to i2c
+        self.iic: I2C = I2C(self)
         self.spi: SPI = SPI(self)
         self.usb: USB = USB(self)
 
-    def status(self) -> str:
+    def status(self) -> TriggerStatus:
         """Query the current trigger status.
 
         **Rigol Programming Guide**
@@ -83,9 +225,60 @@ class Trigger(Func):
 
         The query returns TD, WAIT, RUN, AUTO or STOP.
         """
-        return self.instrument.ask("TRIGger:STATus?").lower()
+        answer: str = self.instrument.ask("TRIGger:STATus?")
+        if answer == "TD":
+            return TriggerStatus.TD
+        if answer == "WAIT":
+            return TriggerStatus.WAIT
+        if answer == "RUN":
+            return TriggerStatus.RUN
+        if answer == "AUTO":
+            return TriggerStatus.AUTO
+        if answer == "STOP":
+            return TriggerStatus.STOP
+        raise DS2000StateError()
 
-    def get_holdoff(self) -> float:
+    def set_holdoff_time(self, time: float = 100.0e-9) -> None:
+        """Set the trigger holdoff time and the unit is s.
+
+        **Rigol Programming Guide**
+
+        **Syntax**
+
+        :TRIGger:HOLDoff <value>
+        :TRIGger:HOLDoff?
+
+        **Description**
+
+        Set the trigger holdoff time and the unit is s.
+        Query the current trigger holdoff time.
+
+        **Parameter**
+
+        ======== ===== ============= =======
+        Name     Type  Range         Default
+        ======== ===== ============= =======
+        <value>  Real  100ns to 10s  100ns
+        ======== ===== ============= =======
+
+        **Explanation**
+
+        This setting is not available for the Nth edge trigger, video trigger,
+        RS232 trigger, IIC trigger, SPI trigger and USB trigger.
+
+        **Return Format**
+
+        The query returns the trigger holdoff time in scientific notation.
+
+        **Example**
+
+        :TRIGger:HOLDoff 0.0000002
+        The query returns 2.000000e-07.
+        """
+        check_input(time, "time", float, 100.0e-9, 10, "s")
+        self.instrument.ask(f":TRIGger:HOLDoff {time}")
+
+    def get_holdoff_time(self) -> float:
         """Set the trigger holdoff time and the unit is s.
 
         **Rigol Programming Guide**
@@ -123,120 +316,3 @@ class Trigger(Func):
         The query returns 2.000000e-07.
         """
         return float(self.instrument.ask(":TRIGger:HOLDoff?"))
-
-    def set_holdoff(self, time: float = 100.0e-9) -> None:
-        """Set the trigger holdoff time and the unit is s.
-
-        **Rigol Programming Guide**
-
-        **Syntax**
-
-        :TRIGger:HOLDoff <value>
-        :TRIGger:HOLDoff?
-
-        **Description**
-
-        Set the trigger holdoff time and the unit is s.
-        Query the current trigger holdoff time.
-
-        **Parameter**
-
-        ======== ===== ============= =======
-        Name     Type  Range         Default
-        ======== ===== ============= =======
-        <value>  Real  100ns to 10s  100ns
-        ======== ===== ============= =======
-
-        **Explanation**
-
-        This setting is not available for the Nth edge trigger, video trigger,
-        RS232 trigger, IIC trigger, SPI trigger and USB trigger.
-
-        **Return Format**
-
-        The query returns the trigger holdoff time in scientific notation.
-
-        **Example**
-
-        :TRIGger:HOLDoff 0.0000002
-        The query returns 2.000000e-07.
-        """
-        if not isinstance(time, float) or not 100.0e-9 <= time <= 10:
-            ValueError(
-                f'"time" must be of type float and between '
-                f"100ns..10s. You entered {type(time)}."
-            )
-        self.instrument.ask(f":TRIGger:HOLDoff {time}")
-
-    def get_noise_reject(self) -> bool:
-        """Query the current status of noise reject.
-
-        **Rigol Programming Guide**
-
-        **Syntax**
-
-        :TRIGger:NREJect <bool>
-        :TRIGger:NREJect?
-
-        **Description**
-
-        Enable or disable noise reject.
-        Query the current status of noise reject.
-
-        **Parameter**
-
-        ======= ===== ================= =======
-        Name    Type  Range             Default
-        ======= ===== ================= =======
-        <bool>  Bool  {{0|OFF}|{1|ON}}  0|OFF
-        ======= ===== ================= =======
-
-        **Return Format**
-
-        The query returns 0 or 1.
-
-        ++Example**
-
-        :TRIGger:NREJect ON
-        The query returns 1.
-        """
-        return bool(int(self.instrument.ask(":TRIGger:NREJect?")))
-
-    def set_noise_reject(self, enable: bool = False) -> None:
-        """Enable or disable noise reject.
-
-        **Rigol Programming Guide**
-
-        **Syntax**
-
-        :TRIGger:NREJect <bool>
-        :TRIGger:NREJect?
-
-        **Description**
-
-        Enable or disable noise reject.
-        Query the current status of noise reject.
-
-        **Parameter**
-
-        ======= ===== ================= =======
-        Name    Type  Range             Default
-        ======= ===== ================= =======
-        <bool>  Bool  {{0|OFF}|{1|ON}}  0|OFF
-        ======= ===== ================= =======
-
-        **Return Format**
-
-        The query returns 0 or 1.
-
-        ++Example**
-
-        :TRIGger:NREJect ON
-        The query returns 1.
-        """
-        if not isinstance(enable, bool):
-            ValueError(
-                f'"enable" must be of type bool, you entered '
-                f"{type(enable)}."
-            )
-        self.instrument.ask(f":TRIGger:NREJect {enable}")

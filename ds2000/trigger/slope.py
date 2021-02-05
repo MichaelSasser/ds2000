@@ -24,8 +24,8 @@ from ds2000.common import check_level
 
 # ToDo: shorter method names.
 from ds2000.enums import ChannelEnum
-from ds2000.enums import TriggerSlopeWhenEnum
 from ds2000.enums import SlopeEnum
+from ds2000.enums import TriggerSlopeWhenEnum
 from ds2000.errors import DS2000StateError
 
 

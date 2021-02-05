@@ -41,6 +41,18 @@ class SlopeEnum(Enum):
     NEGATIVE = "negative"
     BOTH = "both"
 
+
+# Trigger
+
+
+class TriggerStatus(Enum):
+    TD = ""
+    WAIT = "wait"
+    RUN = "run"
+    AUTO = "auto"
+    STOP = "stop"
+
+
 # Trigger -> Coupling
 
 
@@ -253,6 +265,7 @@ class TriggerVideoStandardEnum(Enum):
 
 
 # Trigger -> Windows
+
 
 class TriggerWindowsPositionEnum(Enum):
     EXIT = "exit"
