@@ -202,4 +202,14 @@ class TriggerSPISlopeEnum(Enum):
     POSITIVE = "positive"
     NEGATIVE = "negative"
 
+
+# Trigger -> Sweep
+
+class TriggerSweepEnum(Enum):
+    AUTO = "auto"
+    NORMAL = "normal"
+    SINGLE = "single"
+
+
+
 # vim: set ft=python :

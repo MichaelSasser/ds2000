@@ -16,8 +16,8 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from ds2000.common import SFunc
-from ds2000.errors import DS2000Error
-
+from ds2000.enums import TriggerSweepEnum
+from ds2000.errors import DS2000StateError
 
 __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
@@ -126,7 +126,7 @@ class Sweep(SFunc):
         """
         self.instrument.ask(":TRIGger:SWEep SINGle")
 
-    def set_status(self) -> str:
+    def status(self) -> TriggerSweepEnum:
         """Query the current trigger mode.
 
         **Rigol Programming Guide**
@@ -158,13 +158,11 @@ class Sweep(SFunc):
         :TRIGger:SWEep SINGle
         The query returns SING.
         """
-        status = self.instrument.ask(":TRIGger:SWEep?").lower()
-        if status == "auto":
-            return "auto"
-        if status == "norm":
-            return "normal"
-        if status == "sing":
-            return "simgle"
-        raise DS2000Error(
-            "The sweep status could not be interpereted. I got: " f"{status}"
-        )
+        answer: str = self.instrument.ask(":TRIGger:SWEep?")
+        if answer == "AUTO":
+            return TriggerSweepEnum.AUTO
+        if answer == "NORM":
+            return TriggerSweepEnum.NORM
+        if answer == "SING":
+            return TriggerSweepEnum.SINGLE
+        raise DS2000StateError()
