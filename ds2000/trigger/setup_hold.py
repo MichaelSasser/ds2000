@@ -15,11 +15,12 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from ds2000.common import SFunc
+from ds2000.common import SFunc, channel_as_enum
 from ds2000.common import SSFunc
 from ds2000.common import check_input
+from ds2000.enums import TriggerSetupHoldTypeEnum, ChannelEnum, \
+    SetupHoldSlopeEnum, SetupHoldPatternEnum
 from ds2000.errors import DS2000StateError
-
 
 __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
@@ -164,7 +165,7 @@ class SetupHoldType(SSFunc):
         """
         self.instrument.ask(":TRIGger:SHOLd:TYPe SETHOLd")
 
-    def status(self) -> str:
+    def status(self) -> TriggerSetupHoldTypeEnum:
         """Query the current hold type of setup/hold trigger.
 
         **Rigol Programming Guide**
@@ -208,20 +209,24 @@ class SetupHoldType(SSFunc):
         :TRIGger:SHOLd:TYPe SETHOLd
         The query returns SETHOL.
         """
-        status = self.instrument.ask(":TRIGger:SHOLd:TYPe?").lower()
+        answer: str = self.instrument.ask(":TRIGger:SHOLd:TYPe?").lower()
 
-        if status == "setup":
-            return "setup"
-        if status == "hold":
-            return "hold"
-        if status == "sethold":
-            return "setup hold"
+        if answer == "setup":
+            return TriggerSetupHoldTypeEnum.SETUP
+        if answer == "hold":
+            return TriggerSetupHoldTypeEnum.HOLD
+        if answer == "sethold":
+            return TriggerSetupHoldTypeEnum.SETUP_HOLD
         raise DS2000StateError()
 
 
-class SetupHoldDataSource(SSFunc):
-    def set_channel1(self) -> None:
-        """Set the data source of setup/hold trigger.
+class SetupHoldSource(SSFunc):
+    def __init__(self, device, source: str):
+        super(SetupHoldSource, self).__init__(device)
+        self.src: str = source
+
+    def set_channel_1(self) -> None:
+        """Query the current source of setup/hold trigger.
 
         **Rigol Programming Guide**
 
@@ -230,10 +235,16 @@ class SetupHoldDataSource(SSFunc):
         :TRIGger:SHOLd:DSrc <source>
         :TRIGger:SHOLd:DSrc?
 
+        :TRIGger:SHOLd:CSrc <source>
+        :TRIGger:SHOLd:CSrc?
+
         **Description**
 
         Set the data source of setup/hold trigger.
         Query the current data source of setup/hold trigger.
+
+        Set the clock source of setup/hold trigger.
+        Query the current clock source of setup/hold trigger.
 
         **Parameter**
 
@@ -251,11 +262,14 @@ class SetupHoldDataSource(SSFunc):
 
         :TRIGger:SHOLd:DSrc CHANnel1
         The query returns CHAN2.
-        """
-        self.instrument.ask(":TRIGger:SHOLd:DSrc CHANel1")
 
-    def set_channel2(self) -> None:
-        """Set the data source of setup/hold trigger.
+        :TRIGger:SHOLd:CSrc CHANnel2
+        The query returns CHAN2.
+        """
+        self.instrument.ask(f":TRIGger:SHOLd:{self.src} CHANel1")
+
+    def set_channel_2(self) -> None:
+        """Query the current source of setup/hold trigger.
 
         **Rigol Programming Guide**
 
@@ -264,10 +278,16 @@ class SetupHoldDataSource(SSFunc):
         :TRIGger:SHOLd:DSrc <source>
         :TRIGger:SHOLd:DSrc?
 
+        :TRIGger:SHOLd:CSrc <source>
+        :TRIGger:SHOLd:CSrc?
+
         **Description**
 
         Set the data source of setup/hold trigger.
         Query the current data source of setup/hold trigger.
+
+        Set the clock source of setup/hold trigger.
+        Query the current clock source of setup/hold trigger.
 
         **Parameter**
 
@@ -285,11 +305,14 @@ class SetupHoldDataSource(SSFunc):
 
         :TRIGger:SHOLd:DSrc CHANnel1
         The query returns CHAN2.
-        """
-        self.instrument.ask(":TRIGger:SHOLd:DSrc CHANel2")
 
-    def status(self) -> str:
-        """Query the current data source of setup/hold trigger.
+        :TRIGger:SHOLd:CSrc CHANnel2
+        The query returns CHAN2.
+        """
+        self.instrument.ask(f":TRIGger:SHOLd:{self.src} CHANel2")
+
+    def status(self) -> ChannelEnum:
+        """Query the current source of setup/hold trigger.
 
         **Rigol Programming Guide**
 
@@ -298,10 +321,16 @@ class SetupHoldDataSource(SSFunc):
         :TRIGger:SHOLd:DSrc <source>
         :TRIGger:SHOLd:DSrc?
 
+        :TRIGger:SHOLd:CSrc <source>
+        :TRIGger:SHOLd:CSrc?
+
         **Description**
 
         Set the data source of setup/hold trigger.
         Query the current data source of setup/hold trigger.
+
+        Set the clock source of setup/hold trigger.
+        Query the current clock source of setup/hold trigger.
 
         **Parameter**
 
@@ -319,124 +348,13 @@ class SetupHoldDataSource(SSFunc):
 
         :TRIGger:SHOLd:DSrc CHANnel1
         The query returns CHAN2.
-        """
-        status = self.instrument.ask(":TRIGger:SHOLd:DSrc?").lower()
-
-        if status == "chan1":
-            return "channel 1"
-        if status == "chan2":
-            return "channel 2"
-        raise DS2000StateError()
-
-
-class SetupHoldClockSource(SSFunc):
-    def set_channel1(self) -> None:
-        """Set the clock source of setup/hold trigger.
-
-        **Rigol Programming Guide**
-
-        **Syntax**
-
-        :TRIGger:SHOLd:CSrc <source>
-        :TRIGger:SHOLd:CSrc?
-
-        **Description**
-
-        Set the clock source of setup/hold trigger.
-        Query the current clock source of setup/hold trigger.
-
-        **Parameter**
-
-        ========= ========= ==================== ========
-        Name      Type      Range                Default
-        ========= ========= ==================== ========
-        <source>  Discrete  {CHANnel1|CHANnel2}  CHANnel1
-        ========= ========= ==================== ========
-
-        **Return Format**
-
-        The query returns CHAN1 or CHAN2.
-
-        **Example**
 
         :TRIGger:SHOLd:CSrc CHANnel2
         The query returns CHAN2.
         """
-        self.instrument.ask(":TRIGger:SHOLd:CSrc CHANel1")
-
-    def set_channel2(self) -> None:
-        """Set the clock source of setup/hold trigger.
-
-        **Rigol Programming Guide**
-
-        **Syntax**
-
-        :TRIGger:SHOLd:CSrc <source>
-        :TRIGger:SHOLd:CSrc?
-
-        **Description**
-
-        Set the clock source of setup/hold trigger.
-        Query the current clock source of setup/hold trigger.
-
-        **Parameter**
-
-        ========= ========= ==================== ========
-        Name      Type      Range                Default
-        ========= ========= ==================== ========
-        <source>  Discrete  {CHANnel1|CHANnel2}  CHANnel1
-        ========= ========= ==================== ========
-
-        **Return Format**
-
-        The query returns CHAN1 or CHAN2.
-
-        **Example**
-
-        :TRIGger:SHOLd:CSrc CHANnel2
-        The query returns CHAN2.
-        """
-        self.instrument.ask(":TRIGger:SHOLd:CSrc CHANel2")
-
-    def set_status(self) -> str:
-        """Query the current clock source of setup/hold trigger.
-
-        **Rigol Programming Guide**
-
-        **Syntax**
-
-        :TRIGger:SHOLd:CSrc <source>
-        :TRIGger:SHOLd:CSrc?
-
-        **Description**
-
-        Set the clock source of setup/hold trigger.
-        Query the current clock source of setup/hold trigger.
-
-        **Parameter**
-
-        ========= ========= ==================== ========
-        Name      Type      Range                Default
-        ========= ========= ==================== ========
-        <source>  Discrete  {CHANnel1|CHANnel2}  CHANnel1
-        ========= ========= ==================== ========
-
-        **Return Format**
-
-        The query returns CHAN1 or CHAN2.
-
-        **Example**
-
-        :TRIGger:SHOLd:CSrc CHANnel2
-        The query returns CHAN2.
-        """
-        status = self.instrument.ask(":TRIGger:SHOLd:CSrc?").lower()
-
-        if status == "chan1":
-            return "channel 1"
-        if status == "chan2":
-            return "channel 2"
-        raise DS2000StateError()
+        return channel_as_enum(
+            self.instrument.ask(f":TRIGger:SHOLd:{self.src}?")
+        )
 
 
 class SetupHoldSlope(SSFunc):
@@ -510,7 +428,7 @@ class SetupHoldSlope(SSFunc):
         """
         self.instrument.ask(":TRIGger:SHOLd:SLOPe NEGative")
 
-    def status(self) -> str:
+    def status(self) -> SetupHoldSlopeEnum:
         """Query the current edge type of setup/hold trigger.
 
         **Rigol Programming Guide**
@@ -543,15 +461,17 @@ class SetupHoldSlope(SSFunc):
         :TRIGger:SHOLd:SLOPe NEGative
         The query returns NEG.
         """
-        status: str = self.instrument.ask(":TRIGger:SHOLd:SLOPe?").lower()
-        if status == "POSitive":
-            return "rising edge"
-        if status == "NEGative":
-            return "falling edge"
+        answer: str = self.instrument.ask(":TRIGger:SHOLd:SLOPe?").lower()
+        if answer == "POS":
+            return SetupHoldSlopeEnum.RISING
+        if answer == "NEG":
+            return SetupHoldSlopeEnum.FALLING
         raise DS2000StateError()
 
 
 class SetupHoldPattern(SSFunc):
+    # S/H Pattern Should be only a single H or L (?)
+    # Checked. S/H pattern can only be a single H or L.
     def set_high(self) -> None:
         """Set the data type of setup/hold trigger.
 
@@ -620,7 +540,7 @@ class SetupHoldPattern(SSFunc):
         """
         self.instrument.ask(":TRIGger:SHOLd:PATTern L")
 
-    def status(self) -> str:
+    def status(self) -> SetupHoldPatternEnum:
         """Query the current data type of setup/hold trigger.
 
         **Rigol Programming Guide**
@@ -652,15 +572,20 @@ class SetupHoldPattern(SSFunc):
         :TRIGger:SHOLd:PATTern L
         The query returns L.
         """
-        return self.instrument.ask(":TRIGger:SHOLd:PATTern?").lower()
+        answer: str = self.instrument.ask(":TRIGger:SHOLd:PATTern?")
+        if answer == "H":
+            return SetupHoldPatternEnum.HIGH
+        if answer == "L":
+            return SetupHoldPatternEnum.LOW
+        raise DS2000StateError()
 
 
 class SetupHold(SFunc):
     def __init__(self, device):
         super(SetupHold, self).__init__(device)
         self.type: SetupHoldType = SetupHoldType(self)
-        self.data_source: SetupHoldDataSource = SetupHoldDataSource(self)
-        self.clock_source: SetupHoldClockSource = SetupHoldClockSource(self)
+        self.source_data: SetupHoldSource = SetupHoldSource(self, "DSrc")
+        self.source_clock: SetupHoldSource = SetupHoldSource(self, "CSrc")
         self.slope: SetupHoldSlope = SetupHoldSlope(self)
         self.pattern: SetupHoldPattern = SetupHoldPattern(self)
 

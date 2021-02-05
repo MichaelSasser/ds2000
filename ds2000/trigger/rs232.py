@@ -370,8 +370,7 @@ class RS232When(SSFunc):
             return TriggerRS232WhenEnum.PARITY_ERROR
         if answer == "DATA":
             return TriggerRS232WhenEnum.DATA
-        else:
-            DS2000StateError()
+        raise DS2000StateError()
 
 
 class RS232Parity(SSFunc):
@@ -552,8 +551,7 @@ class RS232Parity(SSFunc):
             return TriggerRS232Parity.ODD
         if answer == "NONE":
             return TriggerRS232Parity.NONE
-        else:
-            DS2000StateError()
+        raise DS2000StateError()
 
 
 # TODO: Check selected trigger before settitng values

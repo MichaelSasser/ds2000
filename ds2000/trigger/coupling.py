@@ -217,10 +217,10 @@ class Coupling(SFunc):
         answer: str = self.instrument.ask(":TRIGger:COUPling?")
         if answer == "AC":
             return TriggerCouplingEnum.AC
-        elif answer == "DC":
+        if answer == "DC":
             return TriggerCouplingEnum.DC
-        elif answer == "LFR":
+        if answer == "LFR":
             return TriggerCouplingEnum.LF_REJECT
-        elif answer == "HFR":
+        if answer == "HFR":
             return TriggerCouplingEnum.HF_REJECT
         raise DS2000StateError()

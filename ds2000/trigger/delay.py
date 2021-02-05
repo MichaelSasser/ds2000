@@ -30,7 +30,7 @@ __email__ = "Michael@MichaelSasser.org"
 
 
 class DelayType(SSFunc):
-    def greater(self) -> None:
+    def set_greater(self) -> None:
         """Set the delay type of delay trigger.
 
         **Rigol Programming Guide**
@@ -88,7 +88,7 @@ class DelayType(SSFunc):
         """
         self.instrument.ask(":TRIGger:DELay:TYPe GREater")
 
-    def less(self) -> None:
+    def set_less(self) -> None:
         """Set the delay type of delay trigger.
 
         **Rigol Programming Guide**
@@ -146,7 +146,7 @@ class DelayType(SSFunc):
         """
         self.instrument.ask(":TRIGger:DELay:TYPe LESS")
 
-    def inside(self) -> None:
+    def set_inside(self) -> None:
         """Set the delay type of delay trigger.
 
         **Rigol Programming Guide**
@@ -204,7 +204,7 @@ class DelayType(SSFunc):
         """
         self.instrument.ask(":TRIGger:DELay:TYPe GLESs")
 
-    def outside(self) -> None:
+    def set_outside(self) -> None:
         """Set the delay type of delay trigger.
 
         **Rigol Programming Guide**
@@ -322,11 +322,11 @@ class DelayType(SSFunc):
 
         if ret == "GRE":
             return TriggerDelayTypeEnum.GREATER
-        elif ret == "LESS":
+        if ret == "LESS":
             return TriggerDelayTypeEnum.LESS
-        elif ret == "GLES":
+        if ret == "GLES":
             return TriggerDelayTypeEnum.INSIDE
-        elif ret == "GOUT":
+        if ret == "GOUT":
             return TriggerDelayTypeEnum.OUTSIDE
         raise DS2000StateError(f"got {ret}")
 
@@ -593,7 +593,7 @@ class DelaySlope(SSFunc):
         answer: str = self.instrument.ask(f":TRIGger:DELay:SLOP{self.source}?")
         if answer == "POS":
             return TriggerDelaySlopeEnum.POSITIVE
-        elif answer == "NEG":
+        if answer == "NEG":
             return TriggerDelaySlopeEnum.NEGATIVE
         raise DS2000StateError()
 

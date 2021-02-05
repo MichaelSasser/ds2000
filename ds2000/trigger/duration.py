@@ -239,9 +239,9 @@ class DurationWhen(SSFunc):
         answer: str = self.instrument.ask(":TRIGger:DURATion:WHEN?")
         if answer == "GRE":
             return TriggerDurationWhenEnum.GREATER
-        elif answer == "LESS":
+        if answer == "LESS":
             return TriggerDurationWhenEnum.LESS
-        elif answer == "GLES":
+        if answer == "GLES":
             return TriggerDurationWhenEnum.BETWEEN
         raise DS2000StateError()
 

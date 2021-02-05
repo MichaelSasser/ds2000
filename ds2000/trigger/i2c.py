@@ -502,20 +502,19 @@ class I2CWhen(SSFunc):
         answer: str = self.instrument.ask(":TRIGger:IIC:WHEN?")
         if answer == "STAR":
             return TriggerI2CWhenEnum.START
-        elif answer == "REST":
+        if answer == "REST":
             return TriggerI2CWhenEnum.RESTART
-        elif answer == "STOP":
+        if answer == "STOP":
             return TriggerI2CWhenEnum.STOP
-        elif answer == "NACK":
+        if answer == "NACK":
             return TriggerI2CWhenEnum.NACK
-        elif answer == "ADDR":
+        if answer == "ADDR":
             return TriggerI2CWhenEnum.ADDRESS
-        elif answer == "DATA":
+        if answer == "DATA":
             return TriggerI2CWhenEnum.DATA
-        elif answer == "ADATA":
+        if answer == "ADATA":
             return TriggerI2CWhenEnum.ADDRESS_AND_DATA
-        else:
-            DS2000StateError()
+        raise DS2000StateError()
 
 
 class I2CDirection(SSFunc):
@@ -684,12 +683,11 @@ class I2CDirection(SSFunc):
         answer: str = self.instrument.ask(":TRIGger:IIC:DIRection?")
         if answer == "READ":
             return TriggerI2CDirectionEnum.READ
-        elif answer == "WRIT":
+        if answer == "WRIT":
             return TriggerI2CDirectionEnum.WRITE
-        elif answer == "RWR":
+        if answer == "RWR":
             return TriggerI2CDirectionEnum.READ_AND_WRITE
-        else:
-            DS2000StateError()
+        raise DS2000StateError()
 
 
 class I2CSource(SSFunc):

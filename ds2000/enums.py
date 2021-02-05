@@ -112,6 +112,13 @@ class TriggerModeEnum(Enum):
     USB = "usb"
 
 
+# Trigger -> Nth Edge
+
+class TriggerNthEdgeSlopeEnum(Enum):
+    POSITIVE = "positive"
+    NEGATIVE = "negative"
+
+
 # Trigger -> Pulse
 
 class TriggerPulseWhenEnum(Enum):
@@ -150,6 +157,24 @@ class TriggerRuntWhenEnum(Enum):
 class TriggerRuntPolarityEnum(Enum):
     POSITIVE = "positive"
     NEGATIVE = "negative"
+
+
+# Trigger -> Setup/Hold
+
+class TriggerSetupHoldTypeEnum(Enum):
+    SETUP = "setup"
+    HOLD = "hold"
+    SETUP_HOLD = "setup_hold"
+
+
+class SetupHoldSlopeEnum(Enum):
+    RISING = "rising"
+    FALLING = "falling"
+
+
+class SetupHoldPatternEnum(Enum):
+    HIGH = "high"
+    LOW = "low"
 
 
 # vim: set ft=python :

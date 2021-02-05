@@ -24,7 +24,6 @@ from ds2000.enums import TriggerPulseWhenEnum, ChannelEnum
 __author__ = "Michael Sasser"
 __email__ = "Michael@MichaelSasser.org"
 
-
 # ToDo: Shorter function names!!!
 from ds2000.errors import DS2000StateError
 
@@ -131,9 +130,7 @@ class PulseSource(SSFunc):
 
 
 class PulseWhen(SSFunc):
-    def set_positive_greater(
-        self,
-    ) -> None:
+    def set_positive_greater(self) -> None:
         """Select the trigger condition of pulse trigger.
 
         **Rigol Programming Guide**
@@ -202,9 +199,7 @@ class PulseWhen(SSFunc):
         """
         self.instrument.ask(":TRIGger:PULSe:WHEN GReater")
 
-    def set_positive_less(
-        self,
-    ) -> None:
+    def set_positive_less(self) -> None:
         """Select the trigger condition of pulse trigger.
 
         **Rigol Programming Guide**
@@ -274,9 +269,7 @@ class PulseWhen(SSFunc):
 
         self.instrument.ask(":TRIGger:PULSe:WHEN PLESs")
 
-    def set_negative_greater(
-        self,
-    ) -> None:
+    def set_negative_greater(self) -> None:
         """Select the trigger condition of pulse trigger.
 
         **Rigol Programming Guide**
@@ -345,9 +338,7 @@ class PulseWhen(SSFunc):
         """
         self.instrument.ask(":TRIGger:PULSe:WHEN NGReater")
 
-    def set_negative_less(
-        self,
-    ) -> None:
+    def set_negative_less(self) -> None:
         """Select the trigger condition of pulse trigger.
 
         **Rigol Programming Guide**
@@ -416,9 +407,7 @@ class PulseWhen(SSFunc):
         """
         self.instrument.ask(":TRIGger:PULSe:WHEN NLESs")
 
-    def set_positive_between(
-        self,
-    ) -> None:
+    def set_positive_between(self) -> None:
         """Select the trigger condition of pulse trigger.
 
         **Rigol Programming Guide**
@@ -487,9 +476,7 @@ class PulseWhen(SSFunc):
         """
         self.instrument.ask(":TRIGger:PULSe:WHEN PGLess")
 
-    def set_negative_between(
-        self,
-    ) -> None:
+    def set_negative_between(self) -> None:
         """Select the trigger condition of pulse trigger.
 
         **Rigol Programming Guide**
@@ -628,18 +615,17 @@ class PulseWhen(SSFunc):
         answer: str = self.instrument.ask(":TRIGger:PULSe:WHEN?")
         if answer == "PGR":
             return TriggerPulseWhenEnum.POSIVE_GREATER
-        elif answer == "PLES":
+        if answer == "PLES":
             return TriggerPulseWhenEnum.POSITIVE_LESS
-        elif answer == "NGR":
+        if answer == "NGR":
             return TriggerPulseWhenEnum.NEGATIVE_GREATER
-        elif answer == "NLES":
+        if answer == "NLES":
             return TriggerPulseWhenEnum.NEGATIVE_LESS
-        elif answer == "PGL":
+        if answer == "PGL":
             return TriggerPulseWhenEnum.POSITIVE_BETWEEN
-        elif answer == "NGL":
+        if answer == "NGL":
             return TriggerPulseWhenEnum.NEGATIVE_BETWEEN
-        else:
-            DS2000StateError()
+        raise DS2000StateError()
 
 
 class Pulse(SFunc):

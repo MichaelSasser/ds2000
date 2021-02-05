@@ -390,8 +390,7 @@ class RuntWhen(SSFunc):
             return TriggerRuntWhenEnum.LESS
         if answer == "GLES":
             return TriggerRuntWhenEnum.BETWEEN
-        else:
-            DS2000StateError()
+        raise DS2000StateError()
 
 
 class RuntPolarity(SSFunc):
@@ -500,8 +499,7 @@ class RuntPolarity(SSFunc):
             return TriggerRuntPolarityEnum.POSITIVE
         if answer == "NEG":
             return TriggerRuntPolarityEnum.NEGATIVE
-        else:
-            DS2000StateError()
+        raise DS2000StateError()
 
 
 class Runt(SFunc):

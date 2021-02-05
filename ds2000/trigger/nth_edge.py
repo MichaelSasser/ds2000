@@ -19,7 +19,7 @@ from ds2000.common import SFunc, channel_as_enum
 from ds2000.common import SSFunc
 from ds2000.common import check_input
 from ds2000.common import check_level
-from ds2000.enums import ChannelEnum
+from ds2000.enums import ChannelEnum, TriggerNthEdgeSlopeEnum
 from ds2000.errors import DS2000StateError
 
 
@@ -133,12 +133,9 @@ class NthEdgeSource(SSFunc):
         )
 
 
-class NthEdge(SFunc):
-    def __init__(self, device):
-        super(NthEdge, self).__init__(device)
-        self.source: NthEdgeSource = NthEdgeSource(self)
+class NthEdgeSlope(SSFunc):
 
-    def set_slope(self, positive: bool = True) -> None:
+    def set_positive(self) -> None:
         """Select the edge type of Nth edge trigger.
 
         **Rigol Programming Guide**
@@ -171,10 +168,46 @@ class NthEdge(SFunc):
         The query returns NEG.
         """
         self.instrument.ask(
-            f":TRIGger:NEDGe:SLOPe {'POSitive' if positive else 'NEGative'}"
+            ":TRIGger:NEDGe:SLOPe POSitive"
         )
 
-    def slope_is_positive(self) -> bool:
+    def set_negative(self) -> None:
+        """Select the edge type of Nth edge trigger.
+
+        **Rigol Programming Guide**
+
+        **Syntax**
+
+        :TRIGger:NEDGe:SLOPe <slope>
+        :TRIGger:NEDGe:SLOPe?
+
+        **Description**
+
+        Select the edge type of Nth edge trigger.
+        Query the current edge type of Nth edge trigger.
+
+        **Parameter**
+
+        ======== ========= ==================== ========
+        Name     Type      Range                Default
+        ======== ========= ==================== ========
+        <slope>  Discrete  {POSitive|NEGative}  POSitive
+        ======== ========= ==================== ========
+
+        **Return Format**
+
+        The query returns POSitive or NEGative.
+
+        **Example**
+
+        :TRIGger:NEDGe:SLOPe NEGative
+        The query returns NEG.
+        """
+        self.instrument.ask(
+            f":TRIGger:NEDGe:SLOPe NEGative"
+        )
+
+    def status(self) -> TriggerNthEdgeSlopeEnum:
         """Query the current edge type of Nth edge trigger.
 
         **Rigol Programming Guide**
@@ -206,45 +239,18 @@ class NthEdge(SFunc):
         :TRIGger:NEDGe:SLOPe NEGative
         The query returns NEG.
         """
-        return (
-            True
-            if self.instrument.ask(":TRIGger:NEDGe:SLOPe?") == "POS"
-            else False
-        )
+        answer: str = self.instrument.ask(":TRIGger:NEDGe:SLOPe?")
+        if answer == "POS":
+            return TriggerNthEdgeSlopeEnum.POSITIVE
+        if answer == "NEG":
+            return TriggerNthEdgeSlopeEnum.NEGATIVE
 
-    def slope_is_negative(self) -> bool:
-        """Query the current edge type of Nth edge trigger.
 
-        **Rigol Programming Guide**
-
-        **Syntax**
-
-        :TRIGger:NEDGe:SLOPe <slope>
-        :TRIGger:NEDGe:SLOPe?
-
-        **Description**
-
-        Select the edge type of Nth edge trigger.
-        Query the current edge type of Nth edge trigger.
-
-        **Parameter**
-
-        ======== ========= ==================== ========
-        Name     Type      Range                Default
-        ======== ========= ==================== ========
-        <slope>  Discrete  {POSitive|NEGative}  POSitive
-        ======== ========= ==================== ========
-
-        **Return Format**
-
-        The query returns POSitive or NEGative.
-
-        **Example**
-
-        :TRIGger:NEDGe:SLOPe NEGative
-        The query returns NEG.
-        """
-        return not self.slope_is_positive()
+class NthEdge(SFunc):
+    def __init__(self, device):
+        super(NthEdge, self).__init__(device)
+        self.source: NthEdgeSource = NthEdgeSource(self)
+        self.slope: NthEdgeSlope = NthEdgeSlope(self)
 
     def set_idle(self, time: float = 1.0e-9) -> None:
         """Set the idle time of Nth edge trigger.

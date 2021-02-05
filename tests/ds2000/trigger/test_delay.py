@@ -85,7 +85,7 @@ def test_delay_type_greater(dev) -> None:
     """
     # Setup
     desired: TriggerDelayTypeEnum = TriggerDelayTypeEnum.GREATER
-    dev.trigger.delay.type.greater()
+    dev.trigger.delay.type.set_greater()
 
     # Exercise
     actual: TriggerDelayTypeEnum = dev.trigger.delay.type.status()
@@ -154,7 +154,7 @@ def test_delay_type_less(dev) -> None:
     """
     # Setup
     desired: TriggerDelayTypeEnum = TriggerDelayTypeEnum.LESS
-    dev.trigger.delay.type.less()
+    dev.trigger.delay.type.set_less()
 
     # Exercise
     actual: TriggerDelayTypeEnum = dev.trigger.delay.type.status()
@@ -223,7 +223,7 @@ def test_delay_type_inside(dev) -> None:
     """
     # Setup
     desired: TriggerDelayTypeEnum = TriggerDelayTypeEnum.INSIDE
-    dev.trigger.delay.type.inside()
+    dev.trigger.delay.type.set_inside()
 
     # Exercise
     actual: TriggerDelayTypeEnum = dev.trigger.delay.type.status()
@@ -292,7 +292,7 @@ def test_delay_type_outside(dev) -> None:
     """
     # Setup
     desired: TriggerDelayTypeEnum = TriggerDelayTypeEnum.OUTSIDE
-    dev.trigger.delay.type.outside()
+    dev.trigger.delay.type.set_outside()
 
     # Exercise
     actual: TriggerDelayTypeEnum = dev.trigger.delay.type.status()
@@ -728,7 +728,7 @@ def test_delay_set_upper_limit_when_less1(dev) -> None:
     """
     # Setup
     desired: float = 2.0e-9
-    dev.trigger.delay.type.less()
+    dev.trigger.delay.type.set_less()
     dev.trigger.delay.set_upper_limit(desired)
 
     # Exercise
@@ -783,7 +783,7 @@ def test_delay_set_upper_limit_when_less2(dev) -> None:
     """
     # Setup
     desired: float = 4.0
-    dev.trigger.delay.type.less()
+    dev.trigger.delay.type.set_less()
     dev.trigger.delay.set_upper_limit(desired)
 
     # Exercise
@@ -840,7 +840,7 @@ def test_delay_set_upper_limit_when_less_fail1(dev) -> None:
     # Exercise - None
     # Verify
     with pytest.raises(ValueError):
-        dev.trigger.delay.type.inside()
+        dev.trigger.delay.type.set_inside()
         dev.trigger.delay.set_upper_limit(1.0e-9)
 
     # Cleanup - None
@@ -891,7 +891,7 @@ def test_delay_set_upper_limit_when_less_fail2(dev) -> None:
     # Exercise - None
     # Verify
     with pytest.raises(ValueError):
-        dev.trigger.delay.type.inside()
+        dev.trigger.delay.type.set_inside()
         dev.trigger.delay.set_upper_limit(4.1)
 
     # Cleanup - None
@@ -940,7 +940,7 @@ def test_delay_set_upper_limit_when_outside(dev) -> None:
     """
     # Setup
     desired: float = 12.0e-9
-    dev.trigger.delay.type.outside()
+    dev.trigger.delay.type.set_outside()
     dev.trigger.delay.set_upper_limit(desired)
 
     # Exercise
@@ -997,7 +997,7 @@ def test_delay_set_upper_limit_when_outside_fail(dev) -> None:
     # Exercise - None
     # Verify
     with pytest.raises(ValueError):
-        dev.trigger.delay.type.outside()
+        dev.trigger.delay.type.set_outside()
         dev.trigger.delay.set_upper_limit(2.0e-9)
 
     # Cleanup - None
@@ -1046,7 +1046,7 @@ def test_delay_set_upper_limit_when_inside(dev) -> None:
     """
     # Setup
     desired: float = 12.0e-9
-    dev.trigger.delay.type.inside()
+    dev.trigger.delay.type.set_inside()
     dev.trigger.delay.set_upper_limit(desired)
 
     # Exercise
@@ -1103,7 +1103,7 @@ def test_delay_set_upper_limit_when_inside_fail(dev) -> None:
     # Exercise - None
     # Verify
     with pytest.raises(ValueError):
-        dev.trigger.delay.type.inside()
+        dev.trigger.delay.type.set_inside()
         dev.trigger.delay.set_upper_limit(2.0e-9)
 
     # Cleanup - None
@@ -1154,7 +1154,7 @@ def test_delay_set_upper_limit_when_greater_fail(dev) -> None:
     # Exercise - None
     # Verify - None
     with pytest.raises(TypeError):
-        dev.trigger.delay.type.greater()
+        dev.trigger.delay.type.set_greater()
         dev.trigger.delay.set_upper_limit(12.0e-9)
 
     # Cleanup - None
@@ -1204,7 +1204,7 @@ def test_delay_set_lower_limit_when_less(dev) -> None:
     """
     # Setup
     desired: float = 2.0e-9
-    dev.trigger.delay.type.less()
+    dev.trigger.delay.type.set_less()
     dev.trigger.delay.set_lower_limit(desired)
 
     # Exercise
@@ -1262,7 +1262,7 @@ def test_delay_set_lower_limit_when_less_fail1(dev) -> None:
     # Exercise - None
     # Verify
     with pytest.raises(ValueError):
-        dev.trigger.delay.type.less()
+        dev.trigger.delay.type.set_less()
         dev.trigger.delay.set_lower_limit(1.0e-9)
 
     # Cleanup - None
@@ -1314,7 +1314,7 @@ def test_delay_set_lower_limit_when_less_fail2(dev) -> None:
     # Exercise - None
     # Verify
     with pytest.raises(ValueError):
-        dev.trigger.delay.type.less()
+        dev.trigger.delay.type.set_less()
         dev.trigger.delay.set_lower_limit(4.0)
 
     # Cleanup - None
@@ -1364,7 +1364,7 @@ def test_delay_set_lower_limit_when_outside(dev) -> None:
     """
     # Setup
     desired: float = 2.0e-9
-    dev.trigger.delay.type.outside()
+    dev.trigger.delay.type.set_outside()
     dev.trigger.delay.set_lower_limit(desired)
 
     # Exercise
@@ -1420,7 +1420,7 @@ def test_delay_set_lower_limit_when_inside(dev) -> None:
     """
     # Setup
     desired: float = 2.0e-9
-    dev.trigger.delay.type.inside()
+    dev.trigger.delay.type.set_inside()
     dev.trigger.delay.set_lower_limit(desired)
 
     # Exercise
@@ -1478,7 +1478,7 @@ def test_delay_set_lower_limit_when_greater_fail(dev) -> None:
     # Exercise - None
     # Verify
     with pytest.raises(TypeError):
-        dev.trigger.delay.type.greater()
+        dev.trigger.delay.type.set_greater()
         dev.trigger.delay.set_lower_limit(2.0e-9)
 
     # Cleanup - None
