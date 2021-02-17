@@ -1,7 +1,7 @@
 ---
-minimum_pre_commit_version: 2.6.0
+minimum_pre_commit_version: 2.10.1
 # default_language_version:
-#   python: python3.8
+#   python: python3.9
 repos:
   - repo: meta
     hooks:
@@ -10,7 +10,7 @@ repos:
 
   # pre-commit-hooks
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v3.3.0
+    rev: v3.4.0
     hooks:
       # Prevent giant files from being committed.
       - id: check-added-large-files
@@ -44,6 +44,8 @@ repos:
       - id: check-yaml
       # Check for debugger imports and breakpoint() calls in python source.
       - id: debug-statements
+      # Detects symlinks which are changed to regular files with a content
+      - id: destroyed-symlinks
       # Checks for the existence of AWS secrets, set up with the AWS CLI.
       # - id: detect-aws-credentials
       # Checks for the existence of private keys.
@@ -67,7 +69,7 @@ repos:
       - id: no-commit-to-branch
         args:
           - "-b master"
-          - "-p release/v.*"
+          - "-p release/.*"
       # Checks that all your JSON files are pretty.
       # - id: pretty-format-json
       #   args: ["--autofix"]
@@ -80,17 +82,35 @@ repos:
       - id: trailing-whitespace
       # - id: flake8
       #   additional_dependencies: ["flake8-bugbear"]
-      # reorder imports
-      # - repo: https://github.com/asottile/reorder_python_imports
-      #   rev: v2.2.0
-      #   hooks:
-      #     - id: reorder-python-imports
-      #       additional_dependencies: [toml]
-      #       exclude: ^.*/?setup\.py$
+
+  - repo: https://github.com/pre-commit/pygrep-hooks
+    rev: v1.7.1
+    hooks:
+      # Enforce that noqa annotations always occur with specific codes.
+      # Sample annotations: # noqa: F401, # noqa: F401,W203
+      - id: python-check-blanket-noqa
+      # Prevent common mistakes of assert mck.not_called(),
+      # assert mck.called_once_with(...) and mck.assert_called.
+      - id: python-check-mock-methods
+      # A quick check for the eval() built-in function
+      - id: python-no-eval
+      # A quick check for the deprecated .warn() method of python loggers
+      - id: python-no-log-warn
+      # Enforce that python3.6+ type annotations are used instead of
+      # type comments
+      - id: python-use-type-annotations
+      # Detect common mistake of using single backticks when writing rst
+      - id: rst-backticks
+      # Detect mistake of rst directive not ending with double colon
+      - id: rst-directive-colons
+      #Detect mistake of inline code touching normal text in rst
+      - id: rst-inline-touching-normal
+      # Forbid files which have a UTF-8 Unicode replacement character
+      - id: text-unicode-replacement-char
 
   # isort
   - repo: https://github.com/timothycrosley/isort
-    rev: 5.6.4
+    rev: 5.7.0
     hooks:
       - id: isort
         additional_dependencies: [ toml ]
@@ -117,6 +137,12 @@ repos:
 
   # static type checking with mypy
   - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v0.790
+    rev: v0.800
     hooks:
       - id: mypy
+
+  # vulture
+  - repo: https://github.com/jendrikseipp/vulture
+    rev: "v2.3"
+    hooks:
+      - id: vulture
