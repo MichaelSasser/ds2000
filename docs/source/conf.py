@@ -38,8 +38,13 @@ release: str = "0.1.0"
 # ones.
 extensions: List[str] = [
     "sphinx.ext.autodoc",
+    "sphinx.ext.mathjax",
     "sphinx_autodoc_typehints",
-    "sphinx_rtd_theme",
+    "sphinx.ext.viewcode",
+    "numpydoc",
+    "sphinx.ext.autosummary",
+    "sphinx.ext.doctest",
+    "sphinx.ext.inheritance_diagram",
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -55,7 +60,7 @@ exclude_patterns: List[str] = []
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme: str = "sphinx_rtd_theme"
+html_theme: str = "classic"
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
