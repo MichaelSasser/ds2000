@@ -49,10 +49,11 @@ jobs:
         run: poetry install -E docs
         if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
 
-      - name: Run pre-commit
-        run: |
-          source .venv/bin/activate
-          pre-commit run --all-files
+      # Disabled during development
+      # - name: Run pre-commit
+      #   run: |
+      #     source .venv/bin/activate
+      #     pre-commit run --all-files
 
       - name: Sphinx Build
         working-directory: ./docs
