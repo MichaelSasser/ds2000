@@ -15,6 +15,10 @@ import sys
 
 from typing import List
 
+from typing import Dict
+from datetime import date
+from ds2000.__version__ import __version__
+
 
 sys.path.insert(0, os.path.abspath("../"))
 sys.path.insert(0, os.path.abspath("../.."))
@@ -25,11 +29,12 @@ sys.path.insert(0, os.path.abspath("../.."))
 # -- Project information -----------------------------------------------------
 
 project: str = "ds2000"
-copyright: str = "2020, Michael Sasser"  # noqa
 author: str = "Michael Sasser"
+project_copyright: str = f"{date.today().year}, {author}"
 
 # The full version, including alpha/beta/rc tags
-release: str = "0.1.0"
+version: str = __version__
+release: str = __version__
 
 # -- General configuration ---------------------------------------------------
 
@@ -45,7 +50,22 @@ extensions: List[str] = [
     "sphinx.ext.autosummary",
     "sphinx.ext.doctest",
     "sphinx.ext.inheritance_diagram",
+    "sphinx.ext.coverage",
 ]
+
+# source_suffix: Dict[str, str] = {
+#     ".rst": "restructuredtext",
+#     # ".txt": "restructuredtext",
+#     # ".md": "markdown",
+# }
+
+source_encoding: str = "utf-8"
+
+# true: will complain about missing docstrings
+nitpicky: bool = False
+# true: figures, tables ,code-blocks are auto numbered if they have a caption.
+numfig: bool = True
+
 
 numpydoc_show_class_members: bool = False
 # generate autosummary even if no references

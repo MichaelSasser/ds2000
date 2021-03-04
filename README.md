@@ -4,7 +4,7 @@
 # ds2000 - The Python Library for Rigol DS2000 Oscilloscopes
 
 
-The `RIGOL DS2000(A)`` Series is a fairly cheap, sub $600, entry-level 
+The `RIGOL DS2000(A)` Series is a fairly cheap, sub $600, entry-level 
 oscilloscope family with many bells and whistles. This Python package uses 
 the `LXI` capabilities of the scope to make it remote controllable from 
 within Python without ever needing to touch any `SCPI` command. You will be able
