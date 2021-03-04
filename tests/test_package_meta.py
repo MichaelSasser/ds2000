@@ -42,7 +42,6 @@ def test_version() -> None:
 
     # Exercise
     actual = __version__
-    print(actual)
 
     # Verify
     assert desired.fullmatch(actual)
