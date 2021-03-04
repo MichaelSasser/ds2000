@@ -60,7 +60,7 @@ class SPISource(SSFunc):
         ========= ========= ==================== ========
         Name      Type      Range                Default
         ========= ========= ==================== ========
-        <source>  Discrete  {CHANnel1|CHANnel2}  CHANnel1
+        <source>  Discrete  {CHANnel1,CHANnel2}  CHANnel1
         ========= ========= ==================== ========
 
         **Return Format**
@@ -103,7 +103,7 @@ class SPISource(SSFunc):
         ========= ========= ==================== ========
         Name      Type      Range                Default
         ========= ========= ==================== ========
-        <source>  Discrete  {CHANnel1|CHANnel2}  CHANnel1
+        <source>  Discrete  {CHANnel1,CHANnel2}  CHANnel1
         ========= ========= ==================== ========
 
         **Return Format**
@@ -146,7 +146,7 @@ class SPISource(SSFunc):
         ========= ========= ==================== ========
         Name      Type      Range                Default
         ========= ========= ==================== ========
-        <source>  Discrete  {CHANnel1|CHANnel2}  CHANnel1
+        <source>  Discrete  {CHANnel1,CHANnel2}  CHANnel1
         ========= ========= ==================== ========
 
         **Return Format**
@@ -187,7 +187,7 @@ class SPISlope(SSFunc):
         ======== ========= ==================== ========
         Name     Type      Range                Default
         ======== ========= ==================== ========
-        <slope>  Discrete  {POSitive|NEGative}  POSitive
+        <slope>  Discrete  {POSitive,NEGative}  POSitive
         ======== ========= ==================== ========
 
         **Return Format**
@@ -221,7 +221,7 @@ class SPISlope(SSFunc):
         ======== ========= ==================== ========
         Name     Type      Range                Default
         ======== ========= ==================== ========
-        <slope>  Discrete  {POSitive|NEGative}  POSitive
+        <slope>  Discrete  {POSitive,NEGative}  POSitive
         ======== ========= ==================== ========
 
         **Return Format**
@@ -255,7 +255,7 @@ class SPISlope(SSFunc):
         ======== ========= ==================== ========
         Name     Type      Range                Default
         ======== ========= ==================== ========
-        <slope>  Discrete  {POSitive|NEGative}  POSitive
+        <slope>  Discrete  {POSitive,NEGative}  POSitive
         ======== ========= ==================== ========
 
         **Return Format**

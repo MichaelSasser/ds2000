@@ -52,7 +52,7 @@ class PulseSource(SSFunc):
         ========= ========= ==================== ========
         Name      Type      Range                Default
         ========= ========= ==================== ========
-        <source>  Discrete  {CHANnel1|CHANnel2}  CHANnel1
+        <source>  Discrete  {CHANnel1,CHANnel2}  CHANnel1
         ========= ========= ==================== ========
 
         **Return Format**
@@ -85,7 +85,7 @@ class PulseSource(SSFunc):
         ========= ========= ==================== ========
         Name      Type      Range                Default
         ========= ========= ==================== ========
-        <source>  Discrete  {CHANnel1|CHANnel2}  CHANnel1
+        <source>  Discrete  {CHANnel1,CHANnel2}  CHANnel1
         ========= ========= ==================== ========
 
         **Return Format**
@@ -118,7 +118,7 @@ class PulseSource(SSFunc):
         ========= ========= ==================== ========
         Name      Type      Range                Default
         ========= ========= ==================== ========
-        <source>  Discrete  {CHANnel1|CHANnel2}  CHANnel1
+        <source>  Discrete  {CHANnel1,CHANnel2}  CHANnel1
         ========= ========= ==================== ========
 
         **Return Format**
@@ -153,8 +153,8 @@ class PulseWhen(SSFunc):
         ======= ========= ========================= =======
         Name    Type      Range                     Default
         ======= ========= ========================= =======
-        <when>  Discrete  {PGReater|PLESs|NGReater  GReater
-                          |NLESs|PGLess|NGLess}
+        <when>  Discrete  {PGReater,PLESs,NGReater  GReater
+                          ,NLESs,PGLess,NGLess}
         ======= ========= ========================= =======
 
         **Explanation**
@@ -222,8 +222,8 @@ class PulseWhen(SSFunc):
         ======= ========= ========================= =======
         Name    Type      Range                     Default
         ======= ========= ========================= =======
-        <when>  Discrete  {PGReater|PLESs|NGReater  GReater
-                          |NLESs|PGLess|NGLess}
+        <when>  Discrete  {PGReater,PLESs,NGReater  GReater
+                          ,NLESs,PGLess,NGLess}
         ======= ========= ========================= =======
 
         **Explanation**
@@ -292,8 +292,8 @@ class PulseWhen(SSFunc):
         ======= ========= ========================= =======
         Name    Type      Range                     Default
         ======= ========= ========================= =======
-        <when>  Discrete  {PGReater|PLESs|NGReater  GReater
-                          |NLESs|PGLess|NGLess}
+        <when>  Discrete  {PGReater,PLESs,NGReater  GReater
+                          ,NLESs,PGLess,NGLess}
         ======= ========= ========================= =======
 
         **Explanation**
@@ -361,8 +361,8 @@ class PulseWhen(SSFunc):
         ======= ========= ========================= =======
         Name    Type      Range                     Default
         ======= ========= ========================= =======
-        <when>  Discrete  {PGReater|PLESs|NGReater  GReater
-                          |NLESs|PGLess|NGLess}
+        <when>  Discrete  {PGReater,PLESs,NGReater  GReater
+                          ,NLESs,PGLess,NGLess}
         ======= ========= ========================= =======
 
         **Explanation**
@@ -430,8 +430,8 @@ class PulseWhen(SSFunc):
         ======= ========= ========================= =======
         Name    Type      Range                     Default
         ======= ========= ========================= =======
-        <when>  Discrete  {PGReater|PLESs|NGReater  GReater
-                          |NLESs|PGLess|NGLess}
+        <when>  Discrete  {PGReater,PLESs,NGReater  GReater
+                          ,NLESs,PGLess,NGLess}
         ======= ========= ========================= =======
 
         **Explanation**
@@ -499,8 +499,8 @@ class PulseWhen(SSFunc):
         ======= ========= ========================= =======
         Name    Type      Range                     Default
         ======= ========= ========================= =======
-        <when>  Discrete  {PGReater|PLESs|NGReater  GReater
-                          |NLESs|PGLess|NGLess}
+        <when>  Discrete  {PGReater,PLESs,NGReater  GReater
+                          ,NLESs,PGLess,NGLess}
         ======= ========= ========================= =======
 
         **Explanation**
@@ -568,8 +568,8 @@ class PulseWhen(SSFunc):
         ======= ========= ========================= =======
         Name    Type      Range                     Default
         ======= ========= ========================= =======
-        <when>  Discrete  {PGReater|PLESs|NGReater  GReater
-                          |NLESs|PGLess|NGLess}
+        <when>  Discrete  {PGReater,PLESs,NGReater  GReater
+                          ,NLESs,PGLess,NGLess}
         ======= ========= ========================= =======
 
         **Explanation**

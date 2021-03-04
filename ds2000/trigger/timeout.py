@@ -52,7 +52,7 @@ class TimeoutChannel(SSFunc):
         ========= ========= ==================== ========
         Name      Type      Range                Default
         ========= ========= ==================== ========
-        <source>  Discrete  {CHANnel1|CHANnel2}  CHANnel1
+        <source>  Discrete  {CHANnel1,CHANnel2}  CHANnel1
         ========= ========= ==================== ========
 
         **Return Format**
@@ -87,7 +87,7 @@ class TimeoutChannel(SSFunc):
         ========= ========= ==================== ========
         Name      Type      Range                Default
         ========= ========= ==================== ========
-        <source>  Discrete  {CHANnel1|CHANnel2}  CHANnel1
+        <source>  Discrete  {CHANnel1,CHANnel2}  CHANnel1
         ========= ========= ==================== ========
 
         **Return Format**
@@ -122,7 +122,7 @@ class TimeoutChannel(SSFunc):
         ========= ========= ==================== ========
         Name      Type      Range                Default
         ========= ========= ==================== ========
-        <source>  Discrete  {CHANnel1|CHANnel2}  CHANnel1
+        <source>  Discrete  {CHANnel1,CHANnel2}  CHANnel1
         ========= ========= ==================== ========
 
         **Return Format**
@@ -158,7 +158,7 @@ class TimeoutSlope(SSFunc):
         ======== ========= ========================== ========
         Name     Type      Range                      Default
         ======== ========= ========================== ========
-        <slope>  Discrete  {POSitive|NEGative|RFALl}  POSitive
+        <slope>  Discrete  {POSitive,NEGative,RFALl}  POSitive
         ======== ========= ========================== ========
 
         **Return Format**
@@ -192,7 +192,7 @@ class TimeoutSlope(SSFunc):
         ======== ========= ========================== ========
         Name     Type      Range                      Default
         ======== ========= ========================== ========
-        <slope>  Discrete  {POSitive|NEGative|RFALl}  POSitive
+        <slope>  Discrete  {POSitive,NEGative,RFALl}  POSitive
         ======== ========= ========================== ========
 
         **Return Format**
@@ -226,7 +226,7 @@ class TimeoutSlope(SSFunc):
         ======== ========= ========================== ========
         Name     Type      Range                      Default
         ======== ========= ========================== ========
-        <slope>  Discrete  {POSitive|NEGative|RFALl}  POSitive
+        <slope>  Discrete  {POSitive,NEGative,RFALl}  POSitive
         ======== ========= ========================== ========
 
         **Return Format**
@@ -260,7 +260,7 @@ class TimeoutSlope(SSFunc):
         ======== ========= ========================== ========
         Name     Type      Range                      Default
         ======== ========= ========================== ========
-        <slope>  Discrete  {POSitive|NEGative|RFALl}  POSitive
+        <slope>  Discrete  {POSitive,NEGative,RFALl}  POSitive
         ======== ========= ========================== ========
 
         **Return Format**

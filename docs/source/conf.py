@@ -47,6 +47,11 @@ extensions: List[str] = [
     "sphinx.ext.inheritance_diagram",
 ]
 
+numpydoc_show_class_members: bool = False
+# generate autosummary even if no references
+autosummary_generate: bool = True
+autosummary_imported_members: bool = True
+
 # Add any paths that contain templates here, relative to this directory.
 templates_path: List[str] = ["_templates"]
 

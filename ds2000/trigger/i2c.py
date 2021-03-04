@@ -52,8 +52,8 @@ class I2CWhen(SSFunc):
         ============ ========= ================================== =======
         Name         Type      Range                              Default
         ============ ========= ================================== =======
-        <trig_type>  Discrete  {STARt|RESTart|STOP|NACKnowledge|  STARt
-                               ADDRess|DATA|ADATa}
+        <trig_type>  Discrete  {STARt,RESTart,STOP,NACKnowledge,  STARt
+                               ADDRess,DATA,ADATa}
         ============ ========= ================================== =======
 
         **Explanation**
@@ -111,8 +111,8 @@ class I2CWhen(SSFunc):
         ============ ========= ================================== =======
         Name         Type      Range                              Default
         ============ ========= ================================== =======
-        <trig_type>  Discrete  {STARt|RESTart|STOP|NACKnowledge|  STARt
-                               ADDRess|DATA|ADATa}
+        <trig_type>  Discrete  {STARt,RESTart,STOP,NACKnowledge,  STARt
+                               ADDRess,DATA,ADATa}
         ============ ========= ================================== =======
 
         **Explanation**
@@ -170,8 +170,8 @@ class I2CWhen(SSFunc):
         ============ ========= ================================== =======
         Name         Type      Range                              Default
         ============ ========= ================================== =======
-        <trig_type>  Discrete  {STARt|RESTart|STOP|NACKnowledge|  STARt
-                               ADDRess|DATA|ADATa}
+        <trig_type>  Discrete  {STARt,RESTart,STOP,NACKnowledge,  STARt
+                               ADDRess,DATA,ADATa}
         ============ ========= ================================== =======
 
         **Explanation**
@@ -229,8 +229,8 @@ class I2CWhen(SSFunc):
         ============ ========= ================================== =======
         Name         Type      Range                              Default
         ============ ========= ================================== =======
-        <trig_type>  Discrete  {STARt|RESTart|STOP|NACKnowledge|  STARt
-                               ADDRess|DATA|ADATa}
+        <trig_type>  Discrete  {STARt,RESTart,STOP,NACKnowledge,  STARt
+                               ADDRess,DATA,ADATa}
         ============ ========= ================================== =======
 
         **Explanation**
@@ -288,8 +288,8 @@ class I2CWhen(SSFunc):
         ============ ========= ================================== =======
         Name         Type      Range                              Default
         ============ ========= ================================== =======
-        <trig_type>  Discrete  {STARt|RESTart|STOP|NACKnowledge|  STARt
-                               ADDRess|DATA|ADATa}
+        <trig_type>  Discrete  {STARt,RESTart,STOP,NACKnowledge,  STARt
+                               ADDRess,DATA,ADATa}
         ============ ========= ================================== =======
 
         **Explanation**
@@ -347,8 +347,8 @@ class I2CWhen(SSFunc):
         ============ ========= ================================== =======
         Name         Type      Range                              Default
         ============ ========= ================================== =======
-        <trig_type>  Discrete  {STARt|RESTart|STOP|NACKnowledge|  STARt
-                               ADDRess|DATA|ADATa}
+        <trig_type>  Discrete  {STARt,RESTart,STOP,NACKnowledge,  STARt
+                               ADDRess,DATA,ADATa}
         ============ ========= ================================== =======
 
         **Explanation**
@@ -406,8 +406,8 @@ class I2CWhen(SSFunc):
         ============ ========= ================================== =======
         Name         Type      Range                              Default
         ============ ========= ================================== =======
-        <trig_type>  Discrete  {STARt|RESTart|STOP|NACKnowledge|  STARt
-                               ADDRess|DATA|ADATa}
+        <trig_type>  Discrete  {STARt,RESTart,STOP,NACKnowledge,  STARt
+                               ADDRess,DATA,ADATa}
         ============ ========= ================================== =======
 
         **Explanation**
@@ -465,8 +465,8 @@ class I2CWhen(SSFunc):
         ============ ========= ================================== =======
         Name         Type      Range                              Default
         ============ ========= ================================== =======
-        <trig_type>  Discrete  {STARt|RESTart|STOP|NACKnowledge|  STARt
-                               ADDRess|DATA|ADATa}
+        <trig_type>  Discrete  {STARt,RESTart,STOP,NACKnowledge,  STARt
+                               ADDRess,DATA,ADATa}
         ============ ========= ================================== =======
 
         **Explanation**
@@ -543,7 +543,7 @@ class I2CDirection(SSFunc):
         ====== ========= ==================== =======
         Name   Type      Range                Default
         ====== ========= ==================== =======
-        <dir>  Discrete  {READ|WRITe|RWRite}  READ
+        <dir>  Discrete  {READ,WRITe,RWRite}  READ
         ====== ========= ==================== =======
 
         **Explanation**
@@ -584,7 +584,7 @@ class I2CDirection(SSFunc):
         ====== ========= ==================== =======
         Name   Type      Range                Default
         ====== ========= ==================== =======
-        <dir>  Discrete  {READ|WRITe|RWRite}  READ
+        <dir>  Discrete  {READ,WRITe,RWRite}  READ
         ====== ========= ==================== =======
 
         **Explanation**
@@ -625,7 +625,7 @@ class I2CDirection(SSFunc):
         ====== ========= ==================== =======
         Name   Type      Range                Default
         ====== ========= ==================== =======
-        <dir>  Discrete  {READ|WRITe|RWRite}  READ
+        <dir>  Discrete  {READ,WRITe,RWRite}  READ
         ====== ========= ==================== =======
 
         **Explanation**
@@ -666,7 +666,7 @@ class I2CDirection(SSFunc):
         ====== ========= ==================== =======
         Name   Type      Range                Default
         ====== ========= ==================== =======
-        <dir>  Discrete  {READ|WRITe|RWRite}  READ
+        <dir>  Discrete  {READ,WRITe,RWRite}  READ
         ====== ========= ==================== =======
 
         **Explanation**
@@ -724,7 +724,7 @@ class I2CSource(SSFunc):
         ========= ========= ==================== ========
         Name      Type      Range                Default
         ========= ========= ==================== ========
-        <source>  Discrete  {CHANnel1|CHANnel2}  CHANnel1
+        <source>  Discrete  {CHANnel1,CHANnel2}  CHANnel1
         ========= ========= ==================== ========
 
         **Return Format**
@@ -767,7 +767,7 @@ class I2CSource(SSFunc):
         ========= ========= ==================== ========
         Name      Type      Range                Default
         ========= ========= ==================== ========
-        <source>  Discrete  {CHANnel1|CHANnel2}  CHANnel1
+        <source>  Discrete  {CHANnel1,CHANnel2}  CHANnel1
         ========= ========= ==================== ========
 
         **Return Format**
@@ -810,7 +810,7 @@ class I2CSource(SSFunc):
         ========= ========= ==================== ========
         Name      Type      Range                Default
         ========= ========= ==================== ========
-        <source>  Discrete  {CHANnel1|CHANnel2}  CHANnel1
+        <source>  Discrete  {CHANnel1,CHANnel2}  CHANnel1
         ========= ========= ==================== ========
 
         **Return Format**
@@ -860,7 +860,7 @@ class I2C(SFunc):
         ======= ========= ========= =======
         Name    Type      Range     Default
         ======= ========= ========= =======
-        <bits>  Discrete  {7|8|10}  7
+        <bits>  Discrete  {7,8,10}  7
         ======= ========= ========= =======
 
         **Explanation**
@@ -903,7 +903,7 @@ class I2C(SFunc):
         ======= ========= ========= =======
         Name    Type      Range     Default
         ======= ========= ========= =======
-        <bits>  Discrete  {7|8|10}  7
+        <bits>  Discrete  {7,8,10}  7
         ======= ========= ========= =======
 
         **Explanation**

@@ -51,7 +51,7 @@ class SetupHoldType(SSFunc):
         ======= ========= ===================== ========
         Name    Type      Range                 Default
         ======= ========= ===================== ========
-        <type>  Discrete  {SETup|HOLd|SETHOLd}  SETup
+        <type>  Discrete  {SETup,HOLd,SETHOLd}  SETup
         ======= ========= ===================== ========
 
         **Explanation**
@@ -97,7 +97,7 @@ class SetupHoldType(SSFunc):
         ======= ========= ===================== ========
         Name    Type      Range                 Default
         ======= ========= ===================== ========
-        <type>  Discrete  {SETup|HOLd|SETHOLd}  SETup
+        <type>  Discrete  {SETup,HOLd,SETHOLd}  SETup
         ======= ========= ===================== ========
 
         **Explanation**
@@ -143,7 +143,7 @@ class SetupHoldType(SSFunc):
         ======= ========= ===================== ========
         Name    Type      Range                 Default
         ======= ========= ===================== ========
-        <type>  Discrete  {SETup|HOLd|SETHOLd}  SETup
+        <type>  Discrete  {SETup,HOLd,SETHOLd}  SETup
         ======= ========= ===================== ========
 
         **Explanation**
@@ -189,7 +189,7 @@ class SetupHoldType(SSFunc):
         ======= ========= ===================== ========
         Name    Type      Range                 Default
         ======= ========= ===================== ========
-        <type>  Discrete  {SETup|HOLd|SETHOLd}  SETup
+        <type>  Discrete  {SETup,HOLd,SETHOLd}  SETup
         ======= ========= ===================== ========
 
         **Explanation**
@@ -255,7 +255,7 @@ class SetupHoldSource(SSFunc):
         ========= ========= ==================== ========
         Name      Type      Range                Default
         ========= ========= ==================== ========
-        <source>  Discrete  {CHANnel1|CHANnel2}  CHANnel2
+        <source>  Discrete  {CHANnel1,CHANnel2}  CHANnel2
         ========= ========= ==================== ========
 
         **Return Format**
@@ -298,7 +298,7 @@ class SetupHoldSource(SSFunc):
         ========= ========= ==================== ========
         Name      Type      Range                Default
         ========= ========= ==================== ========
-        <source>  Discrete  {CHANnel1|CHANnel2}  CHANnel2
+        <source>  Discrete  {CHANnel1,CHANnel2}  CHANnel2
         ========= ========= ==================== ========
 
         **Return Format**
@@ -341,7 +341,7 @@ class SetupHoldSource(SSFunc):
         ========= ========= ==================== ========
         Name      Type      Range                Default
         ========= ========= ==================== ========
-        <source>  Discrete  {CHANnel1|CHANnel2}  CHANnel2
+        <source>  Discrete  {CHANnel1,CHANnel2}  CHANnel2
         ========= ========= ==================== ========
 
         **Return Format**
@@ -383,7 +383,7 @@ class SetupHoldSlope(SSFunc):
         ======== ========= ==================== ========
         Name     Type      Range                Default
         ======== ========= ==================== ========
-        <slope>  Discrete  {POSitive|NEGative}  POSitive
+        <slope>  Discrete  {POSitive,NEGative}  POSitive
         ======== ========= ==================== ========
 
         **Return Format**
@@ -418,7 +418,7 @@ class SetupHoldSlope(SSFunc):
         ======== ========= ==================== ========
         Name     Type      Range                Default
         ======== ========= ==================== ========
-        <slope>  Discrete  {POSitive|NEGative}  POSitive
+        <slope>  Discrete  {POSitive,NEGative}  POSitive
         ======== ========= ==================== ========
 
         **Return Format**
@@ -453,7 +453,7 @@ class SetupHoldSlope(SSFunc):
         ======== ========= ==================== ========
         Name     Type      Range                Default
         ======== ========= ==================== ========
-        <slope>  Discrete  {POSitive|NEGative}  POSitive
+        <slope>  Discrete  {POSitive,NEGative}  POSitive
         ======== ========= ==================== ========
 
         **Return Format**
@@ -496,7 +496,7 @@ class SetupHoldPattern(SSFunc):
         ========== ========= ====== =======
         Name       Type      Range  Default
         ========== ========= ====== =======
-        <pattern>  Discrete  {H|L}  H
+        <pattern>  Discrete  {H,L}  H
         ========== ========= ====== =======
 
         **Return Format**
@@ -530,7 +530,7 @@ class SetupHoldPattern(SSFunc):
         ========== ========= ====== =======
         Name       Type      Range  Default
         ========== ========= ====== =======
-        <pattern>  Discrete  {H|L}  H
+        <pattern>  Discrete  {H,L}  H
         ========== ========= ====== =======
 
         **Return Format**
@@ -564,7 +564,7 @@ class SetupHoldPattern(SSFunc):
         ========== ========= ====== =======
         Name       Type      Range  Default
         ========== ========= ====== =======
-        <pattern>  Discrete  {H|L}  H
+        <pattern>  Discrete  {H,L}  H
         ========== ========= ====== =======
 
         **Return Format**

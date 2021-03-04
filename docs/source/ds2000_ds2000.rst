@@ -1,56 +1,56 @@
-**Subsystems** - ds2000
-=======================
+ds2000
+======
 
-**Acquire Subsystem** - acquire.py
-----------------------------------
+Acquire
+-------
 
 .. automodule:: ds2000.acquire
    :members:
    :undoc-members:
    :show-inheritance:
 
-**Channel Subsystem** - channel.py
-----------------------------------
+Channel
+-------
 
 .. automodule:: ds2000.channel
    :members:
    :undoc-members:
    :show-inheritance:
 
-**Common Subsystem** - common.py
---------------------------------
+Common
+------
 
 .. automodule:: ds2000.common
    :members:
    :undoc-members:
    :show-inheritance:
 
-**Display Subsystem** - display.py
-----------------------------------
+Display
+-------
 
 .. automodule:: ds2000.display
    :members:
    :undoc-members:
    :show-inheritance:
 
-**Error Handling** - errors.py
-------------------------------
+Error Handling
+--------------
 
 .. automodule:: ds2000.errors
    :members:
    :undoc-members:
    :show-inheritance:
 
-**IEEE 488.2 Common Commands** - ieee.py
-----------------------------------------
+IEEE 488.2 Common Commands
+--------------------------
 
 .. automodule:: ds2000.ieee
    :members:
    :undoc-members:
    :show-inheritance:
 
-**Timebase Subsystem** - timebase.py
-------------------------------------
+Timebase
+--------
 
 .. automodule:: ds2000.timebase
    :members:
@@ -58,16 +58,16 @@
    :show-inheritance:
 
 
-**Trigger Subsystem Modules** - trigger\_sub
-_______________________________________________________
+Trigger
+_______
 
 .. toctree::
 
    ds2000.trigger
 
 
-**Waveform Subsystem** - waveform.py
-------------------------------------
+Waveform
+--------
 
 .. automodule:: ds2000.waveform
    :members:

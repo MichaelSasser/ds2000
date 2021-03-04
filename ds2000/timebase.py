@@ -48,7 +48,7 @@ class TimebaseHorizontalRefMode(SSFunc):
         ======= ========= ======================== =======
         Name    Type      Range                    Default
         ======= ========= ======================== =======
-        <href>  Discrete  {CENTer|TPOSition|USER}  CENTer
+        <href>  Discrete  {CENTer,TPOSition,USER}  CENTer
         ======= ========= ======================== =======
 
         **Explanation**
@@ -93,7 +93,7 @@ class TimebaseHorizontalRefMode(SSFunc):
         ======= ========= ======================== =======
         Name    Type      Range                    Default
         ======= ========= ======================== =======
-        <href>  Discrete  {CENTer|TPOSition|USER}  CENTer
+        <href>  Discrete  {CENTer,TPOSition,USER}  CENTer
         ======= ========= ======================== =======
 
         **Explanation**
@@ -139,7 +139,7 @@ class TimebaseHorizontalRefMode(SSFunc):
         ======= ========= ======================== =======
         Name    Type      Range                    Default
         ======= ========= ======================== =======
-        <href>  Discrete  {CENTer|TPOSition|USER}  CENTer
+        <href>  Discrete  {CENTer,TPOSition,USER}  CENTer
         ======= ========= ======================== =======
 
         **Explanation**
@@ -229,7 +229,7 @@ class TimebaseDelay(SFunc):
         ======= ===== ================= =======
         Name    Type  Range             Default
         ======= ===== ================= =======
-        <bool>  Bool  {{0|OFF}|{1|ON}}  0|OFF
+        <bool>  Bool  {{0,OFF},{1,ON}}  0,OFF
         ======= ===== ================= =======
 
         **Return Format**
@@ -264,7 +264,7 @@ class TimebaseDelay(SFunc):
         ======= ===== ================= =======
         Name    Type  Range             Default
         ======= ===== ================= =======
-        <bool>  Bool  {{0|OFF}|{1|ON}}  0|OFF
+        <bool>  Bool  {{0,OFF},{1,ON}}  0,OFF
         ======= ===== ================= =======
 
         **Return Format**
@@ -299,7 +299,7 @@ class TimebaseDelay(SFunc):
         ======= ===== ================= =======
         Name    Type  Range             Default
         ======= ===== ================= =======
-        <bool>  Bool  {{0|OFF}|{1|ON}}  0|OFF
+        <bool>  Bool  {{0,OFF},{1,ON}}  0,OFF
         ======= ===== ================= =======
 
         **Return Format**
@@ -565,7 +565,7 @@ class TimebaseMode(SFunc):
         ======= ========= =============== =======
         Name    Type      Range           Default
         ======= ========= =============== =======
-        <mode>  Discrete  {MAIN|XY|ROLL}  MAIN
+        <mode>  Discrete  {MAIN,XY,ROLL}  MAIN
         ======= ========= =============== =======
 
         **Return Format**
@@ -599,7 +599,7 @@ class TimebaseMode(SFunc):
         ======= ========= =============== =======
         Name    Type      Range           Default
         ======= ========= =============== =======
-        <mode>  Discrete  {MAIN|XY|ROLL}  MAIN
+        <mode>  Discrete  {MAIN,XY,ROLL}  MAIN
         ======= ========= =============== =======
 
         **Return Format**
@@ -633,7 +633,7 @@ class TimebaseMode(SFunc):
         ======= ========= =============== =======
         Name    Type      Range           Default
         ======= ========= =============== =======
-        <mode>  Discrete  {MAIN|XY|ROLL}  MAIN
+        <mode>  Discrete  {MAIN,XY,ROLL}  MAIN
         ======= ========= =============== =======
 
         **Return Format**
@@ -667,7 +667,7 @@ class TimebaseMode(SFunc):
         ======= ========= =============== =======
         Name    Type      Range           Default
         ======= ========= =============== =======
-        <mode>  Discrete  {MAIN|XY|ROLL}  MAIN
+        <mode>  Discrete  {MAIN,XY,ROLL}  MAIN
         ======= ========= =============== =======
 
         **Return Format**
@@ -958,7 +958,7 @@ class Timebase(Func):
         ======= ===== ================= =======
         Name    Type  Range             Default
         ======= ===== ================= =======
-        <bool>  Bool  {{0|OFF}|{1|ON}}  0|OFF
+        <bool>  Bool  {{0,OFF},{1,ON}}  0,OFF
         ======= ===== ================= =======
 
         **Return Format**
@@ -993,7 +993,7 @@ class Timebase(Func):
         ======= ===== ================= =======
         Name    Type  Range             Default
         ======= ===== ================= =======
-        <bool>  Bool  {{0|OFF}|{1|ON}}  0|OFF
+        <bool>  Bool  {{0,OFF},{1,ON}}  0,OFF
         ======= ===== ================= =======
 
         **Return Format**
@@ -1028,7 +1028,7 @@ class Timebase(Func):
         ======= ===== ================= =======
         Name    Type  Range             Default
         ======= ===== ================= =======
-        <bool>  Bool  {{0|OFF}|{1|ON}}  0|OFF
+        <bool>  Bool  {{0,OFF},{1,ON}}  0,OFF
         ======= ===== ================= =======
 
         **Return Format**

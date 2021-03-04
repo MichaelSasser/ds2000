@@ -54,7 +54,7 @@ class RS232Source(SSFunc):
         ========= ========= ==================== ========
         Name      Type      Range                Default
         ========= ========= ==================== ========
-        <source>  Discrete  {CHANnel1|CHANnel2}  CHANnel1
+        <source>  Discrete  {CHANnel1,CHANnel2}  CHANnel1
         ========= ========= ==================== ========
 
         Reuturn Format
@@ -87,7 +87,7 @@ class RS232Source(SSFunc):
         ========= ========= ==================== ========
         Name      Type      Range                Default
         ========= ========= ==================== ========
-        <source>  Discrete  {CHANnel1|CHANnel2}  CHANnel1
+        <source>  Discrete  {CHANnel1,CHANnel2}  CHANnel1
         ========= ========= ==================== ========
 
         Reuturn Format
@@ -120,7 +120,7 @@ class RS232Source(SSFunc):
         ========= ========= ==================== ========
         Name      Type      Range                Default
         ========= ========= ==================== ========
-        <source>  Discrete  {CHANnel1|CHANnel2}  CHANnel1
+        <source>  Discrete  {CHANnel1,CHANnel2}  CHANnel1
         ========= ========= ==================== ========
 
         Reuturn Format
@@ -156,7 +156,7 @@ class RS232When(SSFunc):
         ======= ========= ========================== =======
         Name    Type      Range                      Default
         ======= ========= ========================== =======
-        <when>  Discrete  {STARt|ERRor|PARity|DATA}  STARt
+        <when>  Discrete  {STARt,ERRor,PARity,DATA}  STARt
         ======= ========= ========================== =======
 
         **Explanation**
@@ -202,7 +202,7 @@ class RS232When(SSFunc):
         ======= ========= ========================== =======
         Name    Type      Range                      Default
         ======= ========= ========================== =======
-        <when>  Discrete  {STARt|ERRor|PARity|DATA}  STARt
+        <when>  Discrete  {STARt,ERRor,PARity,DATA}  STARt
         ======= ========= ========================== =======
 
         **Explanation**
@@ -248,7 +248,7 @@ class RS232When(SSFunc):
         ======= ========= ========================== =======
         Name    Type      Range                      Default
         ======= ========= ========================== =======
-        <when>  Discrete  {STARt|ERRor|PARity|DATA}  STARt
+        <when>  Discrete  {STARt,ERRor,PARity,DATA}  STARt
         ======= ========= ========================== =======
 
         **Explanation**
@@ -294,7 +294,7 @@ class RS232When(SSFunc):
         ======= ========= ========================== =======
         Name    Type      Range                      Default
         ======= ========= ========================== =======
-        <when>  Discrete  {STARt|ERRor|PARity|DATA}  STARt
+        <when>  Discrete  {STARt,ERRor,PARity,DATA}  STARt
         ======= ========= ========================== =======
 
         **Explanation**
@@ -340,7 +340,7 @@ class RS232When(SSFunc):
         ======= ========= ========================== =======
         Name    Type      Range                      Default
         ======= ========= ========================== =======
-        <when>  Discrete  {STARt|ERRor|PARity|DATA}  STARt
+        <when>  Discrete  {STARt,ERRor,PARity,DATA}  STARt
         ======= ========= ========================== =======
 
         **Explanation**
@@ -398,7 +398,7 @@ class RS232Parity(SSFunc):
         ========= ========= =============== ========
         Name      Type      Range            Default
         ========= ========= =============== ========
-        <parity>  Discrete  {EVEN|ODD|NONE}  NONE
+        <parity>  Discrete  {EVEN,ODD,NONE}  NONE
         ========= ========= =============== ========
 
         Note: the even-odd check mode can not be set to NONE when the trigger
@@ -441,7 +441,7 @@ class RS232Parity(SSFunc):
         ========= ========= =============== ========
         Name      Type      Range            Default
         ========= ========= =============== ========
-        <parity>  Discrete  {EVEN|ODD|NONE}  NONE
+        <parity>  Discrete  {EVEN,ODD,NONE}  NONE
         ========= ========= =============== ========
 
         Note: the even-odd check mode can not be set to NONE when the trigger
@@ -484,7 +484,7 @@ class RS232Parity(SSFunc):
         ========= ========= =============== ========
         Name      Type      Range            Default
         ========= ========= =============== ========
-        <parity>  Discrete  {EVEN|ODD|NONE}  NONE
+        <parity>  Discrete  {EVEN,ODD,NONE}  NONE
         ========= ========= =============== ========
 
         Note: the even-odd check mode can not be set to NONE when the trigger
@@ -527,7 +527,7 @@ class RS232Parity(SSFunc):
         ========= ========= =============== ========
         Name      Type      Range            Default
         ========= ========= =============== ========
-        <parity>  Discrete  {EVEN|ODD|NONE}  NONE
+        <parity>  Discrete  {EVEN,ODD,NONE}  NONE
         ========= ========= =============== ========
 
         Note: the even-odd check mode can not be set to NONE when the trigger
@@ -585,7 +585,7 @@ class RS232(SFunc):
         ====== ========= ====== =======
         Name   Type      Range  Default
         ====== ========= ====== =======
-        <bit>  Discrete  {1|2}  1
+        <bit>  Discrete  {1,2}  1
         ====== ========= ====== =======
 
         **Explanation**
@@ -625,7 +625,7 @@ class RS232(SFunc):
         ====== ========= ====== =======
         Name   Type      Range  Default
         ====== ========= ====== =======
-        <bit>  Discrete  {1|2}  1
+        <bit>  Discrete  {1,2}  1
         ====== ========= ====== =======
 
         **Explanation**
@@ -756,7 +756,7 @@ class RS232(SFunc):
         ======== ========= ========== =======
         Name     Type      Range      Default
         ======== ========= ========== =======
-        <width>  Discrete  {5|6|7|8}  8
+        <width>  Discrete  {5,6,7,8}  8
         ======== ========= ========== =======
 
         **Explanation**
@@ -798,7 +798,7 @@ class RS232(SFunc):
         ======== ========= ========== =======
         Name     Type      Range      Default
         ======== ========= ========== =======
-        <width>  Discrete  {5|6|7|8}  8
+        <width>  Discrete  {5,6,7,8}  8
         ======== ========= ========== =======
 
         **Explanation**
@@ -836,8 +836,8 @@ class RS232(SFunc):
         ============ ========= ============================= =======
         Name         Type      Range                         Default
         ============ ========= ============================= =======
-        <baud_rate>  Discrete  {2400|4800|9600|19200|38400|  9600
-                               57600|115200|USER}
+        <baud_rate>  Discrete  {2400,4800,9600,19200,38400,  9600
+                               57600,115200,USER}
         ============ ========= ============================= =======
 
         Note: for USER, refer to the :TRIGger:RS232:BUSer command.
@@ -904,8 +904,8 @@ class RS232(SFunc):
         ============ ========= ============================= =======
         Name         Type      Range                         Default
         ============ ========= ============================= =======
-        <baud_rate>  Discrete  {2400|4800|9600|19200|38400|  9600
-                               57600|115200|USER}
+        <baud_rate>  Discrete  {2400,4800,9600,19200,38400,  9600
+                               57600,115200,USER}
         ============ ========= ============================= =======
 
         Note: for USER, refer to the :TRIGger:RS232:BUSer command.

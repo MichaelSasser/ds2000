@@ -51,7 +51,7 @@ class RuntSource(SSFunc):
         ========= ========= ==================== ========
         Name      Type      Range                Default
         ========= ========= ==================== ========
-        <source>  Discrete  {CHANnel1|CHANnel2}  CHANnel1
+        <source>  Discrete  {CHANnel1,CHANnel2}  CHANnel1
         ========= ========= ==================== ========
 
         **Return Format**
@@ -85,7 +85,7 @@ class RuntSource(SSFunc):
         ========= ========= ==================== ========
         Name      Type      Range                Default
         ========= ========= ==================== ========
-        <source>  Discrete  {CHANnel1|CHANnel2}  CHANnel1
+        <source>  Discrete  {CHANnel1,CHANnel2}  CHANnel1
         ========= ========= ==================== ========
 
         **Return Format**
@@ -119,7 +119,7 @@ class RuntSource(SSFunc):
         ========= ========= ==================== ========
         Name      Type      Range                Default
         ========= ========= ==================== ========
-        <source>  Discrete  {CHANnel1|CHANnel2}  CHANnel1
+        <source>  Discrete  {CHANnel1,CHANnel2}  CHANnel1
         ========= ========= ==================== ========
 
         **Return Format**
@@ -155,7 +155,7 @@ class RuntWhen(SSFunc):
         ======= ========= ========================== =======
         Name    Type      Range                      Default
         ======= ========= ========================== =======
-        <when>  Discrete  {NONE|GREater|LESS|GLESs}  NONE
+        <when>  Discrete  {NONE,GREater,LESS,GLESs}  NONE
         ======= ========= ========================== =======
 
         **Explanation**
@@ -205,7 +205,7 @@ class RuntWhen(SSFunc):
         ======= ========= ========================== =======
         Name    Type      Range                      Default
         ======= ========= ========================== =======
-        <when>  Discrete  {NONE|GREater|LESS|GLESs}  NONE
+        <when>  Discrete  {NONE,GREater,LESS,GLESs}  NONE
         ======= ========= ========================== =======
 
         **Explanation**
@@ -255,7 +255,7 @@ class RuntWhen(SSFunc):
         ======= ========= ========================== =======
         Name    Type      Range                      Default
         ======= ========= ========================== =======
-        <when>  Discrete  {NONE|GREater|LESS|GLESs}  NONE
+        <when>  Discrete  {NONE,GREater,LESS,GLESs}  NONE
         ======= ========= ========================== =======
 
         **Explanation**
@@ -305,7 +305,7 @@ class RuntWhen(SSFunc):
         ======= ========= ========================== =======
         Name    Type      Range                      Default
         ======= ========= ========================== =======
-        <when>  Discrete  {NONE|GREater|LESS|GLESs}  NONE
+        <when>  Discrete  {NONE,GREater,LESS,GLESs}  NONE
         ======= ========= ========================== =======
 
         **Explanation**
@@ -355,7 +355,7 @@ class RuntWhen(SSFunc):
         ======= ========= ========================== =======
         Name    Type      Range                      Default
         ======= ========= ========================== =======
-        <when>  Discrete  {NONE|GREater|LESS|GLESs}  NONE
+        <when>  Discrete  {NONE,GREater,LESS,GLESs}  NONE
         ======= ========= ========================== =======
 
         **Explanation**
@@ -416,7 +416,7 @@ class RuntPolarity(SSFunc):
         =========== ========= ==================== ========
         Name        Type      Range                Default
         =========== ========= ==================== ========
-        <polarity>  Discrete  {POSitive|NEGative}  POSitive
+        <polarity>  Discrete  {POSitive,NEGative}  POSitive
         =========== ========= ==================== ========
 
         **Return Format**
@@ -450,7 +450,7 @@ class RuntPolarity(SSFunc):
         =========== ========= ==================== ========
         Name        Type      Range                Default
         =========== ========= ==================== ========
-        <polarity>  Discrete  {POSitive|NEGative}  POSitive
+        <polarity>  Discrete  {POSitive,NEGative}  POSitive
         =========== ========= ==================== ========
 
         **Return Format**
@@ -484,7 +484,7 @@ class RuntPolarity(SSFunc):
         =========== ========= ==================== ========
         Name        Type      Range                Default
         =========== ========= ==================== ========
-        <polarity>  Discrete  {POSitive|NEGative}  POSitive
+        <polarity>  Discrete  {POSitive,NEGative}  POSitive
         =========== ========= ==================== ========
 
         **Return Format**

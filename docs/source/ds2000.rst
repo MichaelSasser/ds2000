@@ -1,23 +1,29 @@
-ds2000 Documentation
-====================
+Technical Documentation
+=======================
 
-Main Tree
---------------
+Oscilloscope
+------------
+
+All oscilloscope functions are in here.
 
 .. toctree::
 
-   ds2000_maintree
+   ds2000_ds2000
 
 
-Function Tree
--------------
+Functions
+---------
+
+Use the ``Functions Module`` to get a simpler interface for some of the more advanced functions with very few lines of code.
 
 .. toctree::
 
    ds2000.func
 
-Mathemtatics Tree
------------------
+Mathemtatics
+------------
+
+The ``Mathematics Module`` contains some helper functions for calculating and formatting.
 
 .. toctree::
 

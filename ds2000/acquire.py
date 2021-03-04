@@ -57,7 +57,7 @@ class Type(SFunc):
         ======= ========== ==================================== =======
         Name    Type       Range                                Default
         ======= ========== ==================================== =======
-        <type>  Discrete   {NORMal|AVERages|PEAK|HRESolution}   NORMal
+        <type>  Discrete   {NORMal,AVERages,PEAK,HRESolution}   NORMal
         ======= ========== ==================================== =======
 
         **Explanation**
@@ -96,7 +96,7 @@ class Type(SFunc):
         ======= ========== ==================================== =======
         Name    Type       Range                                Default
         ======= ========== ==================================== =======
-        <type>  Discrete   {NORMal|AVERages|PEAK|HRESolution}   NORMal
+        <type>  Discrete   {NORMal,AVERages,PEAK,HRESolution}   NORMal
         ======= ========== ==================================== =======
 
         **Explanation**
@@ -137,7 +137,7 @@ class Type(SFunc):
         ======= ========== ==================================== =======
         Name    Type       Range                                Default
         ======= ========== ==================================== =======
-        <type>  Discrete   {NORMal|AVERages|PEAK|HRESolution}   NORMal
+        <type>  Discrete   {NORMal,AVERages,PEAK,HRESolution}   NORMal
         ======= ========== ==================================== =======
 
         **Explanation**
@@ -178,7 +178,7 @@ class Type(SFunc):
         ======= ========== ==================================== =======
         Name    Type       Range                                Default
         ======= ========== ==================================== =======
-        <type>  Discrete   {NORMal|AVERages|PEAK|HRESolution}   NORMal
+        <type>  Discrete   {NORMal,AVERages,PEAK,HRESolution}   NORMal
         ======= ========== ==================================== =======
 
         **Explanation**
@@ -219,7 +219,7 @@ class Type(SFunc):
         ======= ========== ==================================== =======
         Name    Type       Range                                Default
         ======= ========== ==================================== =======
-        <type>  Discrete   {NORMal|AVERages|PEAK|HRESolution}   NORMal
+        <type>  Discrete   {NORMal,AVERages,PEAK,HRESolution}   NORMal
         ======= ========== ==================================== =======
 
         **Explanation**
@@ -404,11 +404,11 @@ class Acquire(Func):
 
         When a single channel is on:
 
-        <mdep> can be set to AUTO|14000|140000|1400000|14000000|56000000.
+        <mdep> can be set to AUTO,14000,140000,1400000,14000000,56000000.
 
         When dual channels are on:
 
-        <mdep> can be set to AUTO|7000|70000|700000|7000000|28000000.
+        <mdep> can be set to AUTO,7000,70000,700000,7000000,28000000.
 
         **Return Format**
 
@@ -459,10 +459,10 @@ class Acquire(Func):
         **Explanation**
 
         When a single channel is on:
-        <mdep> can be set to AUTO|14000|140000|1400000|14000000|56000000.
+        <mdep> can be set to AUTO,14000,140000,1400000,14000000,56000000.
 
         When dual channels are on:
-        <mdep> can be set to AUTO|7000|70000|700000|7000000|28000000.
+        <mdep> can be set to AUTO,7000,70000,700000,7000000,28000000.
 
         **Return Format**
 
@@ -523,7 +523,7 @@ class Acquire(Func):
         ======== ====== ================== =======
         Name     Type   Range              Default
         ======== ====== ================== =======
-        <bool>   Bool   {{0|OFF}|{1|ON}}   0|OFF
+        <bool>   Bool   {{0,OFF},{1,ON}}   0,OFF
         ======== ====== ================== =======
 
         **Return Format**
@@ -560,7 +560,7 @@ class Acquire(Func):
         ======== ====== ================== =======
         Name     Type   Range              Default
         ======== ====== ================== =======
-        <bool>   Bool   {{0|OFF}|{1|ON}}   0|OFF
+        <bool>   Bool   {{0,OFF},{1,ON}}   0,OFF
         ======== ====== ================== =======
 
         **Return Format**
@@ -597,7 +597,7 @@ class Acquire(Func):
         ======== ====== ================== =======
         Name     Type   Range              Default
         ======== ====== ================== =======
-        <bool>   Bool   {{0|OFF}|{1|ON}}   0|OFF
+        <bool>   Bool   {{0,OFF},{1,ON}}   0,OFF
         ======== ====== ================== =======
 
         **Return Format**

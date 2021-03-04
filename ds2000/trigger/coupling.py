@@ -46,7 +46,7 @@ class Coupling(SFunc):
         ========= ========= ========================== =======
         Name      Type      Range                      Default
         ========= ========= ========================== =======
-        <couple>  Discrete  {AC|DC|LFReject|HFReject}  DC
+        <couple>  Discrete  {AC,DC,LFReject,HFReject}  DC
         ========= ========= ========================== =======
 
         **Explanation**
@@ -84,7 +84,7 @@ class Coupling(SFunc):
         ========= ========= ========================== =======
         Name      Type      Range                      Default
         ========= ========= ========================== =======
-        <couple>  Discrete  {AC|DC|LFReject|HFReject}  DC
+        <couple>  Discrete  {AC,DC,LFReject,HFReject}  DC
         ========= ========= ========================== =======
 
         **Explanation**
@@ -122,7 +122,7 @@ class Coupling(SFunc):
         ========= ========= ========================== =======
         Name      Type      Range                      Default
         ========= ========= ========================== =======
-        <couple>  Discrete  {AC|DC|LFReject|HFReject}  DC
+        <couple>  Discrete  {AC,DC,LFReject,HFReject}  DC
         ========= ========= ========================== =======
 
         **Explanation**
@@ -160,7 +160,7 @@ class Coupling(SFunc):
         ========= ========= ========================== =======
         Name      Type      Range                      Default
         ========= ========= ========================== =======
-        <couple>  Discrete  {AC|DC|LFReject|HFReject}  DC
+        <couple>  Discrete  {AC,DC,LFReject,HFReject}  DC
         ========= ========= ========================== =======
 
         **Explanation**
@@ -198,7 +198,7 @@ class Coupling(SFunc):
         ========= ========= ========================== =======
         Name      Type      Range                      Default
         ========= ========= ========================== =======
-        <couple>  Discrete  {AC|DC|LFReject|HFReject}  DC
+        <couple>  Discrete  {AC,DC,LFReject,HFReject}  DC
         ========= ========= ========================== =======
 
         **Explanation**

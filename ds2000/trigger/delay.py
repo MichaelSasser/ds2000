@@ -51,7 +51,7 @@ class DelayType(SSFunc):
         ======= ========= ========================== =======
         Name    Type      Range                      Default
         ======= ========= ========================== =======
-        <type>  Discrete  {GREater|LESS|GLESs|GOUT}  GREater
+        <type>  Discrete  {GREater,LESS,GLESs,GOUT}  GREater
         ======= ========= ========================== =======
 
         **Explanation**
@@ -76,7 +76,7 @@ class DelayType(SSFunc):
         preset time (refer to the :TRIGger:DELay:TLOWer command) or greater
         than the upper limit of the preset time
         (refer to the :TRIGger:DELay:TUPPer command). Note that the time lower
-         limit must be lower than the time upper limit.
+        limit must be lower than the time upper limit.
 
         **Return Format**
 
@@ -109,7 +109,7 @@ class DelayType(SSFunc):
         ======= ========= ========================== =======
         Name    Type      Range                      Default
         ======= ========= ========================== =======
-        <type>  Discrete  {GREater|LESS|GLESs|GOUT}  GREater
+        <type>  Discrete  {GREater,LESS,GLESs,GOUT}  GREater
         ======= ========= ========================== =======
 
         **Explanation**
@@ -134,7 +134,7 @@ class DelayType(SSFunc):
         preset time (refer to the :TRIGger:DELay:TLOWer command) or greater
         than the upper limit of the preset time
         (refer to the :TRIGger:DELay:TUPPer command). Note that the time lower
-         limit must be lower than the time upper limit.
+        limit must be lower than the time upper limit.
 
         **Return Format**
 
@@ -167,7 +167,7 @@ class DelayType(SSFunc):
         ======= ========= ========================== =======
         Name    Type      Range                      Default
         ======= ========= ========================== =======
-        <type>  Discrete  {GREater|LESS|GLESs|GOUT}  GREater
+        <type>  Discrete  {GREater,LESS,GLESs,GOUT}  GREater
         ======= ========= ========================== =======
 
         **Explanation**
@@ -192,7 +192,7 @@ class DelayType(SSFunc):
         preset time (refer to the :TRIGger:DELay:TLOWer command) or greater
         than the upper limit of the preset time
         (refer to the :TRIGger:DELay:TUPPer command). Note that the time lower
-         limit must be lower than the time upper limit.
+        limit must be lower than the time upper limit.
 
         **Return Format**
 
@@ -225,7 +225,7 @@ class DelayType(SSFunc):
         ======= ========= ========================== =======
         Name    Type      Range                      Default
         ======= ========= ========================== =======
-        <type>  Discrete  {GREater|LESS|GLESs|GOUT}  GREater
+        <type>  Discrete  {GREater,LESS,GLESs,GOUT}  GREater
         ======= ========= ========================== =======
 
         **Explanation**
@@ -250,7 +250,7 @@ class DelayType(SSFunc):
         preset time (refer to the :TRIGger:DELay:TLOWer command) or greater
         than the upper limit of the preset time
         (refer to the :TRIGger:DELay:TUPPer command). Note that the time lower
-         limit must be lower than the time upper limit.
+        limit must be lower than the time upper limit.
 
         **Return Format**
 
@@ -283,7 +283,7 @@ class DelayType(SSFunc):
         ======= ========= ========================== =======
         Name    Type      Range                      Default
         ======= ========= ========================== =======
-        <type>  Discrete  {GREater|LESS|GLESs|GOUT}  GREater
+        <type>  Discrete  {GREater,LESS,GLESs,GOUT}  GREater
         ======= ========= ========================== =======
 
         **Explanation**
@@ -308,7 +308,7 @@ class DelayType(SSFunc):
         preset time (refer to the :TRIGger:DELay:TLOWer command) or greater
         than the upper limit of the preset time
         (refer to the :TRIGger:DELay:TUPPer command). Note that the time lower
-         limit must be lower than the time upper limit.
+        limit must be lower than the time upper limit.
 
         **Return Format**
 
@@ -361,7 +361,7 @@ class DelaySource(SSFunc):
         ========= ========= ==================== ========
         Name      Type      Range                Default
         ========= ========= ==================== ========
-        <source>  Discrete  {CHANnel1|CHANnel2}  CHANnel1
+        <source>  Discrete  {CHANnel1,CHANnel2}  CHANnel1
         ========= ========= ==================== ========
 
         **Return Format**
@@ -402,7 +402,7 @@ class DelaySource(SSFunc):
         ========= ========= ==================== ========
         Name      Type      Range                Default
         ========= ========= ==================== ========
-        <source>  Discrete  {CHANnel1|CHANnel2}  CHANnel1
+        <source>  Discrete  {CHANnel1,CHANnel2}  CHANnel1
         ========= ========= ==================== ========
 
         **Return Format**
@@ -443,7 +443,7 @@ class DelaySource(SSFunc):
         ========= ========= ==================== ========
         Name      Type      Range                Default
         ========= ========= ==================== ========
-        <source>  Discrete  {CHANnel1|CHANnel2}  CHANnel1
+        <source>  Discrete  {CHANnel1,CHANnel2}  CHANnel1
         ========= ========= ==================== ========
 
         **Return Format**
@@ -490,7 +490,7 @@ class DelaySlope(SSFunc):
         ======== ========= ==================== ========
         Name     Type      Range                Default
         ======== ========= ==================== ========
-        <slope>  Discrete  {POSitive|NEGative}  POSitive
+        <slope>  Discrete  {POSitive,NEGative}  POSitive
         ======== ========= ==================== ========
 
         **Return Format**
@@ -533,7 +533,7 @@ class DelaySlope(SSFunc):
         ======== ========= ==================== ========
         Name     Type      Range                Default
         ======== ========= ==================== ========
-        <slope>  Discrete  {POSitive|NEGative}  POSitive
+        <slope>  Discrete  {POSitive,NEGative}  POSitive
         ======== ========= ==================== ========
 
         **Return Format**
@@ -576,7 +576,7 @@ class DelaySlope(SSFunc):
         ======== ========= ==================== ========
         Name     Type      Range                Default
         ======== ========= ==================== ========
-        <slope>  Discrete  {POSitive|NEGative}  POSitive
+        <slope>  Discrete  {POSitive,NEGative}  POSitive
         ======== ========= ==================== ========
 
         **Return Format**

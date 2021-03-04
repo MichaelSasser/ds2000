@@ -1,6 +1,7 @@
 !.gitignore
 oscilloscope.py
 setup.py
+/.vim
 # Created by .ignore support plugin (hsz.mobi)
 ### Emacs template
 # -*- mode: gitignore; -*-

@@ -38,7 +38,7 @@ class IEEE(Func):
 
         **Syntax**
 
-        *IDN?
+        \\*IDN?
 
         **Description**
 
@@ -53,7 +53,7 @@ class IEEE(Func):
 
         **Example**
 
-        *IDN?
+        \\*IDN?
 
         The query returns RIGOL TECHNOLOGIES,DS2202,DS2xxx,00.00.01. Instrument
         """
@@ -66,7 +66,7 @@ class IEEE(Func):
 
         **Syntax**
 
-        *RST
+        \\*RST
 
         **Description**
 

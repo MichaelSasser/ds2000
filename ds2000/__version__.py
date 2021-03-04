@@ -16,12 +16,12 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 from __future__ import annotations
 
-from pkg_resources import get_distribution
+from importlib.metadata import version
 
 
 __author__: str = "Michael Sasser"
 __email__: str = "Michael@MichaelSasser.org"
 
-__version__ = get_distribution("ds2000").version
+__version__: str = version("ds2000")
 
 # vim: set ft=python :

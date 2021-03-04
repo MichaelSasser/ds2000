@@ -45,10 +45,10 @@ class Mode(SFunc):
         ======= ========= ============================ =======
         Name    Type      Range                        Default
         ======= ========= ============================ =======
-        <mode>  Discrete  {EDGE|PULSe|RUNT|WIND|NEDG|  EDGE
-                          SLOPe|VIDeo|PATTern|DELay|
-                          TIMeout|DURATion|SHOLd|
-                          RS232|IIC|SPI|USB}
+        <mode>  Discrete  {EDGE,PULSe,RUNT,WIND,NEDG,  EDGE
+                          SLOPe,VIDeo,PATTern,DELay,
+                          TIMeout,DURATion,SHOLd,
+                          RS232,IIC,SPI,USB}
         ======= ========= ============================ =======
 
         **Return Format**
@@ -82,10 +82,10 @@ class Mode(SFunc):
         ======= ========= ============================ =======
         Name    Type      Range                        Default
         ======= ========= ============================ =======
-        <mode>  Discrete  {EDGE|PULSe|RUNT|WIND|NEDG|  EDGE
-                          SLOPe|VIDeo|PATTern|DELay|
-                          TIMeout|DURATion|SHOLd|
-                          RS232|IIC|SPI|USB}
+        <mode>  Discrete  {EDGE,PULSe,RUNT,WIND,NEDG,  EDGE
+                          SLOPe,VIDeo,PATTern,DELay,
+                          TIMeout,DURATion,SHOLd,
+                          RS232,IIC,SPI,USB}
         ======= ========= ============================ =======
 
         **Return Format**
@@ -119,10 +119,10 @@ class Mode(SFunc):
         ======= ========= ============================ =======
         Name    Type      Range                        Default
         ======= ========= ============================ =======
-        <mode>  Discrete  {EDGE|PULSe|RUNT|WIND|NEDG|  EDGE
-                          SLOPe|VIDeo|PATTern|DELay|
-                          TIMeout|DURATion|SHOLd|
-                          RS232|IIC|SPI|USB}
+        <mode>  Discrete  {EDGE,PULSe,RUNT,WIND,NEDG,  EDGE
+                          SLOPe,VIDeo,PATTern,DELay,
+                          TIMeout,DURATion,SHOLd,
+                          RS232,IIC,SPI,USB}
         ======= ========= ============================ =======
 
         **Return Format**
@@ -156,10 +156,10 @@ class Mode(SFunc):
         ======= ========= ============================ =======
         Name    Type      Range                        Default
         ======= ========= ============================ =======
-        <mode>  Discrete  {EDGE|PULSe|RUNT|WIND|NEDG|  EDGE
-                          SLOPe|VIDeo|PATTern|DELay|
-                          TIMeout|DURATion|SHOLd|
-                          RS232|IIC|SPI|USB}
+        <mode>  Discrete  {EDGE,PULSe,RUNT,WIND,NEDG,  EDGE
+                          SLOPe,VIDeo,PATTern,DELay,
+                          TIMeout,DURATion,SHOLd,
+                          RS232,IIC,SPI,USB}
         ======= ========= ============================ =======
 
         **Return Format**
@@ -193,10 +193,10 @@ class Mode(SFunc):
         ======= ========= ============================ =======
         Name    Type      Range                        Default
         ======= ========= ============================ =======
-        <mode>  Discrete  {EDGE|PULSe|RUNT|WIND|NEDG|  EDGE
-                          SLOPe|VIDeo|PATTern|DELay|
-                          TIMeout|DURATion|SHOLd|
-                          RS232|IIC|SPI|USB}
+        <mode>  Discrete  {EDGE,PULSe,RUNT,WIND,NEDG,  EDGE
+                          SLOPe,VIDeo,PATTern,DELay,
+                          TIMeout,DURATion,SHOLd,
+                          RS232,IIC,SPI,USB}
         ======= ========= ============================ =======
 
         **Return Format**
@@ -230,10 +230,10 @@ class Mode(SFunc):
         ======= ========= ============================ =======
         Name    Type      Range                        Default
         ======= ========= ============================ =======
-        <mode>  Discrete  {EDGE|PULSe|RUNT|WIND|NEDG|  EDGE
-                          SLOPe|VIDeo|PATTern|DELay|
-                          TIMeout|DURATion|SHOLd|
-                          RS232|IIC|SPI|USB}
+        <mode>  Discrete  {EDGE,PULSe,RUNT,WIND,NEDG,  EDGE
+                          SLOPe,VIDeo,PATTern,DELay,
+                          TIMeout,DURATion,SHOLd,
+                          RS232,IIC,SPI,USB}
         ======= ========= ============================ =======
 
         **Return Format**
@@ -267,10 +267,10 @@ class Mode(SFunc):
         ======= ========= ============================ =======
         Name    Type      Range                        Default
         ======= ========= ============================ =======
-        <mode>  Discrete  {EDGE|PULSe|RUNT|WIND|NEDG|  EDGE
-                          SLOPe|VIDeo|PATTern|DELay|
-                          TIMeout|DURATion|SHOLd|
-                          RS232|IIC|SPI|USB}
+        <mode>  Discrete  {EDGE,PULSe,RUNT,WIND,NEDG,  EDGE
+                          SLOPe,VIDeo,PATTern,DELay,
+                          TIMeout,DURATion,SHOLd,
+                          RS232,IIC,SPI,USB}
         ======= ========= ============================ =======
 
         **Return Format**
@@ -304,10 +304,10 @@ class Mode(SFunc):
         ======= ========= ============================ =======
         Name    Type      Range                        Default
         ======= ========= ============================ =======
-        <mode>  Discrete  {EDGE|PULSe|RUNT|WIND|NEDG|  EDGE
-                          SLOPe|VIDeo|PATTern|DELay|
-                          TIMeout|DURATion|SHOLd|
-                          RS232|IIC|SPI|USB}
+        <mode>  Discrete  {EDGE,PULSe,RUNT,WIND,NEDG,  EDGE
+                          SLOPe,VIDeo,PATTern,DELay,
+                          TIMeout,DURATion,SHOLd,
+                          RS232,IIC,SPI,USB}
         ======= ========= ============================ =======
 
         **Return Format**
@@ -341,10 +341,10 @@ class Mode(SFunc):
         ======= ========= ============================ =======
         Name    Type      Range                        Default
         ======= ========= ============================ =======
-        <mode>  Discrete  {EDGE|PULSe|RUNT|WIND|NEDG|  EDGE
-                          SLOPe|VIDeo|PATTern|DELay|
-                          TIMeout|DURATion|SHOLd|
-                          RS232|IIC|SPI|USB}
+        <mode>  Discrete  {EDGE,PULSe,RUNT,WIND,NEDG,  EDGE
+                          SLOPe,VIDeo,PATTern,DELay,
+                          TIMeout,DURATion,SHOLd,
+                          RS232,IIC,SPI,USB}
         ======= ========= ============================ =======
 
         **Return Format**
@@ -378,10 +378,10 @@ class Mode(SFunc):
         ======= ========= ============================ =======
         Name    Type      Range                        Default
         ======= ========= ============================ =======
-        <mode>  Discrete  {EDGE|PULSe|RUNT|WIND|NEDG|  EDGE
-                          SLOPe|VIDeo|PATTern|DELay|
-                          TIMeout|DURATion|SHOLd|
-                          RS232|IIC|SPI|USB}
+        <mode>  Discrete  {EDGE,PULSe,RUNT,WIND,NEDG,  EDGE
+                          SLOPe,VIDeo,PATTern,DELay,
+                          TIMeout,DURATion,SHOLd,
+                          RS232,IIC,SPI,USB}
         ======= ========= ============================ =======
 
         **Return Format**
@@ -415,10 +415,10 @@ class Mode(SFunc):
         ======= ========= ============================ =======
         Name    Type      Range                        Default
         ======= ========= ============================ =======
-        <mode>  Discrete  {EDGE|PULSe|RUNT|WIND|NEDG|  EDGE
-                          SLOPe|VIDeo|PATTern|DELay|
-                          TIMeout|DURATion|SHOLd|
-                          RS232|IIC|SPI|USB}
+        <mode>  Discrete  {EDGE,PULSe,RUNT,WIND,NEDG,  EDGE
+                          SLOPe,VIDeo,PATTern,DELay,
+                          TIMeout,DURATion,SHOLd,
+                          RS232,IIC,SPI,USB}
         ======= ========= ============================ =======
 
         **Return Format**
@@ -452,10 +452,10 @@ class Mode(SFunc):
         ======= ========= ============================ =======
         Name    Type      Range                        Default
         ======= ========= ============================ =======
-        <mode>  Discrete  {EDGE|PULSe|RUNT|WIND|NEDG|  EDGE
-                          SLOPe|VIDeo|PATTern|DELay|
-                          TIMeout|DURATion|SHOLd|
-                          RS232|IIC|SPI|USB}
+        <mode>  Discrete  {EDGE,PULSe,RUNT,WIND,NEDG,  EDGE
+                          SLOPe,VIDeo,PATTern,DELay,
+                          TIMeout,DURATion,SHOLd,
+                          RS232,IIC,SPI,USB}
         ======= ========= ============================ =======
 
         **Return Format**
@@ -489,10 +489,10 @@ class Mode(SFunc):
         ======= ========= ============================ =======
         Name    Type      Range                        Default
         ======= ========= ============================ =======
-        <mode>  Discrete  {EDGE|PULSe|RUNT|WIND|NEDG|  EDGE
-                          SLOPe|VIDeo|PATTern|DELay|
-                          TIMeout|DURATion|SHOLd|
-                          RS232|IIC|SPI|USB}
+        <mode>  Discrete  {EDGE,PULSe,RUNT,WIND,NEDG,  EDGE
+                          SLOPe,VIDeo,PATTern,DELay,
+                          TIMeout,DURATion,SHOLd,
+                          RS232,IIC,SPI,USB}
         ======= ========= ============================ =======
 
         **Return Format**
@@ -526,10 +526,10 @@ class Mode(SFunc):
         ======= ========= ============================ =======
         Name    Type      Range                        Default
         ======= ========= ============================ =======
-        <mode>  Discrete  {EDGE|PULSe|RUNT|WIND|NEDG|  EDGE
-                          SLOPe|VIDeo|PATTern|DELay|
-                          TIMeout|DURATion|SHOLd|
-                          RS232|IIC|SPI|USB}
+        <mode>  Discrete  {EDGE,PULSe,RUNT,WIND,NEDG,  EDGE
+                          SLOPe,VIDeo,PATTern,DELay,
+                          TIMeout,DURATion,SHOLd,
+                          RS232,IIC,SPI,USB}
         ======= ========= ============================ =======
 
         **Return Format**
@@ -563,10 +563,10 @@ class Mode(SFunc):
         ======= ========= ============================ =======
         Name    Type      Range                        Default
         ======= ========= ============================ =======
-        <mode>  Discrete  {EDGE|PULSe|RUNT|WIND|NEDG|  EDGE
-                          SLOPe|VIDeo|PATTern|DELay|
-                          TIMeout|DURATion|SHOLd|
-                          RS232|IIC|SPI|USB}
+        <mode>  Discrete  {EDGE,PULSe,RUNT,WIND,NEDG,  EDGE
+                          SLOPe,VIDeo,PATTern,DELay,
+                          TIMeout,DURATion,SHOLd,
+                          RS232,IIC,SPI,USB}
         ======= ========= ============================ =======
 
         **Return Format**
@@ -600,10 +600,10 @@ class Mode(SFunc):
         ======= ========= ============================ =======
         Name    Type      Range                        Default
         ======= ========= ============================ =======
-        <mode>  Discrete  {EDGE|PULSe|RUNT|WIND|NEDG|  EDGE
-                          SLOPe|VIDeo|PATTern|DELay|
-                          TIMeout|DURATion|SHOLd|
-                          RS232|IIC|SPI|USB}
+        <mode>  Discrete  {EDGE,PULSe,RUNT,WIND,NEDG,  EDGE
+                          SLOPe,VIDeo,PATTern,DELay,
+                          TIMeout,DURATion,SHOLd,
+                          RS232,IIC,SPI,USB}
         ======= ========= ============================ =======
 
         **Return Format**
@@ -637,10 +637,10 @@ class Mode(SFunc):
         ======= ========= ============================ =======
         Name    Type      Range                        Default
         ======= ========= ============================ =======
-        <mode>  Discrete  {EDGE|PULSe|RUNT|WIND|NEDG|  EDGE
-                          SLOPe|VIDeo|PATTern|DELay|
-                          TIMeout|DURATion|SHOLd|
-                          RS232|IIC|SPI|USB}
+        <mode>  Discrete  {EDGE,PULSe,RUNT,WIND,NEDG,  EDGE
+                          SLOPe,VIDeo,PATTern,DELay,
+                          TIMeout,DURATion,SHOLd,
+                          RS232,IIC,SPI,USB}
         ======= ========= ============================ =======
 
         **Return Format**

@@ -72,7 +72,7 @@ class Mode(SFunc):
         ======= ========== ====================== =======
         Name    Type       Range                  Default
         ======= ========== ====================== =======
-        <type>  Discrete   {NORMal|MAXimum|RAW}   NORMal
+        <type>  Discrete   {NORMal,MAXimum,RAW}   NORMal
         ======= ========== ====================== =======
 
         **Explanation**
@@ -126,7 +126,7 @@ class Mode(SFunc):
         ======= ========== ====================== =======
         Name    Type       Range                  Default
         ======= ========== ====================== =======
-        <type>  Discrete   {NORMal|MAXimum|RAW}   NORMal
+        <type>  Discrete   {NORMal,MAXimum,RAW}   NORMal
         ======= ========== ====================== =======
 
         **Explanation**
@@ -180,7 +180,7 @@ class Mode(SFunc):
         ======= ========== ====================== =======
         Name    Type       Range                  Default
         ======= ========== ====================== =======
-        <type>  Discrete   {NORMal|MAXimum|RAW}   NORMal
+        <type>  Discrete   {NORMal,MAXimum,RAW}   NORMal
         ======= ========== ====================== =======
 
         **Explanation**
@@ -234,7 +234,7 @@ class Mode(SFunc):
         ======= ========== ====================== =======
         Name    Type       Range                  Default
         ======= ========== ====================== =======
-        <type>  Discrete   {NORMal|MAXimum|RAW}   NORMal
+        <type>  Discrete   {NORMal,MAXimum,RAW}   NORMal
         ======= ========== ====================== =======
 
         **Explanation**
@@ -304,7 +304,7 @@ class Format(SFunc):
         ========= ========== =================== =======
         Name      Type       Range               Default
         ========= ========== =================== =======
-        <format>  Discrete   {WORD|BYTE|ASCii}   BYTE
+        <format>  Discrete   {WORD,BYTE,ASCii}   BYTE
         ========= ========== =================== =======
 
         **Explanation**
@@ -357,7 +357,7 @@ class Format(SFunc):
         ========= ========== =================== =======
         Name      Type       Range               Default
         ========= ========== =================== =======
-        <format>  Discrete   {WORD|BYTE|ASCii}   BYTE
+        <format>  Discrete   {WORD,BYTE,ASCii}   BYTE
         ========= ========== =================== =======
 
         **Explanation**
@@ -407,7 +407,7 @@ class Format(SFunc):
         ========= ========== =================== =======
         Name      Type       Range               Default
         ========= ========== =================== =======
-        <format>  Discrete   {WORD|BYTE|ASCii}   BYTE
+        <format>  Discrete   {WORD,BYTE,ASCii}   BYTE
         ========= ========== =================== =======
 
         **Explanation**
@@ -485,7 +485,7 @@ class Waveform(Func):
         ========== ========= ==================== ========
          Name      Type      Range                Default
         ========== ========= ==================== ========
-         <source>  Discrete  {CHANnel1|CHANnel2}  CHANnel1
+         <source>  Discrete  {CHANnel1,CHANnel2}  CHANnel1
         ========== ========= ==================== ========
 
         **Return Format**

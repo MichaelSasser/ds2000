@@ -54,7 +54,7 @@ class SlopeSource(SSFunc):
         ========= ========= ==================== ========
         Name      Type      Range                Default
         ========= ========= ==================== ========
-        <source>  Discrete  {CHANnel1|CHANnel2}  CHANnel1
+        <source>  Discrete  {CHANnel1,CHANnel2}  CHANnel1
         ========= ========= ==================== ========
 
         **Return Format**
@@ -88,7 +88,7 @@ class SlopeSource(SSFunc):
         ========= ========= ==================== ========
         Name      Type      Range                Default
         ========= ========= ==================== ========
-        <source>  Discrete  {CHANnel1|CHANnel2}  CHANnel1
+        <source>  Discrete  {CHANnel1,CHANnel2}  CHANnel1
         ========= ========= ==================== ========
 
         **Return Format**
@@ -122,7 +122,7 @@ class SlopeSource(SSFunc):
         ========= ========= ==================== ========
         Name      Type      Range                Default
         ========= ========= ==================== ========
-        <source>  Discrete  {CHANnel1|CHANnel2}  CHANnel1
+        <source>  Discrete  {CHANnel1,CHANnel2}  CHANnel1
         ========= ========= ==================== ========
 
         **Return Format**
@@ -158,8 +158,8 @@ class SlopeWhen(SSFunc):
         ======= ========= ========================= ========
         Name    Type      Range                     Default
         ======= ========= ========================= ========
-        <when>  Discrete  {PGReater|PLESs|NGReater  PGReater
-                          |NLESs|PGLess|NGLess}
+        <when>  Discrete  {PGReater,PLESs,NGReater  PGReater
+                          ,NLESs,PGLess,NGLess}
         ======= ========= ========================= ========
 
         **Explanation**
@@ -227,8 +227,8 @@ class SlopeWhen(SSFunc):
         ======= ========= ========================= ========
         Name    Type      Range                     Default
         ======= ========= ========================= ========
-        <when>  Discrete  {PGReater|PLESs|NGReater  PGReater
-                          |NLESs|PGLess|NGLess}
+        <when>  Discrete  {PGReater,PLESs,NGReater  PGReater
+                          ,NLESs,PGLess,NGLess}
         ======= ========= ========================= ========
 
         **Explanation**
@@ -296,8 +296,8 @@ class SlopeWhen(SSFunc):
         ======= ========= ========================= ========
         Name    Type      Range                     Default
         ======= ========= ========================= ========
-        <when>  Discrete  {PGReater|PLESs|NGReater  PGReater
-                          |NLESs|PGLess|NGLess}
+        <when>  Discrete  {PGReater,PLESs,NGReater  PGReater
+                          ,NLESs,PGLess,NGLess}
         ======= ========= ========================= ========
 
         **Explanation**
@@ -365,8 +365,8 @@ class SlopeWhen(SSFunc):
         ======= ========= ========================= ========
         Name    Type      Range                     Default
         ======= ========= ========================= ========
-        <when>  Discrete  {PGReater|PLESs|NGReater  PGReater
-                          |NLESs|PGLess|NGLess}
+        <when>  Discrete  {PGReater,PLESs,NGReater  PGReater
+                          ,NLESs,PGLess,NGLess}
         ======= ========= ========================= ========
 
         **Explanation**
@@ -434,8 +434,8 @@ class SlopeWhen(SSFunc):
         ======= ========= ========================= ========
         Name    Type      Range                     Default
         ======= ========= ========================= ========
-        <when>  Discrete  {PGReater|PLESs|NGReater  PGReater
-                          |NLESs|PGLess|NGLess}
+        <when>  Discrete  {PGReater,PLESs,NGReater  PGReater
+                          ,NLESs,PGLess,NGLess}
         ======= ========= ========================= ========
 
         **Explanation**
@@ -503,8 +503,8 @@ class SlopeWhen(SSFunc):
         ======= ========= ========================= ========
         Name    Type      Range                     Default
         ======= ========= ========================= ========
-        <when>  Discrete  {PGReater|PLESs|NGReater  PGReater
-                          |NLESs|PGLess|NGLess}
+        <when>  Discrete  {PGReater,PLESs,NGReater  PGReater
+                          ,NLESs,PGLess,NGLess}
         ======= ========= ========================= ========
 
         **Explanation**
@@ -572,8 +572,8 @@ class SlopeWhen(SSFunc):
         ======= ========= ========================= ========
         Name    Type      Range                     Default
         ======= ========= ========================= ========
-        <when>  Discrete  {PGReater|PLESs|NGReater  PGReater
-                          |NLESs|PGLess|NGLess}
+        <when>  Discrete  {PGReater,PLESs,NGReater  PGReater
+                          ,NLESs,PGLess,NGLess}
         ======= ========= ========================= ========
 
         **Explanation**
@@ -656,7 +656,7 @@ class SlopeWindow(SSFunc):
         ========= ========= ============ =======
         Name      Type      Range        Default
         ========= ========= ============ =======
-        <window>  Discrete  {TA|TB|TAB}  TA
+        <window>  Discrete  {TA,TB,TAB}  TA
         ========= ========= ============ =======
 
         **Explanation**
@@ -705,7 +705,7 @@ class SlopeWindow(SSFunc):
         ========= ========= ============ =======
         Name      Type      Range        Default
         ========= ========= ============ =======
-        <window>  Discrete  {TA|TB|TAB}  TA
+        <window>  Discrete  {TA,TB,TAB}  TA
         ========= ========= ============ =======
 
         **Explanation**
@@ -754,7 +754,7 @@ class SlopeWindow(SSFunc):
         ========= ========= ============ =======
         Name      Type      Range        Default
         ========= ========= ============ =======
-        <window>  Discrete  {TA|TB|TAB}  TA
+        <window>  Discrete  {TA,TB,TAB}  TA
         ========= ========= ============ =======
 
         **Explanation**
@@ -803,7 +803,7 @@ class SlopeWindow(SSFunc):
         ========= ========= ============ =======
         Name      Type      Range        Default
         ========= ========= ============ =======
-        <window>  Discrete  {TA|TB|TAB}  TA
+        <window>  Discrete  {TA,TB,TAB}  TA
         ========= ========= ============ =======
 
         **Explanation**

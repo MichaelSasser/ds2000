@@ -49,7 +49,7 @@ class DisplayType(SFunc):
         ======= ========= =============== =======
         Name    Type      Range           Default
         ======= ========= =============== =======
-        <type>  Discrete  {VECTors|DOTS}  VECTors
+        <type>  Discrete  {VECTors,DOTS}  VECTors
         ======= ========= =============== =======
 
         **Explanation**
@@ -93,7 +93,7 @@ class DisplayType(SFunc):
         ======= ========= =============== =======
         Name    Type      Range           Default
         ======= ========= =============== =======
-        <type>  Discrete  {VECTors|DOTS}  VECTors
+        <type>  Discrete  {VECTors,DOTS}  VECTors
         ======= ========= =============== =======
 
         **Explanation**
@@ -136,7 +136,7 @@ class DisplayType(SFunc):
         ======= ========= =============== =======
         Name    Type      Range           Default
         ======= ========= =============== =======
-        <type>  Discrete  {VECTors|DOTS}  VECTors
+        <type>  Discrete  {VECTors,DOTS}  VECTors
         ======= ========= =============== =======
 
         **Explanation**
@@ -184,7 +184,7 @@ class DisplayGrid(SFunc):
         ======= ========= ================= =======
         Name    Type      Range             Default
         ======= ========= ================= =======
-        <grid>  Discrete  {FULL|HALF|NONE}  FULL
+        <grid>  Discrete  {FULL,HALF,NONE}  FULL
         ======= ========= ================= =======
 
         **Explanation**
@@ -226,7 +226,7 @@ class DisplayGrid(SFunc):
         ======= ========= ================= =======
         Name    Type      Range             Default
         ======= ========= ================= =======
-        <grid>  Discrete  {FULL|HALF|NONE}  FULL
+        <grid>  Discrete  {FULL,HALF,NONE}  FULL
         ======= ========= ================= =======
 
         **Explanation**
@@ -268,7 +268,7 @@ class DisplayGrid(SFunc):
         ======= ========= ================= =======
         Name    Type      Range             Default
         ======= ========= ================= =======
-        <grid>  Discrete  {FULL|HALF|NONE}  FULL
+        <grid>  Discrete  {FULL,HALF,NONE}  FULL
         ======= ========= ================= =======
 
         **Explanation**
@@ -310,7 +310,7 @@ class DisplayGrid(SFunc):
         ======= ========= ================= =======
         Name    Type      Range             Default
         ======= ========= ================= =======
-        <grid>  Discrete  {FULL|HALF|NONE}  FULL
+        <grid>  Discrete  {FULL,HALF,NONE}  FULL
         ======= ========= ================= =======
 
         **Explanation**
@@ -402,7 +402,7 @@ class Display(Func):
         ======= ========= ============================================ =======
         Name    Type      Range                                        Default
         ======= ========= ============================================ =======
-        <time>  Discrete  {MIN|0.05|0.1|0.2|0.5|1|2|5|10|20|INFinite}  MIN
+        <time>  Discrete  {MIN,0.05,0.1,0.2,0.5,1,2,5,10,20,INFinite}  MIN
         ======= ========= ============================================ =======
 
         **Explanation**
@@ -459,7 +459,7 @@ class Display(Func):
         ======= ========= ============================================ =======
         Name    Type      Range                                        Default
         ======= ========= ============================================ =======
-        <time>  Discrete  {MIN|0.05|0.1|0.2|0.5|1|2|5|10|20|INFinite}  MIN
+        <time>  Discrete  {MIN,0.05,0.1,0.2,0.5,1,2,5,10,20,INFinite}  MIN
         ======= ========= ============================================ =======
 
         **Explanation**
@@ -656,7 +656,7 @@ class Display(Func):
         ======= ========= ======================= ========
         Name    Type      Range                   Default
         ======= ========= ======================= ========
-        <time>  Discrete  {1|2|5|10|20|INFinite}  INFinite
+        <time>  Discrete  {1,2,5,10,20,INFinite}  INFinite
         ======= ========= ======================= ========
 
         **Return Format**
@@ -677,7 +677,7 @@ class Display(Func):
             self.instrument.ask(f":DISPlay:GRADing:TIME {time}")
 
     def data(self) -> bytearray:  # Screenshot bitmap raw data stream
-        r"""Read the bitmap data stream of the image currently displayed.
+        """Read the bitmap data stream of the image currently displayed.
 
         **Rigol Programming Guide**
 
@@ -700,34 +700,32 @@ class Display(Func):
 
         The format of the bitmap data stream:
 
-        ============== ================================ =======================
-        Component      TMC Blockheader                  BMP Data
-        ============== ================================ =======================
-        Size (length)  N[1] +2                          800*480*3+54=1152054[2]
-        ============== ================================ =======================
-        Example        #9001152054                      BM...
-        ============== ================================ =======================
-        Explanation    TMC Blockheader ::= #NXXXXXX     Specific bitmap data.
-                       is used to describe the length
-                       of the data stream. Wherein, #
-                       is the start denoter of the
-                       data stream; N is less than or
-                       equal to 9 and the N figures
-                       following it denotes the length
-                       of the data stream in bytes.
-                       For example, #9001152054;
-                       wherein, N is 9 and 001152054
-                       denotes that the data stream
-                       contains 1152054 bytes of
-                       effective data.
-        ============== ================================ =======================
-        ============== ================================ =======================
+        ============== ================================= =================
+        Component      TMC Blockheader                   BMP Data
+        ============== ================================= =================
+        Size (length)  N +2                              800*480*3+54=1152054
+        Example        #9001152054                       BM...
+        Explanation    |tmc_explanation|                 Specific bitmap
+        ============== ================================= =================
 
-        **Note[1]**: N is the width used to describe the data length in the TMC
-        header. For example, #90000.
+        .. |tmc_explanation| replace::
+           TMC Blockheader ::= #NXXXXXX is used to describe the length
+           of the data stream. Wherein, ``#`` is the start denoter
+           of the data stream; N is less than or equal to 9 and the N
+           figures following it denotes the length of the data stream
+           in bytes.  For example, #9001152054; wherein, N is 9
+           and 001152054 denotes that the data stream contains 1152054
+           bytes of effective data.
 
-        **Note[2]**: the width is 800, the height is 480, the bit depth is
-        24Bit = 3Byte, 54 is the size of the bitmap file header.
+        .. note::
+           Size - TMC Blockheader: N is the width used to describe the data
+           length in the TMC header. For example, #90000.
+
+
+        .. note::
+           Size - BMP Data: The width is 800, the height is 480, the bit
+           depth is 24Bit = 3Byte, 54 is the size of the bitmap file header.
+
 
         **Example**
 
@@ -740,7 +738,7 @@ class Display(Func):
         3. When the data size is larger than 1 M and the communication speed of
            the interface is not fast enough, you need to set an appropriate
            timeout time
-        4. The terminator '\\n'(0X0A) at the end of the data should be removed.
+        4. The terminator `\\n` (0x0A) at the end of the data should be removed.
         """
         # Write Data
         try:

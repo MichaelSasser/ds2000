@@ -68,7 +68,7 @@ class TriggerNoiseReject(SFunc):
         ======= ===== ================= =======
         Name    Type  Range             Default
         ======= ===== ================= =======
-        <bool>  Bool  {{0|OFF}|{1|ON}}  0|OFF
+        <bool>  Bool  {{0,OFF},{1,ON}}  0,OFF
         ======= ===== ================= =======
 
         **Return Format**
@@ -102,7 +102,7 @@ class TriggerNoiseReject(SFunc):
         ======= ===== ================= =======
         Name    Type  Range             Default
         ======= ===== ================= =======
-        <bool>  Bool  {{0|OFF}|{1|ON}}  0|OFF
+        <bool>  Bool  {{0,OFF},{1,ON}}  0,OFF
         ======= ===== ================= =======
 
         **Return Format**
@@ -136,7 +136,7 @@ class TriggerNoiseReject(SFunc):
         ======= ===== ================= =======
         Name    Type  Range             Default
         ======= ===== ================= =======
-        <bool>  Bool  {{0|OFF}|{1|ON}}  0|OFF
+        <bool>  Bool  {{0,OFF},{1,ON}}  0,OFF
         ======= ===== ================= =======
 
         **Return Format**
@@ -170,7 +170,7 @@ class TriggerNoiseReject(SFunc):
         ======= ===== ================= =======
         Name    Type  Range             Default
         ======= ===== ================= =======
-        <bool>  Bool  {{0|OFF}|{1|ON}}  0|OFF
+        <bool>  Bool  {{0,OFF},{1,ON}}  0,OFF
         ======= ===== ================= =======
 
         **Return Format**

@@ -63,7 +63,7 @@ class USBSource(SSFunc):
         ========= ========= ==================== ========
         Name      Type      Range                Default
         ========= ========= ==================== ========
-        <source>  Discrete  {CHANnel1|CHANnel2}  CHANnel1
+        <source>  Discrete  {CHANnel1,CHANnel2}  CHANnel1
         ========= ========= ==================== ========
 
         **Return Format**
@@ -106,7 +106,7 @@ class USBSource(SSFunc):
         ========= ========= ==================== ========
         Name      Type      Range                Default
         ========= ========= ==================== ========
-        <source>  Discrete  {CHANnel1|CHANnel2}  CHANnel1
+        <source>  Discrete  {CHANnel1,CHANnel2}  CHANnel1
         ========= ========= ==================== ========
 
         **Return Format**
@@ -147,7 +147,7 @@ class USBWhen(SSFunc):
         ============ ========= ================================= =======
         Name         Type      Range                             Default
         ============ ========= ================================= =======
-        <condition>  Discrete  {SOP|EOP|RC|SUSPend|EXITsuspend}  SOP
+        <condition>  Discrete  {SOP,EOP,RC,SUSPend,EXITsuspend}  SOP
         ============ ========= ================================= =======
 
         **Explanation**
@@ -195,7 +195,7 @@ class USBWhen(SSFunc):
         ============ ========= ================================= =======
         Name         Type      Range                             Default
         ============ ========= ================================= =======
-        <condition>  Discrete  {SOP|EOP|RC|SUSPend|EXITsuspend}  SOP
+        <condition>  Discrete  {SOP,EOP,RC,SUSPend,EXITsuspend}  SOP
         ============ ========= ================================= =======
 
         **Explanation**
@@ -243,7 +243,7 @@ class USBWhen(SSFunc):
         ============ ========= ================================= =======
         Name         Type      Range                             Default
         ============ ========= ================================= =======
-        <condition>  Discrete  {SOP|EOP|RC|SUSPend|EXITsuspend}  SOP
+        <condition>  Discrete  {SOP,EOP,RC,SUSPend,EXITsuspend}  SOP
         ============ ========= ================================= =======
 
         **Explanation**
@@ -291,7 +291,7 @@ class USBWhen(SSFunc):
         ============ ========= ================================= =======
         Name         Type      Range                             Default
         ============ ========= ================================= =======
-        <condition>  Discrete  {SOP|EOP|RC|SUSPend|EXITsuspend}  SOP
+        <condition>  Discrete  {SOP,EOP,RC,SUSPend,EXITsuspend}  SOP
         ============ ========= ================================= =======
 
         **Explanation**
@@ -339,7 +339,7 @@ class USBWhen(SSFunc):
         ============ ========= ================================= =======
         Name         Type      Range                             Default
         ============ ========= ================================= =======
-        <condition>  Discrete  {SOP|EOP|RC|SUSPend|EXITsuspend}  SOP
+        <condition>  Discrete  {SOP,EOP,RC,SUSPend,EXITsuspend}  SOP
         ============ ========= ================================= =======
 
         **Explanation**
@@ -387,7 +387,7 @@ class USBWhen(SSFunc):
         ============ ========= ================================= =======
         Name         Type      Range                             Default
         ============ ========= ================================= =======
-        <condition>  Discrete  {SOP|EOP|RC|SUSPend|EXITsuspend}  SOP
+        <condition>  Discrete  {SOP,EOP,RC,SUSPend,EXITsuspend}  SOP
         ============ ========= ================================= =======
 
         **Explanation**
@@ -448,7 +448,7 @@ class USBSpeed(SSFunc):
         ======== ========= =========== ========
         Name     Type      Range       Default
         ======== ========= =========== ========
-        <value>  Discrete  {LOW|FULL}  LOW
+        <value>  Discrete  {LOW,FULL}  LOW
         ======== ========= =========== ========
 
         **Return Format**
@@ -482,7 +482,7 @@ class USBSpeed(SSFunc):
         ======== ========= =========== ========
         Name     Type      Range       Default
         ======== ========= =========== ========
-        <value>  Discrete  {LOW|FULL}  LOW
+        <value>  Discrete  {LOW,FULL}  LOW
         ======== ========= =========== ========
 
         **Return Format**
@@ -516,7 +516,7 @@ class USBSpeed(SSFunc):
         ======== ========= =========== ========
         Name     Type      Range       Default
         ======== ========= =========== ========
-        <value>  Discrete  {LOW|FULL}  LOW
+        <value>  Discrete  {LOW,FULL}  LOW
         ======== ========= =========== ========
 
         **Return Format**

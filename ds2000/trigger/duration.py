@@ -55,7 +55,7 @@ class DurationWhen(SSFunc):
         ======= ========= ===================== ========
         Name    Type      Range                 Default
         ======= ========= ===================== ========
-        <when>  Discrete  {GREater|LESS|GLESs}  PGReater
+        <when>  Discrete  {GREater,LESS,GLESs}  PGReater
         ======= ========= ===================== ========
 
         **Explanation**
@@ -107,7 +107,7 @@ class DurationWhen(SSFunc):
         ======= ========= ===================== ========
         Name    Type      Range                 Default
         ======= ========= ===================== ========
-        <when>  Discrete  {GREater|LESS|GLESs}  PGReater
+        <when>  Discrete  {GREater,LESS,GLESs}  PGReater
         ======= ========= ===================== ========
 
         **Explanation**
@@ -159,7 +159,7 @@ class DurationWhen(SSFunc):
         ======= ========= ===================== ========
         Name    Type      Range                 Default
         ======= ========= ===================== ========
-        <when>  Discrete  {GREater|LESS|GLESs}  PGReater
+        <when>  Discrete  {GREater,LESS,GLESs}  PGReater
         ======= ========= ===================== ========
 
         **Explanation**
@@ -209,7 +209,7 @@ class DurationWhen(SSFunc):
         ======= ========= ===================== ========
         Name    Type      Range                 Default
         ======= ========= ===================== ========
-        <when>  Discrete  {GREater|LESS|GLESs}  PGReater
+        <when>  Discrete  {GREater,LESS,GLESs}  PGReater
         ======= ========= ===================== ========
 
         **Explanation**
@@ -268,7 +268,7 @@ class DurationSource(SSFunc):
         ========= ========= ==================== ========
         Name      Type      Range                Default
         ========= ========= ==================== ========
-        <source>  Discrete  {CHANnel1|CHANnel2}  CHANnel1
+        <source>  Discrete  {CHANnel1,CHANnel2}  CHANnel1
         ========= ========= ==================== ========
 
         **Return Format**
@@ -302,7 +302,7 @@ class DurationSource(SSFunc):
         ========= ========= ==================== ========
         Name      Type      Range                Default
         ========= ========= ==================== ========
-        <source>  Discrete  {CHANnel1|CHANnel2}  CHANnel1
+        <source>  Discrete  {CHANnel1,CHANnel2}  CHANnel1
         ========= ========= ==================== ========
 
         **Return Format**
@@ -336,7 +336,7 @@ class DurationSource(SSFunc):
         ========= ========= ==================== ========
         Name      Type      Range                Default
         ========= ========= ==================== ========
-        <source>  Discrete  {CHANnel1|CHANnel2}  CHANnel1
+        <source>  Discrete  {CHANnel1,CHANnel2}  CHANnel1
         ========= ========= ==================== ========
 
         **Return Format**

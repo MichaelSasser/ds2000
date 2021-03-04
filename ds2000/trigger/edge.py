@@ -50,7 +50,7 @@ class EdgeSource(SSFunc):
         ========= ========= =============================== ========
         Name      Type      Range                           Default
         ========= ========= =============================== ========
-        <source>  Discrete  {CHANnel1|CHANnel2|EXT|ACLine}  CHANnel1
+        <source>  Discrete  {CHANnel1,CHANnel2,EXT,ACLine}  CHANnel1
         ========= ========= =============================== ========
 
         **Return Format**
@@ -84,7 +84,7 @@ class EdgeSource(SSFunc):
         ========= ========= =============================== ========
         Name      Type      Range                           Default
         ========= ========= =============================== ========
-        <source>  Discrete  {CHANnel1|CHANnel2|EXT|ACLine}  CHANnel1
+        <source>  Discrete  {CHANnel1,CHANnel2,EXT,ACLine}  CHANnel1
         ========= ========= =============================== ========
 
         **Return Format**
@@ -118,7 +118,7 @@ class EdgeSource(SSFunc):
         ========= ========= =============================== ========
         Name      Type      Range                           Default
         ========= ========= =============================== ========
-        <source>  Discrete  {CHANnel1|CHANnel2|EXT|ACLine}  CHANnel1
+        <source>  Discrete  {CHANnel1,CHANnel2,EXT,ACLine}  CHANnel1
         ========= ========= =============================== ========
 
         **Return Format**
@@ -152,7 +152,7 @@ class EdgeSource(SSFunc):
         ========= ========= =============================== ========
         Name      Type      Range                           Default
         ========= ========= =============================== ========
-        <source>  Discrete  {CHANnel1|CHANnel2|EXT|ACLine}  CHANnel1
+        <source>  Discrete  {CHANnel1,CHANnel2,EXT,ACLine}  CHANnel1
         ========= ========= =============================== ========
 
         **Return Format**
@@ -186,7 +186,7 @@ class EdgeSource(SSFunc):
         ========= ========= =============================== ========
         Name      Type      Range                           Default
         ========= ========= =============================== ========
-        <source>  Discrete  {CHANnel1|CHANnel2|EXT|ACLine}  CHANnel1
+        <source>  Discrete  {CHANnel1,CHANnel2,EXT,ACLine}  CHANnel1
         ========= ========= =============================== ========
 
         **Return Format**
@@ -222,7 +222,7 @@ class EdgeSlope(SSFunc):
         ======== ========= ========================== ========
         Name     Type      Range                      Default
         ======== ========= ========================== ========
-        <slope>  Discrete  {POSitive|NEGative|RFALl}  POSitive
+        <slope>  Discrete  {POSitive,NEGative,RFALl}  POSitive
         ======== ========= ========================== ========
 
         **Return Format**
@@ -256,7 +256,7 @@ class EdgeSlope(SSFunc):
         ======== ========= ========================== ========
         Name     Type      Range                      Default
         ======== ========= ========================== ========
-        <slope>  Discrete  {POSitive|NEGative|RFALl}  POSitive
+        <slope>  Discrete  {POSitive,NEGative,RFALl}  POSitive
         ======== ========= ========================== ========
 
         **Return Format**
@@ -290,7 +290,7 @@ class EdgeSlope(SSFunc):
         ======== ========= ========================== ========
         Name     Type      Range                      Default
         ======== ========= ========================== ========
-        <slope>  Discrete  {POSitive|NEGative|RFALl}  POSitive
+        <slope>  Discrete  {POSitive,NEGative,RFALl}  POSitive
         ======== ========= ========================== ========
 
         **Return Format**
@@ -324,7 +324,7 @@ class EdgeSlope(SSFunc):
         ======== ========= ========================== ========
         Name     Type      Range                      Default
         ======== ========= ========================== ========
-        <slope>  Discrete  {POSitive|NEGative|RFALl}  POSitive
+        <slope>  Discrete  {POSitive,NEGative,RFALl}  POSitive
         ======== ========= ========================== ========
 
         **Return Format**

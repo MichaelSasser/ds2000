@@ -51,7 +51,7 @@ class WindowsSource(SSFunc):
         ========= ========= ==================== ========
         Name      Type      Range                Default
         ========= ========= ==================== ========
-        <source>  Discrete  {CHANnel1|CHANnel2}  CHANnel1
+        <source>  Discrete  {CHANnel1,CHANnel2}  CHANnel1
         ========= ========= ==================== ========
 
         **Return Format**
@@ -85,7 +85,7 @@ class WindowsSource(SSFunc):
         ========= ========= ==================== ========
         Name      Type      Range                Default
         ========= ========= ==================== ========
-        <source>  Discrete  {CHANnel1|CHANnel2}  CHANnel1
+        <source>  Discrete  {CHANnel1,CHANnel2}  CHANnel1
         ========= ========= ==================== ========
 
         **Return Format**
@@ -119,7 +119,7 @@ class WindowsSource(SSFunc):
         ========= ========= ==================== ========
         Name      Type      Range                Default
         ========= ========= ==================== ========
-        <source>  Discrete  {CHANnel1|CHANnel2}  CHANnel1
+        <source>  Discrete  {CHANnel1,CHANnel2}  CHANnel1
         ========= ========= ==================== ========
 
         **Return Format**
@@ -155,7 +155,7 @@ class WindowsSlope(SSFunc):
         ======= ========= ========================== ========
         Name    Type      Range                      Default
         ======= ========= ========================== ========
-        <type>  Discrete  {POSitive|NEGative|RFALl}  POSitive
+        <type>  Discrete  {POSitive,NEGative,RFALl}  POSitive
         ======= ========= ========================== ========
 
         **Return Format**
@@ -188,7 +188,7 @@ class WindowsSlope(SSFunc):
         ======= ========= ========================== ========
         Name    Type      Range                      Default
         ======= ========= ========================== ========
-        <type>  Discrete  {POSitive|NEGative|RFALl}  POSitive
+        <type>  Discrete  {POSitive,NEGative,RFALl}  POSitive
         ======= ========= ========================== ========
 
         **Return Format**
@@ -221,7 +221,7 @@ class WindowsSlope(SSFunc):
         ======= ========= ========================== ========
         Name    Type      Range                      Default
         ======= ========= ========================== ========
-        <type>  Discrete  {POSitive|NEGative|RFALl}  POSitive
+        <type>  Discrete  {POSitive,NEGative,RFALl}  POSitive
         ======= ========= ========================== ========
 
         **Return Format**
@@ -254,7 +254,7 @@ class WindowsSlope(SSFunc):
         ======= ========= ========================== ========
         Name    Type      Range                      Default
         ======= ========= ========================== ========
-        <type>  Discrete  {POSitive|NEGative|RFALl}  POSitive
+        <type>  Discrete  {POSitive,NEGative,RFALl}  POSitive
         ======= ========= ========================== ========
 
         **Return Format**
@@ -296,7 +296,7 @@ class WindowsPosition(SSFunc):
         ======= ========= ================== =======
         Name    Type      Range              Default
         ======= ========= ================== =======
-        <type>  Discrete  {EXIT|ENTER|TIMe}  ENTER
+        <type>  Discrete  {EXIT,ENTER,TIMe}  ENTER
         ======= ========= ================== =======
 
         **Return Format**
@@ -330,7 +330,7 @@ class WindowsPosition(SSFunc):
         ======= ========= ================== =======
         Name    Type      Range              Default
         ======= ========= ================== =======
-        <type>  Discrete  {EXIT|ENTER|TIMe}  ENTER
+        <type>  Discrete  {EXIT,ENTER,TIMe}  ENTER
         ======= ========= ================== =======
 
         **Return Format**
@@ -364,7 +364,7 @@ class WindowsPosition(SSFunc):
         ======= ========= ================== =======
         Name    Type      Range              Default
         ======= ========= ================== =======
-        <type>  Discrete  {EXIT|ENTER|TIMe}  ENTER
+        <type>  Discrete  {EXIT,ENTER,TIMe}  ENTER
         ======= ========= ================== =======
 
         **Return Format**
@@ -398,7 +398,7 @@ class WindowsPosition(SSFunc):
         ======= ========= ================== =======
         Name    Type      Range              Default
         ======= ========= ================== =======
-        <type>  Discrete  {EXIT|ENTER|TIMe}  ENTER
+        <type>  Discrete  {EXIT,ENTER,TIMe}  ENTER
         ======= ========= ================== =======
 
         **Return Format**

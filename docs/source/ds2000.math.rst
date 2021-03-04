@@ -1,8 +1,8 @@
-**Mathematics Modules** - ds2000.math
-=====================================
+Mathematics Modules
+===================
 
-**Format Math Module** - format.py
-----------------------------------
+Format
+------
 
 
 .. automodule:: ds2000.math.format

@@ -149,7 +149,7 @@ class Pattern(SFunc):
         ======== ========= ========================= ========
         Name     Type      Range                     Default
         ======== ========= ========================= ========
-        <chan>   Discrete  {CHANnel1|CHANnel2}       CHANnel1
+        <chan>   Discrete  {CHANnel1,CHANnel2}       CHANnel1
         <level>  Real      ± 5 × VerticalScale from  0
                            the screen - OFFSet
         ======== ========= ========================= ========
@@ -202,7 +202,7 @@ class Pattern(SFunc):
         ======== ========= ========================= ========
         Name     Type      Range                     Default
         ======== ========= ========================= ========
-        <chan>   Discrete  {CHANnel1|CHANnel2}       CHANnel1
+        <chan>   Discrete  {CHANnel1,CHANnel2}       CHANnel1
         <level>  Real      ± 5 × VerticalScale from  0
                            the screen - OFFSet
         ======== ========= ========================= ========

@@ -1,8 +1,8 @@
-**Function Modules** - ds2000.func
-==================================
+Function Modules
+================
 
-**Plot Function Module** - plot.py
-----------------------------------
+Plot
+----
 
 .. automodule:: ds2000.func.plot
    :members:

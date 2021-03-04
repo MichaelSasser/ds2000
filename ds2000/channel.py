@@ -66,8 +66,8 @@ class ChannelCoupling(SFunc):
         =========== ========= ============= =======
         Name        Type      Range         Default
         =========== ========= ============= =======
-        <n>         Discrete  {1|2}         --
-        <coupling>  Discrete  {AC|DC|GND}   DC
+        <n>         Discrete  {1,2}         --
+        <coupling>  Discrete  {AC,DC,GND}   DC
         =========== ========= ============= =======
 
         **Return Format**
@@ -102,8 +102,8 @@ class ChannelCoupling(SFunc):
         =========== ========= ============= =======
         Name        Type      Range         Default
         =========== ========= ============= =======
-        <n>         Discrete  {1|2}         --
-        <coupling>  Discrete  {AC|DC|GND}   DC
+        <n>         Discrete  {1,2}         --
+        <coupling>  Discrete  {AC,DC,GND}   DC
         =========== ========= ============= =======
 
         **Return Format**
@@ -138,8 +138,8 @@ class ChannelCoupling(SFunc):
         =========== ========= ============= =======
         Name        Type      Range         Default
         =========== ========= ============= =======
-        <n>         Discrete  {1|2}         --
-        <coupling>  Discrete  {AC|DC|GND}   DC
+        <n>         Discrete  {1,2}         --
+        <coupling>  Discrete  {AC,DC,GND}   DC
         =========== ========= ============= =======
 
         **Return Format**
@@ -174,8 +174,8 @@ class ChannelCoupling(SFunc):
         =========== ========= ============= =======
         Name        Type      Range         Default
         =========== ========= ============= =======
-        <n>         Discrete  {1|2}         --
-        <coupling>  Discrete  {AC|DC|GND}   DC
+        <n>         Discrete  {1,2}         --
+        <coupling>  Discrete  {AC,DC,GND}   DC
         =========== ========= ============= =======
 
         **Return Format**
@@ -214,8 +214,8 @@ class ChannelUnits(SFunc):
         ======== ========= ============================== =======
         Name     Type      Range                          Default
         ======== ========= ============================== =======
-        <n>      Discrete  {1|2}                          --
-        <units>  Discrete  {VOLTage|WATT|AMPere|UNKNown}  VOLTage
+        <n>      Discrete  {1,2}                          --
+        <units>  Discrete  {VOLTage,WATT,AMPere,UNKNown}  VOLTage
         ======== ========= ============================== =======
 
         **Return Format**
@@ -250,8 +250,8 @@ class ChannelUnits(SFunc):
         ======== ========= ============================== =======
         Name     Type      Range                          Default
         ======== ========= ============================== =======
-        <n>      Discrete  {1|2}                          --
-        <units>  Discrete  {VOLTage|WATT|AMPere|UNKNown}  VOLTage
+        <n>      Discrete  {1,2}                          --
+        <units>  Discrete  {VOLTage,WATT,AMPere,UNKNown}  VOLTage
         ======== ========= ============================== =======
 
         **Return Format**
@@ -286,8 +286,8 @@ class ChannelUnits(SFunc):
         ======== ========= ============================== =======
         Name     Type      Range                          Default
         ======== ========= ============================== =======
-        <n>      Discrete  {1|2}                          --
-        <units>  Discrete  {VOLTage|WATT|AMPere|UNKNown}  VOLTage
+        <n>      Discrete  {1,2}                          --
+        <units>  Discrete  {VOLTage,WATT,AMPere,UNKNown}  VOLTage
         ======== ========= ============================== =======
 
         **Return Format**
@@ -322,8 +322,8 @@ class ChannelUnits(SFunc):
         ======== ========= ============================== =======
         Name     Type      Range                          Default
         ======== ========= ============================== =======
-        <n>      Discrete  {1|2}                          --
-        <units>  Discrete  {VOLTage|WATT|AMPere|UNKNown}  VOLTage
+        <n>      Discrete  {1,2}                          --
+        <units>  Discrete  {VOLTage,WATT,AMPere,UNKNown}  VOLTage
         ======== ========= ============================== =======
 
         **Return Format**
@@ -358,8 +358,8 @@ class ChannelUnits(SFunc):
         ======== ========= ============================== =======
         Name     Type      Range                          Default
         ======== ========= ============================== =======
-        <n>      Discrete  {1|2}                          --
-        <units>  Discrete  {VOLTage|WATT|AMPere|UNKNown}  VOLTage
+        <n>      Discrete  {1,2}                          --
+        <units>  Discrete  {VOLTage,WATT,AMPere,UNKNown}  VOLTage
         ======== ========= ============================== =======
 
         **Return Format**
@@ -408,8 +408,8 @@ class ChannelBandwidthLimit(SFunc):
         ======= ========= =============== =======
         Name    Type      Range           Default
         ======= ========= =============== =======
-        <n>     Discrete  {1|2}           --
-        <type>  Discrete  {20M|100M|OFF}  OFF
+        <n>     Discrete  {1,2}           --
+        <type>  Discrete  {20M,100M,OFF}  OFF
         ======= ========= =============== =======
 
         Note: for DS2072 and DS2012, the bandwidth limit can only be 20MHz.
@@ -446,8 +446,8 @@ class ChannelBandwidthLimit(SFunc):
         ======= ========= =============== =======
         Name    Type      Range           Default
         ======= ========= =============== =======
-        <n>     Discrete  {1|2}           --
-        <type>  Discrete  {20M|100M|OFF}  OFF
+        <n>     Discrete  {1,2}           --
+        <type>  Discrete  {20M,100M,OFF}  OFF
         ======= ========= =============== =======
 
         Note: for DS2072 and DS2012, the bandwidth limit can only be 20MHz.
@@ -484,8 +484,8 @@ class ChannelBandwidthLimit(SFunc):
         ======= ========= =============== =======
         Name    Type      Range           Default
         ======= ========= =============== =======
-        <n>     Discrete  {1|2}           --
-        <type>  Discrete  {20M|100M|OFF}  OFF
+        <n>     Discrete  {1,2}           --
+        <type>  Discrete  {20M,100M,OFF}  OFF
         ======= ========= =============== =======
 
         Note: for DS2072 and DS2012, the bandwidth limit can only be 20MHz.
@@ -522,8 +522,8 @@ class ChannelBandwidthLimit(SFunc):
         ======= ========= =============== =======
         Name    Type      Range           Default
         ======= ========= =============== =======
-        <n>     Discrete  {1|2}           --
-        <type>  Discrete  {20M|100M|OFF}  OFF
+        <n>     Discrete  {1,2}           --
+        <type>  Discrete  {20M,100M,OFF}  OFF
         ======= ========= =============== =======
 
         .. note::
@@ -599,8 +599,8 @@ class Channel(Func):
         ======= ========= ================= =======
         Name    Type      Range             Default
         ======= ========= ================= =======
-        <n>     Discrete  {1|2}             --
-        <bool>  Bool      {{0|OFF}|{1|ON}}  0|OFF
+        <n>     Discrete  {1,2}             --
+        <bool>  Bool      {{0,OFF},{1,ON}}  0,OFF
         ======= ========= ================= =======
 
         **Return Format**
@@ -634,8 +634,8 @@ class Channel(Func):
         ======= ========= ================= =======
         Name    Type      Range             Default
         ======= ========= ================= =======
-        <n>     Discrete  {1|2}             --
-        <bool>  Bool      {{0|OFF}|{1|ON}}  0|OFF
+        <n>     Discrete  {1,2}             --
+        <bool>  Bool      {{0,OFF},{1,ON}}  0,OFF
         ======= ========= ================= =======
 
         **Return Format**
@@ -669,8 +669,8 @@ class Channel(Func):
         ======= ========= ================= =======
         Name    Type      Range             Default
         ======= ========= ================= =======
-        <n>     Discrete  {1|2}             --
-        <bool>  Bool      {{0|OFF}|{1|ON}}  0|OFF
+        <n>     Discrete  {1,2}             --
+        <bool>  Bool      {{0,OFF},{1,ON}}  0,OFF
         ======= ========= ================= =======
 
         **Return Format**
@@ -763,7 +763,7 @@ class Channel(Func):
         ========= ========= ================================= =============
         Name      Type      Range                             Default
         ========= ========= ================================= =============
-        <n>       Discrete  {1|2}                             --
+        <n>       Discrete  {1,2}                             --
         <offset>  Real      **500μV/div to 50mV/div**: ± 2V   CHANnel1: 2V
                             **51mV/div to 200mV/div**: ± 10V  CHANnel2: -2V
                             **205mV/div to 2V/div**: ± 50V
@@ -846,7 +846,7 @@ class Channel(Func):
         ========= ========= ================================= =============
         Name      Type      Range                             Default
         ========= ========= ================================= =============
-        <n>       Discrete  {1|2}                             --
+        <n>       Discrete  {1,2}                             --
         <offset>  Real      **500μV/div to 50mV/div**: ± 2V   CHANnel1: 2V
                             **51mV/div to 200mV/div**: ± 10V  CHANnel2: -2V
                             **205mV/div to 2V/div**: ± 50V
@@ -888,7 +888,7 @@ class Channel(Func):
         ========= ========= ============== =======
         Name      Type      Range          Default
         ========= ========= ============== =======
-        <n>       Discrete  {1|2}          --
+        <n>       Discrete  {1,2}          --
         <scale>   Real      500μV to 10V   1V
         ========= ========= ============== =======
 
@@ -944,7 +944,7 @@ class Channel(Func):
         ========= ========= ============== =======
         Name      Type      Range          Default
         ========= ========= ============== =======
-        <n>       Discrete  {1|2}          --
+        <n>       Discrete  {1,2}          --
         <scale>   Real      500μV to 10V   1V
         ========= ========= ============== =======
 
@@ -988,9 +988,9 @@ class Channel(Func):
         ======== ========= =================================== =======
         Name     Type      Range                               Default
         ======== ========= =================================== =======
-        <n>      Discrete  {1|2}                               --
-        <atten>  Discrete  {0.01|0.02|0.05|0.1|0.2|0.5|1|2|5|  1
-                           10|20|50|100|200|500|1000}
+        <n>      Discrete  {1,2}                               --
+        <atten>  Discrete  {0.01,0.02,0.05,0.1,0.2,0.5,1,2,5,  1
+                           10,20,50,100,200,500,1000}
         ======== ========= =================================== =======
 
         **Return Format**
@@ -1040,9 +1040,9 @@ class Channel(Func):
         ======== ========= =================================== =======
         Name     Type      Range                               Default
         ======== ========= =================================== =======
-        <n>      Discrete  {1|2}                               --
-        <atten>  Discrete  {0.01|0.02|0.05|0.1|0.2|0.5|1|2|5|  1
-                           10|20|50|100|200|500|1000}
+        <n>      Discrete  {1,2}                               --
+        <atten>  Discrete  {0.01,0.02,0.05,0.1,0.2,0.5,1,2,5,  1
+                           10,20,50,100,200,500,1000}
         ======== ========= =================================== =======
 
         **Return Format**
@@ -1079,8 +1079,8 @@ class Channel(Func):
         ======= ========= ================ =======
         Name    Type      Range            Default
         ======= ========= ================ =======
-        <n>     Discrete  {1|2}            --
-        <bool>  Bool      {0|OFF}|{1|ON}}  0|OFF
+        <n>     Discrete  {1,2}            --
+        <bool>  Bool      {0,OFF},{1,ON}}  0,OFF
         ======= ========= ================ =======
 
         **Return Format**
@@ -1116,8 +1116,8 @@ class Channel(Func):
         ======= ========= ================ =======
         Name    Type      Range            Default
         ======= ========= ================ =======
-        <n>     Discrete  {1|2}            --
-        <bool>  Bool      {0|OFF}|{1|ON}}  0|OFF
+        <n>     Discrete  {1,2}            --
+        <bool>  Bool      {0,OFF},{1,ON}}  0,OFF
         ======= ========= ================ =======
 
         **Return Format**

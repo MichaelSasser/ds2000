@@ -45,7 +45,7 @@ class Sweep(SFunc):
         ======== ========= ===================== =======
         Name     Type      Range                 Default
         ======== ========= ===================== =======
-        <sweep>  Discrete  {AUTO|NORMal|SINGle}  AUTO
+        <sweep>  Discrete  {AUTO,NORMal,SINGle}  AUTO
         ======== ========= ===================== =======
 
         **Return Format**
@@ -79,7 +79,7 @@ class Sweep(SFunc):
         ======== ========= ===================== =======
         Name     Type      Range                 Default
         ======== ========= ===================== =======
-        <sweep>  Discrete  {AUTO|NORMal|SINGle}  AUTO
+        <sweep>  Discrete  {AUTO,NORMal,SINGle}  AUTO
         ======== ========= ===================== =======
 
         **Return Format**
@@ -113,7 +113,7 @@ class Sweep(SFunc):
         ======== ========= ===================== =======
         Name     Type      Range                 Default
         ======== ========= ===================== =======
-        <sweep>  Discrete  {AUTO|NORMal|SINGle}  AUTO
+        <sweep>  Discrete  {AUTO,NORMal,SINGle}  AUTO
         ======== ========= ===================== =======
 
         **Return Format**
@@ -147,7 +147,7 @@ class Sweep(SFunc):
         ======== ========= ===================== =======
         Name     Type      Range                 Default
         ======== ========= ===================== =======
-        <sweep>  Discrete  {AUTO|NORMal|SINGle}  AUTO
+        <sweep>  Discrete  {AUTO,NORMal,SINGle}  AUTO
         ======== ========= ===================== =======
 
         **Return Format**

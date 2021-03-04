@@ -55,7 +55,7 @@ class VideoSource(SSFunc):
         ========= ========= ==================== ========
         Name      Type      Range                Default
         ========= ========= ==================== ========
-        <source>  Discrete  {CHANnel1|CHANnel2}  CHANnel1
+        <source>  Discrete  {CHANnel1,CHANnel2}  CHANnel1
         ========= ========= ==================== ========
 
         **Return Format**
@@ -89,7 +89,7 @@ class VideoSource(SSFunc):
         ========= ========= ==================== ========
         Name      Type      Range                Default
         ========= ========= ==================== ========
-        <source>  Discrete  {CHANnel1|CHANnel2}  CHANnel1
+        <source>  Discrete  {CHANnel1,CHANnel2}  CHANnel1
         ========= ========= ==================== ========
 
         **Return Format**
@@ -123,7 +123,7 @@ class VideoSource(SSFunc):
         ========= ========= ==================== ========
         Name      Type      Range                Default
         ========= ========= ==================== ========
-        <source>  Discrete  {CHANnel1|CHANnel2}  CHANnel1
+        <source>  Discrete  {CHANnel1,CHANnel2}  CHANnel1
         ========= ========= ==================== ========
 
         **Return Format**
@@ -159,7 +159,7 @@ class VideoPolarity(SSFunc):
         =========== ========= ==================== ========
         Name        Type      Range                Default
         =========== ========= ==================== ========
-        <polarity>  Discrete  {POSitive|NEGative}  POSitive
+        <polarity>  Discrete  {POSitive,NEGative}  POSitive
         =========== ========= ==================== ========
 
         **Return Format**
@@ -193,7 +193,7 @@ class VideoPolarity(SSFunc):
         =========== ========= ==================== ========
         Name        Type      Range                Default
         =========== ========= ==================== ========
-        <polarity>  Discrete  {POSitive|NEGative}  POSitive
+        <polarity>  Discrete  {POSitive,NEGative}  POSitive
         =========== ========= ==================== ========
 
         **Return Format**
@@ -227,7 +227,7 @@ class VideoPolarity(SSFunc):
         =========== ========= ==================== ========
         Name        Type      Range                Default
         =========== ========= ==================== ========
-        <polarity>  Discrete  {POSitive|NEGative}  POSitive
+        <polarity>  Discrete  {POSitive,NEGative}  POSitive
         =========== ========= ==================== ========
 
         **Return Format**
@@ -269,7 +269,7 @@ class VideoMode(SSFunc):
         ======= ========= ================================= =======
         Name    Type      Range                             Default
         ======= ========= ================================= =======
-        <mode>  Discrete  {ODDField|EVENfield|LINE|ALINes}  ALINes
+        <mode>  Discrete  {ODDField,EVENfield,LINE,ALINes}  ALINes
         ======= ========= ================================= =======
 
 
@@ -332,7 +332,7 @@ class VideoMode(SSFunc):
         ======= ========= ================================= =======
         Name    Type      Range                             Default
         ======= ========= ================================= =======
-        <mode>  Discrete  {ODDField|EVENfield|LINE|ALINes}  ALINes
+        <mode>  Discrete  {ODDField,EVENfield,LINE,ALINes}  ALINes
         ======= ========= ================================= =======
 
 
@@ -395,7 +395,7 @@ class VideoMode(SSFunc):
         ======= ========= ================================= =======
         Name    Type      Range                             Default
         ======= ========= ================================= =======
-        <mode>  Discrete  {ODDField|EVENfield|LINE|ALINes}  ALINes
+        <mode>  Discrete  {ODDField,EVENfield,LINE,ALINes}  ALINes
         ======= ========= ================================= =======
 
 
@@ -458,7 +458,7 @@ class VideoMode(SSFunc):
         ======= ========= ================================= =======
         Name    Type      Range                             Default
         ======= ========= ================================= =======
-        <mode>  Discrete  {ODDField|EVENfield|LINE|ALINes}  ALINes
+        <mode>  Discrete  {ODDField,EVENfield,LINE,ALINes}  ALINes
         ======= ========= ================================= =======
 
 
@@ -521,7 +521,7 @@ class VideoMode(SSFunc):
         ======= ========= ================================= =======
         Name    Type      Range                             Default
         ======= ========= ================================= =======
-        <mode>  Discrete  {ODDField|EVENfield|LINE|ALINes}  ALINes
+        <mode>  Discrete  {ODDField,EVENfield,LINE,ALINes}  ALINes
         ======= ========= ================================= =======
 
 
@@ -615,11 +615,11 @@ class VideoStandard(SSFunc):
         =========== ========= ==================================== =======
         Name        Type      Range                                Default
         =========== ========= ==================================== =======
-        <standard>  Discrete  {PALSecam|NTSC|480P|576P|720P60HZ|   NTSC
-                              720P50HZ|720P30HZ|720P25HZ|
-                              720P24HZ|1080P60HZ|1080P50HZ|
-                              1080P30HZ|1080P25HZ|1080P24HZ|
-                              1080I30HZ|1080I25HZ|1080I24HZ}
+        <standard>  Discrete  {PALSecam,NTSC,480P,576P,720P60HZ,   NTSC
+                              720P50HZ,720P30HZ,720P25HZ,
+                              720P24HZ,1080P60HZ,1080P50HZ,
+                              1080P30HZ,1080P25HZ,1080P24HZ,
+                              1080I30HZ,1080I25HZ,1080I24HZ}
         =========== ========= ==================================== =======
 
         **Return Format**
@@ -653,11 +653,11 @@ class VideoStandard(SSFunc):
         =========== ========= ==================================== =======
         Name        Type      Range                                Default
         =========== ========= ==================================== =======
-        <standard>  Discrete  {PALSecam|NTSC|480P|576P|720P60HZ|   NTSC
-                              720P50HZ|720P30HZ|720P25HZ|
-                              720P24HZ|1080P60HZ|1080P50HZ|
-                              1080P30HZ|1080P25HZ|1080P24HZ|
-                              1080I30HZ|1080I25HZ|1080I24HZ}
+        <standard>  Discrete  {PALSecam,NTSC,480P,576P,720P60HZ,   NTSC
+                              720P50HZ,720P30HZ,720P25HZ,
+                              720P24HZ,1080P60HZ,1080P50HZ,
+                              1080P30HZ,1080P25HZ,1080P24HZ,
+                              1080I30HZ,1080I25HZ,1080I24HZ}
         =========== ========= ==================================== =======
 
         **Return Format**
@@ -691,11 +691,11 @@ class VideoStandard(SSFunc):
         =========== ========= ==================================== =======
         Name        Type      Range                                Default
         =========== ========= ==================================== =======
-        <standard>  Discrete  {PALSecam|NTSC|480P|576P|720P60HZ|   NTSC
-                              720P50HZ|720P30HZ|720P25HZ|
-                              720P24HZ|1080P60HZ|1080P50HZ|
-                              1080P30HZ|1080P25HZ|1080P24HZ|
-                              1080I30HZ|1080I25HZ|1080I24HZ}
+        <standard>  Discrete  {PALSecam,NTSC,480P,576P,720P60HZ,   NTSC
+                              720P50HZ,720P30HZ,720P25HZ,
+                              720P24HZ,1080P60HZ,1080P50HZ,
+                              1080P30HZ,1080P25HZ,1080P24HZ,
+                              1080I30HZ,1080I25HZ,1080I24HZ}
         =========== ========= ==================================== =======
 
         **Return Format**
@@ -729,11 +729,11 @@ class VideoStandard(SSFunc):
         =========== ========= ==================================== =======
         Name        Type      Range                                Default
         =========== ========= ==================================== =======
-        <standard>  Discrete  {PALSecam|NTSC|480P|576P|720P60HZ|   NTSC
-                              720P50HZ|720P30HZ|720P25HZ|
-                              720P24HZ|1080P60HZ|1080P50HZ|
-                              1080P30HZ|1080P25HZ|1080P24HZ|
-                              1080I30HZ|1080I25HZ|1080I24HZ}
+        <standard>  Discrete  {PALSecam,NTSC,480P,576P,720P60HZ,   NTSC
+                              720P50HZ,720P30HZ,720P25HZ,
+                              720P24HZ,1080P60HZ,1080P50HZ,
+                              1080P30HZ,1080P25HZ,1080P24HZ,
+                              1080I30HZ,1080I25HZ,1080I24HZ}
         =========== ========= ==================================== =======
 
         **Return Format**
@@ -767,11 +767,11 @@ class VideoStandard(SSFunc):
         =========== ========= ==================================== =======
         Name        Type      Range                                Default
         =========== ========= ==================================== =======
-        <standard>  Discrete  {PALSecam|NTSC|480P|576P|720P60HZ|   NTSC
-                              720P50HZ|720P30HZ|720P25HZ|
-                              720P24HZ|1080P60HZ|1080P50HZ|
-                              1080P30HZ|1080P25HZ|1080P24HZ|
-                              1080I30HZ|1080I25HZ|1080I24HZ}
+        <standard>  Discrete  {PALSecam,NTSC,480P,576P,720P60HZ,   NTSC
+                              720P50HZ,720P30HZ,720P25HZ,
+                              720P24HZ,1080P60HZ,1080P50HZ,
+                              1080P30HZ,1080P25HZ,1080P24HZ,
+                              1080I30HZ,1080I25HZ,1080I24HZ}
         =========== ========= ==================================== =======
 
         **Return Format**
@@ -805,11 +805,11 @@ class VideoStandard(SSFunc):
         =========== ========= ==================================== =======
         Name        Type      Range                                Default
         =========== ========= ==================================== =======
-        <standard>  Discrete  {PALSecam|NTSC|480P|576P|720P60HZ|   NTSC
-                              720P50HZ|720P30HZ|720P25HZ|
-                              720P24HZ|1080P60HZ|1080P50HZ|
-                              1080P30HZ|1080P25HZ|1080P24HZ|
-                              1080I30HZ|1080I25HZ|1080I24HZ}
+        <standard>  Discrete  {PALSecam,NTSC,480P,576P,720P60HZ,   NTSC
+                              720P50HZ,720P30HZ,720P25HZ,
+                              720P24HZ,1080P60HZ,1080P50HZ,
+                              1080P30HZ,1080P25HZ,1080P24HZ,
+                              1080I30HZ,1080I25HZ,1080I24HZ}
         =========== ========= ==================================== =======
 
         **Return Format**
@@ -843,11 +843,11 @@ class VideoStandard(SSFunc):
         =========== ========= ==================================== =======
         Name        Type      Range                                Default
         =========== ========= ==================================== =======
-        <standard>  Discrete  {PALSecam|NTSC|480P|576P|720P60HZ|   NTSC
-                              720P50HZ|720P30HZ|720P25HZ|
-                              720P24HZ|1080P60HZ|1080P50HZ|
-                              1080P30HZ|1080P25HZ|1080P24HZ|
-                              1080I30HZ|1080I25HZ|1080I24HZ}
+        <standard>  Discrete  {PALSecam,NTSC,480P,576P,720P60HZ,   NTSC
+                              720P50HZ,720P30HZ,720P25HZ,
+                              720P24HZ,1080P60HZ,1080P50HZ,
+                              1080P30HZ,1080P25HZ,1080P24HZ,
+                              1080I30HZ,1080I25HZ,1080I24HZ}
         =========== ========= ==================================== =======
 
         **Return Format**
@@ -881,11 +881,11 @@ class VideoStandard(SSFunc):
         =========== ========= ==================================== =======
         Name        Type      Range                                Default
         =========== ========= ==================================== =======
-        <standard>  Discrete  {PALSecam|NTSC|480P|576P|720P60HZ|   NTSC
-                              720P50HZ|720P30HZ|720P25HZ|
-                              720P24HZ|1080P60HZ|1080P50HZ|
-                              1080P30HZ|1080P25HZ|1080P24HZ|
-                              1080I30HZ|1080I25HZ|1080I24HZ}
+        <standard>  Discrete  {PALSecam,NTSC,480P,576P,720P60HZ,   NTSC
+                              720P50HZ,720P30HZ,720P25HZ,
+                              720P24HZ,1080P60HZ,1080P50HZ,
+                              1080P30HZ,1080P25HZ,1080P24HZ,
+                              1080I30HZ,1080I25HZ,1080I24HZ}
         =========== ========= ==================================== =======
 
         **Return Format**
@@ -919,11 +919,11 @@ class VideoStandard(SSFunc):
         =========== ========= ==================================== =======
         Name        Type      Range                                Default
         =========== ========= ==================================== =======
-        <standard>  Discrete  {PALSecam|NTSC|480P|576P|720P60HZ|   NTSC
-                              720P50HZ|720P30HZ|720P25HZ|
-                              720P24HZ|1080P60HZ|1080P50HZ|
-                              1080P30HZ|1080P25HZ|1080P24HZ|
-                              1080I30HZ|1080I25HZ|1080I24HZ}
+        <standard>  Discrete  {PALSecam,NTSC,480P,576P,720P60HZ,   NTSC
+                              720P50HZ,720P30HZ,720P25HZ,
+                              720P24HZ,1080P60HZ,1080P50HZ,
+                              1080P30HZ,1080P25HZ,1080P24HZ,
+                              1080I30HZ,1080I25HZ,1080I24HZ}
         =========== ========= ==================================== =======
 
         **Return Format**
@@ -957,11 +957,11 @@ class VideoStandard(SSFunc):
         =========== ========= ==================================== =======
         Name        Type      Range                                Default
         =========== ========= ==================================== =======
-        <standard>  Discrete  {PALSecam|NTSC|480P|576P|720P60HZ|   NTSC
-                              720P50HZ|720P30HZ|720P25HZ|
-                              720P24HZ|1080P60HZ|1080P50HZ|
-                              1080P30HZ|1080P25HZ|1080P24HZ|
-                              1080I30HZ|1080I25HZ|1080I24HZ}
+        <standard>  Discrete  {PALSecam,NTSC,480P,576P,720P60HZ,   NTSC
+                              720P50HZ,720P30HZ,720P25HZ,
+                              720P24HZ,1080P60HZ,1080P50HZ,
+                              1080P30HZ,1080P25HZ,1080P24HZ,
+                              1080I30HZ,1080I25HZ,1080I24HZ}
         =========== ========= ==================================== =======
 
         **Return Format**
@@ -995,11 +995,11 @@ class VideoStandard(SSFunc):
         =========== ========= ==================================== =======
         Name        Type      Range                                Default
         =========== ========= ==================================== =======
-        <standard>  Discrete  {PALSecam|NTSC|480P|576P|720P60HZ|   NTSC
-                              720P50HZ|720P30HZ|720P25HZ|
-                              720P24HZ|1080P60HZ|1080P50HZ|
-                              1080P30HZ|1080P25HZ|1080P24HZ|
-                              1080I30HZ|1080I25HZ|1080I24HZ}
+        <standard>  Discrete  {PALSecam,NTSC,480P,576P,720P60HZ,   NTSC
+                              720P50HZ,720P30HZ,720P25HZ,
+                              720P24HZ,1080P60HZ,1080P50HZ,
+                              1080P30HZ,1080P25HZ,1080P24HZ,
+                              1080I30HZ,1080I25HZ,1080I24HZ}
         =========== ========= ==================================== =======
 
         **Return Format**
@@ -1033,11 +1033,11 @@ class VideoStandard(SSFunc):
         =========== ========= ==================================== =======
         Name        Type      Range                                Default
         =========== ========= ==================================== =======
-        <standard>  Discrete  {PALSecam|NTSC|480P|576P|720P60HZ|   NTSC
-                              720P50HZ|720P30HZ|720P25HZ|
-                              720P24HZ|1080P60HZ|1080P50HZ|
-                              1080P30HZ|1080P25HZ|1080P24HZ|
-                              1080I30HZ|1080I25HZ|1080I24HZ}
+        <standard>  Discrete  {PALSecam,NTSC,480P,576P,720P60HZ,   NTSC
+                              720P50HZ,720P30HZ,720P25HZ,
+                              720P24HZ,1080P60HZ,1080P50HZ,
+                              1080P30HZ,1080P25HZ,1080P24HZ,
+                              1080I30HZ,1080I25HZ,1080I24HZ}
         =========== ========= ==================================== =======
 
         **Return Format**
@@ -1071,11 +1071,11 @@ class VideoStandard(SSFunc):
         =========== ========= ==================================== =======
         Name        Type      Range                                Default
         =========== ========= ==================================== =======
-        <standard>  Discrete  {PALSecam|NTSC|480P|576P|720P60HZ|   NTSC
-                              720P50HZ|720P30HZ|720P25HZ|
-                              720P24HZ|1080P60HZ|1080P50HZ|
-                              1080P30HZ|1080P25HZ|1080P24HZ|
-                              1080I30HZ|1080I25HZ|1080I24HZ}
+        <standard>  Discrete  {PALSecam,NTSC,480P,576P,720P60HZ,   NTSC
+                              720P50HZ,720P30HZ,720P25HZ,
+                              720P24HZ,1080P60HZ,1080P50HZ,
+                              1080P30HZ,1080P25HZ,1080P24HZ,
+                              1080I30HZ,1080I25HZ,1080I24HZ}
         =========== ========= ==================================== =======
 
         **Return Format**
@@ -1109,11 +1109,11 @@ class VideoStandard(SSFunc):
         =========== ========= ==================================== =======
         Name        Type      Range                                Default
         =========== ========= ==================================== =======
-        <standard>  Discrete  {PALSecam|NTSC|480P|576P|720P60HZ|   NTSC
-                              720P50HZ|720P30HZ|720P25HZ|
-                              720P24HZ|1080P60HZ|1080P50HZ|
-                              1080P30HZ|1080P25HZ|1080P24HZ|
-                              1080I30HZ|1080I25HZ|1080I24HZ}
+        <standard>  Discrete  {PALSecam,NTSC,480P,576P,720P60HZ,   NTSC
+                              720P50HZ,720P30HZ,720P25HZ,
+                              720P24HZ,1080P60HZ,1080P50HZ,
+                              1080P30HZ,1080P25HZ,1080P24HZ,
+                              1080I30HZ,1080I25HZ,1080I24HZ}
         =========== ========= ==================================== =======
 
         **Return Format**
@@ -1147,11 +1147,11 @@ class VideoStandard(SSFunc):
         =========== ========= ==================================== =======
         Name        Type      Range                                Default
         =========== ========= ==================================== =======
-        <standard>  Discrete  {PALSecam|NTSC|480P|576P|720P60HZ|   NTSC
-                              720P50HZ|720P30HZ|720P25HZ|
-                              720P24HZ|1080P60HZ|1080P50HZ|
-                              1080P30HZ|1080P25HZ|1080P24HZ|
-                              1080I30HZ|1080I25HZ|1080I24HZ}
+        <standard>  Discrete  {PALSecam,NTSC,480P,576P,720P60HZ,   NTSC
+                              720P50HZ,720P30HZ,720P25HZ,
+                              720P24HZ,1080P60HZ,1080P50HZ,
+                              1080P30HZ,1080P25HZ,1080P24HZ,
+                              1080I30HZ,1080I25HZ,1080I24HZ}
         =========== ========= ==================================== =======
 
         **Return Format**
@@ -1185,11 +1185,11 @@ class VideoStandard(SSFunc):
         =========== ========= ==================================== =======
         Name        Type      Range                                Default
         =========== ========= ==================================== =======
-        <standard>  Discrete  {PALSecam|NTSC|480P|576P|720P60HZ|   NTSC
-                              720P50HZ|720P30HZ|720P25HZ|
-                              720P24HZ|1080P60HZ|1080P50HZ|
-                              1080P30HZ|1080P25HZ|1080P24HZ|
-                              1080I30HZ|1080I25HZ|1080I24HZ}
+        <standard>  Discrete  {PALSecam,NTSC,480P,576P,720P60HZ,   NTSC
+                              720P50HZ,720P30HZ,720P25HZ,
+                              720P24HZ,1080P60HZ,1080P50HZ,
+                              1080P30HZ,1080P25HZ,1080P24HZ,
+                              1080I30HZ,1080I25HZ,1080I24HZ}
         =========== ========= ==================================== =======
 
         **Return Format**
@@ -1223,11 +1223,11 @@ class VideoStandard(SSFunc):
         =========== ========= ==================================== =======
         Name        Type      Range                                Default
         =========== ========= ==================================== =======
-        <standard>  Discrete  {PALSecam|NTSC|480P|576P|720P60HZ|   NTSC
-                              720P50HZ|720P30HZ|720P25HZ|
-                              720P24HZ|1080P60HZ|1080P50HZ|
-                              1080P30HZ|1080P25HZ|1080P24HZ|
-                              1080I30HZ|1080I25HZ|1080I24HZ}
+        <standard>  Discrete  {PALSecam,NTSC,480P,576P,720P60HZ,   NTSC
+                              720P50HZ,720P30HZ,720P25HZ,
+                              720P24HZ,1080P60HZ,1080P50HZ,
+                              1080P30HZ,1080P25HZ,1080P24HZ,
+                              1080I30HZ,1080I25HZ,1080I24HZ}
         =========== ========= ==================================== =======
 
         **Return Format**
@@ -1261,11 +1261,11 @@ class VideoStandard(SSFunc):
         =========== ========= ==================================== =======
         Name        Type      Range                                Default
         =========== ========= ==================================== =======
-        <standard>  Discrete  {PALSecam|NTSC|480P|576P|720P60HZ|   NTSC
-                              720P50HZ|720P30HZ|720P25HZ|
-                              720P24HZ|1080P60HZ|1080P50HZ|
-                              1080P30HZ|1080P25HZ|1080P24HZ|
-                              1080I30HZ|1080I25HZ|1080I24HZ}
+        <standard>  Discrete  {PALSecam,NTSC,480P,576P,720P60HZ,   NTSC
+                              720P50HZ,720P30HZ,720P25HZ,
+                              720P24HZ,1080P60HZ,1080P50HZ,
+                              1080P30HZ,1080P25HZ,1080P24HZ,
+                              1080I30HZ,1080I25HZ,1080I24HZ}
         =========== ========= ==================================== =======
 
         **Return Format**
