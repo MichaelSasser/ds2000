@@ -20,7 +20,7 @@ from ds2000.common import Func
 from ds2000.common import SFunc
 from ds2000.common import check_input
 
-from ..enums import TriggerStatus
+from ..enums import TriggerStatusEnum
 from ..errors import DS2000StateError
 from .coupling import Coupling
 from .delay import Delay
@@ -208,7 +208,7 @@ class Trigger(Func):
         self.spi: SPI = SPI(self)
         self.usb: USB = USB(self)
 
-    def status(self) -> TriggerStatus:
+    def status(self) -> TriggerStatusEnum:
         """Query the current trigger status.
 
         **Rigol Programming Guide**
@@ -227,15 +227,15 @@ class Trigger(Func):
         """
         answer: str = self.instrument.ask("TRIGger:STATus?")
         if answer == "TD":
-            return TriggerStatus.TD
+            return TriggerStatusEnum.TD
         if answer == "WAIT":
-            return TriggerStatus.WAIT
+            return TriggerStatusEnum.WAIT
         if answer == "RUN":
-            return TriggerStatus.RUN
+            return TriggerStatusEnum.RUN
         if answer == "AUTO":
-            return TriggerStatus.AUTO
+            return TriggerStatusEnum.AUTO
         if answer == "STOP":
-            return TriggerStatus.STOP
+            return TriggerStatusEnum.STOP
         raise DS2000StateError()
 
     def set_holdoff_time(self, time: float = 100.0e-9) -> None:
