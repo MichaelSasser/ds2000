@@ -22,6 +22,7 @@ from typing import Tuple
 from .common import Func
 from .common import SFunc
 from .common import check_input
+from .enums import AcquireTypeEnum
 from .errors import DS2000Error
 from .errors import DS2000StateError
 
@@ -198,7 +199,7 @@ class Type(SFunc):
         """
         self.instrument.ask(":ACQuire:TYPE HRESolution")
 
-    def status(self):
+    def status(self) -> AcquireTypeEnum:
         """Query the current acquisition mode of the sample.
 
         **Rigol Programming Guide**
@@ -239,40 +240,27 @@ class Type(SFunc):
         """
         answer: str = self.instrument.ask(":ACQuire:TYPE?")
         if answer == "NORM":
-            return "Normal"
+            return AcquireTypeEnum.NORMAL
         elif answer == "AVER":
-            return "Average"
+            return AcquireTypeEnum.AVERAGE
         elif answer == "PEAK":
-            return "Peak"
+            return AcquireTypeEnum.PEAKDETECT
         elif answer == "HRES":
-            return "High Resolution"
-        raise DS2000Error("Unknown Return Value")
-
-    def __str__(self) -> str:
-        return self.status()
-
-    def __repr__(self) -> str:
-        return self.status()
+            return AcquireTypeEnum.HIGHRES
+        raise DS2000StateError()
 
 
 class Acquire(Func):
-    AVERAGES: Tuple[int] = (
-        2,
-        4,
-        8,
-        16,
-        32,
-        64,
-        128,
-        256,
-        512,
-        1024,
-        2048,
-        4096,
-        8192,
+
+    AVERAGES: Tuple[
+        int, int, int, int, int, int, int, int, int, int, int, int
+    ] = (2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192)
+    MEMDEPTH_SINGLE: Tuple[int, int, int, int, int] = (
+        14000, 140000, 1400000, 14000000, 56000000
     )
-    MEMDEPTH_SINGLE: Tuple[int] = (14000, 140000, 1400000, 14000000, 56000000)
-    MEMDEPTH_DUAL: Tuple[int] = (7000, 70000, 700000, 7000000, 28000000)
+    MEMDEPTH_DUAL: Tuple[int, int, int, int, int] = (
+        7000, 70000, 700000, 7000000, 28000000
+    )
 
     def __init__(self, dev):
         super(Acquire, self).__init__(dev)

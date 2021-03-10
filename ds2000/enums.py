@@ -42,11 +42,27 @@ class SlopeEnum(Enum):
     BOTH = "both"
 
 
+# Acquire
+
+class AcquireTypeEnum(Enum):
+    NORMAL = "normal"
+    AVERAGE = "average"
+    PEAKDETECT = "peakdetect"
+    HIGHRES = "highres"
+
+
+# class AcquireMemoryDepth(Enum):
+#     S14K
+#     S140K
+#     S1M4
+#     S14M
+#     S56M
+
 # Trigger
 
 
-class TriggerStatus(Enum):
-    TD = ""
+class TriggerStatusEnum(Enum):
+    TD = "td"
     WAIT = "wait"
     RUN = "run"
     AUTO = "auto"
