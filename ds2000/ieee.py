@@ -72,4 +72,4 @@ class IEEE(Func):
 
         Restore the instrument to the default values.
         """
-        self.instrument.ask("*RST")
+        self.instrument.say("*RST")

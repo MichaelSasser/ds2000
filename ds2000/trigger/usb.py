@@ -78,7 +78,7 @@ class USBSource(SSFunc):
         :TRIGger:USB:DMINus CHANnel2
         The query returns CHAN2.
         """
-        self.instrument.ask(f":TRIGger:USB:{self.src} CHANnel1")
+        self.instrument.say(f":TRIGger:USB:{self.src} CHANnel1")
 
     def status(self) -> ChannelEnum:
         """Select the channel source in USB trigger.
@@ -173,7 +173,7 @@ class USBWhen(SSFunc):
         :TRIGger:USB:WHEN RC
         The query returns RC.
         """
-        self.instrument.ask(":TRIGger:USB:WHEN SOP")
+        self.instrument.say(":TRIGger:USB:WHEN SOP")
 
     def set_eop(self) -> None:
         """Set the trigger condition of USB trigger to end of packet.
@@ -221,7 +221,7 @@ class USBWhen(SSFunc):
         :TRIGger:USB:WHEN RC
         The query returns RC.
         """
-        self.instrument.ask(":TRIGger:USB:WHEN EOP")
+        self.instrument.say(":TRIGger:USB:WHEN EOP")
 
     def set_rc(self) -> None:
         """Set the trigger condition of USB trigger.
@@ -269,7 +269,7 @@ class USBWhen(SSFunc):
         :TRIGger:USB:WHEN RC
         The query returns RC.
         """
-        self.instrument.ask(":TRIGger:USB:WHEN RC")
+        self.instrument.say(":TRIGger:USB:WHEN RC")
 
     def set_suspend(self) -> None:
         """Set the trigger condition of USB trigger.
@@ -317,7 +317,7 @@ class USBWhen(SSFunc):
         :TRIGger:USB:WHEN RC
         The query returns RC.
         """
-        self.instrument.ask(":TRIGger:USB:WHEN SUSPend")
+        self.instrument.say(":TRIGger:USB:WHEN SUSPend")
 
     def set_suspend_exit(self) -> None:
         """Set the trigger condition of USB trigger.
@@ -365,7 +365,7 @@ class USBWhen(SSFunc):
         :TRIGger:USB:WHEN RC
         The query returns RC.
         """
-        self.instrument.ask(":TRIGger:USB:WHEN EXITsuspend")
+        self.instrument.say(":TRIGger:USB:WHEN EXITsuspend")
 
     def status(self) -> TriggerUSBWhenEnum:
         """Query the current trigger condition of USB trigger.
@@ -460,7 +460,7 @@ class USBSpeed(SSFunc):
         :TRIGger:USB:SPEed FULL
         The query returns FULL.
         """
-        self.instrument.ask(":TRIGger:USB:SPEed FULL")
+        self.instrument.say(":TRIGger:USB:SPEed FULL")
 
     def set_low(self) -> None:
         """Set the signal speed in USB trigger to Low Speed.
@@ -494,7 +494,7 @@ class USBSpeed(SSFunc):
         :TRIGger:USB:SPEed FULL
         The query returns FULL.
         """
-        self.instrument.ask(":TRIGger:USB:SPEed LOW")
+        self.instrument.say(":TRIGger:USB:SPEed LOW")
 
     def status(self) -> TrigerUSBSppedEnum:
         """Query the current signal speed in USB trigger.
@@ -596,7 +596,7 @@ class USB(SFunc):
                 "Channel 1 or Channel 2."
             )  # TODO: Right??
         check_level(level, scale, offset)
-        self.instrument.ask(f":TRIGger:USB:PLEVel {level}")
+        self.instrument.say(f":TRIGger:USB:PLEVel {level}")
 
     def get_data_plus_trigger_level(self) -> float:
         """Query the current trigger level of the D+ data line in USB trigger.
@@ -691,7 +691,7 @@ class USB(SFunc):
                 "Channel 1 or Channel 2."
             )  # TODO: Right??
         check_level(level, scale, offset)
-        self.instrument.ask(f":TRIGger:USB:MLEVel {level}")
+        self.instrument.say(f":TRIGger:USB:MLEVel {level}")
 
     def get_data_minus_trigger_level(self) -> float:
         """Query the current trigger level of the D- data line in USB trigger.

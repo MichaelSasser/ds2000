@@ -62,7 +62,7 @@ class EdgeSource(SSFunc):
         :TRIGger:EDGe:SOURce CHANnel2
         The query returns CHAN2.
         """
-        self.instrument.ask(":TRIGger:EDGe:SOURce CHANnel1")
+        self.instrument.say(":TRIGger:EDGe:SOURce CHANnel1")
 
     def set_channel_2(self) -> None:
         """Select the trigger source of edge trigger.
@@ -96,7 +96,7 @@ class EdgeSource(SSFunc):
         :TRIGger:EDGe:SOURce CHANnel2
         The query returns CHAN2.
         """
-        self.instrument.ask(":TRIGger:EDGe:SOURce CHANnel2")
+        self.instrument.say(":TRIGger:EDGe:SOURce CHANnel2")
 
     def set_ext(self) -> None:
         """Select the trigger source of edge trigger.
@@ -130,7 +130,7 @@ class EdgeSource(SSFunc):
         :TRIGger:EDGe:SOURce CHANnel2
         The query returns CHAN2.
         """
-        self.instrument.ask(":TRIGger:EDGe:SOURce EXT")
+        self.instrument.say(":TRIGger:EDGe:SOURce EXT")
 
     def set_ac_line(self) -> None:
         """Select the trigger source of edge trigger.
@@ -164,7 +164,7 @@ class EdgeSource(SSFunc):
         :TRIGger:EDGe:SOURce CHANnel2
         The query returns CHAN2.
         """
-        self.instrument.ask(":TRIGger:EDGe:SOURce ACLine")
+        self.instrument.say(":TRIGger:EDGe:SOURce ACLine")
 
     def status(self) -> ChannelEnum:
         """Query the current trigger source of edge trigger.
@@ -234,7 +234,7 @@ class EdgeSlope(SSFunc):
         :TRIGger:EDGe:SLOPe NEGative
         The query returns NEG.
         """
-        self.instrument.ask(":TRIGger:EDGe:SLOPe POSitive")
+        self.instrument.say(":TRIGger:EDGe:SLOPe POSitive")
 
     def set_negative(self) -> None:
         """Select the edge type of edge trigger.
@@ -268,7 +268,7 @@ class EdgeSlope(SSFunc):
         :TRIGger:EDGe:SLOPe NEGative
         The query returns NEG.
         """
-        self.instrument.ask(":TRIGger:EDGe:SLOPe NEGative")
+        self.instrument.say(":TRIGger:EDGe:SLOPe NEGative")
 
     def set_both(self) -> None:
         """Select the edge type of edge trigger.
@@ -302,7 +302,7 @@ class EdgeSlope(SSFunc):
         :TRIGger:EDGe:SLOPe NEGative
         The query returns NEG.
         """
-        self.instrument.ask(":TRIGger:EDGe:SLOPe RFALl")
+        self.instrument.say(":TRIGger:EDGe:SLOPe RFALl")
 
     def status(self) -> SlopeEnum:
         """Query the current edge type of edge trigger.
@@ -406,7 +406,7 @@ class Edge(SFunc):
             )  # TODO: Right??
 
         check_level(level, scale, offset)
-        self.instrument.ask(f":TRIGger:EDGe:LEVel {level}")
+        self.instrument.say(f":TRIGger:EDGe:LEVel {level}")
 
     def get_level(self) -> float:
         """Query the trigger level of edge trigger.

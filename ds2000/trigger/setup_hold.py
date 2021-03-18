@@ -75,7 +75,7 @@ class SetupHoldType(SSFunc):
         :TRIGger:SHOLd:TYPe SETHOLd
         The query returns SETHOL.
         """
-        self.instrument.ask(":TRIGger:SHOLd:TYPe SETup")
+        self.instrument.say(":TRIGger:SHOLd:TYPe SETup")
 
     def set_hold(self) -> None:
         """Set the hold type of setup/hold trigger.
@@ -121,7 +121,7 @@ class SetupHoldType(SSFunc):
         :TRIGger:SHOLd:TYPe SETHOLd
         The query returns SETHOL.
         """
-        self.instrument.ask(":TRIGger:SHOLd:TYPe HOLd")
+        self.instrument.say(":TRIGger:SHOLd:TYPe HOLd")
 
     def set_setup_hold(self) -> None:
         """Set the hold type of setup/hold trigger.
@@ -167,7 +167,7 @@ class SetupHoldType(SSFunc):
         :TRIGger:SHOLd:TYPe SETHOLd
         The query returns SETHOL.
         """
-        self.instrument.ask(":TRIGger:SHOLd:TYPe SETHOLd")
+        self.instrument.say(":TRIGger:SHOLd:TYPe SETHOLd")
 
     def status(self) -> TriggerSetupHoldTypeEnum:
         """Query the current hold type of setup/hold trigger.
@@ -270,7 +270,7 @@ class SetupHoldSource(SSFunc):
         :TRIGger:SHOLd:CSrc CHANnel2
         The query returns CHAN2.
         """
-        self.instrument.ask(f":TRIGger:SHOLd:{self.src} CHANel1")
+        self.instrument.say(f":TRIGger:SHOLd:{self.src} CHANel1")
 
     def set_channel_2(self) -> None:
         """Query the current source of setup/hold trigger.
@@ -313,7 +313,7 @@ class SetupHoldSource(SSFunc):
         :TRIGger:SHOLd:CSrc CHANnel2
         The query returns CHAN2.
         """
-        self.instrument.ask(f":TRIGger:SHOLd:{self.src} CHANel2")
+        self.instrument.say(f":TRIGger:SHOLd:{self.src} CHANel2")
 
     def status(self) -> ChannelEnum:
         """Query the current source of setup/hold trigger.
@@ -395,7 +395,7 @@ class SetupHoldSlope(SSFunc):
         :TRIGger:SHOLd:SLOPe NEGative
         The query returns NEG.
         """
-        self.instrument.ask(":TRIGger:SHOLd:SLOPe POSitive")
+        self.instrument.say(":TRIGger:SHOLd:SLOPe POSitive")
 
     def set_negative(self) -> None:
         """Set the edge type of setup/hold trigger.
@@ -430,7 +430,7 @@ class SetupHoldSlope(SSFunc):
         :TRIGger:SHOLd:SLOPe NEGative
         The query returns NEG.
         """
-        self.instrument.ask(":TRIGger:SHOLd:SLOPe NEGative")
+        self.instrument.say(":TRIGger:SHOLd:SLOPe NEGative")
 
     def status(self) -> SlopeEnum:
         """Query the current edge type of setup/hold trigger.
@@ -508,7 +508,7 @@ class SetupHoldPattern(SSFunc):
         :TRIGger:SHOLd:PATTern L
         The query returns L.
         """
-        self.instrument.ask(":TRIGger:SHOLd:PATTern H")
+        self.instrument.say(":TRIGger:SHOLd:PATTern H")
 
     def set_low(self) -> None:
         """Set the data type of setup/hold trigger.
@@ -542,7 +542,7 @@ class SetupHoldPattern(SSFunc):
         :TRIGger:SHOLd:PATTern L
         The query returns L.
         """
-        self.instrument.ask(":TRIGger:SHOLd:PATTern L")
+        self.instrument.say(":TRIGger:SHOLd:PATTern L")
 
     def status(self) -> TriggerSetupHoldPatternEnum:
         """Query the current data type of setup/hold trigger.
@@ -629,7 +629,7 @@ class SetupHold(SFunc):
         The query returns 2.000000e-03.
         """
         check_input(time, "time", float, 2.0e-9, 1.0, "s")
-        self.instrument.ask(f":TRIGger:SHOLd:STIMe {time}")
+        self.instrument.say(f":TRIGger:SHOLd:STIMe {time}")
 
     def get_setup_time(self) -> float:
         """Query the current setup time of setup/hold trigger.
@@ -704,7 +704,7 @@ class SetupHold(SFunc):
         The query returns 2.000000e-03.
         """
         check_input(time, "time", float, 2.0e-9, 1.0, "s")
-        self.instrument.ask(f":TRIGger:SHOLd:HTIMe {time}")
+        self.instrument.say(f":TRIGger:SHOLd:HTIMe {time}")
 
     def get_hold_time(self) -> float:
         """Query the current hold time of setup/hold trigger.

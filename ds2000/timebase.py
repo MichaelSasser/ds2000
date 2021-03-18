@@ -70,7 +70,7 @@ class TimebaseHorizontalRefMode(SSFunc):
         :TIMebase:HREF:MODE TPOSition
         The query returns TPOS.
         """
-        self.instrument.ask(":TIMebase:HREF:MODE CENTer")
+        self.instrument.say(":TIMebase:HREF:MODE CENTer")
 
     def set_trigger_position(self) -> None:
         """Set the horizontal reference mode.
@@ -116,7 +116,7 @@ class TimebaseHorizontalRefMode(SSFunc):
         The query returns TPOS.
         """
 
-        self.instrument.ask(":TIMebase:HREF:MODE CENTer")
+        self.instrument.say(":TIMebase:HREF:MODE CENTer")
 
     def status(self) -> str:
         """Query the current horizontal reference mode.
@@ -242,7 +242,7 @@ class TimebaseDelay(SFunc):
         The query returns 1.
 
         """
-        self.instrument.ask(":TIMebase:DELay:ENABle 1")
+        self.instrument.say(":TIMebase:DELay:ENABle 1")
 
     def set_disable(self) -> None:
         """Disable the delayed sweep.
@@ -277,7 +277,7 @@ class TimebaseDelay(SFunc):
         The query returns 1.
 
         """
-        self.instrument.ask(":TIMebase:DELay:ENABle 0")
+        self.instrument.say(":TIMebase:DELay:ENABle 0")
 
     def status(self) -> bool:
         """Query the current status of the delayed sweep.
@@ -371,7 +371,7 @@ class TimebaseDelay(SFunc):
                 f"between: {min_off}..{max_off}. It also needs"
                 f"to be of type float. You used: {type(offset)}."
             )
-        self.instrument.ask(f":TIMebase:DELay:OFFSet {offset}")
+        self.instrument.say(f":TIMebase:DELay:OFFSet {offset}")
 
     def get_offset(self) -> float:
         """Query the current offset of the delayed time base.
@@ -466,7 +466,7 @@ class TimebaseDelay(SFunc):
                 f"scale and (1×50/real-time sample rate)×1/40:"
                 f"{min_scale}..{max_scale}."
             )
-        self.instrument.ask(f":TIMebase:DELay:SCALe {scale}")
+        self.instrument.say(f":TIMebase:DELay:SCALe {scale}")
 
     def get_scale(self) -> float:
         """Query the current scale of the delayed time base.
@@ -540,8 +540,8 @@ class TimebaseDelay(SFunc):
         The query returns 150.
         """
         check_input(pos, "pos", int, -350, 350)
-        self.instrument.ask(":TIMebase:HREF:MODE USER")
-        self.instrument.ask(f":TIMebase:HREF:POSition {pos}")
+        self.instrument.say(":TIMebase:HREF:MODE USER")
+        self.instrument.say(f":TIMebase:HREF:POSition {pos}")
 
 
 class TimebaseMode(SFunc):
@@ -577,7 +577,7 @@ class TimebaseMode(SFunc):
         :TIMebase:MODE MAIN
         The query returns MAIN.
         """
-        self.instrument.ask(":TIMebase:MODE MAIN")
+        self.instrument.say(":TIMebase:MODE MAIN")
 
     def set_xy(self) -> None:
         """Set the horizontal time base mode.
@@ -611,7 +611,7 @@ class TimebaseMode(SFunc):
         :TIMebase:MODE MAIN
         The query returns MAIN.
         """
-        self.instrument.ask(":TIMebase:MODE XY")
+        self.instrument.say(":TIMebase:MODE XY")
 
     def set_roll(self) -> None:
         """Set the horizontal time base mode.
@@ -645,7 +645,7 @@ class TimebaseMode(SFunc):
         :TIMebase:MODE MAIN
         The query returns MAIN.
         """
-        self.instrument.ask(":TIMebase:MODE ROLL")
+        self.instrument.say(":TIMebase:MODE ROLL")
 
     def status(self) -> str:
         """Query the current horizontal time base mode.
@@ -793,7 +793,7 @@ class Timebase(Func):
                     f"mode must be between -7000.0 .. 7000.0."
                 )
 
-        self.instrument.ask(f":TIMebase:MAIN:OFFSet {seconds}")
+        self.instrument.say(f":TIMebase:MAIN:OFFSet {seconds}")
 
     def get_offset(self) -> int:
         """Query the current offset of the main time base.
@@ -970,7 +970,7 @@ class Timebase(Func):
         :TIMebase:VERNier ON
         The query returns 1.
         """
-        self.instrument.ask(":TIMebase:VERNier 1")
+        self.instrument.say(":TIMebase:VERNier 1")
 
     def disable_fine_adjustment(self) -> None:
         """Disable the fine adjustment of the horizontal scale.
@@ -1005,7 +1005,7 @@ class Timebase(Func):
         :TIMebase:VERNier ON
         The query returns 1.
         """
-        self.instrument.ask(":TIMebase:VERNier 0")
+        self.instrument.say(":TIMebase:VERNier 0")
 
     def is_fine_adjustment_enabled(self) -> bool:
         """Query the current status of the fine adjustment (horizontal).

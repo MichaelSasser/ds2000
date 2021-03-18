@@ -62,9 +62,22 @@ class VISABase(ABC):
         pass
 
     @abstractmethod
-    def ask(self, msg: str) -> Optional[str]:
+    def communicate(self, msg: str) -> Optional[str]:
         """Write and read afterwards from a instrument."""
         pass
+
+    def ask(self, msg: str) -> str:
+        """Write and read afterwards from a instrument."""
+        answer: Optional[str] = self.communicate(msg)
+        if answer is None:  # Report if answer is None -> str
+            raise TypeError("BUG: The answer is None, but should be str")
+        return answer
+
+    def say(self, msg: str) -> None:
+        """Do the same as ``ask`` but consume the answer."""
+        answer: Optional[str] = self.communicate(msg)
+        if answer is not None:  # Report if answer is not None -> None
+            raise TypeError("Bug: The answer is not None, but should be None.")
 
     @abstractmethod
     def write(self, msg: str) -> None:

@@ -65,7 +65,7 @@ class TimeoutChannel(SSFunc):
         The query returns CHAN2.
         """
 
-        self.instrument.ask(":TRIGger:TIMeout:SOURce CHANnel1")
+        self.instrument.say(":TRIGger:TIMeout:SOURce CHANnel1")
 
     def set_channel_2(self) -> None:
         """Select the trigger source of timeout trigger.
@@ -100,7 +100,7 @@ class TimeoutChannel(SSFunc):
         The query returns CHAN2.
         """
 
-        self.instrument.ask(":TRIGger:TIMeout:SOURce CHANnel2")
+        self.instrument.say(":TRIGger:TIMeout:SOURce CHANnel2")
 
     def status(self) -> ChannelEnum:
         """Query the current trigger source of timeout trigger.
@@ -170,7 +170,7 @@ class TimeoutSlope(SSFunc):
         :TRIGger:TIMeout:SLOPe NEGative
         The query returns NEG.
         """
-        self.instrument.ask(":TRIGger:TIMeout:SLOPe POSitive")
+        self.instrument.say(":TRIGger:TIMeout:SLOPe POSitive")
 
     def set_negative(self) -> None:
         """Set the edge type of timeout trigger.
@@ -204,7 +204,7 @@ class TimeoutSlope(SSFunc):
         :TRIGger:TIMeout:SLOPe NEGative
         The query returns NEG.
         """
-        self.instrument.ask(":TRIGger:TIMeout:SLOPe NEGative")
+        self.instrument.say(":TRIGger:TIMeout:SLOPe NEGative")
 
     def set_both(self) -> None:
         """Set the edge type of timeout trigger.
@@ -238,7 +238,7 @@ class TimeoutSlope(SSFunc):
         :TRIGger:TIMeout:SLOPe NEGative
         The query returns NEG.
         """
-        self.instrument.ask(":TRIGger:TIMeout:SLOPe RFALl")
+        self.instrument.say(":TRIGger:TIMeout:SLOPe RFALl")
 
     def status(self) -> SlopeEnum:
         """Query the current edge type of timeout trigger.
@@ -321,7 +321,7 @@ class Timeout(SFunc):
         The query returns 2.000000e+06.
         """
         check_input(time, "time", float, 16.0e-9, 4.0, "s")
-        self.instrument.ask(f":TRIGger:TIMeout:TIMe {time}")
+        self.instrument.say(f":TRIGger:TIMeout:TIMe {time}")
 
     def get_time(self) -> float:
         """Set the timeout time of timeout trigger.

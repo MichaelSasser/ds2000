@@ -62,7 +62,7 @@ class NthEdgeSource(SSFunc):
         :TRIGger:NEDGe:SOURce CHANnel2
         The query returns CHAN2.
         """
-        self.instrument.ask(":TRIGger:NEDGe:SOURce CHANnel1")
+        self.instrument.say(":TRIGger:NEDGe:SOURce CHANnel1")
 
     def set_channel_2(self) -> None:
         """Select the trigger source of Nth egde trigger.
@@ -96,7 +96,7 @@ class NthEdgeSource(SSFunc):
         :TRIGger:NEDGe:SOURce CHANnel2
         The query returns CHAN2.
         """
-        self.instrument.ask(":TRIGger:NEDGe:SOURce CHANnel2")
+        self.instrument.say(":TRIGger:NEDGe:SOURce CHANnel2")
 
     def status(self) -> ChannelEnum:
         """Select the trigger source of Nth egde trigger.
@@ -166,7 +166,7 @@ class NthEdgeSlope(SSFunc):
         :TRIGger:NEDGe:SLOPe NEGative
         The query returns NEG.
         """
-        self.instrument.ask(":TRIGger:NEDGe:SLOPe POSitive")
+        self.instrument.say(":TRIGger:NEDGe:SLOPe POSitive")
 
     def set_negative(self) -> None:
         """Select the edge type of Nth edge trigger.
@@ -200,7 +200,7 @@ class NthEdgeSlope(SSFunc):
         :TRIGger:NEDGe:SLOPe NEGative
         The query returns NEG.
         """
-        self.instrument.ask(f":TRIGger:NEDGe:SLOPe NEGative")
+        self.instrument.say(f":TRIGger:NEDGe:SLOPe NEGative")
 
     def status(self) -> SlopeEnum:
         """Query the current edge type of Nth edge trigger.
@@ -239,6 +239,7 @@ class NthEdgeSlope(SSFunc):
             return SlopeEnum.POSITIVE
         if answer == "NEG":
             return SlopeEnum.NEGATIVE
+        raise DS2000StateError()
 
 
 class NthEdge(SFunc):
@@ -280,7 +281,7 @@ class NthEdge(SFunc):
         The query returns 2.000000e-03.
         """
         check_input(time, "time", float, 16.0e-9, 4.0, "s")
-        self.instrument.ask(f":TRIGger:NEDGe:IDLE {time}")
+        self.instrument.say(f":TRIGger:NEDGe:IDLE {time}")
 
     def get_idle(self) -> float:
         """Query the current idle time of Nth edge trigger.
@@ -348,7 +349,7 @@ class NthEdge(SFunc):
         :TRIGger:NEDGe:EDGE
         """
         check_input(number, "number", int, 1, 65535, "")
-        self.instrument.ask(f":TRIGger:NEDGe:EDGE {number}")
+        self.instrument.say(f":TRIGger:NEDGe:EDGE {number}")
 
     def get_edge(self) -> int:
         """Query the current edge number of Nth edge trigger.
@@ -437,7 +438,7 @@ class NthEdge(SFunc):
 
         check_level(level, scale, offset)
 
-        self.instrument.ask(f":TRIGger:NEDGe:LEVel {level}")
+        self.instrument.say(f":TRIGger:NEDGe:LEVel {level}")
 
     def get_level(self) -> int:
         """Query the current trigger level in Nth edge trigger.

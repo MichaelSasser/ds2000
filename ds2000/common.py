@@ -19,6 +19,7 @@ from logging import error
 from typing import Any
 from typing import List
 from typing import Optional
+from typing import Tuple
 from typing import Union
 
 from .enums import ChannelEnum
@@ -102,8 +103,8 @@ def check_input(
             "the argument type and/or the argument "
             "value range."
         )
-    # Check, if this function is used as intended: min_ and max_ have the same
-    # type.
+    # Check, if this function is used as intended: min_ and max_ have the
+    # same type.
     if (min_ is None or max_ is None) and type(min_) != type(max_):
         raise DS2000InternalSyntaxError(
             "The arguments min_ and max_ have"
@@ -149,12 +150,12 @@ def check_level(level: float, scale: float, offset: float):
         )
 
 
-def get_examples(doc: str) -> List[Example]:
+def get_examples(doc: Optional[str]) -> Optional[Tuple[Example, ...]]:
     """Extract the examples of a docstring."""
     # If ther is no "doc", return an empty list
     if doc is None:
         error("DEBUG_DRIVER.__get_example -> doc is None")
-        return []
+        return None
 
     # Get the lines that are not empy from "doc"
     lines: List[str] = [
@@ -177,7 +178,7 @@ def get_examples(doc: str) -> List[Example]:
             "DEBUG_DRIVER.__get_example -> More then two/four lines "
             "detected"
         )
-        return []
+        return None
 
     examples: List[Example] = []
     question: Optional[str] = None
@@ -219,7 +220,7 @@ def get_examples(doc: str) -> List[Example]:
                 "Missing answer line after " "question line. Check docs."
             )
 
-    return examples
+    return tuple(examples)
 
 
 def channel_as_enum(channel_msg: str) -> ChannelEnum:
@@ -231,7 +232,7 @@ def channel_as_enum(channel_msg: str) -> ChannelEnum:
         return ChannelEnum.EXT
     if channel_msg == "ACL":
         return ChannelEnum.AC_LINE
-    DS2000StateError(
+    raise DS2000StateError(
         "The function common -> channel_as_enum did not "
         f"understand: {channel_msg}"
     )

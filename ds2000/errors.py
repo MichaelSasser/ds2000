@@ -21,6 +21,7 @@ from typing import Any
 from typing import Callable
 from typing import List
 from typing import Optional
+from typing import Tuple
 
 from .__version__ import __version__
 from .visa.driver import VISADriver
@@ -65,7 +66,7 @@ class DS2000InternalError(Error):
 
 class DS2000ExampleFoundBugError(DS2000InternalError):
     def __init__(
-        self, msg: str, examples: Callable[[str, str, bool], None]
+        self, msg: str, examples: Tuple[Callable[[str, str, bool], None]]
     ) -> None:
         message: str = f"DEBUG_DUMMY: {msg=}, {examples=}"
         super().__init__(message, None)

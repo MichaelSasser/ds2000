@@ -89,7 +89,7 @@ class I2CWhen(SSFunc):
         :TRIGger:IIC:WHEN RESTart
         The query returns REST.
         """
-        self.instrument.ask(":TRIGger:IIC:WHEN STARt")
+        self.instrument.say(":TRIGger:IIC:WHEN STARt")
 
     def set_restart(self) -> None:
         """Set the trigger condition of IIC trigger.
@@ -148,7 +148,7 @@ class I2CWhen(SSFunc):
         :TRIGger:IIC:WHEN RESTart
         The query returns REST.
         """
-        self.instrument.ask(":TRIGger:IIC:WHEN RESTart")
+        self.instrument.say(":TRIGger:IIC:WHEN RESTart")
 
     def set_stop(self) -> None:
         """Set the trigger condition of IIC trigger.
@@ -207,7 +207,7 @@ class I2CWhen(SSFunc):
         :TRIGger:IIC:WHEN RESTart
         The query returns REST.
         """
-        self.instrument.ask(":TRIGger:IIC:WHEN STOP")
+        self.instrument.say(":TRIGger:IIC:WHEN STOP")
 
     def set_nack(self) -> None:
         """Set the trigger condition of IIC trigger.
@@ -266,7 +266,7 @@ class I2CWhen(SSFunc):
         :TRIGger:IIC:WHEN RESTart
         The query returns REST.
         """
-        self.instrument.ask(":TRIGger:IIC:WHEN NACKnowledge")
+        self.instrument.say(":TRIGger:IIC:WHEN NACKnowledge")
 
     def set_address(self) -> None:
         """Set the trigger condition of IIC trigger.
@@ -325,7 +325,7 @@ class I2CWhen(SSFunc):
         :TRIGger:IIC:WHEN RESTart
         The query returns REST.
         """
-        self.instrument.ask(":TRIGger:IIC:WHEN ADDRess")
+        self.instrument.say(":TRIGger:IIC:WHEN ADDRess")
 
     def set_data(self) -> None:
         """Set the trigger condition of IIC trigger.
@@ -384,7 +384,7 @@ class I2CWhen(SSFunc):
         :TRIGger:IIC:WHEN RESTart
         The query returns REST.
         """
-        self.instrument.ask(":TRIGger:IIC:WHEN DATA")
+        self.instrument.say(":TRIGger:IIC:WHEN DATA")
 
     def set_address_and_data(self) -> None:
         """Set the trigger condition of IIC trigger.
@@ -443,7 +443,7 @@ class I2CWhen(SSFunc):
         :TRIGger:IIC:WHEN RESTart
         The query returns REST.
         """
-        self.instrument.ask(":TRIGger:IIC:WHEN ADATa")
+        self.instrument.say(":TRIGger:IIC:WHEN ADATa")
 
     def status(self) -> TriggerI2CWhenEnum:
         """Query the current trigger condition of IIC trigger.
@@ -560,7 +560,7 @@ class I2CDirection(SSFunc):
         :TRIGger:IIC:DIRection RWRite
         The query returns RWR.
         """
-        self.instrument.ask(":TRIGger:IIC:DIRection READ")
+        self.instrument.say(":TRIGger:IIC:DIRection READ")
 
     def set_write(self) -> None:
         """Set the data direction in IIC trigger.
@@ -601,7 +601,7 @@ class I2CDirection(SSFunc):
         :TRIGger:IIC:DIRection RWRite
         The query returns RWR.
         """
-        self.instrument.ask(":TRIGger:IIC:DIRection WRITe")
+        self.instrument.say(":TRIGger:IIC:DIRection WRITe")
 
     def set_read_write(self) -> None:
         """Set the data direction in IIC trigger.
@@ -642,7 +642,7 @@ class I2CDirection(SSFunc):
         :TRIGger:IIC:DIRection RWRite
         The query returns RWR.
         """
-        self.instrument.ask(":TRIGger:IIC:DIRection RWRite")
+        self.instrument.say(":TRIGger:IIC:DIRection RWRite")
 
     def status(self) -> TriggerI2CDirectionEnum:
         """Query the current data direction in IIC trigger.
@@ -739,7 +739,7 @@ class I2CSource(SSFunc):
         :TRIGger:IIC:SDA CHANnel2
         The query returns CHAN2.
         """
-        self.instrument.ask(f":TRIGger:IIC:{self.signal} CHANnel1")
+        self.instrument.say(f":TRIGger:IIC:{self.signal} CHANnel1")
 
     def set_channel_2(self) -> None:
         """Select the SCL channel source in IIC trigger.
@@ -782,9 +782,9 @@ class I2CSource(SSFunc):
         :TRIGger:IIC:SDA CHANnel2
         The query returns CHAN2.
         """
-        self.instrument.ask(f":TRIGger:IIC:{self.signal} CHANnel2")
+        self.instrument.say(f":TRIGger:IIC:{self.signal} CHANnel2")
 
-    def status(self) -> channel_as_enum:
+    def status(self) -> ChannelEnum:
         """Select the SCL channel source in IIC trigger.
 
         **Rigol Programming Guide**
@@ -879,7 +879,7 @@ class I2C(SFunc):
         """
         if address_width not in (7, 8, 10):
             raise ValueError("You can only have 7, 8 or 10 address bits.")
-        self.instrument.ask(f":TRIGger:IIC:AWIDth {address_width}")
+        self.instrument.say(f":TRIGger:IIC:AWIDth {address_width}")
 
     def get_address_bits_width(self) -> int:
         """Query the current address bits in IIC.
@@ -973,7 +973,7 @@ class I2C(SFunc):
             2 ** self.get_address_bits_width() - 1,
             "",
         )
-        self.instrument.ask(f":TRIGger:IIC:ADDRess {address}")
+        self.instrument.say(f":TRIGger:IIC:ADDRess {address}")
 
     def get_address(self) -> int:
         """Query the current address value in IIC trigger.
@@ -1061,7 +1061,7 @@ class I2C(SFunc):
         """
         # TODO ... -1 check prog manual
         check_input(data_value, "data_value", int, 0, 239, "")
-        self.instrument.ask(f":TRIGger:IIC:DATA {data_value}")
+        self.instrument.say(f":TRIGger:IIC:DATA {data_value}")
 
     def get_data(self) -> int:
         """Query the current data value in IIC.
@@ -1159,7 +1159,7 @@ class I2C(SFunc):
 
         check_level(level, scale, offset)
 
-        self.instrument.ask(f":TRIGger:IIC:CLEVel {level}")
+        self.instrument.say(f":TRIGger:IIC:CLEVel {level}")
 
     def get_scl_trigger_level(self) -> float:
         """Query the current trigger level of SCL in IIC trigger.
@@ -1257,7 +1257,7 @@ class I2C(SFunc):
 
         check_level(level, scale, offset)
 
-        self.instrument.ask(f":TRIGger:IIC:DLEVel {level}")
+        self.instrument.say(f":TRIGger:IIC:DLEVel {level}")
 
     def get_sda_trigger_level(self) -> float:
         """Query the current trigger level of SDA.

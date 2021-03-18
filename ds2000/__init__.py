@@ -121,7 +121,7 @@ class DS2000(object):
     def info(self) -> InstrumentInfo:
         return self.instrument.info
 
-    def autoscale(self):
+    def autoscale(self) -> None:
         """Enable the auto setting function.
 
         **Rigol Programming Guide**
@@ -146,9 +146,9 @@ class DS2000(object):
         lower than 50 Hz, the duty cycle be greater than 1% and the amplitude
         be at least 20 mVpp.
         """
-        self.instrument.ask(":AUToscale")
+        self.instrument.say(":AUToscale")
 
-    def clear(self):
+    def clear(self) -> None:
         """Clear all the waveforms on the screen.
 
         **Rigol Programming Guide**
@@ -165,9 +165,9 @@ class DS2000(object):
 
         Waveform will still be displayed if the oscilloscope is in RUN state.
         """
-        self.instrument.ask(":AUToscale")
+        self.instrument.say(":AUToscale")
 
-    def run(self):
+    def run(self) -> None:
         """Start the oscilloscope.
 
         **Rigol Programming Guide**
@@ -184,7 +184,7 @@ class DS2000(object):
 
         You can use the :STOP command to set the oscilloscope to STOP.
         """
-        self.instrument.ask(":RUN")
+        self.instrument.say(":RUN")
 
     def single(self):
         """Set the oscilloscope to single trigger mode.
@@ -211,7 +211,7 @@ class DS2000(object):
         """
         self.instrument.ask(":SINGle")
 
-    def stop(self):
+    def stop(self) -> None:
         """Stop the oscilloscope.
 
         **Rigol Programming Guide**
@@ -230,7 +230,7 @@ class DS2000(object):
         """
         self.instrument.write(":STOP")
 
-    def force(self):
+    def force(self) -> None:
         """Generate a trigger signal forcefully.
 
         **Rigol Programming Guide**
@@ -247,9 +247,9 @@ class DS2000(object):
 
         Force trigger is applicable to normal and single trigger modes.
         """
-        self.instrument.ask(":TFORce")
+        self.instrument.say(":TFORce")
 
-    def level50(self):
+    def level50(self) -> None:
         """Set the trigger level to the vertical midpoint.
 
         **Rigol Programming Guide**
@@ -263,7 +263,7 @@ class DS2000(object):
         Set the trigger level to the vertical midpoint of the trigger signal
         amplitude.
         """
-        self.instrument.ask(":TLHAlf")
+        self.instrument.say(":TLHAlf")
 
     def reset(self):
         self.ieee.rst()

@@ -44,6 +44,7 @@ class SlopeEnum(Enum):
 
 # Acquire
 
+
 class AcquireTypeEnum(Enum):
     NORMAL = "normal"
     AVERAGE = "average"

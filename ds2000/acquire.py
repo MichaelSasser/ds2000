@@ -23,7 +23,6 @@ from .common import Func
 from .common import SFunc
 from .common import check_input
 from .enums import AcquireTypeEnum
-from .errors import DS2000Error
 from .errors import DS2000StateError
 
 
@@ -75,7 +74,7 @@ class Type(SFunc):
 
         The query returns AVER.
         """
-        self.instrument.ask(":ACQuire:TYPE NORMal")
+        self.instrument.say(":ACQuire:TYPE NORMal")
 
     def set_average(self) -> None:
         """Set the acquisition mode of the sample.
@@ -115,7 +114,7 @@ class Type(SFunc):
 
         The query returns AVER.
         """
-        self.instrument.ask(":ACQuire:TYPE AVERages")
+        self.instrument.say(":ACQuire:TYPE AVERages")
 
     def set_peakdetect(self) -> None:
         """Set the acquisition mode of the sample.
@@ -156,7 +155,7 @@ class Type(SFunc):
 
         The query returns AVER.
         """
-        self.instrument.ask(":ACQuire:TYPE PEAK")
+        self.instrument.say(":ACQuire:TYPE PEAK")
 
     def set_highres(self) -> None:
         """Set the acquisition mode of the sample.
@@ -197,7 +196,7 @@ class Type(SFunc):
 
         The query returns AVER.
         """
-        self.instrument.ask(":ACQuire:TYPE HRESolution")
+        self.instrument.say(":ACQuire:TYPE HRESolution")
 
     def status(self) -> AcquireTypeEnum:
         """Query the current acquisition mode of the sample.
@@ -253,13 +252,21 @@ class Type(SFunc):
 class Acquire(Func):
 
     AVERAGES: Tuple[
-        int, int, int, int, int, int, int, int, int, int, int, int
+        int, int, int, int, int, int, int, int, int, int, int, int, int
     ] = (2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192)
     MEMDEPTH_SINGLE: Tuple[int, int, int, int, int] = (
-        14000, 140000, 1400000, 14000000, 56000000
+        14000,
+        140000,
+        1400000,
+        14000000,
+        56000000,
     )
     MEMDEPTH_DUAL: Tuple[int, int, int, int, int] = (
-        7000, 70000, 700000, 7000000, 28000000
+        7000,
+        70000,
+        700000,
+        7000000,
+        28000000,
     )
 
     def __init__(self, dev):
@@ -311,7 +318,7 @@ class Acquire(Func):
         The query returns 128.
         """
         check_input(count, "count", int, 2, 8192)
-        self.instrument.ask(f":ACQuire:AVERages {count}")
+        self.instrument.say(f":ACQuire:AVERages {count}")
 
     def get_averages(self) -> int:
         """Query the current number of averages of the oscilloscope.
@@ -411,12 +418,12 @@ class Acquire(Func):
         check_input(memdepth, "memdepth", int)
 
         if memdepth == 0:
-            self.instrument.ask(":ACQuire:MEMDepth AUTO")
+            self.instrument.say(":ACQuire:MEMDepth AUTO")
         # ToDo: Check if osc uses one or two channels
         elif memdepth in Acquire.MEMDEPTH_SINGLE:
-            self.instrument.ask(f":ACQuire:MDEPth {memdepth}")
+            self.instrument.say(f":ACQuire:MDEPth {memdepth}")
         elif memdepth in Acquire.MEMDEPTH_DUAL:
-            self.instrument.ask(f":ACQuire:MDEPth {memdepth}")
+            self.instrument.say(f":ACQuire:MDEPth {memdepth}")
         raise DS2000StateError()
 
     def get_memorydepth(self) -> int:
@@ -524,7 +531,7 @@ class Acquire(Func):
 
         The query returns 1.
         """
-        self.instrument.ask(":ACQuire:AALias 1")
+        self.instrument.say(":ACQuire:AALias 1")
 
     def set_disable_antialiasing(self):
         """Disable the antialiasing function.
@@ -561,7 +568,7 @@ class Acquire(Func):
 
         The query returns 1.
         """
-        self.instrument.ask(":ACQuire:AALias 0")
+        self.instrument.say(":ACQuire:AALias 0")
 
     def get_antialiasing(self) -> bool:
         """Query the current state of the antialiasing function.

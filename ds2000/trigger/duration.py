@@ -83,7 +83,7 @@ class DurationWhen(SSFunc):
         :TRIGger:DURATion:WHEN LESS
         The query returns LESS.
         """
-        self.instrument.ask(":TRIGger:DURATion:WHEN GREater")
+        self.instrument.say(":TRIGger:DURATion:WHEN GREater")
 
     def set_less(self) -> None:
         """Select the trigger condition of duration trigger.
@@ -135,7 +135,7 @@ class DurationWhen(SSFunc):
         :TRIGger:DURATion:WHEN LESS
         The query returns LESS.
         """
-        self.instrument.ask(":TRIGger:DURATion:WHEN LESS")
+        self.instrument.say(":TRIGger:DURATion:WHEN LESS")
 
     def set_between(self) -> None:
         """Select the trigger condition of duration trigger.
@@ -187,7 +187,7 @@ class DurationWhen(SSFunc):
         :TRIGger:DURATion:WHEN LESS
         The query returns LESS.
         """
-        self.instrument.ask(":TRIGger:DURATion:WHEN GLESs")
+        self.instrument.say(":TRIGger:DURATion:WHEN GLESs")
 
     def status(self) -> TriggerDurationWhenEnum:
         """Query the current trigger condition of duration trigger.
@@ -280,7 +280,7 @@ class DurationSource(SSFunc):
         :TRIGger:DURATion:SOURce CHANnel2
         The query returns CHAN2.
         """
-        self.instrument.ask(":TRIGger:DURATion:SOURce CHANnel1")
+        self.instrument.say(":TRIGger:DURATion:SOURce CHANnel1")
 
     def channel_2(self):
         """Select the trigger source of duration trigger.
@@ -314,7 +314,7 @@ class DurationSource(SSFunc):
         :TRIGger:DURATion:SOURce CHANnel2
         The query returns CHAN2.
         """
-        self.instrument.ask(":TRIGger:DURATion:SOURce CHANnel2")
+        self.instrument.say(":TRIGger:DURATion:SOURce CHANnel2")
 
     def status(self):
         """Select the trigger source of duration trigger.
@@ -360,7 +360,7 @@ class Duration(SFunc):
 
     # TODO
     def set_type(
-        self, pattern: Union[List[str], Tuple[str]] = ("H", "L")
+        self, pattern: Union[List[str], Tuple[str, ...]] = ("H", "L")
     ) -> None:
         """Set the current patterns of the channels.
 
@@ -398,9 +398,9 @@ class Duration(SFunc):
         for p in pattern:
             if p not in ("H", "L", "X", ","):
                 raise ValueError("Pattern is not valid.")
-        self.instrument.ask(f':TRIGger:DURATion:TYPe {",".join(pattern)}')
+        self.instrument.say(f':TRIGger:DURATion:TYPe {",".join(pattern)}')
 
-    def get_type(self) -> Tuple[str]:
+    def get_type(self) -> Tuple[str, ...]:
         """Query the current patterns of the channels.
 
         **Rigol Programming Guide**
@@ -479,7 +479,7 @@ class Duration(SFunc):
         The query returns 3.000000e-06.
         """
         check_input(time, "time", float, 2.0e-9, 4.0, "s")
-        self.instrument.ask(f":TRIGger:DURATion:TUPPer {time}")
+        self.instrument.say(f":TRIGger:DURATion:TUPPer {time}")
 
     def get_upper_limit(self) -> float:
         """Query the current upper limit of the duration in duration trigger.
@@ -569,7 +569,7 @@ class Duration(SFunc):
         The query returns 3.000000e-06.
         """
         check_input(time, "time", float, 2.0e-9, 4.0, "s")
-        self.instrument.ask(f":TRIGger:DURATion:TLOWer {time}")
+        self.instrument.say(f":TRIGger:DURATion:TLOWer {time}")
 
     def get_lower_limit(self) -> float:
         """Query the current lower limit of the duration in duration trigger.

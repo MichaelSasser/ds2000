@@ -25,6 +25,7 @@ from typing import Tuple
 from typing import Union
 
 from ds2000.common import Example
+from ds2000.errors import DS2000InternalSyntaxError
 
 from .parser import Command
 
@@ -33,7 +34,10 @@ __author__: str = "Michael Sasser"
 __email__: str = "Michael@MichaelSasser.org"
 
 # It is basicly StorageDBType = Dict[str, Union[Command, StorageDBType]]
-StorageDBType = Union[Optional[Union[Dict[str, Any], List[str]]], List[str]]
+# StorageDBType = Union[Optional[Union[Dict[str, Any], List[str]]], List[str]]
+StorageDBKeyType = str
+StorageDBValueType = Union[str, Tuple[str, ...], "StorageDBType"]  # type: ignore
+StorageDBType = Dict[str, Union[str, Tuple[str, ...], "StorageDBType"]]  # type: ignore
 
 
 class State:
@@ -47,9 +51,9 @@ class State:
 
     """
 
-    DUMMY_VALUE: List[str] = [
+    DUMMY_VALUE: Tuple[str, ...] = tuple(
         "1.0",
-    ]
+    )
 
     def __init__(self):
 
@@ -57,39 +61,40 @@ class State:
 
     def set(self, command: Command) -> None:
         """Set a new value to the db."""
+        if command.value is None:
+            raise DS2000InternalSyntaxError(
+                f"Setting the db with an Value None. {command=}"
+            )
         self.__set_nested(command.path, command.value)
         debug(f"CURRENT DB: {self.db}")  # TODO: Remove
 
-    def get(self, command: Command, examples: List[Example]) -> StorageDBType:
+    # ToDo: Currently only supports string as return.
+    def get(
+        self, command: Command, examples: Optional[Tuple[Example, ...]]
+    ) -> Tuple[str, ...]:
         """Get a already stored or a fallback value from the db."""
-        answer: StorageDBType = self.__get_nested(command.path)
-        try:
-            if answer is not None:
-                debug(
-                    f"State.get: Key {command.path} found in storage db: "
-                    f"{answer}"
+        answer: Tuple[str, ...] = self.__class__.DUMMY_VALUE
+        try:  # Try to find entry in self.db
+            entry: StorageDBValueType = self.__get_nested(command.path)
+            if isinstance(entry, tuple):
+                return entry
+            raise AttributeError()  # Todo: Reorder function code
+        except AttributeError:  # No entry found in self.db
+            debug(f"Key {command.path} found in storage db")
+
+            if examples:  # Example found in docs.
+                answers: Tuple[str, ...] = tuple(
+                    example.answer for example in examples if example.marked
                 )
-                return answer
-        except KeyError:
-            pass
-        debug(f"State.get: Key {command.path} not found in storage db.")
+                if answers:
+                    debug(f'Example found. Returning "{answers[0]}"')
+                    return tuple(
+                        answers[0],
+                    )
+                debug('No Example found. Returning default dummy value "1.0"')
+        return answer
 
-        if examples:
-            answers: List[str] = [
-                example.answer for example in examples if example.marked
-            ]
-            if answers:
-                debug(f'State.get: Example found. Returning "{answers[0]}"')
-                return [
-                    answers[0],
-                ]
-        debug(
-            "State.get: Example not found. Returning default dummy value "
-            '"1.0"'
-        )
-        return self.__class__.DUMMY_VALUE
-
-    def __get_nested(self, keys: Tuple[str, ...]) -> StorageDBType:
+    def __get_nested(self, keys: Tuple[str, ...]) -> StorageDBValueType:
         """Use a list of keys to get a nested value from the self.db dict.
 
         **Example**
@@ -98,32 +103,26 @@ class State:
         :python: `self.db = {'a': {'b': {'c': ['u', 'v']}}` you would use this
         methode like :python: `self.__get_nested(["a", "b", "c"]`
         """
-        nxt: Union[StorageDBType] = self.db
+        db: StorageDBType = self.db  # ref
         for key in keys:
-            if (nxt := nxt.get(key, None)) is None:
-                return None
-        return nxt
+            db = db.get(key, None)  # type: ignore
+        return db
 
-    def __set_nested(self, keys: Tuple[str, ...], values: List[str]):
+    def __set_nested(self, keys: Tuple[str, ...], values: Tuple[str, ...]):
         """Use a list of keys to set a nested value inside the self.db dict.
 
         **Example**
 
         You want to set :python:`["u", "v"]` inside
         :python:`self.db = {}` you would use this
-        methode like :python:`self.__set_nested(["a", "b", "c"], ["u", "v"]`.
-        Now the condition :python:`self.db == {'a': {'b': {'c': ['u', 'v']}}`
+        methode like :python:`self.__set_nested(('a', 'b', 'c'), ('u', 'v'))`.
+        Now the condition :python:`self.db == {'a': {'b': {'c': ('u', 'v')}}}`
         is :python:`True`.
         """
-        tree = {}
-        first: bool = True
-        for key in reversed(keys):
-            if first:
-                first = False
-                tree = {key: values}
-            else:
-                tree = {key: tree}
-        self.db.update(tree)
+        db: StorageDBType = self.db  # create ref.
+        for key in keys[:-1]:
+            db = db.setdefault(key, {})  # type: ignore
+        db[keys[-1]] = values
 
     # TODO:
     # def __getitem__(self, key: str) -> Any:

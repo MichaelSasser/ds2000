@@ -71,7 +71,7 @@ class DisplayType(SFunc):
         :DISPlay:TYPE DOTS
         The query returns DOTS.
         """
-        self.instrument.ask(":DISPlay:TYPE VECTors")
+        self.instrument.say(":DISPlay:TYPE VECTors")
 
     def set_dots(self):
         """Set the display mode of the waveform on the screen.
@@ -114,7 +114,7 @@ class DisplayType(SFunc):
         :DISPlay:TYPE DOTS
         The query returns DOTS.
         """
-        self.instrument.ask(":DISPlay:TYPE DOTS")
+        self.instrument.say(":DISPlay:TYPE DOTS")
 
     def status(self):
         """Query the display mode of the waveform on the screen.
@@ -204,7 +204,7 @@ class DisplayGrid(SFunc):
         :DISPlay:GRID NONE
         The query returns NONE.
         """
-        self.instrument.ask(":DISPlay:GRID FULL")
+        self.instrument.say(":DISPlay:GRID FULL")
 
     def set_half(self):
         """Set the grid type of screen display.
@@ -246,7 +246,7 @@ class DisplayGrid(SFunc):
         :DISPlay:GRID NONE
         The query returns NONE.
         """
-        self.instrument.ask(":DISPlay:GRID HALF")
+        self.instrument.say(":DISPlay:GRID HALF")
 
     def set_none(self):
         """Set the grid type of screen display.
@@ -288,7 +288,7 @@ class DisplayGrid(SFunc):
         :DISPlay:GRID NONE
         The query returns NONE.
         """
-        self.instrument.ask(":DISPlay:GRID NONE")
+        self.instrument.say(":DISPlay:GRID NONE")
 
     def status(self) -> str:
         """Query the grid type of screen display.
@@ -492,11 +492,11 @@ class Display(Func):
             )
 
         if time == Display.GRID_GRADING_TIMES[1]:
-            self.instrument.ask(":DISPlay:GRADing:TIME MIN")
+            self.instrument.say(":DISPlay:GRADing:TIME MIN")
         elif time in Display.GRID_GRADING_TIMES[-2:-1]:
-            self.instrument.ask(":DISPlay:GRADing:TIME INFinite")
+            self.instrument.say(":DISPlay:GRADing:TIME INFinite")
         elif time in Display.GRID_GRADING_TIMES:
-            self.instrument.ask(f":DISPlay:GRADing:TIME {time}")
+            self.instrument.say(f":DISPlay:GRADing:TIME {time}")
 
     def get_waveform_brightness(self) -> int:
         """Query the waveform brightness and the unit is %.
@@ -565,7 +565,7 @@ class Display(Func):
         The query returns 60.
         """
         check_input(brightness, "brightness", int, 0, 100, "%")
-        self.instrument.ask(f":DISPlay:WBRightness {brightness}")
+        self.instrument.say(f":DISPlay:WBRightness {brightness}")
 
     def get_grid_brightness(self) -> int:
         """Query the brightness of the screen grid and the unit is %.
@@ -634,7 +634,7 @@ class Display(Func):
         The query returns 60.
         """
         check_input(brightness, "brightness", int, 0, 100, "%")
-        self.instrument.ask(f":DISPlay:GBRightness {brightness}")
+        self.instrument.say(f":DISPlay:GBRightness {brightness}")
 
     def set_menu_display_time(self, time: int = -1) -> None:
         """Query the menu display time and the unit is s.
@@ -671,10 +671,10 @@ class Display(Func):
         # Assertion
         check_input(time, "time", int)
 
-        if time in Display.MENU_DISPLAY_TIME[-1]:
-            self.instrument.ask(":DISPlay:MPERsistence INFinite")
+        if time == -1:
+            self.instrument.say(":DISPlay:MPERsistence INFinite")
         elif time in Display.MENU_DISPLAY_TIME:
-            self.instrument.ask(f":DISPlay:GRADing:TIME {time}")
+            self.instrument.say(f":DISPlay:GRADing:TIME {time}")
 
     def data(self) -> bytearray:  # Screenshot bitmap raw data stream
         """Read the bitmap data stream of the image currently displayed.

@@ -861,14 +861,14 @@ class Waveform(Func):
         def get_data():
             try:
                 self.dev.write(":WAVeform:DATA?")
-            except Exception:
-                raise DS2000Error("Write Operation was not successful.")
+            except Exception as e:
+                raise DS2000Error("Write Operation failed.") from e
 
             # Read (RAW)
             try:
                 dat = self.dev.read_raw()
-            except Exception:
-                raise DS2000Error("Raw read Operation was not successful.")
+            except Exception as e:
+                raise DS2000Error("Raw read Operation failed.") from e
             return dat
 
         if recorded:
@@ -1331,8 +1331,8 @@ class Waveform(Func):
         if len(pre) != 10:
             raise DS2000Error("Unexpected waveform preamble length.")
         return Preamble(
-            pre[0],  # ('format', str)
-            pre[1],  # ('type', str),
+            str(pre[0]),  # ('format', str)
+            str(pre[1]),  # ('type', str),
             int(pre[2]),  # ('points', int),
             int(pre[3]),  # ('count', int),
             float(pre[4]),  # ('x_inc', float),
@@ -1340,8 +1340,8 @@ class Waveform(Func):
             float(pre[6]),  # ('x_ref', float),
             float(pre[7]),  # ('y_inc', float),
             float(pre[8]),  # ('y_origin', float),
-            float(pre[9]),
-        )  # ('y_ref', float)
+            float(pre[9]),  # ('y_ref', float)
+        )
 
     def status(self) -> WaveformStatus:
         """Query and return the current waveform reading state.

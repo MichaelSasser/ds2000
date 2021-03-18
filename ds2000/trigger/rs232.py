@@ -65,7 +65,7 @@ class RS232Source(SSFunc):
         :TRIGger:RS232:SOURce CHANnel2
         The query returns CHAN2.
         """
-        self.instrument.ask(":TRIGger:RS232:SOURce CHANnel1")
+        self.instrument.say(":TRIGger:RS232:SOURce CHANnel1")
 
     def set_channel_2(self) -> None:
         """Select the trigger source of RS232 trigger.
@@ -98,7 +98,7 @@ class RS232Source(SSFunc):
         :TRIGger:RS232:SOURce CHANnel2
         The query returns CHAN2.
         """
-        self.instrument.ask(":TRIGger:RS232:SOURce CHANnel2")
+        self.instrument.say(":TRIGger:RS232:SOURce CHANnel2")
 
     def status(self) -> ChannelEnum:
         """Query the current trigger source of RS232 trigger.
@@ -179,7 +179,7 @@ class RS232When(SSFunc):
         :TRIGger:RS232:WHEN ERRor
         The query returns ERR.
         """
-        self.instrument.ask(":TRIGger:RS232:WHEN STARt")
+        self.instrument.say(":TRIGger:RS232:WHEN STARt")
 
     def set_error(self) -> None:
         """Set the trigger condition of RS232 trigger.
@@ -225,7 +225,7 @@ class RS232When(SSFunc):
         :TRIGger:RS232:WHEN ERRor
         The query returns ERR.
         """
-        self.instrument.ask(":TRIGger:RS232:WHEN ERRor")
+        self.instrument.say(":TRIGger:RS232:WHEN ERRor")
 
     def set_parity_error(self) -> None:
         """Set the trigger condition of RS232 trigger.
@@ -271,7 +271,7 @@ class RS232When(SSFunc):
         :TRIGger:RS232:WHEN ERRor
         The query returns ERR.
         """
-        self.instrument.ask(":TRIGger:RS232:WHEN PARity")
+        self.instrument.say(":TRIGger:RS232:WHEN PARity")
 
     def set_data(self) -> None:
         """Set the trigger condition of RS232 trigger.
@@ -317,7 +317,7 @@ class RS232When(SSFunc):
         :TRIGger:RS232:WHEN ERRor
         The query returns ERR.
         """
-        self.instrument.ask(":TRIGger:RS232:WHEN DATA")
+        self.instrument.say(":TRIGger:RS232:WHEN DATA")
 
     def status(self) -> TriggerRS232WhenEnum:
         """Query the current trigger condition of RS232 trigger.
@@ -417,7 +417,7 @@ class RS232Parity(SSFunc):
         :TRIGger:RS232:PARity EVEN
         The query returns EVEN.
         """
-        self.instrument.ask(":TRIGger:RS232:PARity EVEN")
+        self.instrument.say(":TRIGger:RS232:PARity EVEN")
 
     def set_odd(self) -> None:
         """Set the even-odd check mode in RS232 trigger.
@@ -460,7 +460,7 @@ class RS232Parity(SSFunc):
         :TRIGger:RS232:PARity EVEN
         The query returns EVEN.
         """
-        self.instrument.ask(":TRIGger:RS232:PARity ODD")
+        self.instrument.say(":TRIGger:RS232:PARity ODD")
 
     def set_none(self) -> None:
         """Set the even-odd check mode in RS232 trigger.
@@ -503,7 +503,7 @@ class RS232Parity(SSFunc):
         :TRIGger:RS232:PARity EVEN
         The query returns EVEN.
         """
-        self.instrument.ask(":TRIGger:RS232:PARity NONE")
+        self.instrument.say(":TRIGger:RS232:PARity NONE")
 
     def status(self) -> TriggerRS232Parity:
         """Query the current even-odd check mode in RS232 trigger.
@@ -602,7 +602,7 @@ class RS232(SFunc):
         The query returns 2.
         """
         check_input(stop_bits, "stop_bits", int, 1, 2, "stop bits")
-        self.instrument.ask(f":TRIGger:RS232:STOP {stop_bits}")
+        self.instrument.say(f":TRIGger:RS232:STOP {stop_bits}")
 
     def get_stop_bits(self) -> int:
         """Query the current stop bit in RS232 trigger.
@@ -691,7 +691,7 @@ class RS232(SFunc):
             2 * self.get_data_bit_width() - 1,
             "data bits",
         )
-        self.instrument.ask(f":TRIGger:RS232:WIDTh {data_bits}")
+        self.instrument.say(f":TRIGger:RS232:WIDTh {data_bits}")
 
     def get_data(self) -> int:
         """Query the current data value in RS232 trigger.
@@ -775,7 +775,7 @@ class RS232(SFunc):
         check_input(
             data_bit_width, "data_bit_width", int, 5, 8, "data bit width"
         )
-        self.instrument.ask(f":TRIGger:RS232:WIDTh {data_bit_width}")
+        self.instrument.say(f":TRIGger:RS232:WIDTh {data_bit_width}")
 
     def get_data_bit_width(self) -> int:
         """Query the current data bits in RS232 trigger.
@@ -879,10 +879,10 @@ class RS232(SFunc):
         The query returns 50000.
         """
         if baud in (2400, 4800, 9600, 19200, 38400, 9600, 57600, 115200):
-            self.instrument.ask(f":TRIGger:RS232:BAUD {baud}")
+            self.instrument.say(f":TRIGger:RS232:BAUD {baud}")
             return
         check_input(baud, "baud", int, 1, 900000, "Baud")
-        self.instrument.ask(f":TRIGger:RS232:BUSer {baud}")
+        self.instrument.say(f":TRIGger:RS232:BUSer {baud}")
 
     def get_baud(self) -> Dict[str, int]:  # BAUD and BUSer
         """Query the current baud rate in RS232 trigger.
@@ -1003,7 +1003,7 @@ class RS232(SFunc):
                 "Channel 1 or Channel 2."
             )  # TODO: Right??
         check_level(level, scale, offset)
-        self.instrument.ask(f":TRIGger:RS232:LEVel {level}")
+        self.instrument.say(f":TRIGger:RS232:LEVel {level}")
 
     def get_level(self) -> float:
         """Query the current trigger level in RS232 trigger.

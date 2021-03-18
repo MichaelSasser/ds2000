@@ -63,7 +63,7 @@ class WindowsSource(SSFunc):
         :TRIGger:WINDows:SOURce CHANnel2
         The query returns CHAN2.
         """
-        self.instrument.ask(":TRIGger:WINDows:SOURce CHANnel1")
+        self.instrument.say(":TRIGger:WINDows:SOURce CHANnel1")
 
     def set_channel_2(self) -> None:
         """Select the trigger source of windows trigger.
@@ -97,7 +97,7 @@ class WindowsSource(SSFunc):
         :TRIGger:WINDows:SOURce CHANnel2
         The query returns CHAN2.
         """
-        self.instrument.ask(":TRIGger:WINDows:SOURce CHANnel2")
+        self.instrument.say(":TRIGger:WINDows:SOURce CHANnel2")
 
     def status(self) -> ChannelEnum:
         """Query the current trigger source of windows trigger.
@@ -166,7 +166,7 @@ class WindowsSlope(SSFunc):
         :TRIGger:WINDows:SLOPe NEGative
         The query returns NEG.
         """
-        self.instrument.ask(":TRIGger:WINDows:SLOPe POSitive")
+        self.instrument.say(":TRIGger:WINDows:SLOPe POSitive")
 
     def set_negative(self) -> None:
         """Select the windows type of windows trigger.
@@ -199,7 +199,7 @@ class WindowsSlope(SSFunc):
         :TRIGger:WINDows:SLOPe NEGative
         The query returns NEG.
         """
-        self.instrument.ask(":TRIGger:WINDows:SLOPe NEGative")
+        self.instrument.say(":TRIGger:WINDows:SLOPe NEGative")
 
     def set_both(self) -> None:
         """Select the windows type of windows trigger.
@@ -232,7 +232,7 @@ class WindowsSlope(SSFunc):
         :TRIGger:WINDows:SLOPe NEGative
         The query returns NEG.
         """
-        self.instrument.ask(":TRIGger:WINDows:SLOPe RFALl")
+        self.instrument.say(":TRIGger:WINDows:SLOPe RFALl")
 
     def status(self) -> SlopeEnum:
         """Query the current windows type of windows trigger.
@@ -308,7 +308,7 @@ class WindowsPosition(SSFunc):
         :TRIGger:WINDows:POSition ENTER
         The query returns ENTER.
         """
-        self.instrument.ask(":TRIGger:WINDows:POSition EXIT")
+        self.instrument.say(":TRIGger:WINDows:POSition EXIT")
 
     def set_enter(self) -> None:
         """Select the trigger position of windows trigger.
@@ -342,7 +342,7 @@ class WindowsPosition(SSFunc):
         :TRIGger:WINDows:POSition ENTER
         The query returns ENTER.
         """
-        self.instrument.ask(":TRIGger:WINDows:POSition ENTER")
+        self.instrument.say(":TRIGger:WINDows:POSition ENTER")
 
     def set_time(self) -> None:
         """Select the trigger position of windows trigger.
@@ -376,7 +376,7 @@ class WindowsPosition(SSFunc):
         :TRIGger:WINDows:POSition ENTER
         The query returns ENTER.
         """
-        self.instrument.ask(":TRIGger:WINDows:POSition TIMe")
+        self.instrument.say(":TRIGger:WINDows:POSition TIMe")
 
     def status(self) -> TriggerWindowsPositionEnum:
         """Query the current trigger position of windows trigger.
@@ -466,7 +466,7 @@ class Windows(SFunc):
         The query returns 2.000000e-03.
         """
         check_input(time, "time", float, 16.0e-9, 4.0, "s")
-        self.instrument.ask(f":TRIGger:WINDows:TIMe {time}")
+        self.instrument.say(f":TRIGger:WINDows:TIMe {time}")
 
     def get_time(self) -> float:
         """Query the current windows time of windows trigger.

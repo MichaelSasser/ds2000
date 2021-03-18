@@ -60,7 +60,7 @@ class Mode(SFunc):
         :TRIGger:MODE SLOPe
         The query returns SLOP.
         """
-        self.instrument.ask(":TRIGger:MODE EDGE")
+        self.instrument.say(":TRIGger:MODE EDGE")
 
     def set_pulse(self) -> None:
         """Select the trigger type.
@@ -97,7 +97,7 @@ class Mode(SFunc):
         :TRIGger:MODE SLOPe
         The query returns SLOP.
         """
-        self.instrument.ask(":TRIGger:MODE PULSe")
+        self.instrument.say(":TRIGger:MODE PULSe")
 
     def set_runt(self) -> None:
         """Select the trigger type.
@@ -134,7 +134,7 @@ class Mode(SFunc):
         :TRIGger:MODE SLOPe
         The query returns SLOP.
         """
-        self.instrument.ask(":TRIGger:MODE RUNT")
+        self.instrument.say(":TRIGger:MODE RUNT")
 
     def set_windows(self) -> None:
         """Select the trigger type.
@@ -171,7 +171,7 @@ class Mode(SFunc):
         :TRIGger:MODE SLOPe
         The query returns SLOP.
         """
-        self.instrument.ask(":TRIGger:MODE WIND")
+        self.instrument.say(":TRIGger:MODE WIND")
 
     def set_nth_edge(self) -> None:
         """Select the trigger type.
@@ -208,7 +208,7 @@ class Mode(SFunc):
         :TRIGger:MODE SLOPe
         The query returns SLOP.
         """
-        self.instrument.ask(":TRIGger:MODE NEDG")
+        self.instrument.say(":TRIGger:MODE NEDG")
 
     def set_slope(self) -> None:
         """Select the trigger type.
@@ -245,7 +245,7 @@ class Mode(SFunc):
         :TRIGger:MODE SLOPe
         The query returns SLOP.
         """
-        self.instrument.ask(":TRIGger:MODE SLOPe")
+        self.instrument.say(":TRIGger:MODE SLOPe")
 
     def set_video(self) -> None:
         """Select the trigger type.
@@ -282,7 +282,7 @@ class Mode(SFunc):
         :TRIGger:MODE SLOPe
         The query returns SLOP.
         """
-        self.instrument.ask(":TRIGger:MODE VIDeo")
+        self.instrument.say(":TRIGger:MODE VIDeo")
 
     def set_pattern(self) -> None:
         """Select the trigger type.
@@ -319,7 +319,7 @@ class Mode(SFunc):
         :TRIGger:MODE SLOPe
         The query returns SLOP.
         """
-        self.instrument.ask(":TRIGger:MODE PATTern")
+        self.instrument.say(":TRIGger:MODE PATTern")
 
     def set_delay(self) -> None:
         """Select the trigger type.
@@ -356,7 +356,7 @@ class Mode(SFunc):
         :TRIGger:MODE SLOPe
         The query returns SLOP.
         """
-        self.instrument.ask(":TRIGger:MODE DELay")
+        self.instrument.say(":TRIGger:MODE DELay")
 
     def set_timeout(self) -> None:
         """Select the trigger type.
@@ -393,7 +393,7 @@ class Mode(SFunc):
         :TRIGger:MODE SLOPe
         The query returns SLOP.
         """
-        self.instrument.ask(":TRIGger:MODE TIMeout")
+        self.instrument.say(":TRIGger:MODE TIMeout")
 
     def set_duration(self) -> None:
         """Select the trigger type.
@@ -430,7 +430,7 @@ class Mode(SFunc):
         :TRIGger:MODE SLOPe
         The query returns SLOP.
         """
-        self.instrument.ask(":TRIGger:MODE DURATion")
+        self.instrument.say(":TRIGger:MODE DURATion")
 
     def set_setup_hold(self) -> None:
         """Select the trigger type.
@@ -467,7 +467,7 @@ class Mode(SFunc):
         :TRIGger:MODE SLOPe
         The query returns SLOP.
         """
-        self.instrument.ask(":TRIGger:MODE SHOLd")
+        self.instrument.say(":TRIGger:MODE SHOLd")
 
     def set_rs232(self) -> None:
         """Select the trigger type.
@@ -504,7 +504,7 @@ class Mode(SFunc):
         :TRIGger:MODE SLOPe
         The query returns SLOP.
         """
-        self.instrument.ask(":TRIGger:MODE RS232")
+        self.instrument.say(":TRIGger:MODE RS232")
 
     def set_i2c(self) -> None:
         """Select the trigger type.
@@ -541,7 +541,7 @@ class Mode(SFunc):
         :TRIGger:MODE SLOPe
         The query returns SLOP.
         """
-        self.instrument.ask(":TRIGger:MODE IIC")
+        self.instrument.say(":TRIGger:MODE IIC")
 
     def set_spi(self) -> None:
         """Select the trigger type.
@@ -578,7 +578,7 @@ class Mode(SFunc):
         :TRIGger:MODE SLOPe
         The query returns SLOP.
         """
-        self.instrument.ask(":TRIGger:MODE SPI")
+        self.instrument.say(":TRIGger:MODE SPI")
 
     def set_usb(self) -> None:
         """Select the trigger type.
@@ -615,7 +615,7 @@ class Mode(SFunc):
         :TRIGger:MODE SLOPe
         The query returns SLOP.
         """
-        self.instrument.ask(":TRIGger:MODE USB")
+        self.instrument.say(":TRIGger:MODE USB")
 
     def status(self) -> TriggerModeEnum:
         """Query the current trigger type.

@@ -87,7 +87,7 @@ class DelayType(SSFunc):
         :TRIGger:DELay:TYPe GOUT
         The query returns GOUT.
         """
-        self.instrument.ask(":TRIGger:DELay:TYPe GREater")
+        self.instrument.say(":TRIGger:DELay:TYPe GREater")
 
     def set_less(self) -> None:
         """Set the delay type of delay trigger.
@@ -145,7 +145,7 @@ class DelayType(SSFunc):
         :TRIGger:DELay:TYPe GOUT
         The query returns GOUT.
         """
-        self.instrument.ask(":TRIGger:DELay:TYPe LESS")
+        self.instrument.say(":TRIGger:DELay:TYPe LESS")
 
     def set_inside(self) -> None:
         """Set the delay type of delay trigger.
@@ -203,7 +203,7 @@ class DelayType(SSFunc):
         :TRIGger:DELay:TYPe GOUT
         The query returns GOUT.
         """
-        self.instrument.ask(":TRIGger:DELay:TYPe GLESs")
+        self.instrument.say(":TRIGger:DELay:TYPe GLESs")
 
     def set_outside(self) -> None:
         """Set the delay type of delay trigger.
@@ -261,7 +261,7 @@ class DelayType(SSFunc):
         :TRIGger:DELay:TYPe GOUT
         The query returns GOUT.
         """
-        self.instrument.ask(":TRIGger:DELay:TYPe GOUT")
+        self.instrument.say(":TRIGger:DELay:TYPe GOUT")
 
     def status(self) -> TriggerDelayTypeEnum:
         """Query the current delay type of delay trigger.
@@ -376,7 +376,7 @@ class DelaySource(SSFunc):
         :TRIGger:DELay:SB CHANnel2
         The query returns CHAN2.
         """
-        self.instrument.ask(f":TRIGger:DELay:S{self.source} CHANnel1")
+        self.instrument.say(f":TRIGger:DELay:S{self.source} CHANnel1")
 
     def set_channel_2(self) -> None:
         """Select the trigger source of signal source A in delay trigger.
@@ -417,7 +417,7 @@ class DelaySource(SSFunc):
         :TRIGger:DELay:SB CHANnel2
         The query returns CHAN2.
         """
-        self.instrument.ask(f":TRIGger:DELay:S{self.source} CHANnel2")
+        self.instrument.say(f":TRIGger:DELay:S{self.source} CHANnel2")
 
     def status(self) -> ChannelEnum:
         """Select the trigger source of signal source A in delay trigger.
@@ -506,7 +506,7 @@ class DelaySlope(SSFunc):
         The query returns NEG.
         """
 
-        self.instrument.ask(f":TRIGger:DELay:SLOP{self.source} POSitive")
+        self.instrument.say(f":TRIGger:DELay:SLOP{self.source} POSitive")
 
     def set_negative(self) -> None:
         """Set the edge type of edge A/B of delay trigger.
@@ -549,7 +549,7 @@ class DelaySlope(SSFunc):
         The query returns NEG.
         """
 
-        self.instrument.ask(f":TRIGger:DELay:SLOP{self.source} NEGative")
+        self.instrument.say(f":TRIGger:DELay:SLOP{self.source} NEGative")
 
     def status(self) -> SlopeEnum:
         """Query the current edge type of edge A of delay trigger.
@@ -671,7 +671,7 @@ class Delay(SFunc):
         else:
             check_input(time, "time", float, 2.0e-9, 4.0, "s")
 
-        self.instrument.ask(f":TRIGger:DELay:TUPPer {time}")
+        self.instrument.say(f":TRIGger:DELay:TUPPer {time}")
 
     def get_upper_limit(self) -> float:
         """Query the current upper limit of the delay time in delay trigger.
@@ -788,7 +788,7 @@ class Delay(SFunc):
 
         check_input(time, "time", float, 2.0e-9, 3.99, "s")
 
-        self.instrument.ask(f":TRIGger:DELay:TLOWer {time}")
+        self.instrument.say(f":TRIGger:DELay:TLOWer {time}")
 
     def get_lower_limit(self) -> float:
         """Query the current lower limit of the delay time in delay trigger.

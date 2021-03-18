@@ -34,7 +34,7 @@ remove_value: Pattern = re.compile("[a-z]")
 
 class Command(NamedTuple):
     path: Tuple[str, ...]
-    value: Optional[List[str]]
+    value: Optional[Tuple[str, ...]]
     is_question: bool
 
 
@@ -45,13 +45,14 @@ def parse_msg(msg: str) -> Command:  # TODO: parse types
     is_question: bool = path[-1].endswith("?")
     if is_question:
         path[-1] = path[-1].replace("?", "")
-    value: List[str] = " ".join(t[1:]).split(",")  # Reassemble and split by ,
+    # Reassemble and split by
+    value: Tuple[str, ...] = tuple(" ".join(t[1:]).split(","))
     command = Command(tuple(path), value, is_question)
     debug(f"Command: {command}")
     return command
 
 
-def parse_values(values: List[str]) -> str:  # TODO: parse types
+def parse_values(values: Tuple[str, ...]) -> str:  # TODO: parse types
     """Parse a value and return a str."""
     global remove_value
     if len(values) == 1:

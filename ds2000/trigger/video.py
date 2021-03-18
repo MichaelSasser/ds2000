@@ -67,7 +67,7 @@ class VideoSource(SSFunc):
         :TRIGger:VIDeo:SOURce CHANnel2
         The query returns CHAN2.
         """
-        self.instrument.ask(":TRIGger:VIDeo:SOURce CHANnel1")
+        self.instrument.say(":TRIGger:VIDeo:SOURce CHANnel1")
 
     def set_channel_2(self) -> None:
         """Select the trigger source of video trigger.
@@ -101,7 +101,7 @@ class VideoSource(SSFunc):
         :TRIGger:VIDeo:SOURce CHANnel2
         The query returns CHAN2.
         """
-        self.instrument.ask(":TRIGger:VIDeo:SOURce CHANnel2")
+        self.instrument.say(":TRIGger:VIDeo:SOURce CHANnel2")
 
     def status(self) -> ChannelEnum:
         """Query the current trigger source of video trigger.
@@ -171,7 +171,7 @@ class VideoPolarity(SSFunc):
         :TRIGger:VIDeo:POLarity POSitive
         The query returns POS.
         """
-        self.instrument.ask(":TRIGger:VIDeo:POLarity POSitive")
+        self.instrument.say(":TRIGger:VIDeo:POLarity POSitive")
 
     def set_negative(self) -> None:
         """Set the video polarity in video trigger.
@@ -205,7 +205,7 @@ class VideoPolarity(SSFunc):
         :TRIGger:VIDeo:POLarity POSitive
         The query returns POS.
         """
-        self.instrument.ask(":TRIGger:VIDeo:POLarity NEGative")
+        self.instrument.say(":TRIGger:VIDeo:POLarity NEGative")
 
     def status(self) -> TriggerVideoPolarityEnum:
         """Query the current video polarity in video trigger.
@@ -309,7 +309,7 @@ class VideoMode(SSFunc):
         :TRIGger:VIDeo:MODE ODDField
         The query returns ODDF.
         """
-        self.instrument.ask(":TRIGger:VIDeo:MODE ODDField")
+        self.instrument.say(":TRIGger:VIDeo:MODE ODDField")
 
     def set_even_field(self) -> None:
         """Set the sync type in video trigger.
@@ -372,7 +372,7 @@ class VideoMode(SSFunc):
         :TRIGger:VIDeo:MODE ODDField
         The query returns ODDF.
         """
-        self.instrument.ask(":TRIGger:VIDeo:MODE EVENfield")
+        self.instrument.say(":TRIGger:VIDeo:MODE EVENfield")
 
     def set_specific_line(self) -> None:
         """Set the sync type in video trigger.
@@ -435,7 +435,7 @@ class VideoMode(SSFunc):
         :TRIGger:VIDeo:MODE ODDField
         The query returns ODDF.
         """
-        self.instrument.ask(":TRIGger:VIDeo:MODE LINE")
+        self.instrument.say(":TRIGger:VIDeo:MODE LINE")
 
     def set_all_lines(self) -> None:
         """Set the sync type in video trigger.
@@ -498,7 +498,7 @@ class VideoMode(SSFunc):
         :TRIGger:VIDeo:MODE ODDField
         The query returns ODDF.
         """
-        self.instrument.ask(":TRIGger:VIDeo:MODE ALINes")
+        self.instrument.say(":TRIGger:VIDeo:MODE ALINes")
 
     def status(self) -> TriggerVideoModeEnum:
         """Query the current sync type in video trigger.
@@ -631,7 +631,7 @@ class VideoStandard(SSFunc):
         :TRIGger:VIDeo:STANdard NTSC
         The query returns NTSC.
         """
-        self.instrument.ask(":TRIGger:VIDeo:STANdard PALSecam")
+        self.instrument.say(":TRIGger:VIDeo:STANdard PALSecam")
 
     def set_ntsc(self) -> None:
         """Select the video standard in video trigger.
@@ -669,7 +669,7 @@ class VideoStandard(SSFunc):
         :TRIGger:VIDeo:STANdard NTSC
         The query returns NTSC.
         """
-        self.instrument.ask(":TRIGger:VIDeo:STANdard NTSC")
+        self.instrument.say(":TRIGger:VIDeo:STANdard NTSC")
 
     def set_480p(self) -> None:
         """Select the video standard in video trigger.
@@ -707,7 +707,7 @@ class VideoStandard(SSFunc):
         :TRIGger:VIDeo:STANdard NTSC
         The query returns NTSC.
         """
-        self.instrument.ask(":TRIGger:VIDeo:STANdard 480P")
+        self.instrument.say(":TRIGger:VIDeo:STANdard 480P")
 
     def set_576p(self) -> None:
         """Select the video standard in video trigger.
@@ -745,7 +745,7 @@ class VideoStandard(SSFunc):
         :TRIGger:VIDeo:STANdard NTSC
         The query returns NTSC.
         """
-        self.instrument.ask(":TRIGger:VIDeo:STANdard 576P")
+        self.instrument.say(":TRIGger:VIDeo:STANdard 576P")
 
     def set_720p60hz(self) -> None:
         """Select the video standard in video trigger.
@@ -783,7 +783,7 @@ class VideoStandard(SSFunc):
         :TRIGger:VIDeo:STANdard NTSC
         The query returns NTSC.
         """
-        self.instrument.ask(":TRIGger:VIDeo:STANdard 720P60HZ")
+        self.instrument.say(":TRIGger:VIDeo:STANdard 720P60HZ")
 
     def set_720p50hz(self) -> None:
         """Select the video standard in video trigger.
@@ -821,7 +821,7 @@ class VideoStandard(SSFunc):
         :TRIGger:VIDeo:STANdard NTSC
         The query returns NTSC.
         """
-        self.instrument.ask(":TRIGger:VIDeo:STANdard 720P50HZ")
+        self.instrument.say(":TRIGger:VIDeo:STANdard 720P50HZ")
 
     def set_720p30hz(self) -> None:
         """Select the video standard in video trigger.
@@ -859,7 +859,7 @@ class VideoStandard(SSFunc):
         :TRIGger:VIDeo:STANdard NTSC
         The query returns NTSC.
         """
-        self.instrument.ask(":TRIGger:VIDeo:STANdard 720P30HZ")
+        self.instrument.say(":TRIGger:VIDeo:STANdard 720P30HZ")
 
     def set_720p25hz(self) -> None:
         """Select the video standard in video trigger.
@@ -897,7 +897,7 @@ class VideoStandard(SSFunc):
         :TRIGger:VIDeo:STANdard NTSC
         The query returns NTSC.
         """
-        self.instrument.ask(":TRIGger:VIDeo:STANdard 720P25HZ")
+        self.instrument.say(":TRIGger:VIDeo:STANdard 720P25HZ")
 
     def set_720p24hz(self) -> None:
         """Select the video standard in video trigger.
@@ -935,7 +935,7 @@ class VideoStandard(SSFunc):
         :TRIGger:VIDeo:STANdard NTSC
         The query returns NTSC.
         """
-        self.instrument.ask(":TRIGger:VIDeo:STANdard 720P24HZ")
+        self.instrument.say(":TRIGger:VIDeo:STANdard 720P24HZ")
 
     def set_1080p60hz(self) -> None:
         """Select the video standard in video trigger.
@@ -973,7 +973,7 @@ class VideoStandard(SSFunc):
         :TRIGger:VIDeo:STANdard NTSC
         The query returns NTSC.
         """
-        self.instrument.ask(":TRIGger:VIDeo:STANdard 1080P60HZ")
+        self.instrument.say(":TRIGger:VIDeo:STANdard 1080P60HZ")
 
     def set_1080p50hz(self) -> None:
         """Select the video standard in video trigger.
@@ -1011,7 +1011,7 @@ class VideoStandard(SSFunc):
         :TRIGger:VIDeo:STANdard NTSC
         The query returns NTSC.
         """
-        self.instrument.ask(":TRIGger:VIDeo:STANdard 1080P50HZ")
+        self.instrument.say(":TRIGger:VIDeo:STANdard 1080P50HZ")
 
     def set_1080p30hz(self) -> None:
         """Select the video standard in video trigger.
@@ -1049,7 +1049,7 @@ class VideoStandard(SSFunc):
         :TRIGger:VIDeo:STANdard NTSC
         The query returns NTSC.
         """
-        self.instrument.ask(":TRIGger:VIDeo:STANdard 1080P30HZ")
+        self.instrument.say(":TRIGger:VIDeo:STANdard 1080P30HZ")
 
     def set_1080p25hz(self) -> None:
         """Select the video standard in video trigger.
@@ -1087,7 +1087,7 @@ class VideoStandard(SSFunc):
         :TRIGger:VIDeo:STANdard NTSC
         The query returns NTSC.
         """
-        self.instrument.ask(":TRIGger:VIDeo:STANdard 1080P25HZ")
+        self.instrument.say(":TRIGger:VIDeo:STANdard 1080P25HZ")
 
     def set_1080p24hz(self) -> None:
         """Select the video standard in video trigger.
@@ -1125,7 +1125,7 @@ class VideoStandard(SSFunc):
         :TRIGger:VIDeo:STANdard NTSC
         The query returns NTSC.
         """
-        self.instrument.ask(":TRIGger:VIDeo:STANdard 1080P24HZ")
+        self.instrument.say(":TRIGger:VIDeo:STANdard 1080P24HZ")
 
     def set_1080i30hz(self) -> None:
         """Select the video standard in video trigger.
@@ -1163,7 +1163,7 @@ class VideoStandard(SSFunc):
         :TRIGger:VIDeo:STANdard NTSC
         The query returns NTSC.
         """
-        self.instrument.ask(":TRIGger:VIDeo:STANdard 1080I30HZ")
+        self.instrument.say(":TRIGger:VIDeo:STANdard 1080I30HZ")
 
     def set_1080i25hz(self) -> None:
         """Select the video standard in video trigger.
@@ -1201,7 +1201,7 @@ class VideoStandard(SSFunc):
         :TRIGger:VIDeo:STANdard NTSC
         The query returns NTSC.
         """
-        self.instrument.ask(":TRIGger:VIDeo:STANdard 1080I25HZ")
+        self.instrument.say(":TRIGger:VIDeo:STANdard 1080I25HZ")
 
     def set_1080i24hz(self) -> None:
         """Select the video standard in video trigger.
@@ -1239,7 +1239,7 @@ class VideoStandard(SSFunc):
         :TRIGger:VIDeo:STANdard NTSC
         The query returns NTSC.
         """
-        self.instrument.ask(":TRIGger:VIDeo:STANdard 1080I24HZ")
+        self.instrument.say(":TRIGger:VIDeo:STANdard 1080I24HZ")
 
     def status(self) -> TriggerVideoStandardEnum:
         """Query the current video standard in video trigger.
@@ -1371,7 +1371,7 @@ class Video(SFunc):
             1,
             self.__class__.MAX_LINES_OF_VIDEO_STANDATD[self.standard.status()],
         )
-        self.instrument.ask(f":TRIGger:VIDeo:LINE {line}")
+        self.instrument.say(f":TRIGger:VIDeo:LINE {line}")
 
     def get_line(self) -> int:
         """Query the current line number of the specified line.
@@ -1476,7 +1476,7 @@ class Video(SFunc):
                 "Channel 1 or Channel 2."
             )  # TODO: Right??
         check_level(level, scale, offset)
-        self.instrument.ask(f":TRIGger:VIDeo:LEVel {level}")
+        self.instrument.say(f":TRIGger:VIDeo:LEVel {level}")
 
     def get_level(self) -> float:
         """Query the current trigger level in video trigger.

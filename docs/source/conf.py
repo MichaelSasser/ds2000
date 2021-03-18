@@ -13,10 +13,10 @@
 import os
 import sys
 
+from datetime import date
+from typing import Dict
 from typing import List
 
-from typing import Dict
-from datetime import date
 from ds2000.__version__ import __version__
 
 

@@ -51,7 +51,7 @@ class RuntSource(SSFunc):
         ========= ========= ==================== ========
         Name      Type      Range                Default
         ========= ========= ==================== ========
-        <source>  Discrete  {CHANnel1,CHANnel2}  CHANnel1
+        <source>  Discrete  {CHANnel1|CHANnel2}  CHANnel1
         ========= ========= ==================== ========
 
         **Return Format**
@@ -63,7 +63,7 @@ class RuntSource(SSFunc):
         :TRIGger:RUNT:SOURce CHANnel2
         The query returns CHAN2.
         """
-        self.instrument.ask(f":TRIGger:RUNT:SOURce CHANnel1")
+        self.instrument.say(f":TRIGger:RUNT:SOURce CHANnel1")
 
     def set_channel_2(self) -> None:
         """Select the trigger source of runt trigger.
@@ -85,7 +85,7 @@ class RuntSource(SSFunc):
         ========= ========= ==================== ========
         Name      Type      Range                Default
         ========= ========= ==================== ========
-        <source>  Discrete  {CHANnel1,CHANnel2}  CHANnel1
+        <source>  Discrete  {CHANnel1|CHANnel2}  CHANnel1
         ========= ========= ==================== ========
 
         **Return Format**
@@ -97,7 +97,7 @@ class RuntSource(SSFunc):
         :TRIGger:RUNT:SOURce CHANnel2
         The query returns CHAN2.
         """
-        self.instrument.ask(f":TRIGger:RUNT:SOURce CHANnel2")
+        self.instrument.say(f":TRIGger:RUNT:SOURce CHANnel2")
 
     def status(self) -> ChannelEnum:
         """Query the current trigger source of runt trigger.
@@ -119,7 +119,7 @@ class RuntSource(SSFunc):
         ========= ========= ==================== ========
         Name      Type      Range                Default
         ========= ========= ==================== ========
-        <source>  Discrete  {CHANnel1,CHANnel2}  CHANnel1
+        <source>  Discrete  {CHANnel1|CHANnel2}  CHANnel1
         ========= ========= ==================== ========
 
         **Return Format**
@@ -155,7 +155,7 @@ class RuntWhen(SSFunc):
         ======= ========= ========================== =======
         Name    Type      Range                      Default
         ======= ========= ========================== =======
-        <when>  Discrete  {NONE,GREater,LESS,GLESs}  NONE
+        <when>  Discrete  {NONE|GREater|LESS|GLESs}  NONE
         ======= ========= ========================== =======
 
         **Explanation**
@@ -183,7 +183,7 @@ class RuntWhen(SSFunc):
         :TRIGger:RUNT:WHEN LESS
         The query returns LESS.
         """
-        self.instrument.ask(":TRIGger:RUNT:WHEN NONE")
+        self.instrument.say(":TRIGger:RUNT:WHEN NONE")
 
     def set_greater(self) -> None:
         """Select the qualifier of runt trigger.
@@ -205,7 +205,7 @@ class RuntWhen(SSFunc):
         ======= ========= ========================== =======
         Name    Type      Range                      Default
         ======= ========= ========================== =======
-        <when>  Discrete  {NONE,GREater,LESS,GLESs}  NONE
+        <when>  Discrete  {NONE|GREater|LESS|GLESs}  NONE
         ======= ========= ========================== =======
 
         **Explanation**
@@ -233,7 +233,7 @@ class RuntWhen(SSFunc):
         :TRIGger:RUNT:WHEN LESS
         The query returns LESS.
         """
-        self.instrument.ask(":TRIGger:RUNT:WHEN GREater")
+        self.instrument.say(":TRIGger:RUNT:WHEN GREater")
 
     def set_less(self) -> None:
         """Select the qualifier of runt trigger.
@@ -255,7 +255,7 @@ class RuntWhen(SSFunc):
         ======= ========= ========================== =======
         Name    Type      Range                      Default
         ======= ========= ========================== =======
-        <when>  Discrete  {NONE,GREater,LESS,GLESs}  NONE
+        <when>  Discrete  {NONE|GREater|LESS|GLESs}  NONE
         ======= ========= ========================== =======
 
         **Explanation**
@@ -283,7 +283,7 @@ class RuntWhen(SSFunc):
         :TRIGger:RUNT:WHEN LESS
         The query returns LESS.
         """
-        self.instrument.ask(":TRIGger:RUNT:WHEN LESS")
+        self.instrument.say(":TRIGger:RUNT:WHEN LESS")
 
     def set_between(self) -> None:
         """Select the qualifier of runt trigger.
@@ -305,7 +305,7 @@ class RuntWhen(SSFunc):
         ======= ========= ========================== =======
         Name    Type      Range                      Default
         ======= ========= ========================== =======
-        <when>  Discrete  {NONE,GREater,LESS,GLESs}  NONE
+        <when>  Discrete  {NONE|GREater|LESS|GLESs}  NONE
         ======= ========= ========================== =======
 
         **Explanation**
@@ -333,7 +333,7 @@ class RuntWhen(SSFunc):
         :TRIGger:RUNT:WHEN LESS
         The query returns LESS.
         """
-        self.instrument.ask(":TRIGger:RUNT:WHEN GLESs")
+        self.instrument.say(":TRIGger:RUNT:WHEN GLESs")
 
     def status(self) -> TriggerRuntWhenEnum:
         """Query the current qualifier of runt trigger.
@@ -355,7 +355,7 @@ class RuntWhen(SSFunc):
         ======= ========= ========================== =======
         Name    Type      Range                      Default
         ======= ========= ========================== =======
-        <when>  Discrete  {NONE,GREater,LESS,GLESs}  NONE
+        <when>  Discrete  {NONE|GREater|LESS|GLESs}  NONE
         ======= ========= ========================== =======
 
         **Explanation**
@@ -416,7 +416,7 @@ class RuntPolarity(SSFunc):
         =========== ========= ==================== ========
         Name        Type      Range                Default
         =========== ========= ==================== ========
-        <polarity>  Discrete  {POSitive,NEGative}  POSitive
+        <polarity>  Discrete  {POSitive|NEGative}  POSitive
         =========== ========= ==================== ========
 
         **Return Format**
@@ -428,7 +428,7 @@ class RuntPolarity(SSFunc):
         :TRIGger:RUNT:POLarity NEGative
         The query returns NEG.
         """
-        self.instrument.ask(":TRIGger:RUNT:POLarity POSitive")
+        self.instrument.say(":TRIGger:RUNT:POLarity POSitive")
 
     def set_negative(self) -> None:
         """Select the pulse polarity of runt trigger.
@@ -450,7 +450,7 @@ class RuntPolarity(SSFunc):
         =========== ========= ==================== ========
         Name        Type      Range                Default
         =========== ========= ==================== ========
-        <polarity>  Discrete  {POSitive,NEGative}  POSitive
+        <polarity>  Discrete  {POSitive|NEGative}  POSitive
         =========== ========= ==================== ========
 
         **Return Format**
@@ -462,7 +462,7 @@ class RuntPolarity(SSFunc):
         :TRIGger:RUNT:POLarity NEGative
         The query returns NEG.
         """
-        self.instrument.ask(":TRIGger:RUNT:POLarity NEGative")
+        self.instrument.say(":TRIGger:RUNT:POLarity NEGative")
 
     def status(self) -> TriggerRuntPolarityEnum:
         """Query the current pulse polarity of runt trigger.
@@ -484,7 +484,7 @@ class RuntPolarity(SSFunc):
         =========== ========= ==================== ========
         Name        Type      Range                Default
         =========== ========= ==================== ========
-        <polarity>  Discrete  {POSitive,NEGative}  POSitive
+        <polarity>  Discrete  {POSitive|NEGative}  POSitive
         =========== ========= ==================== ========
 
         **Return Format**
@@ -553,7 +553,7 @@ class Runt(SFunc):
         The query returns 2.000000e-02.
         """
         check_input(time, "time", float, 2.0e-9, 4.0, "s")
-        self.instrument.ask(f":TRIGger:RUNT:WLOWer {time}")
+        self.instrument.say(f":TRIGger:RUNT:WLOWer {time}")
 
     def get_lower_limit(self) -> float:
         """Query the current lower limit of the pulse width in runt trigger.
@@ -640,7 +640,7 @@ class Runt(SFunc):
         The query returns 2.000000e-02.
         """
         check_input(time, "time", float, 2.0e-9, 4.0, "s")
-        self.instrument.ask(f":TRIGger:RUNT:WUPPer {time}")
+        self.instrument.say(f":TRIGger:RUNT:WUPPer {time}")
 
     def get_upper_limit(self) -> float:
         """Query the current upper limit of the pulse width in runt trigger.
@@ -739,7 +739,7 @@ class Runt(SFunc):
                 "Channel 1 or Channel 2."
             )  # TODO: Right??
         check_level(level, scale, offset)
-        self.instrument.ask(f":TRIGger:RUNT:ALEVel {level}")
+        self.instrument.say(f":TRIGger:RUNT:ALEVel {level}")
 
     def get_upper_limit_trigger_level(self) -> float:
         """Query the current upper limit of the trigger level in runt trigger.
@@ -838,7 +838,7 @@ class Runt(SFunc):
                 "Channel 1 or Channel 2."
             )  # TODO: Right??
         check_level(level, scale, offset)
-        self.instrument.ask(f":TRIGger:RUNT:BLEVel {level}")
+        self.instrument.say(f":TRIGger:RUNT:BLEVel {level}")
 
     def get_lower_limit_trigger_level(self) -> float:
         """Query the current lower limit of the trigger level in runt trigger.

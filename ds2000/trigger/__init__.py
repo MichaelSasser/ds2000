@@ -80,7 +80,7 @@ class TriggerNoiseReject(SFunc):
         :TRIGger:NREJect ON
         The query returns 1.
         """
-        self.instrument.ask(f":TRIGger:NREJect 1")
+        self.instrument.say(f":TRIGger:NREJect 1")
 
     def set_noise_reject_disabled(self) -> None:
         """Enable or disable noise reject.
@@ -114,7 +114,7 @@ class TriggerNoiseReject(SFunc):
         :TRIGger:NREJect ON
         The query returns 1.
         """
-        self.instrument.ask(f":TRIGger:NREJect 1")
+        self.instrument.say(f":TRIGger:NREJect 1")
 
     def get_noise_reject_enabled(self) -> bool:
         """Query the current status of noise reject.
@@ -276,7 +276,7 @@ class Trigger(Func):
         The query returns 2.000000e-07.
         """
         check_input(time, "time", float, 100.0e-9, 10, "s")
-        self.instrument.ask(f":TRIGger:HOLDoff {time}")
+        self.instrument.say(f":TRIGger:HOLDoff {time}")
 
     def get_holdoff_time(self) -> float:
         """Set the trigger holdoff time and the unit is s.

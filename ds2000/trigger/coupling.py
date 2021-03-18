@@ -62,7 +62,7 @@ class Coupling(SFunc):
         :TRIGger:COUPling LFReject
         The query returns LFR.
         """
-        self.instrument.ask(":TRIGger:COUPling AC")
+        self.instrument.say(":TRIGger:COUPling AC")
 
     def set_dc(self) -> None:
         """Select the desired trigger coupling mode.
@@ -100,7 +100,7 @@ class Coupling(SFunc):
         :TRIGger:COUPling LFReject
         The query returns LFR.
         """
-        self.instrument.ask(":TRIGger:COUPling DC")
+        self.instrument.say(":TRIGger:COUPling DC")
 
     def set_lf_reject(self) -> None:
         """Select the desired trigger coupling mode.
@@ -138,7 +138,7 @@ class Coupling(SFunc):
         :TRIGger:COUPling LFReject
         The query returns LFR.
         """
-        self.instrument.ask(":TRIGger:COUPling LFReject")
+        self.instrument.say(":TRIGger:COUPling LFReject")
 
     def set_hf_reject(self) -> None:
         """Select the desired trigger coupling mode.
@@ -176,7 +176,7 @@ class Coupling(SFunc):
         :TRIGger:COUPling LFReject
         The query returns LFR.
         """
-        self.instrument.ask(":TRIGger:COUPling HFReject")
+        self.instrument.say(":TRIGger:COUPling HFReject")
 
     def status(self) -> TriggerCouplingEnum:
         """Query the current trigger coupling mode.

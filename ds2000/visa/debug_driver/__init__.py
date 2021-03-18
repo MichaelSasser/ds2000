@@ -25,6 +25,7 @@ from types import FrameType
 from typing import Any
 from typing import List
 from typing import Optional
+from typing import Tuple
 
 import coloredlogs  # TODO: Delete before first release
 
@@ -67,7 +68,8 @@ class DebugDriver(VISABase):
         self.check_questions: bool = True
         self.state: State = State()
 
-        super(self.__class__, self).__init__(address)
+        # super(self.__class__, self).__init__(address)  # TODO: Why?
+        super().__init__(address)
 
     def connect(self):
         """Connect to the instrument."""
@@ -87,7 +89,7 @@ class DebugDriver(VISABase):
         """Disconnect from the instrument."""
         debug("Disconnected from DEBUG_DRIVER")
 
-    def ask(self, msg: str) -> Optional[str]:
+    def communicate(self, msg: str) -> Optional[str]:
         """Write and read afterwards from a instrument.
 
         Extract the examples from the function that has called this one
@@ -97,7 +99,7 @@ class DebugDriver(VISABase):
         """
         answer: Optional[str]
         command: Command = parse_msg(msg)
-        examples: List[Example] = []
+        examples: Optional[Tuple[Example, ...]] = None
 
         try:
             examples = get_examples(self.__get_callers_doc())
@@ -113,7 +115,7 @@ class DebugDriver(VISABase):
 
         self.__mark_questions(msg, examples)
 
-        # Devide, if this is a question -> get entry or not -> set entry
+        # Decide, if this is a question -> get entry or not -> set entry
         if command.is_question:
             answer = parse_values(self.state.get(command, examples))
         else:
@@ -135,34 +137,37 @@ class DebugDriver(VISABase):
     @staticmethod
     def __mark_questions(
         msg: str,
-        examples: List[Example],
+        examples: Optional[Tuple[Example, ...]],
     ) -> None:
         """Mark a `Example`, if it's path matches the path in the `msg`."""
-        for path, example in zip(
-            DebugDriver.__get_paths_from_examples(examples), examples
-        ):
-            # remove tailing "?"
-            if msg.endswith("?"):
-                msg = msg[:-1]
+        if examples:
+            for path, example in zip(
+                DebugDriver.__get_paths_from_examples(examples), examples
+            ):
+                # remove tailing "?"
+                if msg.endswith("?"):
+                    msg = msg[:-1]
 
-            # compare paths
-            if msg.split(" ")[0] == path:
-                example.marked = True
+                # compare paths
+                if msg.split(" ")[0] == path:
+                    example.marked = True
 
     @staticmethod
-    def __get_paths_from_examples(examples: List[Example]) -> List[str]:
+    def __get_paths_from_examples(
+        examples: Tuple[Example, ...]
+    ) -> Tuple[str, ...]:
         """Extract path from question.
 
         **Example**
 
         "TRIGger:COUPling LFReject" -> TRIGger:COUPling.
         """
-        return [example.question.split(" ", 1)[0] for example in examples]
+        return tuple(example.question.split(" ", 1)[0] for example in examples)
 
     @staticmethod
     def __check_questions(
         msg: str,
-        examples: List[Example],
+        examples: Optional[Tuple[Example, ...]],
         fail_on_err: bool = False,
     ) -> None:
         if examples is None:
@@ -182,7 +187,8 @@ class DebugDriver(VISABase):
             )
         ):
             if fail_on_err:
-                raise DS2000ExampleFoundBugError(msg, examples)
+                # TODO: Ignore Type for now, fix before release
+                raise DS2000ExampleFoundBugError(msg, examples)  # type: ignore
             else:
                 error(f"DEBUG_DRIVER.__check_question: {msg=} != {examples=}")
 
@@ -192,10 +198,15 @@ class DebugDriver(VISABase):
         frame: Optional[FrameType] = currentframe()
         try:
             if frame is not None:
-                frame = frame.f_back.f_back
-            methode_name: str = getframeinfo(frame).function
+                # mypy bug:
+                frame = frame.f_back.f_back  # type: ignore
+            # bypy bug / handled by excaption:
+            methode_name: str = getframeinfo(frame).function  # type: ignore
             last_class: Any = getattr_static(
-                frame.f_locals["self"], methode_name, None
+                # mypy bug
+                frame.f_locals["self"],  # type: ignore
+                methode_name,
+                None,
             )
             doc: str = last_class.__doc__
         finally:

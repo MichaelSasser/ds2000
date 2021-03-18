@@ -30,7 +30,7 @@ __email__ = "Michael@MichaelSasser.org"
 
 class Pattern(SFunc):
     def set_pattern(
-        self, pattern: Union[List[str], Tuple[str]] = ("H", "L")
+        self, pattern: Union[List[str], Tuple[str, ...]] = ("H", "L")
     ) -> None:
         """Set the pattern code of each channel in pattern trigger.
 
@@ -80,7 +80,7 @@ class Pattern(SFunc):
                 raise ValueError(
                     'The pattern must only contain "H", "L", "X", "R" or "F".'
                 )
-        self.instrument.ask(f":TRIGger:PATTern:PATTern {','.join(pattern)}")
+        self.instrument.say(f":TRIGger:PATTern:PATTern {','.join(pattern)}")
 
     def get_pattern(self) -> Tuple[str, ...]:
         """Query the current pattern code of each channel in pattern trigger.
@@ -179,7 +179,7 @@ class Pattern(SFunc):
         else:
             raise RuntimeError("The oscilloscope returned an unknown channel")
         check_level(level, scale, offset)
-        self.instrument.ask(f":TRIGger:PATTern:LEVel CHANnel{channel},{level}")
+        self.instrument.say(f":TRIGger:PATTern:LEVel CHANnel{channel},{level}")
 
     def get_level(self, channel: int = 1) -> float:
         """Query the current trigger level of each channel in pattern trigger.

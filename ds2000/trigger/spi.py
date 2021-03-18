@@ -75,7 +75,7 @@ class SPISource(SSFunc):
         :TRIGger:SPI:SDA CHANnel2
         The query returns CHAN2.
         """
-        self.instrument.ask(f":TRIGger:SPI:{self.src} CHANnel1")
+        self.instrument.say(f":TRIGger:SPI:{self.src} CHANnel1")
 
     def set_channel_2(self) -> None:
         """Select the channel source in SPI trigger.
@@ -118,7 +118,7 @@ class SPISource(SSFunc):
         :TRIGger:SPI:SDA CHANnel2
         The query returns CHAN2.
         """
-        self.instrument.ask(f":TRIGger:SPI:{self.src} CHANnel2")
+        self.instrument.say(f":TRIGger:SPI:{self.src} CHANnel2")
 
     def status(self) -> ChannelEnum:
         """Select the channel source in SPI trigger.
@@ -199,7 +199,7 @@ class SPISlope(SSFunc):
         :TRIGger:SPI:SLOPe POSitive
         The query returns POS.
         """
-        self.instrument.ask(":TRIGger:SPI:SLOPe POSitive")
+        self.instrument.say(":TRIGger:SPI:SLOPe POSitive")
 
     def set_negative(self) -> None:
         """Set the trigger edge of the clock signal in SPI trigger.
@@ -233,7 +233,7 @@ class SPISlope(SSFunc):
         :TRIGger:SPI:SLOPe POSitive
         The query returns POS.
         """
-        self.instrument.ask(":TRIGger:SPI:SLOPe NEGative")
+        self.instrument.say(":TRIGger:SPI:SLOPe NEGative")
 
     def status(self) -> SlopeEnum:
         """Query the current trigger edge of the clock signal in SPI trigger.
@@ -314,7 +314,7 @@ class SPI(SFunc):
         The query returns 10.
         """
         check_input(width, "width", int, 4, 32)
-        self.instrument.ask(f":TRIGger:SPI:WIDTh {width}")
+        self.instrument.say(f":TRIGger:SPI:WIDTh {width}")
 
     def get_width(self) -> int:
         """Query the current bits of SDA in SPI trigger.
@@ -386,7 +386,7 @@ class SPI(SFunc):
         The query returns 5.
         """
         check_input(data, "data", int, 0, 2 ** self.get_width() - 1)
-        self.instrument.ask(f":TRIGger:SPI:DATA {data}")
+        self.instrument.say(f":TRIGger:SPI:DATA {data}")
 
     def get_data(self) -> int:
         """Query the current data value in SPI trigger.
@@ -460,7 +460,7 @@ class SPI(SFunc):
         The query returns 2.000000e-06.
         """
         check_input(time, "time", float, 100.0e-9, 1.0, "s")
-        self.instrument.ask(f":TRIGger:SPI:TIMeout {time}")
+        self.instrument.say(f":TRIGger:SPI:TIMeout {time}")
 
     def get_timeout(self) -> float:
         """Query the current timeout time in SPI trigge.
@@ -550,7 +550,7 @@ class SPI(SFunc):
                 "Channel 1 or Channel 2."
             )  # TODO: Right??
         check_level(level, scale, offset)
-        self.instrument.ask(f":TRIGger:SPI:CLEVel {level}")
+        self.instrument.say(f":TRIGger:SPI:CLEVel {level}")
 
     def get_scl_trigger_level(self) -> float:
         """Query the current trigger level of SCL in SPI trigger.
@@ -644,7 +644,7 @@ class SPI(SFunc):
                 "Channel 1 or Channel 2."
             )  # TODO: Right??
         check_level(level, scale, offset)
-        self.instrument.ask(f":TRIGger:SPI:DLEVel {level}")
+        self.instrument.say(f":TRIGger:SPI:DLEVel {level}")
 
     def get_sda_trigger_level(self) -> float:
         """Query the current trigger level of SDA in SPI trigger.

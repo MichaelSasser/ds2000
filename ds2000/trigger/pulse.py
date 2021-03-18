@@ -63,7 +63,7 @@ class PulseSource(SSFunc):
         :TRIGger:PULSe:SOURce CHANnel2
         The query returns CHAN2.
         """
-        self.instrument.ask(":TRIGger:PULSe:SOURce CHANnel1")
+        self.instrument.say(":TRIGger:PULSe:SOURce CHANnel1")
 
     def set_channel_2(self) -> None:
         """Select the trigger source in pulse trigger.
@@ -96,7 +96,7 @@ class PulseSource(SSFunc):
         :TRIGger:PULSe:SOURce CHANnel2
         The query returns CHAN2.
         """
-        self.instrument.ask(":TRIGger:PULSe:SOURce CHANnel2")
+        self.instrument.say(":TRIGger:PULSe:SOURce CHANnel2")
 
     def status(self) -> ChannelEnum:
         """Query the current trigger source in pulse trigger.
@@ -200,7 +200,7 @@ class PulseWhen(SSFunc):
         :TRIGger:PULSe:WHEN PGReater
         The query returns PGR.
         """
-        self.instrument.ask(":TRIGger:PULSe:WHEN GReater")
+        self.instrument.say(":TRIGger:PULSe:WHEN GReater")
 
     def set_positive_less(self) -> None:
         """Select the trigger condition of pulse trigger.
@@ -270,7 +270,7 @@ class PulseWhen(SSFunc):
         The query returns PGR.
         """
 
-        self.instrument.ask(":TRIGger:PULSe:WHEN PLESs")
+        self.instrument.say(":TRIGger:PULSe:WHEN PLESs")
 
     def set_negative_greater(self) -> None:
         """Select the trigger condition of pulse trigger.
@@ -339,7 +339,7 @@ class PulseWhen(SSFunc):
         :TRIGger:PULSe:WHEN PGReater
         The query returns PGR.
         """
-        self.instrument.ask(":TRIGger:PULSe:WHEN NGReater")
+        self.instrument.say(":TRIGger:PULSe:WHEN NGReater")
 
     def set_negative_less(self) -> None:
         """Select the trigger condition of pulse trigger.
@@ -408,7 +408,7 @@ class PulseWhen(SSFunc):
         :TRIGger:PULSe:WHEN PGReater
         The query returns PGR.
         """
-        self.instrument.ask(":TRIGger:PULSe:WHEN NLESs")
+        self.instrument.say(":TRIGger:PULSe:WHEN NLESs")
 
     def set_positive_between(self) -> None:
         """Select the trigger condition of pulse trigger.
@@ -477,7 +477,7 @@ class PulseWhen(SSFunc):
         :TRIGger:PULSe:WHEN PGReater
         The query returns PGR.
         """
-        self.instrument.ask(":TRIGger:PULSe:WHEN PGLess")
+        self.instrument.say(":TRIGger:PULSe:WHEN PGLess")
 
     def set_negative_between(self) -> None:
         """Select the trigger condition of pulse trigger.
@@ -546,7 +546,7 @@ class PulseWhen(SSFunc):
         :TRIGger:PULSe:WHEN PGReater
         The query returns PGR.
         """
-        self.instrument.ask(":TRIGger:PULSe:WHEN NGLess")
+        self.instrument.say(":TRIGger:PULSe:WHEN NGLess")
 
     def status(self) -> TriggerPulseWhenEnum:
         """Query the current trigger condition of pulse trigger.
@@ -680,7 +680,7 @@ class Pulse(SFunc):
         The query returns 3.000000e-06.
         """
         check_input(time, "time", float, 2.0e-9, 4.0, "s")
-        self.instrument.ask(f":TRIGger:PULSe:UWIDth {time}")
+        self.instrument.say(f":TRIGger:PULSe:UWIDth {time}")
 
     def get_upper_pulse_width(self) -> float:
         """Query the current upper limit of the pulse width in pulse trigger.
@@ -769,7 +769,7 @@ class Pulse(SFunc):
         The query returns 3.000000e-06.
         """
         check_input(time, "time", float, 2.0e-9, 4.0, "s")
-        self.instrument.ask(f":TRIGger:PULSe:LWIDth {time}")
+        self.instrument.say(f":TRIGger:PULSe:LWIDth {time}")
 
     def get_lower_pulse_width(self) -> float:
         """Query the current lower limit of the pulse width in pulse trigger.
@@ -855,10 +855,10 @@ class Pulse(SFunc):
         The query returns 1.600000e-01.
         """
         channel: ChannelEnum = self.source.status()
-        if channel == ChannelEnum.Channel_1:
+        if channel == ChannelEnum.CHANNEL_1:
             scale = self.sdev.dev.channel1.get_scale()
             offset = self.sdev.dev.channel1.get_offset()
-        elif channel == ChannelEnum.Channel_2:
+        elif channel == ChannelEnum.CHANNEL_2:
             scale = self.sdev.dev.channel2.scale()
             offset = self.sdev.dev.channel2.get_offset()
         else:
@@ -867,7 +867,7 @@ class Pulse(SFunc):
                 "Channel 1 or Channel 2."
             )  # TODO: Right??
         check_level(level, scale, offset)
-        self.instrument.ask(f":TRIGger:PULSe:LEVel {level}")
+        self.instrument.say(f":TRIGger:PULSe:LEVel {level}")
 
     def get_level(self) -> float:
         """Query the current trigger level in pulse trigger.

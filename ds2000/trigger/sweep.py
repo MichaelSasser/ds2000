@@ -57,7 +57,7 @@ class Sweep(SFunc):
         :TRIGger:SWEep SINGle
         The query returns SING.
         """
-        self.instrument.ask(":TRIGger:SWEep AUTO")
+        self.instrument.say(":TRIGger:SWEep AUTO")
 
     def set_normal(self) -> None:
         """Set the trigger mode.
@@ -91,7 +91,7 @@ class Sweep(SFunc):
         :TRIGger:SWEep SINGle
         The query returns SING.
         """
-        self.instrument.ask(":TRIGger:SWEep NORMal")
+        self.instrument.say(":TRIGger:SWEep NORMal")
 
     def set_single(self) -> None:
         """Set the trigger mode.
@@ -125,7 +125,7 @@ class Sweep(SFunc):
         :TRIGger:SWEep SINGle
         The query returns SING.
         """
-        self.instrument.ask(":TRIGger:SWEep SINGle")
+        self.instrument.say(":TRIGger:SWEep SINGle")
 
     def status(self) -> TriggerSweepEnum:
         """Query the current trigger mode.
@@ -163,7 +163,7 @@ class Sweep(SFunc):
         if answer == "AUTO":
             return TriggerSweepEnum.AUTO
         if answer == "NORM":
-            return TriggerSweepEnum.NORM
+            return TriggerSweepEnum.NORMAL
         if answer == "SING":
             return TriggerSweepEnum.SINGLE
         raise DS2000StateError()

@@ -66,7 +66,7 @@ class SlopeSource(SSFunc):
         :TRIGger:SLOPe:SOURce CHANnel2
         The query returns CHAN2.
         """
-        self.instrument.ask(":TRIGger:SLOPe:SOURce CHANnel1")
+        self.instrument.say(":TRIGger:SLOPe:SOURce CHANnel1")
 
     def set_channel_2(self) -> None:
         """Select the trigger source of slope trigger.
@@ -100,7 +100,7 @@ class SlopeSource(SSFunc):
         :TRIGger:SLOPe:SOURce CHANnel2
         The query returns CHAN2.
         """
-        self.instrument.ask(":TRIGger:SLOPe:SOURce CHANnel2")
+        self.instrument.say(":TRIGger:SLOPe:SOURce CHANnel2")
 
     def status(self) -> ChannelEnum:
         """Query the current trigger source of slope trigger.
@@ -205,7 +205,7 @@ class SlopeWhen(SSFunc):
         :TRIGger:SLOPe:WHEN PGReater
         The query returns PGR.
         """
-        self.instrument.ask(":TRIGger:SLOPe:WHEN PGReater")
+        self.instrument.say(":TRIGger:SLOPe:WHEN PGReater")
 
     def set_positive_less(self) -> None:
         """Select the trigger condition of slope trigger.
@@ -274,7 +274,7 @@ class SlopeWhen(SSFunc):
         :TRIGger:SLOPe:WHEN PGReater
         The query returns PGR.
         """
-        self.instrument.ask(":TRIGger:SLOPe:WHEN PLESs")
+        self.instrument.say(":TRIGger:SLOPe:WHEN PLESs")
 
     def set_negative_greater(self) -> None:
         """Select the trigger condition of slope trigger.
@@ -343,7 +343,7 @@ class SlopeWhen(SSFunc):
         :TRIGger:SLOPe:WHEN PGReater
         The query returns PGR.
         """
-        self.instrument.ask(":TRIGger:SLOPe:WHEN NGReater")
+        self.instrument.say(":TRIGger:SLOPe:WHEN NGReater")
 
     def set_negative_less(self) -> None:
         """Select the trigger condition of slope trigger.
@@ -412,7 +412,7 @@ class SlopeWhen(SSFunc):
         :TRIGger:SLOPe:WHEN PGReater
         The query returns PGR.
         """
-        self.instrument.ask(":TRIGger:SLOPe:WHEN NLESs")
+        self.instrument.say(":TRIGger:SLOPe:WHEN NLESs")
 
     def set_positive_between(self) -> None:
         """Select the trigger condition of slope trigger.
@@ -481,7 +481,7 @@ class SlopeWhen(SSFunc):
         :TRIGger:SLOPe:WHEN PGReater
         The query returns PGR.
         """
-        self.instrument.ask(":TRIGger:SLOPe:WHEN PGLess")
+        self.instrument.say(":TRIGger:SLOPe:WHEN PGLess")
 
     def set_negative_between(self) -> None:
         """Select the trigger condition of slope trigger.
@@ -550,7 +550,7 @@ class SlopeWhen(SSFunc):
         :TRIGger:SLOPe:WHEN PGReater
         The query returns PGR.
         """
-        self.instrument.ask(":TRIGger:SLOPe:WHEN NGLess")
+        self.instrument.say(":TRIGger:SLOPe:WHEN NGLess")
 
     def status(self) -> TriggerSlopeWhenEnum:
         """Query the current trigger condition of slope trigger.
@@ -683,7 +683,7 @@ class SlopeWindow(SSFunc):
         :TRIGger:SLOPe:WINDow TB
         The query returns TB.
         """
-        self.instrument.ask(":TRIGger:SLOPe:WINDow TA")
+        self.instrument.say(":TRIGger:SLOPe:WINDow TA")
 
     def set_adjust_lower_limit(self) -> None:
         """Set the type of the vertical window in slope trigger.
@@ -732,7 +732,7 @@ class SlopeWindow(SSFunc):
         :TRIGger:SLOPe:WINDow TB
         The query returns TB.
         """
-        self.instrument.ask(":TRIGger:SLOPe:WINDow TB")
+        self.instrument.say(":TRIGger:SLOPe:WINDow TB")
 
     def set_adjust_both_limits(self) -> None:
         """Set the type of the vertical window in slope trigger.
@@ -781,7 +781,7 @@ class SlopeWindow(SSFunc):
         :TRIGger:SLOPe:WINDow TB
         The query returns TB.
         """
-        self.instrument.ask(":TRIGger:SLOPe:WINDow TAB")
+        self.instrument.say(":TRIGger:SLOPe:WINDow TAB")
 
     def status(self) -> SlopeEnum:
         """Query the current type of the vertical window in slope trigger.
@@ -832,9 +832,9 @@ class SlopeWindow(SSFunc):
         """
         answer: str = self.instrument.ask(":TRIGger:SLOPe:WINDow?")
         if answer == "TA":
-            return SlopeEnum.UPPER
+            return SlopeEnum.POSITIVE
         if answer == "TB":
-            return SlopeEnum.LOWER
+            return SlopeEnum.NEGATIVE
         if answer == "TAB":
             return SlopeEnum.BOTH
         raise DS2000StateError()
@@ -888,7 +888,7 @@ class Slope(SFunc):
         The query returns 3.000000e-06.
         """
         check_input(time, "time", float, 10.0e-9, 2.0, "s")
-        self.instrument.ask(f":TRIGger:SLOPe:TUPPer {time}")
+        self.instrument.say(f":TRIGger:SLOPe:TUPPer {time}")
 
     def get_upper_limit(self) -> float:
         """Query the current upper limit of time in slope trigger.
@@ -973,7 +973,7 @@ class Slope(SFunc):
         The query returns 3.000000e-06.
         """
         check_input(time, "time", float, 10.0e-9, 1.0, "s")
-        self.instrument.ask(f":TRIGger:SLOPe:TLOWer {time}")
+        self.instrument.say(f":TRIGger:SLOPe:TLOWer {time}")
 
     def get_lower_limit(self) -> float:
         """Query the current lower limit of time in slope trigger.
@@ -1070,7 +1070,7 @@ class Slope(SFunc):
                 "Channel 1 or Channel 2."
             )  # TODO: Right??
         check_level(level, scale, offset)
-        self.instrument.ask(":TRIGger:SLOPe:ALEVel {level}")
+        self.instrument.say(":TRIGger:SLOPe:ALEVel {level}")
 
     def get_upper_limit_trigger_level(self) -> float:
         """Query the current upper limit of the trigger level in slope trigger.
@@ -1169,7 +1169,7 @@ class Slope(SFunc):
                 "Channel 1 or Channel 2."
             )  # TODO: Right??
         check_level(level, scale, offset)
-        self.instrument.ask(f":TRIGger:SLOPe:BLEVel {level}")
+        self.instrument.say(f":TRIGger:SLOPe:BLEVel {level}")
 
     def get_lower_limit_trigger_level(self) -> float:
         """Query the current lower limit of the trigger level in slope trigger.

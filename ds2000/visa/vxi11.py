@@ -40,7 +40,7 @@ class VXI11(VISABase):
         """Disconnect from the instrument."""
         self.__instrument.close()
 
-    def ask(self, msg: str) -> Optional[str]:
+    def communicate(self, msg: str) -> Optional[str]:
         """Write and read afterwards from a instrument."""
         answer: Optional[str] = None
         try:

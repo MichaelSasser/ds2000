@@ -80,7 +80,7 @@ class ChannelCoupling(SFunc):
         The query returns AC.
 
         """
-        self.instrument.ask(f":CHANnel{self.sdev._channel}:COUPling AC")
+        self.instrument.say(f":CHANnel{self.sdev._channel}:COUPling AC")
 
     def set_dc(self) -> None:
         """Set the coupling mode.
@@ -116,7 +116,7 @@ class ChannelCoupling(SFunc):
         The query returns AC.
 
         """
-        self.instrument.ask(f":CHANnel{self.sdev._channel}:COUPling DC")
+        self.instrument.say(f":CHANnel{self.sdev._channel}:COUPling DC")
 
     def set_gnd(self) -> None:
         """Set the coupling mode.
@@ -152,7 +152,7 @@ class ChannelCoupling(SFunc):
         The query returns AC.
 
         """
-        self.instrument.ask(f":CHANnel{self.sdev._channel}:COUPling GND")
+        self.instrument.say(f":CHANnel{self.sdev._channel}:COUPling GND")
 
     def status(self) -> str:
         """Query the current coupling mode of CH1 or CH2.
@@ -228,7 +228,7 @@ class ChannelUnits(SFunc):
         The query returns VOLT.
 
         """
-        self.instrument.ask(f":CHANnel{self.sdev._channel}::UNITs VOLTage")
+        self.instrument.say(f":CHANnel{self.sdev._channel}::UNITs VOLTage")
 
     def set_power(self) -> None:
         """Set the amplitude display.
@@ -264,7 +264,7 @@ class ChannelUnits(SFunc):
         The query returns VOLT.
 
         """
-        self.instrument.ask(f":CHANnel{self.sdev._channel}::UNITs WATT")
+        self.instrument.say(f":CHANnel{self.sdev._channel}::UNITs WATT")
 
     def set_current(self) -> None:
         """Set the amplitude display.
@@ -300,7 +300,7 @@ class ChannelUnits(SFunc):
         The query returns VOLT.
 
         """
-        self.instrument.ask(f":CHANnel{self.sdev._channel}::UNITs AMPere")
+        self.instrument.say(f":CHANnel{self.sdev._channel}::UNITs AMPere")
 
     def set_unknown(self) -> None:
         """Set the amplitude display.
@@ -336,7 +336,7 @@ class ChannelUnits(SFunc):
         The query returns VOLT.
 
         """
-        self.instrument.ask(f":CHANnel{self.sdev._channel}::UNITs UNKNown")
+        self.instrument.say(f":CHANnel{self.sdev._channel}::UNITs UNKNown")
 
     def status(self) -> str:
         """Query the current amplitude display unit.
@@ -383,7 +383,7 @@ class ChannelUnits(SFunc):
             return "current"
         if unit == "UNKN":
             return "unknown"
-        DS2000Error("The channel unit couldn't be recognized.")
+        raise DS2000Error("The channel unit couldn't be recognized.")
 
 
 class ChannelBandwidthLimit(SFunc):
@@ -423,7 +423,7 @@ class ChannelBandwidthLimit(SFunc):
         :CHANnel1:BWLimit 20M
         The query returns 20M.
         """
-        self.instrument.ask(f":CHANnel{self.sdev._channel}:BWLimit OFF")
+        self.instrument.say(f":CHANnel{self.sdev._channel}:BWLimit OFF")
 
     def set_bw_20m(self):
         """Set the bandwidth limit.
@@ -461,7 +461,7 @@ class ChannelBandwidthLimit(SFunc):
         :CHANnel1:BWLimit 20M
         The query returns 20M.
         """
-        self.instrument.ask(f":CHANnel{self.sdev._channel}:BWLimit 20M")
+        self.instrument.say(f":CHANnel{self.sdev._channel}:BWLimit 20M")
 
     def set_bw_100m(self):  # ToDo: not for DS2072 & DS2012
         """Set the bandwidth limit.
@@ -499,7 +499,7 @@ class ChannelBandwidthLimit(SFunc):
         :CHANnel1:BWLimit 20M
         The query returns 20M.
         """
-        self.instrument.ask(f":CHANnel{self.sdev._channel}:BWLimit 100M")
+        self.instrument.say(f":CHANnel{self.sdev._channel}:BWLimit 100M")
 
     def status(self):
         """Query the current bandwidth limit.
@@ -538,7 +538,7 @@ class ChannelBandwidthLimit(SFunc):
         :CHANnel1:BWLimit 20M
         The query returns 20M.
         """
-        self.instrument.ask(f":CHANnel{self.sdev._channel}:BWLimit?")
+        self.instrument.say(f":CHANnel{self.sdev._channel}:BWLimit?")
 
 
 class Channel(Func):
@@ -612,7 +612,7 @@ class Channel(Func):
         :CHANnel1:INVert ON
         The query returns 1.
         """
-        self.instrument.ask(f":CHANnel{self._channel}:INVert 1")
+        self.instrument.say(f":CHANnel{self._channel}:INVert 1")
 
     def set_disable_invert(self) -> None:
         """Disable the inverted display.
@@ -647,7 +647,7 @@ class Channel(Func):
         :CHANnel1:INVert ON
         The query returns 1.
         """
-        self.instrument.ask(f":CHANnel{self._channel}:INVert 0")
+        self.instrument.say(f":CHANnel{self._channel}:INVert 0")
 
     def get_invert(self) -> bool:
         """Query the current status of the inverted display.
@@ -785,7 +785,7 @@ class Channel(Func):
             default: float = (
                 2.0 * ratio if self._channel == 1 else -2.0 * ratio
             )
-            self.instrument.ask(f":CHANnel{self._channel}:OFFSet {default}")
+            self.instrument.say(f":CHANnel{self._channel}:OFFSet {default}")
             return
 
         # if offset is of type float, generate the boundaries
@@ -796,7 +796,7 @@ class Channel(Func):
             # of scale.
             for r in self.__class__.OFFSET_RANGES:
                 if self.__offset_check_range(r, scale, offset, ratio):
-                    self.instrument.ask(
+                    self.instrument.say(
                         f":CHANnel{self._channel}:OFFSet {offset}"
                     )
                     return
@@ -1007,14 +1007,14 @@ class Channel(Func):
             not isinstance(ratio, float)
             or ratio not in self.__class__.PROBE_ATTENUATION_RATIOS
         ):
-            lst: List[str, ...]
+            lst: List[str]
             lst = [str(s) for s in self.__class__.PROBE_ATTENUATION_RATIOS]
             ValueError(
                 f'"ratio" must be one of: '
                 f"{', '.join(lst)} and of type float. You entered "
                 f"{type(ratio)}."
             )
-        self.instrument.ask(f":CHANnel{self._channel}:PROBe {ratio}")
+        self.instrument.say(f":CHANnel{self._channel}:PROBe {ratio}")
 
     def get_probe_attenuation_ratio(self) -> float:
         """Query the probe attenuation ratio.
@@ -1092,7 +1092,7 @@ class Channel(Func):
         :CHANnel1:VERNier ON
         The query returns 1.
         """
-        self.instrument.ask(f":CHANnel{self._channel}:VERNier {int(enabled)}")
+        self.instrument.say(f":CHANnel{self._channel}:VERNier {int(enabled)}")
 
     def get_fine_adjust(self) -> bool:
         """Query the current status of the fine adjustment function (vertival).
