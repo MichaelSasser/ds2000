@@ -86,7 +86,7 @@ func = ["numpy", "matplotlib"]
 docs = ["sphinx", "sphinx-autodoc-typehints", "numpydoc"]
 
 # All
-all = ["python-vxi11", "pyvisa", "pyvisa-py", "sphinx", "sphinx_rtd_theme", "sphinx-autodoc-typehints", "numpy", "matplotlib"]
+all = ["python-vxi11", "pyvisa", "pyvisa-py", "sphinx", "sphinx_rtd_theme", "sphinx-autodoc-typehints", "numpy", "matplotlib", "docs"]
 
 [tool.poetry.dev-dependencies]
 pre-commit = "^2.11.1"

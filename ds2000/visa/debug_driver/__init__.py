@@ -75,7 +75,7 @@ class DebugDriver(VISABase):
         """Connect to the instrument."""
         self.info = InstrumentInfo(
             "Dunder Mifflin Paper Company, Inc",
-            "Dummy",
+            "DebugDriver",
             "1234567890",
             "1.0.0",
         )
