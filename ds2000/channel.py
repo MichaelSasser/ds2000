@@ -612,7 +612,7 @@ class Channel(Func):
         :CHANnel1:INVert ON
         The query returns 1.
         """
-        self.instrument.say(f":CHANnel{self._channel}:INVert 1")
+        self.instrument.write(f":CHANnel{self._channel}:INVert 1")
 
     def set_disable_invert(self) -> None:
         """Disable the inverted display.
@@ -647,7 +647,7 @@ class Channel(Func):
         :CHANnel1:INVert ON
         The query returns 1.
         """
-        self.instrument.say(f":CHANnel{self._channel}:INVert 0")
+        self.instrument.write(f":CHANnel{self._channel}:INVert 0")
 
     def get_invert(self) -> bool:
         """Query the current status of the inverted display.
@@ -785,7 +785,7 @@ class Channel(Func):
             default: float = (
                 2.0 * ratio if self._channel == 1 else -2.0 * ratio
             )
-            self.instrument.say(f":CHANnel{self._channel}:OFFSet {default}")
+            self.instrument.write(f":CHANnel{self._channel}:OFFSet {default}")
             return
 
         # if offset is of type float, generate the boundaries
