@@ -22,8 +22,6 @@ from ds2000.common import check_input
 from ds2000.common import check_level
 from ds2000.enums import ChannelEnum
 from ds2000.enums import TriggerPulseWhenEnum
-
-# ToDo: Shorter function names!!!
 from ds2000.errors import DS2000StateError
 
 

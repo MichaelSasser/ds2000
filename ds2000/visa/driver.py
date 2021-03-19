@@ -85,7 +85,7 @@ class VISABase(ABC):
         pass
 
     @abstractmethod
-    def read_raw(self):
+    def read_raw(self) -> Optional[bytes]:
         """Read binary data from the instrument."""
         pass
 
@@ -96,9 +96,9 @@ class VISABase(ABC):
 
     def __exit__(
         self,
-        exc_type: Optional[Type[BaseException]],
-        exc_val: Optional[BaseException],
-        exc_tb: Optional[TracebackType],
+        _: Optional[Type[BaseException]],  # exc_type
+        __: Optional[BaseException],  # exc_val
+        ___: Optional[TracebackType],  # exc_tb
     ) -> None:
         """Connect to the Instrument with the `with` statement."""
         self.disconnect()

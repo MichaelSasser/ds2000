@@ -31,12 +31,12 @@ __email__: str = "Michael@MichaelSasser.org"
 
 
 class VXI11(VISABase):
-    def connect(self):
+    def connect(self) -> None:
         """Connect to the instrument."""
         self.__instrument = vxi11.Instrument(self.address)
         self.info = InstrumentInfo(*self.ask("*IDN?").split(","))
 
-    def disconnect(self):
+    def disconnect(self) -> None:
         """Disconnect from the instrument."""
         self.__instrument.close()
 

@@ -14,9 +14,11 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 from logging import debug
 
 from ds2000.math.format import get_prefix
+from ds2000.waveform import Preamble
 
 
 try:
@@ -44,7 +46,7 @@ def simple_plot(inst, title: str = "", recorded: bool = False) -> None:
                      waveform on the screen. None
     """
     # TODO: Add offset
-    p = inst.waveform.preamble()
+    p: Preamble = inst.waveform.preamble()
     t_scale = inst.timebase.get_scale()
     c_scale = inst.channel1.get_scale()
     inst.waveform.channel(1)  # TODO: Check for active channels; make argument.
@@ -56,7 +58,7 @@ def simple_plot(inst, title: str = "", recorded: bool = False) -> None:
 
     # Get data for x-/y-Axis
     df = (
-        (inst.waveform.data(recorded) - p.y_ref - p.get_y_origin)
+        (inst.waveform.data(recorded) - p.y_ref - p.y_origin)
         * p.y_inc
         * 10.0 ** (-get_prefix(c_scale).divisor)
     )  # y

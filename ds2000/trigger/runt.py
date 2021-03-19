@@ -63,7 +63,7 @@ class RuntSource(SSFunc):
         :TRIGger:RUNT:SOURce CHANnel2
         The query returns CHAN2.
         """
-        self.instrument.say(f":TRIGger:RUNT:SOURce CHANnel1")
+        self.instrument.say(":TRIGger:RUNT:SOURce CHANnel1")
 
     def set_channel_2(self) -> None:
         """Select the trigger source of runt trigger.
@@ -97,7 +97,7 @@ class RuntSource(SSFunc):
         :TRIGger:RUNT:SOURce CHANnel2
         The query returns CHAN2.
         """
-        self.instrument.say(f":TRIGger:RUNT:SOURce CHANnel2")
+        self.instrument.say(":TRIGger:RUNT:SOURce CHANnel2")
 
     def status(self) -> ChannelEnum:
         """Query the current trigger source of runt trigger.

@@ -24,6 +24,7 @@ __email__: str = "Michael@MichaelSasser.org"
 
 
 class Prefixed(NamedTuple):
+
     """Get value, prefix, divisor and a preformatted string of a value."""
 
     value: float

@@ -32,13 +32,13 @@ class IEEE(Func):
         super(IEEE, self).__init__(dev)
 
     def idn(self) -> str:
-        """Get the ID chars of the device_address as Instrument Tuple.
+        r"""Get the ID chars of the device_address as Instrument Tuple.
 
         **Rigol Programming Guide**
 
         **Syntax**
 
-        \\*IDN?
+        *IDN?
 
         **Description**
 
@@ -53,20 +53,20 @@ class IEEE(Func):
 
         **Example**
 
-        \\*IDN?
+        *IDN?
 
         The query returns RIGOL TECHNOLOGIES,DS2202,DS2xxx,00.00.01. Instrument
         """
         return self.instrument.ask("*IDN?")
 
     def rst(self):
-        """Restore the instrument to the default values.
+        r"""Restore the instrument to the default values.
 
         **Rigol Programming Guide**
 
         **Syntax**
 
-        \\*RST
+        *RST
 
         **Description**
 

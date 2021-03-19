@@ -17,6 +17,7 @@
 from __future__ import annotations
 
 from logging import debug
+from typing import List
 from typing import NamedTuple
 
 import numpy as np
@@ -40,7 +41,7 @@ class Preamble(NamedTuple):
     format: str
     type: str
     points: int
-    count: int
+    counts: int
     x_inc: float
     x_origin: float
     x_ref: float
@@ -568,7 +569,8 @@ class Waveform(Func):
             )
         return self.instrument.ask(f"WAVeform:POINts {points}")
 
-    def get_data(self, recorded: bool = False):
+    # TODO: Simplify
+    def get_data(self, recorded: bool = False):  # noqa: C901
         r"""Read the waveform data.
 
         **Rigol Programming Guide**
@@ -858,7 +860,7 @@ class Waveform(Func):
            }
         """
 
-        def get_data():
+        def get_data() -> bytes:
             try:
                 self.dev.write(":WAVeform:DATA?")
             except Exception as e:
@@ -866,7 +868,7 @@ class Waveform(Func):
 
             # Read (RAW)
             try:
-                dat = self.dev.read_raw()
+                dat: bytes = self.dev.read_raw()
             except Exception as e:
                 raise DS2000Error("Raw read Operation failed.") from e
             return dat
@@ -878,15 +880,15 @@ class Waveform(Func):
             self.set_start(1)
             self.set_stop(self.dev.acquire.memorydepth)
             self.begin()
-            data = []
+            data_list: List[bytes] = []
             while True:
                 if self.status().status:  # IDLE
-                    data.append(get_data())
+                    data_list.append(get_data())
                     self.end()
                     break
-                else:  # READ
-                    data.append(get_data())
-            data = b"".join(data)
+                # READ
+                data_list.append(get_data())
+            data: bytes = b"".join(data_list)
         else:
             data = get_data()
 
@@ -906,9 +908,9 @@ class Waveform(Func):
         # print(f"eff_waves = {eff_waves}")
 
         try:
-            raw_wave = data[11 : (11 + eff_waves)]  # noqa
-        except Exception:
-            raise DS2000Error("The waveform was corrupted.")
+            raw_wave: bytes = data[11 : (11 + eff_waves)]
+        except Exception as e:
+            raise DS2000Error("The waveform was corrupted.") from e
 
         if eff_waves != len(raw_wave):
             raise DS2000Error(
@@ -1334,7 +1336,7 @@ class Waveform(Func):
             str(pre[0]),  # ('format', str)
             str(pre[1]),  # ('type', str),
             int(pre[2]),  # ('points', int),
-            int(pre[3]),  # ('count', int),
+            int(pre[3]),  # ('counts', int),
             float(pre[4]),  # ('x_inc', float),
             float(pre[5]),  # ('x_origin', float),
             float(pre[6]),  # ('x_ref', float),
@@ -1375,7 +1377,7 @@ class Waveform(Func):
         if len(status) != 2:
             raise DS2000Error("Unexpected waveform status length.")
         if status[0] == "IDLE":
-            return WaveformStatus(True, status[1])
+            return WaveformStatus(True, int(status[1]))
         elif status[0] == "READ":
-            return WaveformStatus(False, status[1])
+            return WaveformStatus(False, int(status[1]))
         raise DS2000Error("Unexpected waveform status.")

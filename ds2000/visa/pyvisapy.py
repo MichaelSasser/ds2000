@@ -16,67 +16,67 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 from __future__ import annotations
 
-
 # from logging import debug
 # from logging import error
-# from typing import Optional
-#
+from typing import Optional
+
 # from .driver import InstrumentInfo
-# from .driver import VISABase
+from .driver import VISABase
 
 
-# import pyvisa-py
+# import vxi11
 
 
 __author__: str = "Michael Sasser"
 __email__: str = "Michael@MichaelSasser.org"
 
-raise NotImplementedError()
-
 
 class PYVISAPY(VISABase):
-    pass
+    def connect(self) -> None:
+        """Connect to the instrument."""
+        pass
+        # self.__instrument = vxi11.Instrument(self.address)
+        # self.info = InstrumentInfo(*self.ask("*IDN?").split(","))
 
+    def disconnect(self) -> None:
+        """Disconnect from the instrument."""
+        pass
+        # self.__instrument.close()
 
-#     def connect(self):
-#         """Connect to the instrument."""
-#         self.__instrument = vxi11.Instrument(self.address)
-#         self.info = InstrumentInfo(*self.ask("*IDN?").split(","))
-#
-#     def disconnect(self):
-#         """Disconnect from the instrument."""
-#         self.__instrument.close()
-#
-#     def ask(self, msg: str) -> str:
-#         """Write and read afterwards from a instrument."""
-#         answer: Optional[str] = None
-#         try:
-#             answer = self.__instrument.ask(msg)
-#         except vxi11.vxi11.Vxi11Exception as e:
-#             # TODO: Raise before first release.
-#             error(f"Error while asking: {e}")
-#         finally:
-#             debug(f'Asked: "{msg}", Answered: "{answer}"')
-#         return answer
-#
-#     def write(self, msg: str) -> None:
-#         """Write to the instrument but don't wait for a response."""
-#         try:  # Probably just for development
-#             self.__instrument.write(msg)
-#         except vxi11.vxi11.Vxi11Exception as e:
-#             # TODO: Raise before first release.
-#             error(f"Error while writing: {e}")
-#         finally:
-#             debug(f'Written: "{msg}"')
-#
-#     def read_raw(self) -> bytes:
-#         """Read binary data from the instrument."""
-#         msg: Optional[bytes] = None
-#         try:
-#             msg = self.__instrument.read_raw()
-#         except vxi11.vxi11.Vxi11Exception as e:
-#             # TODO: Raise before first release.
-#             error(f"Error while writing: {e}")
-#         return msg
+    def communicate(self, msg: str) -> Optional[str]:
+        """Write and read afterwards from a instrument."""
+        pass
+        # answer: Optional[str] = None
+        # try:
+        #     answer = self.__instrument.ask(msg)
+        # except vxi11.vxi11.Vxi11Exception as e:
+        #     # TODO: Raise before first release.
+        #     error(f"Error while asking: {e}")
+        # finally:
+        #     debug(f'Asked: "{msg}", Answered: "{answer}"')
+        # return answer
+
+    def write(self, msg: str) -> None:
+        """Write to the instrument but don't wait for a response."""
+        pass
+        # try:  # Probably just for development
+        #     self.__instrument.write(msg)
+        # except vxi11.vxi11.Vxi11Exception as e:
+        #     # TODO: Raise before first release.
+        #     error(f"Error while writing: {e}")
+        # finally:
+        #     debug(f'Written: "{msg}"')
+
+    def read_raw(self) -> Optional[bytes]:
+        """Read binary data from the instrument."""
+        pass
+        # msg: Optional[bytes] = None
+        # try:
+        #     msg = self.__instrument.read_raw()
+        # except vxi11.vxi11.Vxi11Exception as e:
+        #     # TODO: Raise before first release.
+        #     error(f"Error while writing: {e}")
+        # return msg
+
 
 # vim: set ft=python :

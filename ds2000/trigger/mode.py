@@ -617,7 +617,7 @@ class Mode(SFunc):
         """
         self.instrument.say(":TRIGger:MODE USB")
 
-    def status(self) -> TriggerModeEnum:
+    def status(self) -> TriggerModeEnum:  # noqa: C901
         """Query the current trigger type.
 
         **Rigol Programming Guide**

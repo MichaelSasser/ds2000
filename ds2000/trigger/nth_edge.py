@@ -200,7 +200,7 @@ class NthEdgeSlope(SSFunc):
         :TRIGger:NEDGe:SLOPe NEGative
         The query returns NEG.
         """
-        self.instrument.say(f":TRIGger:NEDGe:SLOPe NEGative")
+        self.instrument.say(":TRIGger:NEDGe:SLOPe NEGative")
 
     def status(self) -> SlopeEnum:
         """Query the current edge type of Nth edge trigger.

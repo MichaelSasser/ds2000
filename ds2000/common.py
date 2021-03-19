@@ -150,6 +150,7 @@ def check_level(level: float, scale: float, offset: float):
         )
 
 
+# TODO: Simplify
 def get_examples(doc: Optional[str]) -> Optional[Tuple[Example, ...]]:
     """Extract the examples of a docstring."""
     # If ther is no "doc", return an empty list
@@ -179,7 +180,10 @@ def get_examples(doc: Optional[str]) -> Optional[Tuple[Example, ...]]:
             "detected"
         )
         return None
+    return __create_example(lines)
 
+
+def __create_example(lines: List[str]) -> Optional[Tuple[Example, ...]]:
     examples: List[Example] = []
     question: Optional[str] = None
     answer: Optional[str] = None

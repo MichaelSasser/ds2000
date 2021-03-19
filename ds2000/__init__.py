@@ -47,6 +47,7 @@ try:
 except (ImportError, NotImplementedError):
     debug("Driver: VXI11 is not installed.")
 
+# TODO:
 try:
     from .visa.pyvisa import PYVISA
 
@@ -111,9 +112,9 @@ class DS2000(object):
 
     def __exit__(
         self,
-        exc_type: Optional[Type[BaseException]],
-        exc_val: Optional[BaseException],
-        exc_tb: Optional[TracebackType],
+        _: Optional[Type[BaseException]],  # exc_type
+        __: Optional[BaseException],  # exc_val
+        ___: Optional[TracebackType],  # exc_tb
     ) -> None:
         self.instrument.disconnect()
 

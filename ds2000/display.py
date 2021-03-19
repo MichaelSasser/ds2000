@@ -676,8 +676,8 @@ class Display(Func):
         elif time in Display.MENU_DISPLAY_TIME:
             self.instrument.say(f":DISPlay:GRADing:TIME {time}")
 
-    def data(self) -> bytearray:  # Screenshot bitmap raw data stream
-        """Read the bitmap data stream of the image currently displayed.
+    def data(self) -> bytearray:  # noqa: C901
+        r"""Read the bitmap data stream of the image currently displayed.
 
         **Rigol Programming Guide**
 
