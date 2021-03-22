@@ -102,7 +102,7 @@ pycodestyle = "^2.6.0"
 yapf = "^0.31.0"
 vulture = "^2.3"
 mypy = "^0.812"
-isort = "^5.7.0"
+isort = "^5.8.0"
 python-language-server = { version = "^0.36.2", extras = ["all"] }
 black = { version = "*", allow-prereleases = true }
 
