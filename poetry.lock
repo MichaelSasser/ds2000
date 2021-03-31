@@ -570,7 +570,7 @@ python-versions = ">=3.5"
 
 [[package]]
 name = "pylint"
-version = "2.7.3"
+version = "2.7.4"
 description = "python code static checker"
 category = "dev"
 optional = false
@@ -1079,7 +1079,7 @@ func = ["numpy", "matplotlib"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "2c7c5d4ec8fb379634559299f98ee5cb77dac713eb884344c1b687f6b7f9448a"
+content-hash = "67a5981c5bff8393741e09dae67c81c6eada8981d852cc15ec8c30fae7113584"
 
 [metadata.files]
 alabaster = [
@@ -1634,8 +1634,8 @@ pygments = [
     {file = "Pygments-2.8.1.tar.gz", hash = "sha256:2656e1a6edcdabf4275f9a3640db59fd5de107d88e8663c5d4e9a0fa62f77f94"},
 ]
 pylint = [
-    {file = "pylint-2.7.3-py3-none-any.whl", hash = "sha256:d29e1140d96362eb0b68fa0fb1a6192532f586886d6c52db79872a906a50be58"},
-    {file = "pylint-2.7.3.tar.gz", hash = "sha256:466e067526b609c1f22b97895e2a64e5fc3d897016b91ef0f4f80480e89a1ef9"},
+    {file = "pylint-2.7.4-py3-none-any.whl", hash = "sha256:209d712ec870a0182df034ae19f347e725c1e615b2269519ab58a35b3fcbbe7a"},
+    {file = "pylint-2.7.4.tar.gz", hash = "sha256:bd38914c7731cdc518634a8d3c5585951302b6e2b6de60fbb3f7a0220e21eeee"},
 ]
 pynvim = [
     {file = "pynvim-0.4.3.tar.gz", hash = "sha256:3a795378bde5e8092fbeb3a1a99be9c613d2685542f1db0e5c6fd467eed56dff"},
