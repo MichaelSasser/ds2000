@@ -29,6 +29,9 @@ __email__: str = "Michael@MichaelSasser.org"
 
 
 class ChannelEnum(Enum):
+
+    """Use the Enum to get or set the channel status."""
+
     CHANNEL_1 = "channel_1"
     CHANNEL_2 = "channel_2"
     EXT = "ext"
@@ -37,6 +40,9 @@ class ChannelEnum(Enum):
 
 # TODO: Maybe TriggerSlopeEnum
 class SlopeEnum(Enum):
+
+    """Use the Enum to get or set the slope status."""
+
     POSITIVE = "positive"
     NEGATIVE = "negative"
     BOTH = "both"
@@ -46,6 +52,9 @@ class SlopeEnum(Enum):
 
 
 class AcquireTypeEnum(Enum):
+
+    """Use the Enum to get or set the acquire status."""
+
     NORMAL = "normal"
     AVERAGE = "average"
     PEAKDETECT = "peakdetect"
@@ -63,6 +72,9 @@ class AcquireTypeEnum(Enum):
 
 
 class TriggerStatusEnum(Enum):
+
+    """Use the Enum to get or set the trigger status."""
+
     TD = "td"
     WAIT = "wait"
     RUN = "run"
@@ -74,6 +86,9 @@ class TriggerStatusEnum(Enum):
 
 
 class TriggerCouplingEnum(Enum):
+
+    """Use the Enum to get or set the coupling status of the trigger."""
+
     AC = "ac"
     DC = "dc"
     LF_REJECT = "lf_reject"
@@ -84,6 +99,9 @@ class TriggerCouplingEnum(Enum):
 
 
 class TriggerDelayTypeEnum(Enum):
+
+    """Use the Enum to get or set the delay type of the trigger."""
+
     GREATER = "greater"  # GREater
     LESS = "less"  # LESS
     INSIDE = "inside"  # GLESs  # TODO: Maybe use between
@@ -94,6 +112,9 @@ class TriggerDelayTypeEnum(Enum):
 
 
 class TriggerDurationWhenEnum(Enum):  # TODO: most of TriggerDelayTypeEnum
+
+    """Use the Enum to get or set the duration of the trigger."""
+
     GREATER = "greater"
     LESS = "less"
     BETWEEN = "between"
@@ -106,6 +127,9 @@ class TriggerDurationWhenEnum(Enum):  # TODO: most of TriggerDelayTypeEnum
 
 
 class TriggerI2CWhenEnum(Enum):
+
+    """Use the Enum to get or set the I²C trigger."""
+
     START = "start"
     RESTART = "restart"
     STOP = "stop"
@@ -116,6 +140,9 @@ class TriggerI2CWhenEnum(Enum):
 
 
 class TriggerI2CDirectionEnum(Enum):
+
+    """Use the Enum to get or set the I²C direction to trigger."""
+
     READ = "read"
     WRITE = "write"
     READ_AND_WRITE = "read_and_write"
@@ -125,6 +152,9 @@ class TriggerI2CDirectionEnum(Enum):
 
 
 class TriggerModeEnum(Enum):
+
+    """Use the Enum to get or set the trigger mode."""
+
     EDGE = "edge"
     PULSE = "pulse"
     RUNT = "runt"
@@ -150,6 +180,9 @@ class TriggerModeEnum(Enum):
 
 
 class TriggerPulseWhenEnum(Enum):
+
+    """Use the Enum to get or set the pulse trigger."""
+
     POSIVE_GREATER = "positive_greater"
     POSITIVE_LESS = "positive_less"
     NEGATIVE_GREATER = "negative_greater"
@@ -162,6 +195,9 @@ class TriggerPulseWhenEnum(Enum):
 
 
 class TriggerRS232WhenEnum(Enum):
+
+    """Use the Enum to get or set the RS232 trigger."""
+
     START_FRAME = "start_frame"
     ERROR = "error"
     PARITY_ERROR = "parity_error"
@@ -169,6 +205,9 @@ class TriggerRS232WhenEnum(Enum):
 
 
 class TriggerRS232Parity(Enum):
+
+    """Use the Enum to get or set the RS232 parity to trigger."""
+
     EVEN = "even"
     ODD = "odd"
     NONE = "none"
@@ -178,6 +217,9 @@ class TriggerRS232Parity(Enum):
 
 
 class TriggerRuntWhenEnum(Enum):
+
+    """Use the Enum to get or set the runt trigger."""
+
     NONE = "none"
     GREATER = "greater"
     LESS = "less"
@@ -185,6 +227,9 @@ class TriggerRuntWhenEnum(Enum):
 
 
 class TriggerRuntPolarityEnum(Enum):
+
+    """Use the Enum to get or set the runt polarity to trigger."""
+
     POSITIVE = "positive"
     NEGATIVE = "negative"
 
@@ -193,12 +238,18 @@ class TriggerRuntPolarityEnum(Enum):
 
 
 class TriggerSetupHoldTypeEnum(Enum):
+
+    """Use the Enum to get or set the SETUP & HOLD trigger type."""
+
     SETUP = "setup"
     HOLD = "hold"
     SETUP_HOLD = "setup_hold"
 
 
 class TriggerSetupHoldPatternEnum(Enum):
+
+    """Use the Enum to get or set the SETUP & HOLD pattern to trigger."""
+
     HIGH = "high"
     LOW = "low"
 
@@ -207,6 +258,9 @@ class TriggerSetupHoldPatternEnum(Enum):
 
 
 class TriggerSlopeWhenEnum(Enum):
+
+    """Use the Enum to get or set the slope trigger."""
+
     POSIVE_GREATER = "positive_greater"
     POSITIVE_LESS = "positive_less"
     NEGATIVE_GREATER = "negative_greater"
@@ -222,6 +276,9 @@ class TriggerSlopeWhenEnum(Enum):
 
 
 class TriggerSweepEnum(Enum):
+
+    """Use the Enum to get or set the sweep trigger."""
+
     AUTO = "auto"
     NORMAL = "normal"
     SINGLE = "single"
@@ -234,6 +291,9 @@ class TriggerSweepEnum(Enum):
 
 # TODO: Maybe rename to start, end etc.
 class TriggerUSBWhenEnum(Enum):
+
+    """Use the Enum to get or set the USB trigger."""
+
     SOP = "sop"
     EOP = "eop"
     RC = "rc"
@@ -241,7 +301,10 @@ class TriggerUSBWhenEnum(Enum):
     SUSPEND_EXIT = "suspend exit"
 
 
-class TrigerUSBSppedEnum(Enum):
+class TrigerUSBSpeedEnum(Enum):
+
+    """Use the Enum to get or set the USB speed to trigger."""
+
     FULL = "full"
     LOW = "low"
 
@@ -250,11 +313,17 @@ class TrigerUSBSppedEnum(Enum):
 
 
 class TriggerVideoPolarityEnum(Enum):
+
+    """Use the Enum to get or set the video polarity to trigger."""
+
     POSITIVE = "positive"
     NEGATIVE = "negative"
 
 
 class TriggerVideoModeEnum(Enum):
+
+    """Use the Enum to get or set the video mode to trigger."""
+
     ODD_FIELD = "odd_field"
     EVEN_FIELD = "even_line"
     SPECIFIC_LINE = "specific_line"
@@ -262,6 +331,9 @@ class TriggerVideoModeEnum(Enum):
 
 
 class TriggerVideoStandardEnum(Enum):
+
+    """Use the Enum to get or set the video standard to trigger."""
+
     VideoPALSecam = "VideoPALSecam"
     VideoNTSC = "VideoNTSC"
     Video480P = "Video480P"
@@ -285,6 +357,9 @@ class TriggerVideoStandardEnum(Enum):
 
 
 class TriggerWindowsPositionEnum(Enum):
+
+    """Use the Enum to get or set the window position to trigger."""
+
     EXIT = "exit"
     ENTER = "enter"
     TIME = "time"

@@ -20,7 +20,7 @@ from ds2000.common import SSFunc
 from ds2000.common import channel_as_enum
 from ds2000.common import check_level
 from ds2000.enums import ChannelEnum
-from ds2000.enums import TrigerUSBSppedEnum
+from ds2000.enums import TrigerUSBSpeedEnum
 from ds2000.enums import TriggerUSBWhenEnum
 from ds2000.errors import DS2000StateError
 
@@ -496,7 +496,7 @@ class USBSpeed(SSFunc):
         """
         self.instrument.say(":TRIGger:USB:SPEed LOW")
 
-    def status(self) -> TrigerUSBSppedEnum:
+    def status(self) -> TrigerUSBSpeedEnum:
         """Query the current signal speed in USB trigger.
 
         **Rigol Programming Guide**
@@ -530,9 +530,9 @@ class USBSpeed(SSFunc):
         """
         answer: str = self.instrument.ask(":TRIGger:USB:SPEed?")
         if answer == "FULL":
-            return TrigerUSBSppedEnum.FULL
+            return TrigerUSBSpeedEnum.FULL
         if answer == "LOW":
-            return TrigerUSBSppedEnum.LOW
+            return TrigerUSBSpeedEnum.LOW
         raise DS2000StateError()
 
 

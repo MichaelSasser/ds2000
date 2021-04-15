@@ -38,6 +38,9 @@ class WaveformStatus(NamedTuple):
 
 
 class Preamble(NamedTuple):
+
+    """Use to store the preamble."""
+
     format: str
     type: str
     points: int
