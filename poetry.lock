@@ -278,12 +278,44 @@ optional = true
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 
 [[package]]
+name = "incremental"
+version = "21.3.0"
+description = "A small library that versions your Python projects."
+category = "dev"
+optional = false
+python-versions = "*"
+
+[package.extras]
+scripts = ["click (>=6.0)", "twisted (>=16.4.0)"]
+
+[[package]]
 name = "iniconfig"
 version = "1.1.1"
 description = "iniconfig: brain-dead simple config-ini parsing"
 category = "dev"
 optional = false
 python-versions = "*"
+
+[[package]]
+name = "interrogate"
+version = "1.3.2"
+description = "Interrogate a codebase for docstring coverage."
+category = "dev"
+optional = false
+python-versions = ">=3.6"
+
+[package.dependencies]
+attrs = "*"
+click = "*"
+colorama = "*"
+py = "*"
+tabulate = "*"
+toml = "*"
+
+[package.extras]
+dev = ["sphinx", "sphinx-autobuild", "pytest", "pytest-cov", "pytest-mock", "wheel", "pre-commit"]
+docs = ["sphinx", "sphinx-autobuild"]
+tests = ["pytest", "pytest-cov", "pytest-mock"]
 
 [[package]]
 name = "isort"
@@ -318,7 +350,7 @@ name = "jinja2"
 version = "2.11.3"
 description = "A very fast and expressive template engine."
 category = "main"
-optional = true
+optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 
 [package.dependencies]
@@ -348,7 +380,7 @@ name = "markupsafe"
 version = "1.1.1"
 description = "Safely add untrusted strings to HTML/XML markup."
 category = "main"
-optional = true
+optional = false
 python-versions = ">=2.7,!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*"
 
 [[package]]
@@ -740,6 +772,7 @@ pyflakes = {version = ">=2.2.0,<2.3.0", optional = true, markers = "extra == \"a
 pylint = {version = ">=2.5.0", optional = true, markers = "extra == \"all\""}
 python-jsonrpc-server = ">=0.4.0"
 rope = {version = ">=0.10.5", optional = true, markers = "extra == \"all\""}
+ujson = {version = ">=3.0.0", markers = "python_version > \"3\""}
 yapf = {version = "*", optional = true, markers = "extra == \"all\""}
 
 [package.extras]
@@ -978,12 +1011,59 @@ lint = ["flake8", "mypy", "docutils-stubs"]
 test = ["pytest"]
 
 [[package]]
+name = "tabulate"
+version = "0.8.9"
+description = "Pretty-print tabular data"
+category = "dev"
+optional = false
+python-versions = "*"
+
+[package.extras]
+widechars = ["wcwidth"]
+
+[[package]]
 name = "toml"
 version = "0.10.2"
 description = "Python Library for Tom's Obvious, Minimal Language"
 category = "dev"
 optional = false
 python-versions = ">=2.6, !=3.0.*, !=3.1.*, !=3.2.*"
+
+[[package]]
+name = "towncrier"
+version = "19.2.0"
+description = "Building newsfiles for your project."
+category = "dev"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+Click = "*"
+incremental = "*"
+jinja2 = "*"
+toml = "*"
+
+[[package]]
+name = "tox"
+version = "3.23.0"
+description = "tox is a generic virtualenv management and test command line tool"
+category = "dev"
+optional = false
+python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,>=2.7"
+
+[package.dependencies]
+colorama = {version = ">=0.4.1", markers = "platform_system == \"Windows\""}
+filelock = ">=3.0.0"
+packaging = ">=14"
+pluggy = ">=0.12.0"
+py = ">=1.4.17"
+six = ">=1.14.0"
+toml = ">=0.9.4"
+virtualenv = ">=16.0.0,<20.0.0 || >20.0.0,<20.0.1 || >20.0.1,<20.0.2 || >20.0.2,<20.0.3 || >20.0.3,<20.0.4 || >20.0.4,<20.0.5 || >20.0.5,<20.0.6 || >20.0.6,<20.0.7 || >20.0.7"
+
+[package.extras]
+docs = ["pygments-github-lexers (>=0.0.5)", "sphinx (>=2.0.0)", "sphinxcontrib-autoprogram (>=0.1.5)", "towncrier (>=18.5.0)"]
+testing = ["flaky (>=3.4.0)", "freezegun (>=0.3.11)", "psutil (>=5.6.1)", "pytest (>=4.0.0)", "pytest-cov (>=2.5.1)", "pytest-mock (>=1.10.0)", "pytest-randomly (>=1.0.0)", "pytest-xdist (>=1.22.2)", "pathlib2 (>=2.3.3)"]
 
 [[package]]
 name = "typed-ast"
@@ -1079,7 +1159,7 @@ func = ["numpy", "matplotlib"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "291b75beaf427ea24e64a490cbbe95c44cae20a26bc5a30a8868ebbadaeba2c7"
+content-hash = "fc24cd5f78cd1074ccd3c8380d0ec41a4a2198aa5bbe62dc75a89f8f47b9f9df"
 
 [metadata.files]
 alabaster = [
@@ -1280,9 +1360,17 @@ imagesize = [
     {file = "imagesize-1.2.0-py2.py3-none-any.whl", hash = "sha256:6965f19a6a2039c7d48bca7dba2473069ff854c36ae6f19d2cde309d998228a1"},
     {file = "imagesize-1.2.0.tar.gz", hash = "sha256:b1f6b5a4eab1f73479a50fb79fcf729514a900c341d8503d62a62dbc4127a2b1"},
 ]
+incremental = [
+    {file = "incremental-21.3.0-py2.py3-none-any.whl", hash = "sha256:92014aebc6a20b78a8084cdd5645eeaa7f74b8933f70fa3ada2cfbd1e3b54321"},
+    {file = "incremental-21.3.0.tar.gz", hash = "sha256:02f5de5aff48f6b9f665d99d48bfc7ec03b6e3943210de7cfc88856d755d6f57"},
+]
 iniconfig = [
     {file = "iniconfig-1.1.1-py2.py3-none-any.whl", hash = "sha256:011e24c64b7f47f6ebd835bb12a743f2fbe9a26d4cecaa7f53bc4f35ee9da8b3"},
     {file = "iniconfig-1.1.1.tar.gz", hash = "sha256:bc3af051d7d14b2ee5ef9969666def0cd1a000e121eaea580d4a313df4b37f32"},
+]
+interrogate = [
+    {file = "interrogate-1.3.2-py3-none-any.whl", hash = "sha256:5b20256aadc748d951f5a337a6718d1d2ad889c8968ed6a69259b05a372df88e"},
+    {file = "interrogate-1.3.2.tar.gz", hash = "sha256:cb59baf93d6552824a4cd3a702e82d8e1c1cf6054b2c918c59a6e399a0851ab5"},
 ]
 isort = [
     {file = "isort-5.8.0-py3-none-any.whl", hash = "sha256:2bb1680aad211e3c9944dbce1d4ba09a989f04e238296c87fe2139faa26d655d"},
@@ -1798,9 +1886,21 @@ sphinxcontrib-serializinghtml = [
     {file = "sphinxcontrib-serializinghtml-1.1.4.tar.gz", hash = "sha256:eaa0eccc86e982a9b939b2b82d12cc5d013385ba5eadcc7e4fed23f4405f77bc"},
     {file = "sphinxcontrib_serializinghtml-1.1.4-py2.py3-none-any.whl", hash = "sha256:f242a81d423f59617a8e5cf16f5d4d74e28ee9a66f9e5b637a18082991db5a9a"},
 ]
+tabulate = [
+    {file = "tabulate-0.8.9-py3-none-any.whl", hash = "sha256:d7c013fe7abbc5e491394e10fa845f8f32fe54f8dc60c6622c6cf482d25d47e4"},
+    {file = "tabulate-0.8.9.tar.gz", hash = "sha256:eb1d13f25760052e8931f2ef80aaf6045a6cceb47514db8beab24cded16f13a7"},
+]
 toml = [
     {file = "toml-0.10.2-py2.py3-none-any.whl", hash = "sha256:806143ae5bfb6a3c6e736a764057db0e6a0e05e338b5630894a5f779cabb4f9b"},
     {file = "toml-0.10.2.tar.gz", hash = "sha256:b3bda1d108d5dd99f4a20d24d9c348e91c4db7ab1b749200bded2f839ccbe68f"},
+]
+towncrier = [
+    {file = "towncrier-19.2.0-py2.py3-none-any.whl", hash = "sha256:de19da8b8cb44f18ea7ed3a3823087d2af8fcf497151bb9fd1e1b092ff56ed8d"},
+    {file = "towncrier-19.2.0.tar.gz", hash = "sha256:48251a1ae66d2cf7e6fa5552016386831b3e12bb3b2d08eb70374508c17a8196"},
+]
+tox = [
+    {file = "tox-3.23.0-py2.py3-none-any.whl", hash = "sha256:e007673f3595cede9b17a7c4962389e4305d4a3682a6c5a4159a1453b4f326aa"},
+    {file = "tox-3.23.0.tar.gz", hash = "sha256:05a4dbd5e4d3d8269b72b55600f0b0303e2eb47ad5c6fe76d3576f4c58d93661"},
 ]
 typed-ast = [
     {file = "typed_ast-1.4.2-cp35-cp35m-manylinux1_i686.whl", hash = "sha256:7703620125e4fb79b64aa52427ec192822e9f45d37d4b6625ab37ef403e1df70"},

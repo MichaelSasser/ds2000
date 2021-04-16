@@ -22,6 +22,7 @@ from typing import List
 from typing import Optional
 from typing import Type
 
+from .__version__ import __version__ as version
 from .acquire import Acquire
 from .channel import Channel
 from .display import Display
@@ -64,8 +65,9 @@ try:
 except (ImportError, NotImplementedError):
     debug("Driver: PYVISAPY is not installed.")
 
-__author__ = "Michael Sasser"
-__email__ = "Michael@MichaelSasser.org"
+__author__: str = "Michael Sasser"
+__email__: str = "Michael@MichaelSasser.org"
+__version__: str = version
 
 DEBUGGING: bool = False
 
