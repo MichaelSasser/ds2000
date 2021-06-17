@@ -93,7 +93,7 @@ pre-commit = "^2.13.0"
 pytest = "^6.2.4"
 pytest-cov = "^2.12.1"
 pytest-instafail = "^0.4.2"
-pytest-xdist = { version = "^2.2.1", extras = ["psutil"] }
+pytest-xdist = { version = "^2.3.0", extras = ["psutil"] }
 flake8 = "^3.8.4"
 neovim = "^0.3.1"
 pydocstyle = "^6.1.1"
