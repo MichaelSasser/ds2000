@@ -104,7 +104,7 @@ vulture = "^2.3"
 mypy = "^0.910"
 isort = "^5.10.1"
 interrogate = "^1.5.0"
-coverage = "^6.1"
+coverage = "^6.2"
 towncrier = "^21.3.0"
 tox = "^3.24.4"
 python-language-server = { version = "^0.36.2", extras = ["all"] }
