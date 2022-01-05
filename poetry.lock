@@ -994,17 +994,17 @@ test = ["pytest", "pytest-cov", "html5lib", "cython", "typed-ast"]
 
 [[package]]
 name = "sphinx-autodoc-typehints"
-version = "1.12.0"
+version = "1.13.1"
 description = "Type hints (PEP 484) support for the Sphinx autodoc extension"
 category = "main"
 optional = true
-python-versions = ">=3.6"
+python-versions = ">=3.7"
 
 [package.dependencies]
-Sphinx = ">=3.0"
+Sphinx = ">=4"
 
 [package.extras]
-test = ["pytest (>=3.1.0)", "typing-extensions (>=3.5)", "sphobjinv (>=2.0)", "Sphinx (>=3.2.0)", "dataclasses"]
+testing = ["covdefaults (>=2)", "coverage (>=6)", "pytest (>=6)", "pytest-cov (>=3)", "sphobjinv (>=2)", "typing-extensions (>=3.5)"]
 type_comments = ["typed-ast (>=1.4.0)"]
 
 [[package]]
@@ -1231,7 +1231,7 @@ func = ["numpy", "matplotlib"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "dacf867374a2a49ea70fd56665fe8e143902db8aa01208108670b23eb9342927"
+content-hash = "775464b23d33ca47a9934f159ea205c1f71c19d270fce93edd6d8f651c5919f0"
 
 [metadata.files]
 alabaster = [
@@ -1963,8 +1963,8 @@ sphinx = [
     {file = "Sphinx-4.3.1.tar.gz", hash = "sha256:32a5b3e9a1b176cc25ed048557d4d3d01af635e6b76c5bc7a43b0a34447fbd45"},
 ]
 sphinx-autodoc-typehints = [
-    {file = "sphinx-autodoc-typehints-1.12.0.tar.gz", hash = "sha256:193617d9dbe0847281b1399d369e74e34cd959c82e02c7efde077fca908a9f52"},
-    {file = "sphinx_autodoc_typehints-1.12.0-py3-none-any.whl", hash = "sha256:5e81776ec422dd168d688ab60f034fccfafbcd94329e9537712c93003bddc04a"},
+    {file = "sphinx_autodoc_typehints-1.13.1-py3-none-any.whl", hash = "sha256:4edf1914cedcaf7d573ee441850999a8f5b5862b72f59e3c207b4ec22a28f955"},
+    {file = "sphinx_autodoc_typehints-1.13.1.tar.gz", hash = "sha256:cff26fb3425550d8c8c9ae0426e5e29cba8e92505710c1f6d397b86cf20f034f"},
 ]
 sphinxcontrib-applehelp = [
     {file = "sphinxcontrib-applehelp-1.0.2.tar.gz", hash = "sha256:a072735ec80e7675e3f432fcae8610ecf509c5f1869d17e2eecff44389cdbc58"},
