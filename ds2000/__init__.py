@@ -89,7 +89,7 @@ class DS2000(object):
             driver == VISADriver.PYVISA
             and VISADriver.PYVISA in Available_Drivers
         ):
-            raise NotImplementedError()
+            self.instrument = PYVISA(address)
         elif (
             driver == VISADriver.DEBUG_DRIVER
             and VISADriver.DEBUG_DRIVER in Available_Drivers
@@ -108,8 +108,9 @@ class DS2000(object):
         self.channel1: Channel = Channel(self, 1)
         self.channel2: Channel = Channel(self, 2)
 
-    def __enter__(self) -> DS2000:
         self.instrument.connect()
+
+    def __enter__(self) -> DS2000:
         return self
 
     def __exit__(
