@@ -58,7 +58,7 @@ coloredlogs = "^15.0"  # TODO: Delete before first release
 # zeroconf = "^0.28.8"  # Not used? used by vxi11?
 
 # Extras (func)
-numpy = { version = "^1.21.1", optional = true }
+numpy = { version = "^1.24.1", optional = true }
 matplotlib = { version = "^3.5.1", optional = true }
 
 # Drivers
