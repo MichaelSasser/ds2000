@@ -1418,18 +1418,18 @@ pytest = ">=3.10"
 
 [[package]]
 name = "pytest-instafail"
-version = "0.4.2"
+version = "0.5.0"
 description = "pytest plugin to show failures instantly"
 category = "dev"
 optional = false
-python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
+python-versions = ">=3.7"
 files = [
-    {file = "pytest-instafail-0.4.2.tar.gz", hash = "sha256:19273fdf3f0f9a1cb4b7a0bc8aa1bdaaf6b0f62a681b693d5eca4626abc99782"},
-    {file = "pytest_instafail-0.4.2-py2.py3-none-any.whl", hash = "sha256:1ec440a177be89a9ed2759dade8e1f7a2b95bac74ae81dc91318d309bf4ebd4f"},
+    {file = "pytest-instafail-0.5.0.tar.gz", hash = "sha256:33a606f7e0c8e646dc3bfee0d5e3a4b7b78ef7c36168cfa1f3d93af7ca706c9e"},
+    {file = "pytest_instafail-0.5.0-py3-none-any.whl", hash = "sha256:6855414487e9e4bb76a118ce952c3c27d3866af15487506c4ded92eb72387819"},
 ]
 
 [package.dependencies]
-pytest = ">=2.9"
+pytest = ">=5"
 
 [[package]]
 name = "pytest-xdist"
@@ -2088,4 +2088,4 @@ func = ["numpy", "matplotlib"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.9"
-content-hash = "a4a66d79fe521a24decb8f29fe7042c40cc2c3f8645dc0f117296ffcf40495c2"
+content-hash = "a8becbefc86af45fd7c8859b4bdb177956fc93ecf143205dd66dd87fe3221ba3"
