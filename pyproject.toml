@@ -92,7 +92,7 @@ all = ["python-vxi11", "pyvisa", "pyvisa-py", "sphinx", "sphinx_rtd_theme", "sph
 pre-commit = "^3.2.2"
 pytest = "^6.2.5"
 pytest-cov = "^3.0.0"
-pytest-instafail = "^0.4.2"
+pytest-instafail = "^0.5.0"
 pytest-xdist = { version = "^2.5.0", extras = ["psutil"] }
 flake8 = "^3.8.4"
 neovim = "^0.3.1"
