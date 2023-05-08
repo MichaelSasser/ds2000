@@ -1010,19 +1010,19 @@ files = [
 
 [[package]]
 name = "numpydoc"
-version = "1.1.0"
+version = "1.5.0"
 description = "Sphinx extension to support docstrings in Numpy format"
 category = "main"
 optional = true
-python-versions = ">=3.5"
+python-versions = ">=3.7"
 files = [
-    {file = "numpydoc-1.1.0-py3-none-any.whl", hash = "sha256:c53d6311190b9e3b9285bc979390ba0257ba9acde5eca1a7065fc8dfca9d46e8"},
-    {file = "numpydoc-1.1.0.tar.gz", hash = "sha256:c36fd6cb7ffdc9b4e165a43f67bf6271a7b024d0bb6b00ac468c9e2bfc76448e"},
+    {file = "numpydoc-1.5.0-py3-none-any.whl", hash = "sha256:c997759fb6fc32662801cece76491eedbc0ec619b514932ffd2b270ae89c07f9"},
+    {file = "numpydoc-1.5.0.tar.gz", hash = "sha256:b0db7b75a32367a0e25c23b397842c65e344a1206524d16c8069f0a1c91b5f4c"},
 ]
 
 [package.dependencies]
-Jinja2 = ">=2.3"
-sphinx = ">=1.6.5"
+Jinja2 = ">=2.10"
+sphinx = ">=4.2"
 
 [package.extras]
 testing = ["matplotlib", "pytest", "pytest-cov"]
@@ -2084,4 +2084,4 @@ func = ["numpy", "matplotlib"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.9"
-content-hash = "bb36b75734ad662135c7c58e0b51634ba1e93c0423afc25fb9b8609488345993"
+content-hash = "234648d57d0306bdc778ba05971a4f6b9731adb82ef0070106dbf1ab8ba7bb66"
